@@ -95,14 +95,14 @@ public class Campament {
 
     public void associateMonitor(Monitor monitor){
         for(int i = 0; i < activities.size(); i++){
-            if(activities.get(i).getMonitors().contains(monitor))
+            if(this.activities.get(i).getMonitors().contains(monitor))
                 this.monitors.add(monitor);
         }
     }
 
     public void associateSpecialMonitor(Monitor monitor){
         for(int i = 0; i < activities.size(); i++){
-            if(activities.get(i).getMonitors().contains(monitor))
+            if(this.activities.get(i).getMonitors().contains(monitor))
                 return;
         }
 

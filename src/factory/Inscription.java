@@ -6,32 +6,32 @@ public class Inscription {
     
     /* Atributtes */
     
-    private String id_participant;
+    private int id_participant;
 
-    private String id_campament;
+    private int id_campament;
 
     private LocalDate date;
 
-    private float price;
+    private double price;
 
     private boolean cancellation;
 
     /* Constructor */
 
     public Inscription(){
-        this.id_participant = "";
-        this.id_campament = "";
+        this.id_participant = 0;
+        this.id_campament = 0;
         this.date = LocalDate.now();
-        this.price = 0f;
+        this.price = 0.0;
     }
 
     /* Gets y Sets */
 
-    public String getIdParticipant(){
+    public int getIdParticipant(){
         return this.id_participant;
     }
 
-    public String getIdCampament(){
+    public int getIdCampament(){
         return this.id_campament;
     }
 
@@ -39,7 +39,7 @@ public class Inscription {
         return this.date;
     }
 
-    public float getPrice(){
+    public double getPrice(){
         return this.price;
     }
 
@@ -47,11 +47,11 @@ public class Inscription {
         return this.cancellation;
     }
 
-    public void setIdParticipant(String id_participant){
+    public void setIdParticipant(int id_participant){
         this.id_participant = id_participant;
     }
 
-    public void setIdCampament(String id_campament){
+    public void setIdCampament(int id_campament){
         this.id_campament = id_campament;
     }
 
@@ -59,8 +59,12 @@ public class Inscription {
         this.date = date;
     }
 
-    public void setPrice(float price){
+    public void setPrice(double price){
         this.price = price;
+    }
+
+    public void setCancellation(boolean cancellation) {
+        this.cancellation = cancellation;
     }
 
 }

@@ -2,9 +2,7 @@ package factory;
 
 import java.time.LocalDate;
 
-import classes.Campament;
-
-public class CompleteInscriptionFactory extends InscriptionFactory {
+public class ParcialInscriptionFactory extends InscriptionFactory{
     @Override
     public EarlyRegInscription createEarlyRegInscription(){
         EarlyRegInscription eInscription = new EarlyRegInscription();
@@ -16,7 +14,7 @@ public class CompleteInscriptionFactory extends InscriptionFactory {
         eInscription.setIdParticipant(500);
         eInscription.setPrice(100.56);
 
-        //TODO: Comprobar que el campamento existe en la base de datos
+        //TODO: Comprobar id del campamento en la base de datos para saber si es de mañanas o de tardes.
 
         int dif = campamenDate.compareTo(date);
 
@@ -38,7 +36,7 @@ public class CompleteInscriptionFactory extends InscriptionFactory {
         lInscription.setIdParticipant(500);
         lInscription.setPrice(100.56);
 
-        //TODO: Comprobar que el campamento existe en la base de datos
+        //TODO: Comprobar id del campamento en la base de datos para saber si es de mañanas o de tardes.
 
         int dif = campamenDate.compareTo(date);
 

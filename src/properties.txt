@@ -1,0 +1,1 @@
+activities = src/files/f_activities.txt

@@ -1,41 +1,23 @@
 import classes.Campament;
-import classes.Monitor;
-import classes.Schendule;
-import factory.CompleteInscriptionFactory;
-import factory.EarlyRegInscription;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-
-import classes.Activity;
-import classes.Level;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.util.Properties;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        LocalDate now = LocalDate.now();
-		LocalDate tomorrow = now.plusDays(1);
-		Campament c = new Campament(1, now, tomorrow);
-		c.setMaxAssistants(200);
+        Properties properties = new Properties(null);
+        properties.load(new FileInputStream("src/properties.txt"));
+
+        BufferedReader file = new BufferedReader(new FileReader(new File(properties.getProperty("activities"))));
+
+        String line;
+
+        while((line = file.readLine()) != null){
+            System.out.println(line);
+        }
         
-        Monitor m = new Monitor(1, "Paco", "Algar", false);
-        ArrayList <Monitor> monitors = new ArrayList<Monitor>();        
-        ArrayList <Activity> activities = new ArrayList<Activity>();
-
-        Activity a = new Activity("A1", Level.CHILD, Schendule.AFTERNOON, 1001, 1);
-        a.associateMonitor(m);
-        activities.add(a);
-
-        monitors.add(m);        
-        monitors.add(m);
-
-        c.setLevel(Level.CHILD);
-
-        c.associateActivity(a);
-
-        c.associateMonitor(m);
-
-        CompleteInscriptionFactory completeFactory = new CompleteInscriptionFactory();
-        EarlyRegInscription e = completeFactory.createEarlyRegInscription();
-        System.out.println(e);
     }
 }

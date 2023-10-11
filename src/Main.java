@@ -1,8 +1,6 @@
 import classes.Campament;
 import classes.Monitor;
 import classes.Schendule;
-import factory.CompleteInscriptionFactory;
-import factory.EarlyRegInscription;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -34,8 +32,6 @@ public class Main {
 
         c.associateMonitor(m);
 
-        CompleteInscriptionFactory completeFactory = new CompleteInscriptionFactory();
-        EarlyRegInscription e = completeFactory.createEarlyRegInscription();
-        System.out.println(e);
+        
     }
 }

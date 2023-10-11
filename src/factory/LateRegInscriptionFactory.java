@@ -4,7 +4,8 @@ import java.time.LocalDate;
 
 import classes.Schendule;
 
-public class LateRegInscriptionFactory {
+public class LateRegInscriptionFactory extends InscriptionFactory {
+    @Override
     public CompleteInscription createCompleteInscription(){
         CompleteInscription cInscription = new CompleteInscription(Schendule.AFTERNOON);
 
@@ -28,6 +29,7 @@ public class LateRegInscriptionFactory {
         return cInscription;
     }
 
+    @Override
     public ParcialInscription createParcialInscription(){
         ParcialInscription pInscription = new ParcialInscription();
         LocalDate date = LocalDate.now();

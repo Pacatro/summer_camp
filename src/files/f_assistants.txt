@@ -1,0 +1,2 @@
+0 nombre apellido ?? true
+1 nombre2 apellido2 ?? true

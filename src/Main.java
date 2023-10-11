@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import classes.Activity;
 import classes.Level;
 
+import classes.InscriptionsManager;
+
 public class Main {
     public static void main(String[] args) throws Exception {
         LocalDate now = LocalDate.now();
@@ -32,6 +34,8 @@ public class Main {
 
         c.associateMonitor(m);
 
-        
+        InscriptionsManager inscriptionsManager = new InscriptionsManager();
+
+        inscriptionsManager.enroll(null, c);
     }
 }

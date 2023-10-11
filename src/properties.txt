@@ -1,1 +1,2 @@
 activities = src/files/f_activities.txt
+monitors = src/files/f_monitors.txt

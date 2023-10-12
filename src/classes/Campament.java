@@ -12,7 +12,10 @@ public class Campament {
     private ArrayList<Activity> activities;
     private ArrayList<Monitor> monitors;
 
-    public Campament(){}
+    public Campament(){
+        this.activities = new ArrayList<Activity>();
+        this.monitors = new ArrayList<Monitor>();
+    }
 
     public Campament(int id, LocalDate initDate, LocalDate finalDate){
         this.id = id;

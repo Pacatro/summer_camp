@@ -1,2 +1,2 @@
-0 N N 10 CHILD nombre nombre2 , 0 1 2
-1 N N 11 YOUTH nombre nombre2 , 0 1 2
+0 2023-10-12 2023-10-12 11 TEENAGER nombre / 1 2
+1 2023-10-12 2023-10-12 12 YOUTH nombre2 / 1 2

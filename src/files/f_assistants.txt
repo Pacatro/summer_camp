@@ -1,2 +1,2 @@
-0 nombre apellido ?? true
-1 nombre2 apellido2 ?? true
+0 nombre apellido 2003-10-12 true
+1 nombre2 apellido2 2005-10-12 false

@@ -1,18 +1,16 @@
 package classes;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.time.LocalDate;
 import java.io.File;
-import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Properties;
 
 public class DataBase {
-    public ArrayList<Monitor> importMonitors() throws Exception{
-        Properties properties = new Properties(null);
-        properties.load(new FileInputStream("src/properties.txt"));
-        
+    public ArrayList<Monitor> importMonitors(Properties properties) throws Exception{
         BufferedReader file = new BufferedReader(new FileReader(new File(properties.getProperty("monitors"))));
 
         ArrayList<Monitor> monitors = new ArrayList<Monitor>();
@@ -38,10 +36,7 @@ public class DataBase {
         
     }
 
-    public ArrayList<Activity> importActivities(ArrayList<Monitor> monitors) throws Exception{
-        Properties properties = new Properties(null);
-        properties.load(new FileInputStream("src/properties.txt"));
-        
+    public ArrayList<Activity> importActivities(Properties properties, ArrayList<Monitor> monitors) throws Exception{
         BufferedReader file = new BufferedReader(new FileReader(new File(properties.getProperty("activities"))));
 
         ArrayList<Activity> activities = new ArrayList<Activity>();
@@ -89,10 +84,7 @@ public class DataBase {
 
     }
 
-    public ArrayList<Assistant> importAssistants() throws Exception{
-        Properties properties = new Properties(null);
-        properties.load(new FileInputStream("src/properties.txt"));
-
+    public ArrayList<Assistant> importAssistants(Properties properties) throws Exception{
         BufferedReader file = new BufferedReader(new FileReader(new File(properties.getProperty("assistants"))));
 
         ArrayList<Assistant> assistants = new ArrayList<Assistant>();
@@ -107,7 +99,7 @@ public class DataBase {
             auxAssistant.setId(Integer.parseInt(elements[0]));
             auxAssistant.setName(elements[1]);
             auxAssistant.setSurname(elements[2]);
-            //No se cómo se escribe la fecha en un fichero
+            auxAssistant.setDate(LocalDate.parse(elements[3]));
             auxAssistant.setAtention(Boolean.parseBoolean(elements[4]));
 
             assistants.add(auxAssistant);
@@ -119,10 +111,7 @@ public class DataBase {
 
     }
 
-    public ArrayList<Campament> importCampaments(ArrayList<Activity> activities, ArrayList<Monitor> monitors) throws Exception{
-        Properties properties = new Properties(null);
-        properties.load(new FileInputStream("src/properties.txt"));
-
+    public ArrayList<Campament> importCampaments(Properties properties, ArrayList<Activity> activities, ArrayList<Monitor> monitors) throws Exception{
         BufferedReader file = new BufferedReader(new FileReader(new File(properties.getProperty("campaments"))));
 
         ArrayList<Campament> campaments = new ArrayList<Campament>();
@@ -149,7 +138,7 @@ public class DataBase {
 
             int i = 5;
 
-            while(i < elements.length && !elements[i].equals(",")){
+            while(i < elements.length && !elements[i].equals("/")){
                 boolean flag = false;
                 for(int j = 0; j < activities.size() && !flag; j++){
                     if(elements[i].equals(activities.get(j).getname())){
@@ -182,5 +171,68 @@ public class DataBase {
         file.close();
 
         return campaments;
+    }
+
+    public void importInscriptions(Properties properties) throws Exception{
+        BufferedReader file = new BufferedReader(new FileReader(new File(properties.getProperty("inscriptions"))));
+
+    }
+
+    public void exportMonitors(Properties properties, ArrayList<Monitor> monitors) throws Exception{
+        BufferedWriter file = new BufferedWriter(new FileWriter(new File(properties.getProperty("monitors"))));
+
+        for(Monitor monitor: monitors){
+            file.write(monitor.getID() + " " + monitor.getName() + " " + monitor.getSurname() + " " + monitor.isEspecial() + "\n");
+        }
+
+        file.close();
+    }
+
+    public void exportActivities(Properties properties, ArrayList<Activity> activities) throws Exception{
+        BufferedWriter file = new BufferedWriter(new FileWriter(new File(properties.getProperty(("activities")))));
+
+        for(Activity activity: activities){
+            String line = activity.getname() + " " + activity.getLevel() + " " + activity.getSchendule() + " " + activity.getMaxParticipants() + " " + activity.getNumMonitors();
+
+            for(Monitor monitor: activity.getMonitors()){
+                line += (" " + (monitor.getID()));
+            }
+            
+            file.write(line + "\n");
+        }
+
+        file.close();
+    }
+
+    public void exportAssistants(Properties properties, ArrayList<Assistant> assistants) throws Exception{
+        BufferedWriter file = new BufferedWriter(new FileWriter(new File(properties.getProperty("assistants"))));
+
+        for(Assistant assistant: assistants){
+            file.write(assistant.getId() + " " + assistant.getName() + " " + assistant.getSurname() + " " + assistant.getDate() + " " + assistant.getAtention() + "\n");
+        }
+
+        file.close();
+    }
+
+    public void exportCampaments(Properties properties, ArrayList<Campament> campaments) throws Exception{
+        BufferedWriter file = new BufferedWriter(new FileWriter(new File(properties.getProperty("campaments"))));
+
+        for(Campament campament: campaments){
+            String line = campament.getId() + " " + campament.getInitDate() + " " + campament.getFinalDate() + " " + campament.getMaxAssistants() + " " + campament.getLevel();
+
+            for(Activity activity: (campament.getActivities())){
+                line += (" " + activity.getname());
+            }
+
+            line += " /";
+
+            for(Monitor monitor: (campament.getMonitors())){
+                line += (" " + monitor.getID());
+            }
+
+            file.write(line + "\n");
+        }
+
+        file.close();
     }
 }

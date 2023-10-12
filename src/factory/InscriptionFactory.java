@@ -1,6 +1,6 @@
 package factory;
 
 public abstract class InscriptionFactory {
-    public abstract EarlyRegInscription createEarlyRegInscription();    
-    public abstract LateRegInscription createLateRegInscription();
+    public abstract CompleteInscription createCompleteInscription();
+    public abstract ParcialInscription createParcialInscription();
 }

@@ -1,49 +1,46 @@
-import classes.Campament;
-import classes.Monitor;
-import classes.Schendule;
-import factory.CompleteInscriptionFactory;
-import factory.EarlyRegInscription;
-import classes.Campaments_Manager;
-
 import java.util.Scanner;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.FileInputStream;
+import java.util.Properties;
+
 import classes.Activity;
-import classes.Level;
+import classes.Assistant;
+import classes.Campament;
+import classes.DataBase;
+import classes.Monitor;
+import classes.Campaments_Manager;
+import classes.DataBase;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        /*LocalDate now = LocalDate.now();
+        LocalDate now = LocalDate.now();
 		LocalDate tomorrow = now.plusDays(1);
 		Campament c = new Campament(1, now, tomorrow);
 		c.setMaxAssistants(200);
+        DataBase DB = new DataBase();
+        Properties properties = new Properties(null);
+        properties.load(new FileInputStream("src/properties.txt"));
+
+        ArrayList<Monitor> monitors = DB.importMonitors(properties);
+        ArrayList<Activity> activities = DB.importActivities(properties, monitors);
+        ArrayList<Assistant> assistants = DB.importAssistants(properties);
+        ArrayList<Campament> campaments = DB.importCampaments(properties, activities, monitors);
         
-        Monitor m = new Monitor(1, "Paco", "Algar", false);
-        ArrayList <Monitor> monitors = new ArrayList<Monitor>();        
-        ArrayList <Activity> activities = new ArrayList<Activity>();
+        System.out.println(monitors);
+        System.out.println();
+        System.out.println(activities);
+        System.out.println();
+        System.out.println(assistants);
+        System.out.println();
+        System.out.println(campaments);
 
-        Activity a = new Activity("A1", Level.CHILD, Schendule.AFTERNOON, 1001, 1);
-        a.associateMonitor(m);
-        activities.add(a);
+        
 
-        monitors.add(m);        
-        monitors.add(m);
-
-        c.setLevel(Level.CHILD);
-
-        c.associateActivity(a);
-
-        c.associateMonitor(m);
-
-        CompleteInscriptionFactory completeFactory = new CompleteInscriptionFactory();
-        EarlyRegInscription e = completeFactory.createEarlyRegInscription();
-        System.out.println(e);*/
-
-        List<Activity> activities = new ArrayList<>();
         Campaments_Manager Manager = new Campaments_Manager();
         
-        while (true) {
+        /*while (true) {
             Scanner scanner = new Scanner(System.in);
             System.out.println("Menú:");
             System.out.println("1. Crear una actividad");
@@ -69,7 +66,18 @@ public class Main {
                 default:
                     System.out.println("Opción no válida. Inténtalo de nuevo.");
             }
-        }
+        }*/
+    
+        DB.exportMonitors(properties, monitors);
+        DB.exportActivities(properties, activities);
+        DB.exportAssistants(properties, assistants);
+        DB.exportCampaments(properties, campaments);
+    
+    
     }
+
+
+      
 }
+    
     

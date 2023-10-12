@@ -2,7 +2,9 @@ package factory;
 
 import java.time.LocalDate;
 
-public class Inscription {
+import classes.Schendule;
+
+public abstract class Inscription {
     
     /* Atributtes */
     
@@ -15,6 +17,8 @@ public class Inscription {
     private double price;
 
     private boolean cancellation;
+
+    private Schendule schendule;
 
     /* Constructor */
 
@@ -47,6 +51,10 @@ public class Inscription {
         return this.cancellation;
     }
 
+    public Schendule getSchendule() {
+        return this.schendule;
+    }
+
     public void setIdParticipant(int id_participant){
         this.id_participant = id_participant;
     }
@@ -67,4 +75,11 @@ public class Inscription {
         this.cancellation = cancellation;
     }
 
+    public void setSchendule(Schendule schendule) {
+        this.schendule = schendule;
+    }
+
+    public String toString(){
+        return "Soy una inscription";
+    }
 }

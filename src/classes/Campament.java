@@ -12,7 +12,10 @@ public class Campament {
     private ArrayList<Activity> activities;
     private ArrayList<Monitor> monitors;
 
-    public Campament(){}
+    public Campament(){
+        this.activities = new ArrayList<Activity>();
+        this.monitors = new ArrayList<Monitor>();
+    }
 
     public Campament(int id, LocalDate initDate, LocalDate finalDate){
         this.id = id;
@@ -101,11 +104,13 @@ public class Campament {
     }
 
     public void associateSpecialMonitor(Monitor monitor){
-        for(int i = 0; i < activities.size(); i++){
-            if(this.activities.get(i).getMonitors().contains(monitor))
-                return;
-        }
+        if(monitor.isEspecial()){
+            for(int i = 0; i < activities.size(); i++){
+                if(this.activities.get(i).getMonitors().contains(monitor))
+                    return;
+            }
 
-        this.monitors.add(monitor);
+            this.monitors.add(monitor);
+        }
     }
 }

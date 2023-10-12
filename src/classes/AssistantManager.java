@@ -5,20 +5,19 @@ import java.util.List;
 import classes.Assistant;
 
 public class AssistantManager {
-    private List<Assistant> registerAssistants;
 
-    public AssistantManager(){registerAssistants=new ArrayList<>();}
-
-    public boolean register(Assistant id){
-        if(!registerAssistants.contains(id)){
-            registerAssistants.add(id);
-            return true;
+    public boolean register(Assistant id, ArrayList<Assistant> list){
+        for(int i=0; i<list.size();i++){
+            if(list.get(i)==id){
+                return false;
+            }
         }
-        return false;
+        list.add(id);
+        return true;
     }
 
-    public Assistant search(int id) {
-        for (Assistant a : registerAssistants){
+    public Assistant search(int id, ArrayList<Assistant> list) {
+        for (Assistant a : list){
             if (a.getId() == id) {
                 return a;
             }
@@ -26,9 +25,9 @@ public class AssistantManager {
         return null;
     }
  
-    public boolean modify(int id, String newname, String newsurname, LocalDate newdate, boolean newatention){
-        Assistant a1=search(id);
-        if(a1==true){
+    public boolean modify(int id, String newname, String newsurname, LocalDate newdate, boolean newatention, ArrayList<Assistant> list){
+        Assistant a1=search(id, list);
+        if(a1!=null){
             a1.setName(newname);
             a1.setSurname(newsurname);
             a1.setDate(newdate);
@@ -39,7 +38,7 @@ public class AssistantManager {
     }
 
     public void print(ArrayList<Assistant> register){
-        for(Assistant a : registerAssistants){
+        for(Assistant a : register){
             System.out.println("ID: " + a.getId());
             System.out.println("Nombre: " + a.getName());
             System.out.println("Apellido: " + a.getSurname());

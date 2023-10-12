@@ -1,0 +1,2 @@
+0 N N 10 CHILD nombre nombre2 , 0 1 2
+1 N N 11 YOUTH nombre nombre2 , 0 1 2

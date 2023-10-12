@@ -1,3 +1,4 @@
 activities = src/files/f_activities.txt
 monitors = src/files/f_monitors.txt
 assistants = src/files/f_assistants.txt
+campaments = src/files/f_campaments.txt

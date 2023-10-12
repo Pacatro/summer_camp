@@ -2,6 +2,7 @@ package classes;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.time.LocalDate;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
@@ -70,9 +71,11 @@ public class DataBase {
             }
 
             for(int i = 5; i < elements.length; i++){
-                for(Monitor monitor: monitors){
-                    if(monitor.getID() == (Integer.parseInt(elements[i]))){
-                        auxActivity.associateMonitor(monitor);
+                boolean flag = false;
+                for(int j = 0; j < monitors.size() && !flag; j++){
+                    if(monitors.get(j).getID() == (Integer.parseInt(elements[i]))){
+                        auxActivity.associateMonitor(monitors.get(j));
+                        flag = true;
                     }
                 }
             }
@@ -114,5 +117,70 @@ public class DataBase {
 
         return assistants;
 
+    }
+
+    public ArrayList<Campament> importCampaments(ArrayList<Activity> activities, ArrayList<Monitor> monitors) throws Exception{
+        Properties properties = new Properties(null);
+        properties.load(new FileInputStream("src/properties.txt"));
+
+        BufferedReader file = new BufferedReader(new FileReader(new File(properties.getProperty("campaments"))));
+
+        ArrayList<Campament> campaments = new ArrayList<Campament>();
+
+        String line;
+
+        while((line = file.readLine()) != null){
+            String[] elements = line.split(" ");
+
+            Campament auxCampament = new Campament();
+
+            auxCampament.setId(Integer.parseInt(elements[0]));
+            auxCampament.setInitDate(LocalDate.now());
+            auxCampament.setFinalDate(LocalDate.now());
+            auxCampament.setMaxAssistants(Integer.parseInt(elements[3]));
+
+            if(elements[4].equals("CHILD")){
+                auxCampament.setLevel(Level.CHILD);
+            }else if(elements[4].equals("YOUTH")){
+                auxCampament.setLevel(Level.YOUTH);
+            }else if(elements[4].equals("TEENAGER")){
+                auxCampament.setLevel(Level.TEENAGER);
+            }
+
+            int i = 5;
+
+            while(i < elements.length && !elements[i].equals(",")){
+                boolean flag = false;
+                for(int j = 0; j < activities.size() && !flag; j++){
+                    if(elements[i].equals(activities.get(j).getname())){
+                        auxCampament.associateActivity(activities.get(j));
+                        flag = true;
+                    }
+                }
+
+                i++;
+            }
+
+            i++;
+
+            while(i < elements.length && !(auxCampament.getActivities().isEmpty())){
+                boolean flag = false;
+                for(int j = 0; j < monitors.size() && !flag; j++){
+                    if((Integer.parseInt(elements[i])) == (monitors.get(j).getID())){
+                        auxCampament.associateMonitor(monitors.get(j));
+                        flag = true;
+                    }
+                }
+
+                i++;
+            }
+
+            campaments.add(auxCampament);
+
+        }
+
+        file.close();
+
+        return campaments;
     }
 }

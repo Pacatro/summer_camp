@@ -3,12 +3,9 @@ package classes;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import factory.Inscription;
-import factory.CompleteInscription;
 import factory.EarlyRegInscriptionFactory;
-import factory.ParcialInscription;
 import factory.InscriptionFactory;
 import factory.LateRegInscriptionFactory;
-
 
 public class InscriptionsManager {
     private ArrayList<Monitor> monitors;

@@ -109,6 +109,9 @@ public class Campament {
                 return;
         }
 
+        if(!monitor.isEspecial())
+            return;
+
         this.monitors.add(monitor);
     }
 }

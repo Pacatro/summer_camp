@@ -11,9 +11,7 @@ import factory.ParcialInscription;
 
 /**
  * Manages the completes and parcials inscriptions lists.
- * @author Francisco de Paula Algar Muñoz 
  */
-
 public class InscriptionsManager {
     public InscriptionsManager(){}
 

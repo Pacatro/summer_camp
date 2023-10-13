@@ -15,6 +15,9 @@ import factory.EarlyRegInscriptionFactory;
 import factory.LateRegInscriptionFactory;
 
 
+/**
+ * Handle the operations dedicated to the files that will be used as a database. 
+ */
 public class DataBase {
     public Properties properties;
 

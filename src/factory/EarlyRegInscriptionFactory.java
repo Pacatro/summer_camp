@@ -7,6 +7,10 @@ import classes.Assistant;
 import classes.Campament;
 import classes.Schendule;
 
+/**
+ * A factory for creating early registration inscriptions for a camp.
+ * This factory specializes in creating complete and partial inscriptions with early registration requirements.
+ */
 public class EarlyRegInscriptionFactory extends InscriptionFactory {
     @Override
     public CompleteInscription createCompleteInscription(Campament campament, Assistant assistant, Schendule schendule, LocalDate date){
@@ -19,7 +23,6 @@ public class EarlyRegInscriptionFactory extends InscriptionFactory {
         cInscription.setIdParticipant(assistant.getId());
 
         long dif = ChronoUnit.DAYS.between(date, campamentDate);
-
 
         if(dif < 15){
             System.out.println("Fecha incorrecta");

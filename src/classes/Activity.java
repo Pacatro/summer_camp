@@ -1,6 +1,9 @@
 package classes;
 import java.util.ArrayList;
 
+/**
+ * Represents an activity of the system.
+ */
 public class Activity {
     
     /* Atributos */

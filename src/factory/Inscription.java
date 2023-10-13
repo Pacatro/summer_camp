@@ -4,6 +4,10 @@ import java.time.LocalDate;
 
 import classes.Schendule;
 
+/**
+ * Represents a model inscription.
+ * This abstract class defines the attributes and methods common to all types of inscriptions.
+ */
 public abstract class Inscription {
     
     /* Atributtes */
@@ -22,6 +26,10 @@ public abstract class Inscription {
 
     /* Constructor */
 
+    /**
+     * Default constructor for an Inscription.
+     * Initializes default values for some attributes.
+     */
     public Inscription(){
         this.id_participant = 0;
         this.id_campament = 0;

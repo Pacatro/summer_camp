@@ -7,12 +7,15 @@ import classes.Assistant;
 import classes.Campament;
 import classes.Schendule;
 
+/**
+ * A factory for creating late registration inscriptions for a camp.
+ * This factory specializes in creating complete and partial inscriptions with late registration requirements.
+ */
 public class LateRegInscriptionFactory extends InscriptionFactory {
     @Override
     public CompleteInscription createCompleteInscription(Campament campament, Assistant assistant, Schendule schendule, LocalDate date){
         CompleteInscription cInscription = new CompleteInscription(schendule);
 
-        //LocalDate date = LocalDate.now();
         LocalDate campamentDate = campament.getInitDate();
 
         cInscription.setIdCampament(campament.getId());
@@ -34,7 +37,6 @@ public class LateRegInscriptionFactory extends InscriptionFactory {
     public ParcialInscription createParcialInscription(Campament campament, Assistant assistant, LocalDate date){
         ParcialInscription pInscription = new ParcialInscription();
 
-        //LocalDate date = LocalDate.now();
         LocalDate campamentDate = campament.getInitDate();
 
         pInscription.setIdCampament(campament.getId());

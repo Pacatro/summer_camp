@@ -1,5 +1,8 @@
 package classes;
 
+/**
+ * Represents a monitor of the system.
+ */
 public class Monitor{
 	
     private int ID;
@@ -7,8 +10,18 @@ public class Monitor{
     private String surname;
     private boolean isEspecial;
 	
+	/**
+	 * Constructor without parameters.
+	 */
     public Monitor() {}
 	
+	/**
+	 * Default constructor
+	 * @param ID
+	 * @param name
+	 * @param surname
+	 * @param isEspecial
+	 */
     public Monitor(int ID, String name, String surname, boolean isEspecial) {
 		this.ID = ID;
 		this.name = name;

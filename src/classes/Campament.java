@@ -15,11 +15,21 @@ public class Campament {
     private ArrayList<Activity> activities;
     private ArrayList<Monitor> monitors;
 
+    /**
+     * Default constructor for a Campament. Initializes activity and monitor lists.
+     */
     public Campament(){
         this.activities = new ArrayList<Activity>();
         this.monitors = new ArrayList<Monitor>();
     }
 
+    /**
+     * Constructor for a Campament with an ID and start and end dates.
+     *
+     * @param id        The unique identifier for the camp.
+     * @param initDate  The start date of the camp.
+     * @param finalDate The end date of the camp.
+     */
     public Campament(int id, LocalDate initDate, LocalDate finalDate){
         this.id = id;
         this.initDate = initDate;

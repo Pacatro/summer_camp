@@ -1,6 +1,9 @@
 package classes;
 import java.time.LocalDate;
 
+/**
+ * Represents a assistant of the system.
+ */
 public class Assistant {
 
 	/*Atributos */

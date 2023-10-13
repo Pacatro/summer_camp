@@ -2,7 +2,16 @@ package factory;
 
 import classes.Schendule;
 
+/**
+ * Represents a partial inscription for a camp with morning schedule.
+ * This class extends the general Inscription class to provide specific functionality
+ * for partial inscriptions with a detailed string representation.
+ */
 public class ParcialInscription extends Inscription{
+    
+    /**
+     * Constructs a partial inscription with a morning schedule.
+     */
     public ParcialInscription(){
         setSchendule(Schendule.MORNING);
     }

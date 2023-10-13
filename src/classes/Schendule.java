@@ -1,5 +1,8 @@
 package classes;
 
+/**
+ * Represents the schendule of an activity.
+ */
 public enum Schendule{
     MORNING, 
     AFTERNOON;

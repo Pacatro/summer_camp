@@ -1,2 +1,0 @@
-Cada fichero simulara una tabla de la base de datos.
-Usar clase properties (en lugar de leer linea a linea el fichero, lee los identificadores de cada atributo, eso hay que estudiarlo)

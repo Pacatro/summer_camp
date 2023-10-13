@@ -13,16 +13,16 @@ import factory.ParcialInscription;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        DataBase DB = new DataBase();
-        Properties properties = new Properties(null);
+        Properties properties = new Properties();
         properties.load(new FileInputStream("src/properties.txt"));
+        DataBase DB = new DataBase(properties);
 
-        ArrayList<Monitor> monitors = DB.importMonitors(properties);
-        ArrayList<Activity> activities = DB.importActivities(properties, monitors);
-        ArrayList<Assistant> assistants = DB.importAssistants(properties);
-        ArrayList<Campament> campaments = DB.importCampaments(properties, activities, monitors);
-        ArrayList<CompleteInscription> completeInscriptions = DB.importCompleteInscriptions(properties, campaments, assistants);
-        ArrayList<ParcialInscription> parcialInscriptions = DB.importParcialInscriptions(properties, campaments, assistants);
+        ArrayList<Monitor> monitors = DB.importMonitors();
+        ArrayList<Activity> activities = DB.importActivities(monitors);
+        ArrayList<Assistant> assistants = DB.importAssistants();
+        ArrayList<Campament> campaments = DB.importCampaments(activities, monitors);
+        ArrayList<CompleteInscription> completeInscriptions = DB.importCompleteInscriptions(campaments, assistants);
+        ArrayList<ParcialInscription> parcialInscriptions = DB.importParcialInscriptions(campaments, assistants);
         
         System.out.println(monitors);
         System.out.println();
@@ -36,10 +36,10 @@ public class Main {
         System.out.println();
         System.out.println(parcialInscriptions);
 
-        DB.exportMonitors(properties, monitors);
-        DB.exportActivities(properties, activities);
-        DB.exportAssistants(properties, assistants);
-        DB.exportCampaments(properties, campaments);
+        DB.exportMonitors(monitors);
+        DB.exportActivities(activities);
+        DB.exportAssistants(assistants);
+        DB.exportCampaments(campaments);
 
     }
 }

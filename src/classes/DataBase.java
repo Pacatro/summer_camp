@@ -16,8 +16,12 @@ import factory.LateRegInscriptionFactory;
 
 
 public class DataBase {
-    public ArrayList<Monitor> importMonitors(Properties properties) throws Exception{
-        BufferedReader file = new BufferedReader(new FileReader(new File(properties.getProperty("monitors"))));
+    public Properties properties;
+
+    public DataBase(Properties properties) {this.properties = properties;}
+
+    public ArrayList<Monitor> importMonitors() throws Exception{
+        BufferedReader file = new BufferedReader(new FileReader(new File(this.properties.getProperty("monitors"))));
 
         ArrayList<Monitor> monitors = new ArrayList<Monitor>();
 
@@ -42,8 +46,8 @@ public class DataBase {
         
     }
 
-    public ArrayList<Activity> importActivities(Properties properties, ArrayList<Monitor> monitors) throws Exception{
-        BufferedReader file = new BufferedReader(new FileReader(new File(properties.getProperty("activities"))));
+    public ArrayList<Activity> importActivities(ArrayList<Monitor> monitors) throws Exception{
+        BufferedReader file = new BufferedReader(new FileReader(new File(this.properties.getProperty("activities"))));
 
         ArrayList<Activity> activities = new ArrayList<Activity>();
 
@@ -90,8 +94,8 @@ public class DataBase {
 
     }
 
-    public ArrayList<Assistant> importAssistants(Properties properties) throws Exception{
-        BufferedReader file = new BufferedReader(new FileReader(new File(properties.getProperty("assistants"))));
+    public ArrayList<Assistant> importAssistants() throws Exception{
+        BufferedReader file = new BufferedReader(new FileReader(new File(this.properties.getProperty("assistants"))));
 
         ArrayList<Assistant> assistants = new ArrayList<Assistant>();
 
@@ -117,8 +121,8 @@ public class DataBase {
 
     }
 
-    public ArrayList<Campament> importCampaments(Properties properties, ArrayList<Activity> activities, ArrayList<Monitor> monitors) throws Exception{
-        BufferedReader file = new BufferedReader(new FileReader(new File(properties.getProperty("campaments"))));
+    public ArrayList<Campament> importCampaments(ArrayList<Activity> activities, ArrayList<Monitor> monitors) throws Exception{
+        BufferedReader file = new BufferedReader(new FileReader(new File(this.properties.getProperty("campaments"))));
 
         ArrayList<Campament> campaments = new ArrayList<Campament>();
 
@@ -179,8 +183,8 @@ public class DataBase {
         return campaments;
     }
 
-    public ArrayList<CompleteInscription> importCompleteInscriptions(Properties properties, ArrayList<Campament> campaments, ArrayList<Assistant> assistants) throws Exception{
-        BufferedReader file = new BufferedReader(new FileReader(new File(properties.getProperty("completeinscriptions"))));
+    public ArrayList<CompleteInscription> importCompleteInscriptions(ArrayList<Campament> campaments, ArrayList<Assistant> assistants) throws Exception{
+        BufferedReader file = new BufferedReader(new FileReader(new File(this.properties.getProperty("completeinscriptions"))));
 
         ArrayList<CompleteInscription> inscriptions = new ArrayList<CompleteInscription>();
 
@@ -236,8 +240,8 @@ public class DataBase {
         return inscriptions;
     }
 
-    public ArrayList<ParcialInscription> importParcialInscriptions(Properties properties, ArrayList<Campament> campaments, ArrayList<Assistant> assistants) throws Exception{
-        BufferedReader file = new BufferedReader(new FileReader(new File(properties.getProperty("parcialinscriptions"))));
+    public ArrayList<ParcialInscription> importParcialInscriptions(ArrayList<Campament> campaments, ArrayList<Assistant> assistants) throws Exception{
+        BufferedReader file = new BufferedReader(new FileReader(new File(this.properties.getProperty("parcialinscriptions"))));
 
         ArrayList<ParcialInscription> inscriptions = new ArrayList<ParcialInscription>();
 
@@ -286,8 +290,8 @@ public class DataBase {
         return inscriptions;
     }
 
-    public void exportMonitors(Properties properties, ArrayList<Monitor> monitors) throws Exception{
-        BufferedWriter file = new BufferedWriter(new FileWriter(new File(properties.getProperty("monitors"))));
+    public void exportMonitors(ArrayList<Monitor> monitors) throws Exception{
+        BufferedWriter file = new BufferedWriter(new FileWriter(new File(this.properties.getProperty("monitors"))));
 
         for(Monitor monitor: monitors){
             file.write(monitor.getID() + " " + monitor.getName() + " " + monitor.getSurname() + " " + monitor.isEspecial() + "\n");
@@ -296,8 +300,8 @@ public class DataBase {
         file.close();
     }
 
-    public void exportActivities(Properties properties, ArrayList<Activity> activities) throws Exception{
-        BufferedWriter file = new BufferedWriter(new FileWriter(new File(properties.getProperty(("activities")))));
+    public void exportActivities(ArrayList<Activity> activities) throws Exception{
+        BufferedWriter file = new BufferedWriter(new FileWriter(new File(this.properties.getProperty(("activities")))));
 
         for(Activity activity: activities){
             String line = activity.getname() + " " + activity.getLevel() + " " + activity.getSchendule() + " " + activity.getMaxParticipants() + " " + activity.getNumMonitors();
@@ -312,8 +316,8 @@ public class DataBase {
         file.close();
     }
 
-    public void exportAssistants(Properties properties, ArrayList<Assistant> assistants) throws Exception{
-        BufferedWriter file = new BufferedWriter(new FileWriter(new File(properties.getProperty("assistants"))));
+    public void exportAssistants(ArrayList<Assistant> assistants) throws Exception{
+        BufferedWriter file = new BufferedWriter(new FileWriter(new File(this.properties.getProperty("assistants"))));
 
         for(Assistant assistant: assistants){
             file.write(assistant.getId() + " " + assistant.getName() + " " + assistant.getSurname() + " " + assistant.getDate() + " " + assistant.getAtention() + "\n");
@@ -322,8 +326,8 @@ public class DataBase {
         file.close();
     }
 
-    public void exportCampaments(Properties properties, ArrayList<Campament> campaments) throws Exception{
-        BufferedWriter file = new BufferedWriter(new FileWriter(new File(properties.getProperty("campaments"))));
+    public void exportCampaments(ArrayList<Campament> campaments) throws Exception{
+        BufferedWriter file = new BufferedWriter(new FileWriter(new File(this.properties.getProperty("campaments"))));
 
         for(Campament campament: campaments){
             String line = campament.getId() + " " + campament.getInitDate() + " " + campament.getFinalDate() + " " + campament.getMaxAssistants() + " " + campament.getLevel();
@@ -344,8 +348,8 @@ public class DataBase {
         file.close();
     }
 
-    public void exportCompleteInscriptions(Properties properties, ArrayList<CompleteInscription> inscriptions) throws Exception{
-        BufferedWriter file = new BufferedWriter(new FileWriter(new File(properties.getProperty("completeinscriptions"))));
+    public void exportCompleteInscriptions(ArrayList<CompleteInscription> inscriptions) throws Exception{
+        BufferedWriter file = new BufferedWriter(new FileWriter(new File(this.properties.getProperty("completeinscriptions"))));
 
         for(CompleteInscription inscription: inscriptions){
             file.write(inscription.getIdParticipant() + " " + inscription.getIdCampament() + " " + inscription.getDate() + " " + inscription.getPrice() + " " + inscription.getCancellation() + " " + inscription.getSchendule() + "\n");
@@ -354,8 +358,8 @@ public class DataBase {
         file.close();
     }
 
-    public void exportParcialInscriptions(Properties properties, ArrayList<ParcialInscription> inscriptions) throws Exception{
-        BufferedWriter file = new BufferedWriter(new FileWriter(new File(properties.getProperty("parcialinscriptions"))));
+    public void exportParcialInscriptions(ArrayList<ParcialInscription> inscriptions) throws Exception{
+        BufferedWriter file = new BufferedWriter(new FileWriter(new File(this.properties.getProperty("parcialinscriptions"))));
 
         for(ParcialInscription inscription: inscriptions){
             file.write(inscription.getIdParticipant() + " " + inscription.getIdCampament() + " " + inscription.getDate() + " " + inscription.getPrice() + " " + inscription.getCancellation() + " " + inscription.getSchendule() + "\n");

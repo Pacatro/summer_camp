@@ -2,10 +2,11 @@ package classes;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import factory.Inscription;
+import factory.CompleteInscription;
 import factory.EarlyRegInscriptionFactory;
 import factory.InscriptionFactory;
 import factory.LateRegInscriptionFactory;
+import factory.ParcialInscription;
 
 public class InscriptionsManager {
     public InscriptionsManager(){}
@@ -46,15 +47,17 @@ public class InscriptionsManager {
         return date.isBefore(campamentDate);
     }
 
-    public void enroll(Campament campament, Assistant assistant, Schendule schendule, 
-                       String type, ArrayList<Inscription> inscriptions){
+    public void enrollComplete(Campament campament, Assistant assistant, Schendule schendule, 
+                               ArrayList<CompleteInscription> completesInscriptions){
 
-        Inscription inscription;
+        CompleteInscription completeInscription;
         ArrayList<Monitor> monitors = campament.getMonitors();
         InscriptionFactory factory = getFactory(campament);
 
-        if(factory == null)
+        if(factory == null){
+            System.out.println("No se ha podido crear la fabrica de inscripciones");
             return;
+        }
 
         if(assistant.getAtention()){
             for(Monitor m : monitors){
@@ -63,15 +66,46 @@ public class InscriptionsManager {
             }
         }
 
-        if(!canEnroll(campament)) return;
+        if(!canEnroll(campament)){ 
+            System.out.println("El campamento ya ha comenzado.");
+            return;
+        }
 
-        if(type == "parcial")
-            inscription = factory.createParcialInscription(campament, assistant, LocalDate.now());
-        else
-            inscription = factory.createCompleteInscription(campament, assistant, schendule, LocalDate.now());
+        completeInscription = factory.createCompleteInscription(campament, assistant, schendule, LocalDate.now());
 
         double price = calcPrice(campament, assistant.getAtention());
-        inscription.setPrice(price);
-        inscriptions.add(inscription);
+        completeInscription.setPrice(price);
+        completesInscriptions.add(completeInscription);
+    }
+
+    public void enrollParcial(Campament campament, Assistant assistant, Schendule schendule, 
+                              ArrayList<ParcialInscription> parcialsInscriptions){
+
+        ParcialInscription parcialInscription;
+        ArrayList<Monitor> monitors = campament.getMonitors();
+        InscriptionFactory factory = getFactory(campament);
+
+        if(factory == null){
+            System.out.println("No se ha podido crear la fabrica de inscripciones");
+            return;
+        }
+
+        if(assistant.getAtention()){
+            for(Monitor m : monitors){
+                if(m.isEspecial())
+                    campament.associateSpecialMonitor(m);
+            }
+        }
+
+        if(!canEnroll(campament)){ 
+            System.out.println("El campamento ya ha comenzado.");
+            return;
+        }
+
+        parcialInscription = factory.createParcialInscription(campament, assistant, LocalDate.now());
+
+        double price = calcPrice(campament, assistant.getAtention());
+        parcialInscription.setPrice(price);
+        parcialsInscriptions.add(parcialInscription);
     }
 }

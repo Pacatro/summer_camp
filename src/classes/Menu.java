@@ -76,7 +76,7 @@ public class Menu {
     public void inscriptionsManager() throws Exception{
         InscriptionsManager inscriptionsManager = new InscriptionsManager();
 
-        int opt;
+        int opt, subopt;
         do{
             System.out.println();
             System.out.println("Elija el tipo de inscripcion a crear:");
@@ -87,17 +87,78 @@ public class Menu {
             opt = Integer.parseInt(this.scanner.nextLine());
             System.out.println();
 
+            if(opt == 3){
+                System.out.println("Volviendo al menu principal...");
+                return;
+            }
+
+            System.out.println("Creando inscripcion...");
+            System.out.println();
+
+            System.out.print("Indique el id del campamento: ");
+            int campId = Integer.parseInt(this.scanner.nextLine());
+            
+            Campament campament;
+            boolean flag = false;
+            for(int i = 0; i < this.campaments.size() && !flag; i++){
+                if(this.campaments.get(i).getId() == campId){
+                    campament = (this.campaments.get(i));
+                    flag = true;
+                }
+            }
+
+            if(!flag){
+                System.out.println("Error, no se encontro el campamento");
+                return;
+            }
+
+            
+            System.out.print("Indique el id del asistente:");
+            int assisId = Integer.parseInt(this.scanner.nextLine());
+
+            Assistant assistant;
+            flag = false;
+            for(int i = 0; i < this.assistants.size() && !flag; i++){
+                if(this.assistants.get(i).getId() == assisId){
+                    assistant = (this.assistants.get(i));
+                    flag = true;
+                }
+            }
+
+            if(!flag){
+                System.out.println("Error, no se encontro el assistente");
+                return;
+            }
+
+
+            Schendule schendule;
+            do{
+                System.out.println();
+                System.out.println("Indique el horario:");
+                System.out.println("1) Mañana");
+                System.out.println("2) Tarde");
+                System.out.print("> ");
+                subopt = Integer.parseInt(this.scanner.nextLine());
+                System.out.println();
+
+                if(subopt == 1){
+                    schendule = Schendule.MORNING;
+                }else if(subopt == 2){
+                    schendule = Schendule.AFTERNOON;
+                }else{
+                    System.out.println("Elija una opcion correcta");
+                }
+
+            }while(subopt != 1 && subopt != 2);
+            
+            
             switch(opt){
                 case 1:
-                    System.out.println("Creando inscripcion completa...");
+                    //inscriptionsManager.enroll(campament, assistant, schendule, "completa", completeInscriptions);
                 break;
 
                 case 2:
-                    System.out.println("Creando inscripcion parcial...");
-                break;
-
-                case 3:
-                    System.out.println("Volviendo al menu principal...");
+                    //inscriptionsManager.enroll(campament, assistant, schendule, "parcial", parcialInscriptions);
                 break;
 
                 default:

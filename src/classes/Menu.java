@@ -103,7 +103,40 @@ public class Menu {
     }
 
     public void campamentsManager() throws Exception{
-        System.out.println("Gestor de campamentos");
+        int opt;
+        do{
+            System.out.println();
+            System.out.println("Elija una opcion:");
+            System.out.println("1) Dar de alta asistente");
+            System.out.println("2) Modificar asistente");
+            System.out.println("3) Listar asistentes registrados");
+            System.out.println("4) Cancelar");
+            System.out.print("> ");
+            opt = Integer.parseInt(this.scanner.nextLine());
+            System.out.println();
+
+            switch(opt){
+                case 1:
+                    System.out.println("Creando asistente...");
+                break;
+
+                case 2:
+                    System.out.println("Modificando asistente...");
+                break;
+
+                case 3:
+                    System.out.println("Lista de asistentes: ");
+                break;
+
+                case 4:
+                    System.out.println("Volviendo al menu principal...");
+                break;
+
+                default:
+                    System.out.println("Elija una opcion correcta");
+            }
+
+        }while(opt != 4);
     }
 
     public void inscriptionsManager() throws Exception{

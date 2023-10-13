@@ -1,11 +1,13 @@
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.Scanner;
 
 import classes.Activity;
 import classes.Assistant;
 import classes.Campament;
 import classes.DataBase;
+import classes.Menu;
 import classes.Monitor;
 import factory.CompleteInscription;
 import factory.ParcialInscription;
@@ -16,6 +18,7 @@ public class Main {
         Properties properties = new Properties();
         properties.load(new FileInputStream("src/properties.txt"));
         DataBase DB = new DataBase(properties);
+        Scanner scanner = new Scanner(System.in);
 
         ArrayList<Monitor> monitors = DB.importMonitors();
         ArrayList<Activity> activities = DB.importActivities(monitors);
@@ -23,7 +26,12 @@ public class Main {
         ArrayList<Campament> campaments = DB.importCampaments(activities, monitors);
         ArrayList<CompleteInscription> completeInscriptions = DB.importCompleteInscriptions(campaments, assistants);
         ArrayList<ParcialInscription> parcialInscriptions = DB.importParcialInscriptions(campaments, assistants);
+
+        Menu menu = new Menu(scanner);
+
+        menu.mainMenu();
         
+        /*
         System.out.println(monitors);
         System.out.println();
         System.out.println(activities);
@@ -35,11 +43,14 @@ public class Main {
         System.out.println(completeInscriptions);
         System.out.println();
         System.out.println(parcialInscriptions);
+        */
 
         DB.exportMonitors(monitors);
         DB.exportActivities(activities);
         DB.exportAssistants(assistants);
         DB.exportCampaments(campaments);
+        DB.exportCompleteInscriptions(completeInscriptions);
+        DB.exportParcialInscriptions(parcialInscriptions);
 
     }
 }

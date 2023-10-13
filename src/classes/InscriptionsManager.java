@@ -1,6 +1,7 @@
 package classes;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import factory.CompleteInscription;
 import factory.EarlyRegInscriptionFactory;
@@ -12,10 +13,10 @@ public class InscriptionsManager {
     public InscriptionsManager(){}
 
     public InscriptionFactory getFactory(Campament campament){
-        LocalDate date = LocalDate.now();
+        LocalDate today = LocalDate.now();
         LocalDate campamentDate = campament.getInitDate();
         
-        int dif = date.compareTo(campamentDate);
+        long dif = ChronoUnit.DAYS.between(today, campamentDate);
 
         if(dif >= 15)
             return new EarlyRegInscriptionFactory();

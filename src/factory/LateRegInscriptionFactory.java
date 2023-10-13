@@ -1,6 +1,7 @@
 package factory;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 import classes.Assistant;
 import classes.Campament;
@@ -17,9 +18,9 @@ public class LateRegInscriptionFactory extends InscriptionFactory {
         cInscription.setIdCampament(campament.getId());
         cInscription.setIdParticipant(assistant.getId());
 
-        int dif = date.compareTo(campamentDate);
+        long dif = ChronoUnit.DAYS.between(date, campamentDate);
 
-        if (dif < -2 || dif >= 15) {
+        if (dif < 2 || dif < 15) {
             System.out.println("Fecha incorrecta");
             return null;
         }
@@ -39,9 +40,9 @@ public class LateRegInscriptionFactory extends InscriptionFactory {
         pInscription.setIdCampament(campament.getId());
         pInscription.setIdParticipant(assistant.getId());
 
-        int dif = campamentDate.compareTo(date);
+        long dif = ChronoUnit.DAYS.between(date, campamentDate);
 
-        if (dif < -2 || dif >= 15) {
+        if (dif < 2 || dif < 15) {
             System.out.println("Fecha incorrecta");
             return null;
         }

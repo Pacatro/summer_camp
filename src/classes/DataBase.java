@@ -344,4 +344,26 @@ public class DataBase {
 
         file.close();
     }
+
+    public void exportCompleteInscriptions(Properties properties, ArrayList<CompleteInscription> inscriptions) throws Exception{
+        BufferedWriter file = new BufferedWriter(new FileWriter(new File(properties.getProperty("completeinscriptions"))));
+
+        for(CompleteInscription inscription: inscriptions){
+            file.write(inscription.getIdParticipant() + " " + inscription.getIdCampament() + " " + inscription.getDate() + " " + inscription.getPrice() + " " + inscription.getCancellation() + " " + inscription.getSchendule() + "\n");
+        }
+
+        file.close();
+    }
+
+    public void exportParcialInscriptions(Properties properties, ArrayList<ParcialInscription> inscriptions) throws Exception{
+        BufferedWriter file = new BufferedWriter(new FileWriter(new File(properties.getProperty("parcialinscriptions"))));
+
+        for(ParcialInscription inscription: inscriptions){
+            file.write(inscription.getIdParticipant() + " " + inscription.getIdCampament() + " " + inscription.getDate() + " " + inscription.getPrice() + " " + inscription.getCancellation() + " " + inscription.getSchendule() + "\n");
+        }
+
+        file.close();
+    }
+
+    
 }

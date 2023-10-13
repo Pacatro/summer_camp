@@ -9,9 +9,19 @@ import factory.InscriptionFactory;
 import factory.LateRegInscriptionFactory;
 import factory.ParcialInscription;
 
+/**
+ * Manages the completes and parcials inscriptions lists.
+ * @author Francisco de Paula Algar Muñoz 
+ */
+
 public class InscriptionsManager {
     public InscriptionsManager(){}
 
+    /**
+     * Gets the inscription factory depending on the init date of the campament and the actual date.
+     * @param campament
+     * @return The inscription factory
+     */
     public InscriptionFactory getFactory(Campament campament){
         LocalDate today = LocalDate.now();
         LocalDate campamentDate = campament.getInitDate();
@@ -26,6 +36,12 @@ public class InscriptionsManager {
         return null;
     }
 
+    /**
+     * Calculate the price of the inscription.
+     * @param campament
+     * @param isEspecial
+     * @return The final price of the inscription.
+     */
     public double calcPrice(Campament campament, boolean isEspecial){
         double price = 300.0;
         ArrayList<Activity> activities = campament.getActivities();
@@ -41,6 +57,11 @@ public class InscriptionsManager {
         return price;    
     }
 
+    /**
+     * Determinate if the date of the inscription is before the init date of the campament.
+     * @param campament
+     * @return True if the date of the inscription is before the init date of the campament.
+     */
     public boolean canEnroll(Campament campament){
         LocalDate date = LocalDate.now();
         LocalDate campamentDate = campament.getInitDate();
@@ -48,6 +69,13 @@ public class InscriptionsManager {
         return date.isBefore(campamentDate);
     }
 
+    /**
+     * Add a new registration for a new inscription to the list of completed inscriptions for a campament.
+     * @param campament
+     * @param assistant
+     * @param schendule
+     * @param completesInscriptions
+     */
     public void enrollComplete(Campament campament, Assistant assistant, Schendule schendule, 
                                ArrayList<CompleteInscription> completesInscriptions){
 
@@ -79,6 +107,13 @@ public class InscriptionsManager {
         completesInscriptions.add(completeInscription);
     }
 
+    /**
+     * Add a new registration for a new inscription to the list of parcials inscriptions for a campament.
+     * @param campament
+     * @param assistant
+     * @param schendule
+     * @param parcialsInscriptions
+     */
     public void enrollParcial(Campament campament, Assistant assistant, Schendule schendule, 
                               ArrayList<ParcialInscription> parcialsInscriptions){
 

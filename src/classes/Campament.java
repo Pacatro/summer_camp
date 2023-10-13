@@ -3,6 +3,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * Represents a campament for the system.
+ */
 public class Campament {
     private int id;
     private LocalDate initDate;    
@@ -90,27 +93,46 @@ public class Campament {
         return campamentInfo;
     }
 
+    /**
+     * Asociate an activity to the campament.
+     * @param activity
+     */
     public void associateActivity(Activity activity){
-        if(activity.getLevel() != this.level)
+        if(activity.getLevel() != this.level){
+            System.out.println("El nivel de la actividad no coincide con el nivel del campamento.");
             return;
+        }
         this.activities.add(activity);
     }
 
+    /**
+     * Asociate a monitor to the campament.
+     * @param monitor
+     */
     public void associateMonitor(Monitor monitor){
-        for(int i = 0; i < activities.size(); i++){
-            if(this.activities.get(i).getMonitors().contains(monitor))
+        for(Activity a : this.activities){
+            if(a.getMonitors().contains(monitor))
                 this.monitors.add(monitor);
         }
     }
 
+    /**
+     * Asociate a special monitor to the campament.
+     * @param monitor
+     */
     public void associateSpecialMonitor(Monitor monitor){
-        if(monitor.isEspecial()){
-            for(int i = 0; i < activities.size(); i++){
-                if(this.activities.get(i).getMonitors().contains(monitor))
-                    return;
-            }
-
-            this.monitors.add(monitor);
+        if(!monitor.isEspecial()){
+            System.out.println("El monitor no es de atención especial");
+            return;
         }
+        
+        for(Activity a : this.activities){
+            if(a.getMonitors().contains(monitor)){
+                System.out.println("El monitor ya se encuentra en una actividad");
+                return;
+            }
+        }
+
+        this.monitors.add(monitor);
     }
 }

@@ -103,7 +103,7 @@ public class Menu {
     }
 
     public void campamentsManager() throws Exception{
-        Campaments_Manager campaments_Manager = new Campaments_Manager();
+        Campaments_Manager manager = new Campaments_Manager();
         int opt, subopt;
         do{
             System.out.println();
@@ -123,7 +123,7 @@ public class Menu {
                     System.out.println("Creando actividad...");
 
                     System.out.print("Nombre de la actividad: ");
-                    String name = scanner.nextLine();
+                    String activName = scanner.nextLine();
 
                     Level level = Level.CHILD;
                     do{
@@ -174,12 +174,27 @@ public class Menu {
                     System.out.print("Número de monitores: ");
                     int num_monitors = scanner.nextInt();
 
-                    campaments_Manager.createActivity(activities, name, level, schendule, max_participants, num_monitors);
+                    manager.createActivity(activities, activName, level, schendule, max_participants, num_monitors);
 
                 break;
 
                 case 2:
                     System.out.println("Creando monitor...");
+
+                    System.out.print("ID del monitor: ");
+                    int id = scanner.nextInt();
+                    scanner.nextLine();
+
+                    System.out.print("Nombre del monitor: ");
+                    String monName = scanner.nextLine();
+
+                    System.out.print("Apellido del monitor: ");
+                    String surname = scanner.nextLine();
+
+                    System.out.print("¿Es un monitor de atención especial? (true/false): ");
+                    boolean isEspecial = scanner.nextBoolean();
+
+                    manager.createMonitor(monitors, id, monName, surname, isEspecial);
                 break;
 
                 case 3:
@@ -206,7 +221,7 @@ public class Menu {
     }
 
     public void inscriptionsManager() throws Exception{
-        InscriptionsManager inscriptionsManager = new InscriptionsManager();
+        InscriptionsManager manager = new InscriptionsManager();
 
         int opt, subopt;
         do{
@@ -286,11 +301,11 @@ public class Menu {
             
             switch(opt){
                 case 1:
-                    inscriptionsManager.enrollComplete(campament, assistant, schendule, completeInscriptions);
+                    manager.enrollComplete(campament, assistant, schendule, completeInscriptions);
                 break;
 
                 case 2:
-                    inscriptionsManager.enrollParcial(campament, assistant, schendule, parcialInscriptions);
+                    manager.enrollParcial(campament, assistant, schendule, parcialInscriptions);
                 break;
 
                 default:

@@ -58,7 +58,9 @@ public class Campaments_Manager {
         activities.add(newActivity);
     }
 
-    public void createMonitor(ArrayList<Monitor> monitors) throws Exception {
+    public void createMonitor(ArrayList<Monitor> monitors, int id, String name, String surname, boolean isEspecial) throws Exception {
+        
+        /*
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Creación de un nuevo monitor:");
@@ -74,6 +76,7 @@ public class Campaments_Manager {
 
         System.out.print("¿Es un monitor de atención especial? (true/false): ");
         boolean isEspecial = scanner.nextBoolean();
+        */
 
         Monitor newMonitor = new Monitor(id, name, surname, isEspecial);
         monitors.add(newMonitor);

@@ -37,7 +37,7 @@ public class Menu {
             System.out.println("3) Gestor de inscripciones");
             System.out.println("4) Salir");
             System.out.print("> ");
-            opt = Integer.parseInt(this.scanner.nextLine());
+            opt = this.scanner.nextInt();
             System.out.println();
 
             switch(opt){
@@ -75,7 +75,7 @@ public class Menu {
             System.out.println("3) Listar asistentes registrados");
             System.out.println("4) Cancelar");
             System.out.print("> ");
-            opt = Integer.parseInt(this.scanner.nextLine());
+            opt = this.scanner.nextInt();
             System.out.println();
 
             switch(opt){
@@ -103,7 +103,8 @@ public class Menu {
     }
 
     public void campamentsManager() throws Exception{
-        int opt;
+        Campaments_Manager campaments_Manager = new Campaments_Manager();
+        int opt, subopt;
         do{
             System.out.println();
             System.out.println("Elija una opcion:");
@@ -114,12 +115,67 @@ public class Menu {
             System.out.println("5) Asociar monitor a campamento");
             System.out.println("6) Cancelar");
             System.out.print("> ");
-            opt = Integer.parseInt(this.scanner.nextLine());
+            opt = this.scanner.nextInt();
             System.out.println();
 
             switch(opt){
                 case 1:
                     System.out.println("Creando actividad...");
+
+                    System.out.print("Nombre de la actividad: ");
+                    String name = scanner.nextLine();
+
+                    Level level = Level.CHILD;
+                    do{
+                        System.out.println();
+                        System.out.println("Indique el nivel:");
+                        System.out.println("1) Infantil");
+                        System.out.println("2) Juvenil");
+                        System.out.println("3) Adolescente");
+                        System.out.print("> ");
+                        subopt = this.scanner.nextInt();
+                        System.out.println();
+
+                        if(subopt == 1){
+                            level = Level.CHILD;
+                        }else if(subopt == 2){
+                            level = Level.YOUTH;
+                        }else if(subopt == 3){
+                            level = Level.TEENAGER;
+                        }else{
+                            System.out.println("Elija una opcion correcta");
+                        }
+
+                    }while(subopt != 1 && subopt != 2);
+
+                    Schendule schendule = Schendule.MORNING;
+                    do{
+                        System.out.println();
+                        System.out.println("Indique el horario:");
+                        System.out.println("1) Mañana");
+                        System.out.println("2) Tarde");
+                        System.out.print("> ");
+                        subopt = this.scanner.nextInt();
+                        System.out.println();
+
+                        if(subopt == 1){
+                            schendule = Schendule.MORNING;
+                        }else if(subopt == 2){
+                            schendule = Schendule.AFTERNOON;
+                        }else{
+                            System.out.println("Elija una opcion correcta");
+                        }
+
+                    }while(subopt != 1 && subopt != 2);
+
+                    System.out.print("Máximos participantes de la actividad: ");
+                    int max_participants = scanner.nextInt();
+
+                    System.out.print("Número de monitores: ");
+                    int num_monitors = scanner.nextInt();
+
+                    campaments_Manager.createActivity(activities, name, level, schendule, max_participants, num_monitors);
+
                 break;
 
                 case 2:
@@ -160,7 +216,7 @@ public class Menu {
             System.out.println("2) Parcial");
             System.out.println("3) Cancelar");
             System.out.print("> ");
-            opt = Integer.parseInt(this.scanner.nextLine());
+            opt = this.scanner.nextInt();
             System.out.println();
 
             if(opt == 3){
@@ -172,7 +228,7 @@ public class Menu {
             System.out.println();
 
             System.out.print("Indique el id del campamento: ");
-            int campId = Integer.parseInt(this.scanner.nextLine());
+            int campId = this.scanner.nextInt();
             
             Campament campament = new Campament();
             boolean flag = false;
@@ -189,8 +245,8 @@ public class Menu {
             }
 
             
-            System.out.print("Indique el id del asistente:");
-            int assisId = Integer.parseInt(this.scanner.nextLine());
+            System.out.print("Indique el id del asistente: ");
+            int assisId = this.scanner.nextInt();
 
             Assistant assistant = new Assistant();
             flag = false;
@@ -214,7 +270,7 @@ public class Menu {
                 System.out.println("1) Mañana");
                 System.out.println("2) Tarde");
                 System.out.print("> ");
-                subopt = Integer.parseInt(this.scanner.nextLine());
+                subopt = this.scanner.nextInt();
                 System.out.println();
 
                 if(subopt == 1){

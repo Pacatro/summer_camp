@@ -8,7 +8,8 @@ import java.time.format.DateTimeFormatter;
 
 public class Campaments_Manager {
 
-    public void createActivity(ArrayList<Activity> activities) throws Exception {
+    public void createActivity(ArrayList<Activity> activities, String name, Level level, Schendule schendule, int max_participants, int num_monitors) throws Exception {
+        /*
         Scanner scanner = new Scanner(System.in);
         Schendule schendule;
         Level level;
@@ -51,6 +52,7 @@ public class Campaments_Manager {
 
         System.out.print("Número de monitores: ");
         int num_monitors = scanner.nextInt();
+        */
 
         Activity newActivity = new Activity(name, level, schendule, max_participants, num_monitors);
         activities.add(newActivity);

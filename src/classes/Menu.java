@@ -1,5 +1,6 @@
 package classes;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -111,9 +112,10 @@ public class Menu {
             System.out.println("1) Crear actividad");
             System.out.println("2) Crear monitor");
             System.out.println("3) Crear campamento");
-            System.out.println("4) Asociar actividad a campamento");
-            System.out.println("5) Asociar monitor a campamento");
-            System.out.println("6) Cancelar");
+            System.out.println("4) Asociar monitor a actividad");
+            System.out.println("5) Asociar actividad a campamento");
+            System.out.println("6) Asociar monitor a campamento");
+            System.out.println("7) Cancelar");
             System.out.print("> ");
             opt = this.scanner.nextInt();
             System.out.println();
@@ -174,7 +176,7 @@ public class Menu {
                     System.out.print("Número de monitores: ");
                     int num_monitors = scanner.nextInt();
 
-                    manager.createActivity(activities, activName, level, schendule, max_participants, num_monitors);
+                    manager.createActivity(this.activities, activName, level, schendule, max_participants, num_monitors);
 
                 break;
 
@@ -182,7 +184,7 @@ public class Menu {
                     System.out.println("Creando monitor...");
 
                     System.out.print("ID del monitor: ");
-                    int id = scanner.nextInt();
+                    int monId = scanner.nextInt();
                     scanner.nextLine();
 
                     System.out.print("Nombre del monitor: ");
@@ -194,22 +196,44 @@ public class Menu {
                     System.out.print("¿Es un monitor de atención especial? (true/false): ");
                     boolean isEspecial = scanner.nextBoolean();
 
-                    manager.createMonitor(monitors, id, monName, surname, isEspecial);
+                    manager.createMonitor(this.monitors, monId, monName, surname, isEspecial);
                 break;
 
                 case 3:
                     System.out.println("Creando campamento...");
+
+                    System.out.print("ID del campamento: ");
+                    int campId = scanner.nextInt();
+
+                    System.out.print("Fecha de inicio (AAAA-MM-DD): ");
+                    String initDateStr = scanner.next();
+                    LocalDate initDate = LocalDate.parse(initDateStr);
+
+                    System.out.print("Fecha de finalización (AAAA-MM-DD): ");
+                    String finalDateStr = scanner.next();
+                    LocalDate finalDate = LocalDate.parse(finalDateStr);
+
+                    manager.createCampaments(this.campaments, campId, initDate, finalDate);
                 break;
 
                 case 4:
-                    System.out.println("Asociando actividad - campamento...");
-                break;
+                    System.out.println("Asociando monitor - actividad...");
+
+                    manager.associateMonitorsToActivities(this.activities, this.monitors);
 
                 case 5:
-                    System.out.println("Asociando monitor - campamento...");
+                    System.out.println("Asociando actividad - campamento...");
+
+                    manager.associateActivitiesToCampaments(this.campaments, this.activities);
                 break;
 
                 case 6:
+                    System.out.println("Asociando monitor - campamento...");
+
+                    manager.associateMonitorsToCampaments(this.campaments, this.monitors);
+                break;
+
+                case 7:
                     System.out.println("Volviendo al menu principal...");
                 break;
 
@@ -217,7 +241,7 @@ public class Menu {
                     System.out.println("Elija una opcion correcta");
             }
 
-        }while(opt != 6);
+        }while(opt != 7);
     }
 
     public void inscriptionsManager() throws Exception{

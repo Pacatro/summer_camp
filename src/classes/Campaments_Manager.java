@@ -83,7 +83,8 @@ public class Campaments_Manager {
 
     }
 
-    public void createCampaments(ArrayList<Campament> campaments) throws Exception {
+    public void createCampaments(ArrayList<Campament> campaments, int id, LocalDate initDate, LocalDate finalDate) throws Exception {
+        /*
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Creación de un nuevo campamento:");
@@ -97,6 +98,7 @@ public class Campaments_Manager {
         System.out.print("Fecha de finalización (AAAA-MM-DD): ");
         String finalDateStr = scanner.next();
         LocalDate finalDate = LocalDate.parse(finalDateStr);
+        */
 
         Campament nuevoCampamento = new Campament(id, initDate, finalDate);
         campaments.add(nuevoCampamento);
@@ -108,7 +110,7 @@ public class Campaments_Manager {
 
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Asociación de monitores a actividades:");
+        //System.out.println("Asociación de monitores a actividades:");
         for (int k = 0; k < activities.size(); k++) {
             System.out.println("Actividad: " + k + ")" + activities.get(k).getname());
         }
@@ -149,7 +151,7 @@ public class Campaments_Manager {
 
     public void associateActivitiesToCampaments(ArrayList<Campament> campaments, ArrayList<Activity> activities) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Asociación de actividades a campamentos:");
+        //System.out.println("Asociación de actividades a campamentos:");
 
         for (int k = 0; k < campaments.size(); k++) {
             System.out.println("Campamento: " + k + ")" + campaments.get(k).getId());
@@ -191,7 +193,7 @@ public class Campaments_Manager {
 
     public void associateMonitorsToCampaments(ArrayList<Campament> campaments, ArrayList<Monitor> monitors) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Asociación de monitores a campamentos:");
+        //System.out.println("Asociación de monitores a campamentos:");
 
         for (int k = 0; k < campaments.size(); k++) {
             System.out.println("Campamento: " + k + ")" + campaments.get(k).getId());

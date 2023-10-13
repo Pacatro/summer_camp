@@ -131,7 +131,7 @@ public class Menu {
             System.out.print("Indique el id del campamento: ");
             int campId = Integer.parseInt(this.scanner.nextLine());
             
-            Campament campament;
+            Campament campament = new Campament();
             boolean flag = false;
             for(int i = 0; i < this.campaments.size() && !flag; i++){
                 if(this.campaments.get(i).getId() == campId){
@@ -149,7 +149,7 @@ public class Menu {
             System.out.print("Indique el id del asistente:");
             int assisId = Integer.parseInt(this.scanner.nextLine());
 
-            Assistant assistant;
+            Assistant assistant = new Assistant();
             flag = false;
             for(int i = 0; i < this.assistants.size() && !flag; i++){
                 if(this.assistants.get(i).getId() == assisId){
@@ -164,7 +164,7 @@ public class Menu {
             }
 
 
-            Schendule schendule;
+            Schendule schendule = Schendule.MORNING;
             do{
                 System.out.println();
                 System.out.println("Indique el horario:");
@@ -187,11 +187,11 @@ public class Menu {
             
             switch(opt){
                 case 1:
-                    //inscriptionsManager.enroll(campament, assistant, schendule, "completa", completeInscriptions);
+                    inscriptionsManager.enrollComplete(campament, assistant, schendule, completeInscriptions);
                 break;
 
                 case 2:
-                    //inscriptionsManager.enroll(campament, assistant, schendule, "parcial", parcialInscriptions);
+                    inscriptionsManager.enrollParcial(campament, assistant, schendule, parcialInscriptions);
                 break;
 
                 default:

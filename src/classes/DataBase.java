@@ -10,7 +10,9 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import factory.CompleteInscription;
+import factory.ParcialInscription;
 import factory.EarlyRegInscriptionFactory;
+import factory.Inscription;
 import factory.LateRegInscriptionFactory;
 
 
@@ -129,8 +131,8 @@ public class DataBase {
             Campament auxCampament = new Campament();
 
             auxCampament.setId(Integer.parseInt(elements[0]));
-            auxCampament.setInitDate(LocalDate.now());
-            auxCampament.setFinalDate(LocalDate.now());
+            auxCampament.setInitDate(LocalDate.parse(elements[1]));
+            auxCampament.setFinalDate(LocalDate.parse(elements[2]));
             auxCampament.setMaxAssistants(Integer.parseInt(elements[3]));
 
             if(elements[4].equals("CHILD")){
@@ -178,7 +180,7 @@ public class DataBase {
         return campaments;
     }
 
-    public ArrayList<CompleteInscription> importCompleteInscriptions(Properties properties, ArrayList<Campament> campaments) throws Exception{
+    public ArrayList<CompleteInscription> importCompleteInscriptions(Properties properties, ArrayList<Campament> campaments, ArrayList<Assistant> assistants) throws Exception{
         BufferedReader file = new BufferedReader(new FileReader(new File(properties.getProperty("completeinscriptions"))));
 
         ArrayList<CompleteInscription> inscriptions = new ArrayList<CompleteInscription>();
@@ -188,21 +190,98 @@ public class DataBase {
         while((line = file.readLine()) != null){
             String elements[] = line.split(" ");
 
+            CompleteInscription auxCompleteInscription;
+
             boolean flag = false;
             Campament auxCampament = new Campament();
             for(int i = 0; i < campaments.size() && !flag; i++){
                 if(campaments.get(i).getId() == (Integer.parseInt(elements[1]))){
                     auxCampament = campaments.get(i);
+                    flag = true;
                 }
             }
 
-            int dif = (auxCampament.getInitDate().compareTo(LocalDate.parse(elements[2], null)));
+            flag = false;
+            Assistant auxAssistant = new Assistant();
+            for(int i = 0; i < assistants.size() && !flag; i++){
+                if(assistants.get(i).getId() == (Integer.parseInt(elements[0]))){
+                    auxAssistant = assistants.get(i);
+                    flag = true;
+                }
+            }
+
+            Schendule auxSchendule = Schendule.MORNING;
+            if(elements[5].equals("MORNING")){
+                auxSchendule = Schendule.MORNING;
+            }else if(elements[5].equals("AFTERNOON")){
+                auxSchendule = Schendule.AFTERNOON;
+            }
+
+            int dif = (auxCampament.getInitDate().compareTo(LocalDate.parse(elements[2])));
 
             if(dif > 15){
                 EarlyRegInscriptionFactory eFactory = new EarlyRegInscriptionFactory();
+
+                auxCompleteInscription = eFactory.createCompleteInscription(auxCampament, auxAssistant, auxSchendule, LocalDate.parse(elements[2]));
             }else{
                 LateRegInscriptionFactory lFactory = new LateRegInscriptionFactory();
+
+                auxCompleteInscription = lFactory.createCompleteInscription(auxCampament, auxAssistant, auxSchendule, LocalDate.parse(elements[2]));
             }
+
+            auxCompleteInscription.setPrice(Double.parseDouble(elements[3]));
+
+            inscriptions.add(auxCompleteInscription);
+        }
+
+        return inscriptions;
+    }
+
+    public ArrayList<ParcialInscription> importParcialInscriptions(Properties properties, ArrayList<Campament> campaments, ArrayList<Assistant> assistants) throws Exception{
+        BufferedReader file = new BufferedReader(new FileReader(new File(properties.getProperty("parcialinscriptions"))));
+
+        ArrayList<ParcialInscription> inscriptions = new ArrayList<ParcialInscription>();
+
+        String line;
+
+        while((line = file.readLine()) != null){
+            String elements[] = line.split(" ");
+
+            ParcialInscription auxParcialInscription;
+
+            boolean flag = false;
+            Campament auxCampament = new Campament();
+            for(int i = 0; i < campaments.size() && !flag; i++){
+                if(campaments.get(i).getId() == (Integer.parseInt(elements[1]))){
+                    auxCampament = campaments.get(i);
+                    flag = true;
+                }
+            }
+
+            flag = true;
+            Assistant auxAssistant = new Assistant();
+            for(int i = 0; i < assistants.size() && !flag; i++){
+                if(assistants.get(i).getId() == (Integer.parseInt(elements[0]))){
+                    auxAssistant = assistants.get(i);
+                    flag = true;
+                }
+            }
+
+            int dif = (auxCampament.getInitDate().compareTo(LocalDate.parse(elements[2])));
+
+            if(dif > 15){
+                EarlyRegInscriptionFactory eFactory = new EarlyRegInscriptionFactory();
+
+                auxParcialInscription = eFactory.createParcialInscription(auxCampament, auxAssistant, LocalDate.parse(elements[2]));
+            }else{
+                LateRegInscriptionFactory lFactory = new LateRegInscriptionFactory();
+
+                auxParcialInscription = lFactory.createParcialInscription(auxCampament, auxAssistant, LocalDate.parse(elements[2]));
+            }
+
+            auxParcialInscription.setPrice(Double.parseDouble(elements[3]));
+
+            inscriptions.add(auxParcialInscription);
         }
 
         return inscriptions;

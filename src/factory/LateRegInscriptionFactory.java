@@ -8,10 +8,10 @@ import classes.Schendule;
 
 public class LateRegInscriptionFactory extends InscriptionFactory {
     @Override
-    public CompleteInscription createCompleteInscription(Campament campament, Assistant assistant, Schendule schendule){
+    public CompleteInscription createCompleteInscription(Campament campament, Assistant assistant, Schendule schendule, LocalDate date){
         CompleteInscription cInscription = new CompleteInscription(schendule);
 
-        LocalDate date = LocalDate.now();
+        //LocalDate date = LocalDate.now();
         LocalDate campamentDate = campament.getInitDate();
 
         cInscription.setIdCampament(campament.getId());
@@ -30,10 +30,10 @@ public class LateRegInscriptionFactory extends InscriptionFactory {
     }
 
     @Override
-    public ParcialInscription createParcialInscription(Campament campament, Assistant assistant){
+    public ParcialInscription createParcialInscription(Campament campament, Assistant assistant, LocalDate date){
         ParcialInscription pInscription = new ParcialInscription();
 
-        LocalDate date = LocalDate.now();
+        //LocalDate date = LocalDate.now();
         LocalDate campamentDate = campament.getInitDate();
 
         pInscription.setIdCampament(campament.getId());

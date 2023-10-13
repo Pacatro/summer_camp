@@ -66,9 +66,9 @@ public class InscriptionsManager {
         if(!canEnroll(campament)) return;
 
         if(type == "parcial")
-            inscription = factory.createParcialInscription(campament, assistant);
+            inscription = factory.createParcialInscription(campament, assistant, LocalDate.now());
         else
-            inscription = factory.createCompleteInscription(campament, assistant, schendule);
+            inscription = factory.createCompleteInscription(campament, assistant, schendule, LocalDate.now());
 
         double price = calcPrice(campament, assistant.getAtention());
         inscription.setPrice(price);

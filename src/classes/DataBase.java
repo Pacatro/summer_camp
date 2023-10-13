@@ -9,6 +9,11 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import factory.CompleteInscription;
+import factory.EarlyRegInscriptionFactory;
+import factory.LateRegInscriptionFactory;
+
+
 public class DataBase {
     public ArrayList<Monitor> importMonitors(Properties properties) throws Exception{
         BufferedReader file = new BufferedReader(new FileReader(new File(properties.getProperty("monitors"))));
@@ -173,9 +178,34 @@ public class DataBase {
         return campaments;
     }
 
-    public void importInscriptions(Properties properties) throws Exception{
-        BufferedReader file = new BufferedReader(new FileReader(new File(properties.getProperty("inscriptions"))));
+    public ArrayList<CompleteInscription> importCompleteInscriptions(Properties properties, ArrayList<Campament> campaments) throws Exception{
+        BufferedReader file = new BufferedReader(new FileReader(new File(properties.getProperty("completeinscriptions"))));
 
+        ArrayList<CompleteInscription> inscriptions = new ArrayList<CompleteInscription>();
+
+        String line;
+
+        while((line = file.readLine()) != null){
+            String elements[] = line.split(" ");
+
+            boolean flag = false;
+            Campament auxCampament = new Campament();
+            for(int i = 0; i < campaments.size() && !flag; i++){
+                if(campaments.get(i).getId() == (Integer.parseInt(elements[1]))){
+                    auxCampament = campaments.get(i);
+                }
+            }
+
+            int dif = (auxCampament.getInitDate().compareTo(LocalDate.parse(elements[2], null)));
+
+            if(dif > 15){
+                EarlyRegInscriptionFactory eFactory = new EarlyRegInscriptionFactory();
+            }else{
+                LateRegInscriptionFactory lFactory = new LateRegInscriptionFactory();
+            }
+        }
+
+        return inscriptions;
     }
 
     public void exportMonitors(Properties properties, ArrayList<Monitor> monitors) throws Exception{

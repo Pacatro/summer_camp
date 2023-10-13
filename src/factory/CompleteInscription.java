@@ -9,7 +9,7 @@ public class CompleteInscription extends Inscription {
 
     @Override
     public String toString(){
-        return "Inscricion para el parcitipante " + this.getIdParticipant() 
+        return "Inscripcion para el participante " + this.getIdParticipant() 
                 + ", en el campamento " + this.getIdCampament() + ", con fecha de inicio " + this.getDate() 
                 + ", horario de mañanas y tardes" + " y precio " + this.getPrice() + "€.";
     }

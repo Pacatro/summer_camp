@@ -12,7 +12,6 @@ import java.util.Properties;
 import factory.CompleteInscription;
 import factory.ParcialInscription;
 import factory.EarlyRegInscriptionFactory;
-import factory.Inscription;
 import factory.LateRegInscriptionFactory;
 
 

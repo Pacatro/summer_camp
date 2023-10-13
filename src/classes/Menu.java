@@ -107,28 +107,38 @@ public class Menu {
         do{
             System.out.println();
             System.out.println("Elija una opcion:");
-            System.out.println("1) Dar de alta asistente");
-            System.out.println("2) Modificar asistente");
-            System.out.println("3) Listar asistentes registrados");
-            System.out.println("4) Cancelar");
+            System.out.println("1) Crear actividad");
+            System.out.println("2) Crear monitor");
+            System.out.println("3) Crear campamento");
+            System.out.println("4) Asociar actividad a campamento");
+            System.out.println("5) Asociar monitor a campamento");
+            System.out.println("6) Cancelar");
             System.out.print("> ");
             opt = Integer.parseInt(this.scanner.nextLine());
             System.out.println();
 
             switch(opt){
                 case 1:
-                    System.out.println("Creando asistente...");
+                    System.out.println("Creando actividad...");
                 break;
 
                 case 2:
-                    System.out.println("Modificando asistente...");
+                    System.out.println("Creando monitor...");
                 break;
 
                 case 3:
-                    System.out.println("Lista de asistentes: ");
+                    System.out.println("Creando campamento...");
                 break;
 
                 case 4:
+                    System.out.println("Asociando actividad - campamento...");
+                break;
+
+                case 5:
+                    System.out.println("Asociando monitor - campamento...");
+                break;
+
+                case 6:
                     System.out.println("Volviendo al menu principal...");
                 break;
 
@@ -136,7 +146,7 @@ public class Menu {
                     System.out.println("Elija una opcion correcta");
             }
 
-        }while(opt != 4);
+        }while(opt != 6);
     }
 
     public void inscriptionsManager() throws Exception{

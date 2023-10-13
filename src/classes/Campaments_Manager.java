@@ -138,7 +138,3 @@ public class Campaments_Manager{
 
     }
 }
-
-
-
-

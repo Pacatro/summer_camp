@@ -1,10 +1,7 @@
 import java.util.Scanner;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 import java.io.FileInputStream;
 import java.util.Properties;
-import java.util.Scanner;
 
 import classes.Activity;
 import classes.Assistant;

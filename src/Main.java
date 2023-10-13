@@ -27,7 +27,7 @@ public class Main {
         ArrayList<CompleteInscription> completeInscriptions = DB.importCompleteInscriptions(campaments, assistants);
         ArrayList<ParcialInscription> parcialInscriptions = DB.importParcialInscriptions(campaments, assistants);
 
-        Menu menu = new Menu(scanner);
+        Menu menu = new Menu(scanner, monitors, activities, assistants, campaments, completeInscriptions, parcialInscriptions);
 
         menu.mainMenu();
         

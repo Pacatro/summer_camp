@@ -25,6 +25,16 @@ public class Campament {
         this.monitors = new ArrayList<Monitor>();
     }
 
+    public Campament(int id, LocalDate initDate, LocalDate finalDate, int maxAssistants, Level level){
+        this.id = id;
+        this.initDate = initDate;
+        this.finalDate = finalDate;
+        this.activities = new ArrayList<Activity>();
+        this.monitors = new ArrayList<Monitor>();
+        this.maxAssistants = maxAssistants;
+        this.level = level;
+    }
+
     public int getId() {
         return id;
     }
@@ -112,5 +122,9 @@ public class Campament {
 
             this.monitors.add(monitor);
         }
+    }
+
+    public boolean existsEspecialAssistant(){
+        return true;
     }
 }

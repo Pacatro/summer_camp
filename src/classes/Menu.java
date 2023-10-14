@@ -294,18 +294,118 @@ public class Menu {
                     String finalDateStr = scanner.next();
                     LocalDate finalDate = LocalDate.parse(finalDateStr);
 
-                    manager.createCampaments(this.campaments, campId, initDate, finalDate);
+                    Level campLevel = Level.CHILD;
+
+                    do{
+                        System.out.println();
+                        System.out.println("Indique el nivel:");
+                        System.out.println("1) Infantil");
+                        System.out.println("2) Juvenil");
+                        System.out.println("3) Adolescente");
+                        System.out.print("> ");
+                        subopt = this.scanner.nextInt();
+                        System.out.println();
+
+                        if(subopt == 1){
+                            campLevel = Level.CHILD;
+                        }else if(subopt == 2){
+                            campLevel = Level.YOUTH;
+                        }else if(subopt == 3){
+                            campLevel = Level.TEENAGER;
+                        }else{
+                            System.out.println("Elija una opcion correcta");
+                        }
+
+                    }while(subopt != 1 && subopt != 2);
+
+                    manager.createCampaments(this.campaments, campId, initDate, finalDate, campLevel);
                 break;
 
                 case 4:
                     System.out.println("Asociando monitor - actividad...");
 
-                    manager.associateMonitorsToActivities(this.activities, this.monitors);
+                    for (int k = 0; k < activities.size(); k++) {
+                        System.out.println("Actividad: " + k + ") " + activities.get(k).getname());
+                    }
 
+                    System.out.print("Selecciona una actividad: ");
+                    int selectedActivityIndex = scanner.nextInt();
+            
+                    while (!(selectedActivityIndex >= 0 && selectedActivityIndex < activities.size())) {
+                        System.out.println("Índice de actividad no válido. No se asignó ninguna actividad.");
+                        System.out.print("Selecciona una actividad: ");
+                        selectedActivityIndex = scanner.nextInt();
+                    }
+            
+                    Activity activity = activities.get(selectedActivityIndex);
+
+                    int numMonitorsNeeded = activity.getNumMonitors();
+                    System.out.println("Número de monitores a asociar a esta actividad: " + numMonitorsNeeded);
+
+                    int selectedMonitorIndex = 0;
+
+                    for (int i = 0; i < numMonitorsNeeded; i++) {
+                        System.out.println("\nSelecciona un monitor:\n");
+            
+                        for (int j = 0; j < monitors.size(); j++) {
+                            if (!monitors.get(j).isEspecial()) {
+                                System.out.println(j + ". " + monitors.get(j).getName());
+                            }
+                        }
+            
+                        selectedMonitorIndex = scanner.nextInt();
+                        while (!(selectedMonitorIndex >= 0 && selectedMonitorIndex < monitors.size()
+                                && monitors.get(selectedMonitorIndex).isEspecial() == false)) {
+                            System.out.println("Índice de monitor no válido.");
+                            System.out.print("Selecciona un monitor: ");
+                            selectedMonitorIndex = scanner.nextInt();
+                        }
+                        
+                    }
+
+                    manager.associateMonitorsToActivities(this.activities, this.monitors, selectedMonitorIndex, activity);
+
+                break;
                 case 5:
                     System.out.println("Asociando actividad - campamento...");
 
-                    manager.associateActivitiesToCampaments(this.campaments, this.activities);
+                    // System.out.println("Asociación de actividades a campamentos:");
+
+                    for (int k = 0; k < campaments.size(); k++) {
+                        System.out.println("Campamento: " + k + ") " + campaments.get(k).getId());
+                    }
+
+                    System.out.println("Selecciona un campamento:");
+                    int selectedCampamentIndex = scanner.nextInt();
+                    scanner.nextLine();
+
+                    while (!(selectedCampamentIndex >= 0 && selectedCampamentIndex < campaments.size())) {
+                        System.out.println("Índice del campamento no válido.");
+                        System.out.println("Selecciona un campamento:");
+                        selectedCampamentIndex = scanner.nextInt();
+                        scanner.nextLine();
+                    }
+                    Campament selectedCampament = campaments.get(selectedCampamentIndex);
+                    Level campamentLevel = selectedCampament.getLevel();
+
+                    for (int j = 0; j < activities.size(); j++) {
+                        if (activities.get(j).getLevel().equals(campamentLevel)) {
+                            System.out.println(j + ". " + activities.get(j).getname());
+                        }
+                    }
+
+                    System.out.println("Selecciona una actividad:");
+                    int selectedActivityIndex2 = scanner.nextInt();
+                    scanner.nextLine();
+
+                    while (!(selectedActivityIndex2 >= 0 && selectedActivityIndex2 < activities.size())) {
+                        System.out.println("Índice de actividad no válido.");
+                        System.out.println("Selecciona una actividad:");
+                        selectedActivityIndex2 = scanner.nextInt();
+                        scanner.nextLine();
+                    }
+
+                    manager.associateActivitiesToCampaments(this.campaments, this.activities, selectedActivityIndex2, selectedCampament);
                 break;
 
                 case 6:

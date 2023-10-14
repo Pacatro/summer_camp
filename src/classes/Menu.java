@@ -387,7 +387,7 @@ public class Menu {
                     }
                     Campament selectedCampament = campaments.get(selectedCampamentIndex);
                     Level campamentLevel = selectedCampament.getLevel();
-
+                    
                     for (int j = 0; j < activities.size(); j++) {
                         if (activities.get(j).getLevel().equals(campamentLevel)) {
                             System.out.println(j + ". " + activities.get(j).getname());
@@ -410,8 +410,37 @@ public class Menu {
 
                 case 6:
                     System.out.println("Asociando monitor - campamento...");
-
-                    manager.associateMonitorsToCampaments(this.campaments, this.monitors);
+                    for (int k = 0; k < campaments.size(); k++) {
+                        System.out.println("Campamento: " + k + ")" + campaments.get(k).getId());
+                    }
+            
+                    System.out.println("Selecciona un campamento:");
+                    int selectedCampamentIndex3 = scanner.nextInt();
+                    scanner.nextLine();
+            
+                    while (!(selectedCampamentIndex3 >= 0 && selectedCampamentIndex3 < campaments.size())) {
+                        System.out.println("Índice del campamento no válido.");
+                        System.out.println("Selecciona un campamento:");
+                    }
+            
+                    Campament selectedCampament2= campaments.get(selectedCampamentIndex3);
+            
+                    for (int j = 0; j < monitors.size(); j++) {
+                        System.out.println(j + ". " + monitors.get(j).getName());
+                    }
+            
+                    System.out.println("Selecciona un monitor:");
+                    int selectedMonitorIndex3 = scanner.nextInt();
+                    scanner.nextLine();
+            
+                    while (!(selectedMonitorIndex3 >= 0 && selectedMonitorIndex3 < monitors.size())) {
+                        System.out.println("Índice de monitor no válido.");
+                        System.out.println("Selecciona un monitor:");
+                        selectedMonitorIndex = scanner.nextInt();
+                        scanner.nextLine();
+                    }
+                    
+                    manager.associateMonitorsToCampaments(this.campaments, this.monitors, selectedCampamentIndex3, selectedCampament2);
                 break;
 
                 case 7:

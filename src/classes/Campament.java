@@ -1,4 +1,5 @@
 package classes;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -8,19 +9,21 @@ import java.util.ArrayList;
  */
 public class Campament {
     private int id;
-    private LocalDate initDate;    
+    private LocalDate initDate;
     private LocalDate finalDate;
     private int maxAssistants;
     private Level level;
     private ArrayList<Activity> activities;
     private ArrayList<Monitor> monitors;
+    private ArrayList<Assistant> assistants;
 
     /**
      * Default constructor for a Campament. Initializes activity and monitor lists.
      */
-    public Campament(){
+    public Campament() {
         this.activities = new ArrayList<Activity>();
         this.monitors = new ArrayList<Monitor>();
+        this.assistants = new ArrayList<Assistant>();
     }
 
     /**
@@ -30,20 +33,22 @@ public class Campament {
      * @param initDate  The start date of the camp.
      * @param finalDate The end date of the camp.
      */
-    public Campament(int id, LocalDate initDate, LocalDate finalDate){
+    public Campament(int id, LocalDate initDate, LocalDate finalDate, Level level) {
         this.id = id;
         this.initDate = initDate;
         this.finalDate = finalDate;
         this.activities = new ArrayList<Activity>();
         this.monitors = new ArrayList<Monitor>();
+        this.assistants = new ArrayList<Assistant>();
     }
 
-    public Campament(int id, LocalDate initDate, LocalDate finalDate, int maxAssistants, Level level){
+    public Campament(int id, LocalDate initDate, LocalDate finalDate, int maxAssistants, Level level) {
         this.id = id;
         this.initDate = initDate;
         this.finalDate = finalDate;
         this.activities = new ArrayList<Activity>();
         this.monitors = new ArrayList<Monitor>();
+        this.assistants = new ArrayList<Assistant>();
         this.maxAssistants = maxAssistants;
         this.level = level;
     }
@@ -104,10 +109,14 @@ public class Campament {
         this.monitors = monitors;
     }
 
-    public String toString(){
-        String campamentInfo = "El campamento con id: " + this.id + " empieza el " + 
-                this.initDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) + 
-                " y termina el " + this.finalDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) + 
+    public void setAssistants(ArrayList<Assistant> assistants) {
+        this.assistants = assistants;
+    }
+
+    public String toString() {
+        String campamentInfo = "El campamento con id: " + this.id + " empieza el " +
+                this.initDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) +
+                " y termina el " + this.finalDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) +
                 " con maximo de " + this.maxAssistants + " asistentes.";
 
         return campamentInfo;
@@ -115,10 +124,11 @@ public class Campament {
 
     /**
      * Asociate an activity to the campament.
+     * 
      * @param activity
      */
-    public void associateActivity(Activity activity){
-        if(activity.getLevel() != this.level){
+    public void associateActivity(Activity activity) {
+        if (activity.getLevel() != this.level) {
             System.out.println("El nivel de la actividad no coincide con el nivel del campamento.");
             return;
         }
@@ -127,27 +137,29 @@ public class Campament {
 
     /**
      * Asociate a monitor to the campament.
+     * 
      * @param monitor
      */
-    public void associateMonitor(Monitor monitor){
-        for(Activity a : this.activities){
-            if(a.getMonitors().contains(monitor))
+    public void associateMonitor(Monitor monitor) {
+        for (Activity a : this.activities) {
+            if (a.getMonitors().contains(monitor))
                 this.monitors.add(monitor);
         }
     }
 
     /**
      * Asociate a special monitor to the campament.
+     * 
      * @param monitor
      */
-    public void associateSpecialMonitor(Monitor monitor){
-        if(!monitor.isEspecial()){
+    public void associateSpecialMonitor(Monitor monitor) {
+        if (!monitor.isEspecial()) {
             System.out.println("El monitor no es de atención especial");
             return;
         }
-        
-        for(Activity a : this.activities){
-            if(a.getMonitors().contains(monitor)){
+
+        for (Activity a : this.activities) {
+            if (a.getMonitors().contains(monitor)) {
                 System.out.println("El monitor ya se encuentra en una actividad");
                 return;
             }
@@ -156,7 +168,24 @@ public class Campament {
         this.monitors.add(monitor);
     }
 
-    public boolean existsEspecialAssistant(){
-        return true;
+    public boolean existsEspecialAssistant() {
+        for (Assistant it : this.assistants) {
+            if (it.getAtention())
+                return true;
+        }
+        return false;
+    }
+
+    //sacamos todos los monitores asociados a actividades. (Para asociar un monitor a un campamento antes tiene que estar asociado a una actividad.)
+    public ArrayList<Monitor> getAllActivityMonitors() { 
+        ArrayList<Monitor> ActivityMonitors = new ArrayList<Monitor>();
+        for (Activity activity : getActivities()) {
+            for (Monitor monitor : activity.getMonitors()) {
+                if (!ActivityMonitors.contains(monitor)) {
+                    ActivityMonitors.add(monitor);
+                }
+            }
+        }
+        return ActivityMonitors;
     }
 }

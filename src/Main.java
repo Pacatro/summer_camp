@@ -1,7 +1,7 @@
-import java.io.FileInputStream;
-import java.util.ArrayList;
-import java.util.Properties;
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.io.FileInputStream;
+import java.util.Properties;
 
 import classes.Activity;
 import classes.Assistant;
@@ -53,4 +53,5 @@ public class Main {
         DB.exportParcialInscriptions(parcialInscriptions);
 
     }
+
 }

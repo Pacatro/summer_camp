@@ -7,6 +7,9 @@ import java.util.Scanner;
 import factory.CompleteInscription;
 import factory.ParcialInscription;
 
+/**
+ * Represents a menu for managing the system's assistants, campaments, and inscriptions.
+ */
 public class Menu {
     private Scanner scanner;
     private ArrayList<Monitor> monitors;
@@ -16,6 +19,17 @@ public class Menu {
     private ArrayList<CompleteInscription> completeInscriptions;
     private ArrayList<ParcialInscription> parcialInscriptions;
 
+    /**
+     * Initializes a new Menu instance with the required data.
+     *
+     * @param scanner             A Scanner object for user input.
+     * @param monitors            The list of monitors in the system.
+     * @param activities          The list of activities in the system.
+     * @param assistants          The list of assistants in the system.
+     * @param campaments          The list of campaments in the system.
+     * @param completeInscriptions The list of complete inscriptions in the system.
+     * @param parcialInscriptions  The list of parcial inscriptions in the system.
+     */
     public Menu(Scanner scanner, ArrayList<Monitor> monitors, ArrayList<Activity> activities, ArrayList<Assistant> assistants,
                 ArrayList<Campament> campaments, ArrayList<CompleteInscription> completeInscriptions, ArrayList<ParcialInscription> parcialInscriptions){
         
@@ -67,6 +81,7 @@ public class Menu {
     }
 
     public void assistantsManager() throws Exception{
+        AssistantManager manager = new AssistantManager();
         int opt;
         do{
             System.out.println();
@@ -82,14 +97,80 @@ public class Menu {
             switch(opt){
                 case 1:
                     System.out.println("Creando asistente...");
+                    
+                    Assistant assistant;
+
+                    System.out.print("Introduzca el id del asistente: ");
+                    int assistantID = scanner.nextInt();
+
+                    assistant = manager.search(assistantID, assistants);
+
+                    if(assistant != null){
+                        System.out.println("\nEl id del asistente ya ha sido registrado previamente.");
+                        break;
+                    }
+
+                    scanner.nextLine();
+                    System.out.print("Nombre del asistente: ");
+                    String assistantName = scanner.nextLine();
+
+                    System.out.print("Apellido del asistente: ");
+                    String assistantSurname = scanner.nextLine();
+
+                    System.out.print("Introduzca el cumpleaños del asistente (AAAA-MM-DD): ");
+                    String assistantBdayStr = scanner.nextLine();
+                    LocalDate assistantBday = LocalDate.parse(assistantBdayStr);
+
+                    System.out.print("¿El asistente necesita atencion especial? (true/false): ");
+                    boolean atention = scanner.nextBoolean();
+                    
+                    assistant = new Assistant(assistantID, assistantName, assistantSurname, assistantBday, atention);
+
+                    if(!manager.register(assistant, this.assistants)){
+                        System.out.println("\nNo se ha podido registrar al asistente.");
+                        break;
+                    }
+
+                    System.out.println("\nEl asistente ha sido registrado con exito.");
+
                 break;
 
                 case 2:
                     System.out.println("Modificando asistente...");
+
+                    System.out.print("Introduzca el id del asistente a modificar: ");
+                    int newAssistantID = scanner.nextInt();
+
+                    if(manager.search(newAssistantID, this.assistants) == null){
+                        System.out.println("\nNo existe un asistente con ese id en la lista.");
+                        break;
+                    }
+
+                    scanner.nextLine();
+                    System.out.print("Nuevo nombre del asistente: ");
+                    String newAssistantName = scanner.nextLine();
+
+                    System.out.print("Apellido del asistente: ");
+                    String newAssistantSurname = scanner.nextLine();
+
+                    System.out.print("Introduzca el cumpleaños del asistente (AAAA-MM-DD): ");
+                    String newAssistantBdayStr = scanner.nextLine();
+                    LocalDate newAssistantBday = LocalDate.parse(newAssistantBdayStr);
+
+                    System.out.print("El asistente necesita atencion especial (true/false): ");
+                    boolean newAtention = scanner.nextBoolean();
+
+                    if(!manager.modify(newAssistantID, newAssistantName, newAssistantSurname, newAssistantBday, newAtention, this.assistants)){
+                        System.out.println("\nEl asistente no se ha modificado correctamente.");
+                        break;
+                    }
+
+                    System.out.println("\nAsistente modificado correctamente.");
                 break;
 
                 case 3:
                     System.out.println("Lista de asistentes: ");
+                    manager.print(this.assistants);
                 break;
 
                 case 4:

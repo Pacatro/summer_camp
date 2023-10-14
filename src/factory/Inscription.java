@@ -12,9 +12,9 @@ public abstract class Inscription {
     
     /* Atributtes */
     
-    private int id_participant;
+    private int participantId;
 
-    private int id_campament;
+    private int campamentId;
 
     private LocalDate date;
 
@@ -31,8 +31,8 @@ public abstract class Inscription {
      * Initializes default values for some attributes.
      */
     public Inscription(){
-        this.id_participant = 0;
-        this.id_campament = 0;
+        this.participantId = 0;
+        this.campamentId = 0;
         this.date = LocalDate.now();
         this.price = 0.0;
     }
@@ -40,11 +40,11 @@ public abstract class Inscription {
     /* Gets y Sets */
 
     public int getIdParticipant(){
-        return this.id_participant;
+        return this.participantId;
     }
 
     public int getIdCampament(){
-        return this.id_campament;
+        return this.campamentId;
     }
 
     public LocalDate getDate(){
@@ -63,12 +63,12 @@ public abstract class Inscription {
         return this.schendule;
     }
 
-    public void setIdParticipant(int id_participant){
-        this.id_participant = id_participant;
+    public void setIdParticipant(int participantId){
+        this.participantId = participantId;
     }
 
-    public void setIdCampament(int id_campament){
-        this.id_campament = id_campament;
+    public void setIdCampament(int campamentId){
+        this.campamentId = campamentId;
     }
 
     public void setDate(LocalDate date){

@@ -12,17 +12,17 @@ public class AssistantManager {
     /**
      * Registers a new assistant in the system.
      *
-     * @param id   The assistant to be registered.
+     * @param a   The assistant to be registered.
      * @param list The list of assistants in the system.
      * @return true if the assistant is successfully registered, false if the assistant already exists in the list.
      */
-    public boolean register(Assistant id, ArrayList<Assistant> list){
+    public boolean register(Assistant a, ArrayList<Assistant> list){
         for(int i=0; i<list.size();i++){
-            if(list.get(i)==id){
+            if(list.get(i) == a){
                 return false;
             }
         }
-        list.add(id);
+        list.add(a);
         return true;
     }
 

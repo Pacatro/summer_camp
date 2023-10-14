@@ -145,6 +145,8 @@ public class Campaments_Manager {
             }
         }
 
+        scanner.close();
+
     }
 
     // En la clase Campaments_Manager
@@ -189,6 +191,7 @@ public class Campaments_Manager {
             }
         }
 
+        scanner.close();
     }
 
     public void associateMonitorsToCampaments(ArrayList<Campament> campaments, ArrayList<Monitor> monitors) {
@@ -231,8 +234,10 @@ public class Campaments_Manager {
                 System.out.println("Índice de monitor no válido. No se asignó ningún monitor.");
             }
         }
+
+        scanner.close();
     }
-    
+
 }
 
 

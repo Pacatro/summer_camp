@@ -1,8 +1,14 @@
-package classes;
+package managers;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+
+import classes.Activity;
+import classes.Assistant;
+import classes.Campament;
+import classes.Monitor;
+import enums.Schendule;
 import factory.CompleteInscription;
 import factory.EarlyRegInscriptionFactory;
 import factory.InscriptionFactory;

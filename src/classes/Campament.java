@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import enums.Level;
+
 /**
  * Represents a campament for the system.
  */

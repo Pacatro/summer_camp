@@ -2,7 +2,7 @@ package factory;
 
 import classes.Assistant;
 import classes.Campament;
-import classes.Schendule;
+import enums.Schendule;
 
 import java.time.LocalDate;
 

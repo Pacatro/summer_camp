@@ -1,6 +1,6 @@
 package factory;
 
-import classes.Schendule;
+import enums.Schendule;
 
 /**
  * Represents a partial inscription for a camp with morning schedule.

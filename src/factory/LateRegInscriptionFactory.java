@@ -5,7 +5,7 @@ import java.time.temporal.ChronoUnit;
 
 import classes.Assistant;
 import classes.Campament;
-import classes.Schendule;
+import enums.Schendule;
 
 /**
  * A factory for creating late registration inscriptions for a camp.

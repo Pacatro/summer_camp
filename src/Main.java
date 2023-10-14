@@ -6,11 +6,11 @@ import java.util.Properties;
 import classes.Activity;
 import classes.Assistant;
 import classes.Campament;
-import classes.DataBase;
-import classes.Menu;
 import classes.Monitor;
+import database.DataBase;
 import factory.CompleteInscription;
 import factory.ParcialInscription;
+import menu.Menu;
 
 
 public class Main {
@@ -30,20 +30,6 @@ public class Main {
         Menu menu = new Menu(scanner, monitors, activities, assistants, campaments, completeInscriptions, parcialInscriptions);
 
         menu.mainMenu();
-        
-        /*
-        System.out.println(monitors);
-        System.out.println();
-        System.out.println(activities);
-        System.out.println();
-        System.out.println(assistants);
-        System.out.println();
-        System.out.println(campaments);
-        System.out.println();
-        System.out.println(completeInscriptions);
-        System.out.println();
-        System.out.println(parcialInscriptions);
-        */
 
         DB.exportMonitors(monitors);
         DB.exportActivities(activities);

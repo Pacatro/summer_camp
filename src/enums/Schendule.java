@@ -1,4 +1,4 @@
-package classes;
+package enums;
 
 /**
  * Represents the schendule of an activity.

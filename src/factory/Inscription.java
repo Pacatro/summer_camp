@@ -2,7 +2,7 @@ package factory;
 
 import java.time.LocalDate;
 
-import classes.Schendule;
+import enums.Schendule;
 
 /**
  * Represents a model inscription.

@@ -1,10 +1,16 @@
-package classes;
+package managers;
 
 import java.util.ArrayList;
-import java.util.Scanner;
+
+import classes.Activity;
+import classes.Campament;
+import classes.Monitor;
+import enums.Level;
+import enums.Schendule;
+
 import java.time.LocalDate;
 
-public class Campaments_Manager {
+public class CampamentsManager {
     
     public void createActivity(ArrayList<Activity> activities, String name, Level level, Schendule schendule, int max_participants, int num_monitors) throws Exception {
         
@@ -46,8 +52,6 @@ public class Campaments_Manager {
 
     
     public void associateMonitorsToCampaments(ArrayList<Campament> campaments, ArrayList<Monitor> monitors, int selectedMonitorIndex, Campament selectedCampament) {
-        Scanner scanner = new Scanner(System.in);
-
         Monitor selectedMonitor = monitors.get(selectedMonitorIndex);
         ArrayList<Monitor> activityMonitors = selectedCampament.getAllActivityMonitors();
 

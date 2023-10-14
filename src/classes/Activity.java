@@ -1,6 +1,9 @@
 package classes;
 import java.util.ArrayList;
 
+import enums.Level;
+import enums.Schendule;
+
 /**
  * Represents an activity of the system.
  */

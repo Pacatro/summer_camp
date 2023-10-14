@@ -1,11 +1,20 @@
-package classes;
+package menu;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import classes.Activity;
+import classes.Assistant;
+import classes.Campament;
+import classes.Monitor;
+import enums.Level;
+import enums.Schendule;
 import factory.CompleteInscription;
 import factory.ParcialInscription;
+import managers.AssistantManager;
+import managers.CampamentsManager;
+import managers.InscriptionsManager;
 
 /**
  * Represents a menu for managing the system's assistants, campaments, and inscriptions.
@@ -185,7 +194,7 @@ public class Menu {
     }
 
     public void campamentsManager() throws Exception{
-        Campaments_Manager manager = new Campaments_Manager();
+        CampamentsManager manager = new CampamentsManager();
         int opt, subopt;
         do{
             System.out.println();

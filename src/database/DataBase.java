@@ -1,4 +1,4 @@
-package classes;
+package database;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -9,6 +9,12 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import classes.Activity;
+import classes.Assistant;
+import classes.Campament;
+import classes.Monitor;
+import enums.Level;
+import enums.Schendule;
 import factory.CompleteInscription;
 import factory.ParcialInscription;
 import factory.EarlyRegInscriptionFactory;
@@ -370,6 +376,4 @@ public class DataBase {
 
         file.close();
     }
-
-    
 }

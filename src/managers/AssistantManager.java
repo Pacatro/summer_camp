@@ -1,6 +1,8 @@
-package classes;
+package managers;
 import java.time.LocalDate;
 import java.util.ArrayList;
+
+import classes.Assistant;
 
 /**
  * Manages operations related to assistants in the system, such as registration, search, modification, and printing.

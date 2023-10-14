@@ -1,10 +1,8 @@
 package classes;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class Campaments_Manager {
 

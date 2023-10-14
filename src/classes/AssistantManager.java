@@ -1,8 +1,6 @@
 package classes;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
-import classes.Assistant;
 
 public class AssistantManager {
 

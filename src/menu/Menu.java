@@ -61,7 +61,7 @@ public class Menu {
             System.out.println("3) Gestor de inscripciones");
             System.out.println("4) Salir");
             System.out.print("> ");
-            opt = this.scanner.nextInt();
+            opt = Integer.parseInt(this.scanner.nextLine());
             System.out.println();
 
             switch(opt){
@@ -100,7 +100,7 @@ public class Menu {
             System.out.println("3) Listar asistentes registrados");
             System.out.println("4) Cancelar");
             System.out.print("> ");
-            opt = this.scanner.nextInt();
+            opt = Integer.parseInt(this.scanner.nextLine());
             System.out.println();
 
             switch(opt){
@@ -110,7 +110,7 @@ public class Menu {
                     Assistant assistant;
 
                     System.out.print("Introduzca el id del asistente: ");
-                    int assistantID = scanner.nextInt();
+                    int assistantID = Integer.parseInt(this.scanner.nextLine());
 
                     assistant = manager.search(assistantID, assistants);
 
@@ -119,19 +119,19 @@ public class Menu {
                         break;
                     }
 
-                    scanner.nextLine();
+                    this.scanner.nextLine();
                     System.out.print("Nombre del asistente: ");
-                    String assistantName = scanner.nextLine();
+                    String assistantName = this.scanner.nextLine();
 
                     System.out.print("Apellido del asistente: ");
-                    String assistantSurname = scanner.nextLine();
+                    String assistantSurname = this.scanner.nextLine();
 
                     System.out.print("Introduzca el cumpleaños del asistente (AAAA-MM-DD): ");
-                    String assistantBdayStr = scanner.nextLine();
+                    String assistantBdayStr = this.scanner.nextLine();
                     LocalDate assistantBday = LocalDate.parse(assistantBdayStr);
 
                     System.out.print("¿El asistente necesita atencion especial? (true/false): ");
-                    boolean atention = scanner.nextBoolean();
+                    boolean atention = Boolean.parseBoolean(this.scanner.nextLine());
                     
                     assistant = new Assistant(assistantID, assistantName, assistantSurname, assistantBday, atention);
 
@@ -148,26 +148,26 @@ public class Menu {
                     System.out.println("Modificando asistente...");
 
                     System.out.print("Introduzca el id del asistente a modificar: ");
-                    int newAssistantID = scanner.nextInt();
+                    int newAssistantID = Integer.parseInt(this.scanner.nextLine());
 
                     if(manager.search(newAssistantID, this.assistants) == null){
                         System.out.println("\nNo existe un asistente con ese id en la lista.");
                         break;
                     }
 
-                    scanner.nextLine();
+                    this.scanner.nextLine();
                     System.out.print("Nuevo nombre del asistente: ");
-                    String newAssistantName = scanner.nextLine();
+                    String newAssistantName = this.scanner.nextLine();
 
                     System.out.print("Apellido del asistente: ");
-                    String newAssistantSurname = scanner.nextLine();
+                    String newAssistantSurname = this.scanner.nextLine();
 
                     System.out.print("Introduzca el cumpleaños del asistente (AAAA-MM-DD): ");
-                    String newAssistantBdayStr = scanner.nextLine();
+                    String newAssistantBdayStr = this.scanner.nextLine();
                     LocalDate newAssistantBday = LocalDate.parse(newAssistantBdayStr);
 
                     System.out.print("El asistente necesita atencion especial (true/false): ");
-                    boolean newAtention = scanner.nextBoolean();
+                    boolean newAtention = Boolean.parseBoolean(this.scanner.nextLine());
 
                     if(!manager.modify(newAssistantID, newAssistantName, newAssistantSurname, newAssistantBday, newAtention, this.assistants)){
                         System.out.println("\nEl asistente no se ha modificado correctamente.");
@@ -207,7 +207,7 @@ public class Menu {
             System.out.println("6) Asociar monitor a campamento");
             System.out.println("7) Cancelar");
             System.out.print("> ");
-            opt = this.scanner.nextInt();
+            opt = Integer.parseInt(this.scanner.nextLine());
             System.out.println();
 
             switch(opt){
@@ -215,7 +215,7 @@ public class Menu {
                     System.out.println("Creando actividad...");
 
                     System.out.print("Nombre de la actividad: ");
-                    String activName = scanner.nextLine();
+                    String activName = this.scanner.nextLine();
 
                     Level level = Level.CHILD;
                     do{
@@ -225,8 +225,7 @@ public class Menu {
                         System.out.println("2) Juvenil");
                         System.out.println("3) Adolescente");
                         System.out.print("> ");
-                        subopt = this.scanner.nextInt();
-                        System.out.println();
+                        subopt = Integer.parseInt(this.scanner.nextLine());
 
                         if(subopt == 1){
                             level = Level.CHILD;
@@ -247,7 +246,7 @@ public class Menu {
                         System.out.println("1) Mañana");
                         System.out.println("2) Tarde");
                         System.out.print("> ");
-                        subopt = this.scanner.nextInt();
+                        subopt = Integer.parseInt(this.scanner.nextLine());
                         System.out.println();
 
                         if(subopt == 1){
@@ -261,10 +260,10 @@ public class Menu {
                     }while(subopt != 1 && subopt != 2);
 
                     System.out.print("Máximos participantes de la actividad: ");
-                    int max_participants = scanner.nextInt();
+                    int max_participants = Integer.parseInt(this.scanner.nextLine());
 
                     System.out.print("Número de monitores: ");
-                    int num_monitors = scanner.nextInt();
+                    int num_monitors = Integer.parseInt(this.scanner.nextLine());
 
                     manager.createActivity(this.activities, activName, level, schendule, max_participants, num_monitors);
 
@@ -274,17 +273,16 @@ public class Menu {
                     System.out.println("Creando monitor...");
 
                     System.out.print("ID del monitor: ");
-                    int monId = scanner.nextInt();
-                    scanner.nextLine();
+                    int monId = Integer.parseInt(this.scanner.nextLine());
 
                     System.out.print("Nombre del monitor: ");
-                    String monName = scanner.nextLine();
+                    String monName = this.scanner.nextLine();
 
                     System.out.print("Apellido del monitor: ");
-                    String surname = scanner.nextLine();
+                    String surname = this.scanner.nextLine();
 
                     System.out.print("¿Es un monitor de atención especial? (true/false): ");
-                    boolean isEspecial = scanner.nextBoolean();
+                    boolean isEspecial = Boolean.parseBoolean(this.scanner.nextLine());
 
                     manager.createMonitor(this.monitors, monId, monName, surname, isEspecial);
                 break;
@@ -293,14 +291,14 @@ public class Menu {
                     System.out.println("Creando campamento...");
 
                     System.out.print("ID del campamento: ");
-                    int campId = scanner.nextInt();
+                    int campId = Integer.parseInt(this.scanner.nextLine());
 
                     System.out.print("Fecha de inicio (AAAA-MM-DD): ");
-                    String initDateStr = scanner.next();
+                    String initDateStr = this.scanner.nextLine();
                     LocalDate initDate = LocalDate.parse(initDateStr);
 
                     System.out.print("Fecha de finalización (AAAA-MM-DD): ");
-                    String finalDateStr = scanner.next();
+                    String finalDateStr = this.scanner.nextLine();
                     LocalDate finalDate = LocalDate.parse(finalDateStr);
 
                     Level campLevel = Level.CHILD;
@@ -312,7 +310,7 @@ public class Menu {
                         System.out.println("2) Juvenil");
                         System.out.println("3) Adolescente");
                         System.out.print("> ");
-                        subopt = this.scanner.nextInt();
+                        subopt = Integer.parseInt(this.scanner.nextLine());
                         System.out.println();
 
                         if(subopt == 1){
@@ -338,12 +336,12 @@ public class Menu {
                     }
 
                     System.out.print("Selecciona una actividad: ");
-                    int selectedActivityIndex = scanner.nextInt();
+                    int selectedActivityIndex = Integer.parseInt(this.scanner.nextLine());
             
                     while (!(selectedActivityIndex >= 0 && selectedActivityIndex < activities.size())) {
                         System.out.println("Índice de actividad no válido. No se asignó ninguna actividad.");
                         System.out.print("Selecciona una actividad: ");
-                        selectedActivityIndex = scanner.nextInt();
+                        selectedActivityIndex = Integer.parseInt(this.scanner.nextLine());
                     }
             
                     Activity activity = activities.get(selectedActivityIndex);
@@ -362,12 +360,12 @@ public class Menu {
                             }
                         }
             
-                        selectedMonitorIndex = scanner.nextInt();
+                        selectedMonitorIndex = Integer.parseInt(this.scanner.nextLine());
                         while (!(selectedMonitorIndex >= 0 && selectedMonitorIndex < monitors.size()
                                 && monitors.get(selectedMonitorIndex).isEspecial() == false)) {
                             System.out.println("Índice de monitor no válido.");
                             System.out.print("Selecciona un monitor: ");
-                            selectedMonitorIndex = scanner.nextInt();
+                            selectedMonitorIndex = Integer.parseInt(this.scanner.nextLine());
                         }
                         
                     }
@@ -384,15 +382,15 @@ public class Menu {
                         System.out.println("Campamento: " + k + ") " + campaments.get(k).getId());
                     }
 
-                    System.out.println("Selecciona un campamento:");
-                    int selectedCampamentIndex = scanner.nextInt();
-                    scanner.nextLine();
+                    System.out.print("Selecciona un campamento:");
+                    int selectedCampamentIndex = this.scanner.nextInt();
+                    this.scanner.nextLine();
 
                     while (!(selectedCampamentIndex >= 0 && selectedCampamentIndex < campaments.size())) {
                         System.out.println("Índice del campamento no válido.");
-                        System.out.println("Selecciona un campamento:");
-                        selectedCampamentIndex = scanner.nextInt();
-                        scanner.nextLine();
+                        System.out.print("Selecciona un campamento:");
+                        selectedCampamentIndex = this.scanner.nextInt();
+                        this.scanner.nextLine();
                     }
                     Campament selectedCampament = campaments.get(selectedCampamentIndex);
                     Level campamentLevel = selectedCampament.getLevel();
@@ -403,15 +401,15 @@ public class Menu {
                         }
                     }
 
-                    System.out.println("Selecciona una actividad:");
-                    int selectedActivityIndex2 = scanner.nextInt();
-                    scanner.nextLine();
+                    System.out.print("Selecciona una actividad:");
+                    int selectedActivityIndex2 = this.scanner.nextInt();
+                    this.scanner.nextLine();
 
                     while (!(selectedActivityIndex2 >= 0 && selectedActivityIndex2 < activities.size())) {
                         System.out.println("Índice de actividad no válido.");
-                        System.out.println("Selecciona una actividad:");
-                        selectedActivityIndex2 = scanner.nextInt();
-                        scanner.nextLine();
+                        System.out.print("Selecciona una actividad:");
+                        selectedActivityIndex2 = this.scanner.nextInt();
+                        this.scanner.nextLine();
                     }
 
                     manager.associateActivitiesToCampaments(this.campaments, this.activities, selectedActivityIndex2, selectedCampament);
@@ -423,9 +421,9 @@ public class Menu {
                         System.out.println("Campamento: " + k + ")" + campaments.get(k).getId());
                     }
             
-                    System.out.println("Selecciona un campamento:");
-                    int selectedCampamentIndex3 = scanner.nextInt();
-                    scanner.nextLine();
+                    System.out.print("Selecciona un campamento:");
+                    int selectedCampamentIndex3 = this.scanner.nextInt();
+                    this.scanner.nextLine();
             
                     while (!(selectedCampamentIndex3 >= 0 && selectedCampamentIndex3 < campaments.size())) {
                         System.out.println("Índice del campamento no válido.");
@@ -438,15 +436,15 @@ public class Menu {
                         System.out.println(j + ". " + monitors.get(j).getName());
                     }
             
-                    System.out.println("Selecciona un monitor:");
-                    int selectedMonitorIndex3 = scanner.nextInt();
-                    scanner.nextLine();
+                    System.out.print("Selecciona un monitor:");
+                    int selectedMonitorIndex3 = this.scanner.nextInt();
+                    this.scanner.nextLine();
             
                     while (!(selectedMonitorIndex3 >= 0 && selectedMonitorIndex3 < monitors.size())) {
                         System.out.println("Índice de monitor no válido.");
-                        System.out.println("Selecciona un monitor:");
-                        selectedMonitorIndex = scanner.nextInt();
-                        scanner.nextLine();
+                        System.out.print("Selecciona un monitor:");
+                        selectedMonitorIndex = this.scanner.nextInt();
+                        this.scanner.nextLine();
                     }
                     
                     manager.associateMonitorsToCampaments(this.campaments, this.monitors, selectedCampamentIndex3, selectedCampament2);
@@ -474,7 +472,7 @@ public class Menu {
             System.out.println("2) Parcial");
             System.out.println("3) Cancelar");
             System.out.print("> ");
-            opt = this.scanner.nextInt();
+            opt = Integer.parseInt(this.scanner.nextLine());
             System.out.println();
 
             if(opt == 3){
@@ -486,7 +484,7 @@ public class Menu {
             System.out.println();
 
             System.out.print("Indique el id del campamento: ");
-            int campId = this.scanner.nextInt();
+            int campId = Integer.parseInt(this.scanner.nextLine());
             
             Campament campament = new Campament();
             boolean flag = false;
@@ -504,7 +502,7 @@ public class Menu {
 
             
             System.out.print("Indique el id del asistente: ");
-            int assisId = this.scanner.nextInt();
+            int assisId = Integer.parseInt(this.scanner.nextLine());
 
             Assistant assistant = new Assistant();
             flag = false;
@@ -528,7 +526,7 @@ public class Menu {
                 System.out.println("1) Mañana");
                 System.out.println("2) Tarde");
                 System.out.print("> ");
-                subopt = this.scanner.nextInt();
+                subopt = Integer.parseInt(this.scanner.nextLine());
                 System.out.println();
 
                 if(subopt == 1){

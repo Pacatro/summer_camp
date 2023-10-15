@@ -1,18 +1,28 @@
-## Getting Started
+# Sistema de gestión de campamentos de verano
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+## Estructura de carpetas
 
-## Folder Structure
+El espacio de trabajo consta de las siguientes carpetas:
 
-The workspace contains two folders, where:
+* `src`: la carpeta para mantener las fuentes
+  * `classes`: carpeta donde se encuentran todos los modelos del sistema.
+  * `database`: carpeta donde se encuentran el controlador de la base de datos.
+  * `enums`: carpeta donde se hallan todas las clases enumaradas del sistema.
+  * `factory`: carpeta donde se encuentra implementado el patrón abstract factory.
+  * `files`: carpeta donde se encuentran los ficheros de texto dedicados a almacenar la información del sistema.
+  * `managers`: carpeta donde se encuentran los gestores del sistema.
+  * `menu`: carpeta donde se modela el sistema de menús.
+  * `Main.java`: clase principal del sistema.
+  * `properties.txt`: fichero de texto con las rutas absolutas de los archivos destinados a la base de datos.
+* `docs`: carpeta con los archivos HTML de toda la documentación del sistema.
+* `summer_camp.jar`: ejecutable del sistema.
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+Al compilar se creará una carpeta `bin` con los ficheros `.java` compilados en ficheros `.class`.
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+## Ejecución
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+Para ejecutar el archivo `summer_camp.jar` es necesario escribir el siguiente comado:
 
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+```bash
+java -jar summer_camp.jar
+```

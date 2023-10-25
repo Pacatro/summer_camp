@@ -1,19 +1,19 @@
-package managers;
+package business.managers;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
-import classes.Activity;
-import classes.Assistant;
-import classes.Campament;
-import classes.Monitor;
-import enums.Schendule;
-import factory.CompleteInscription;
-import factory.EarlyRegInscriptionFactory;
-import factory.InscriptionFactory;
-import factory.LateRegInscriptionFactory;
-import factory.ParcialInscription;
+import business.activity.ActivityDTO;
+import business.assistant.AssistantDTO;
+import business.campament.CampamentDTO;
+import business.monitor.MonitorDTO;
+import business.schendule.Schendule;
+import business.factory.CompleteInscriptionDTO;
+import business.factory.EarlyRegInscriptionFactory;
+import business.factory.InscriptionFactory;
+import business.factory.LateRegInscriptionFactory;
+import business.factory.ParcialInscriptionDTO;
 
 /**
  * Manages the completes and parcials inscriptions lists.
@@ -26,7 +26,7 @@ public class InscriptionsManager {
      * @param campament
      * @return The inscription factory
      */
-    public InscriptionFactory getFactory(Campament campament){
+    public InscriptionFactory getFactory(CampamentDTO campament){
         LocalDate today = LocalDate.now();
         LocalDate campamentDate = campament.getInitDate();
         
@@ -46,9 +46,9 @@ public class InscriptionsManager {
      * @param isEspecial
      * @return The final price of the inscription.
      */
-    public double calcPrice(Campament campament, boolean isEspecial){
+    public double calcPrice(CampamentDTO campament, boolean isEspecial){
         double price = 300.0;
-        ArrayList<Activity> activities = campament.getActivities();
+        ArrayList<ActivityDTO> activities = campament.getActivities();
 
         if(getFactory(campament).getClass().getSimpleName() == "EarlyRegInscriptionFactory")
             price -= 100.0;
@@ -66,7 +66,7 @@ public class InscriptionsManager {
      * @param campament
      * @return True if the date of the inscription is before the init date of the campament.
      */
-    public boolean canEnroll(Campament campament){
+    public boolean canEnroll(CampamentDTO campament){
         LocalDate date = LocalDate.now();
         LocalDate campamentDate = campament.getInitDate();
 
@@ -80,11 +80,11 @@ public class InscriptionsManager {
      * @param schendule
      * @param completesInscriptions
      */
-    public void enrollComplete(Campament campament, Assistant assistant, Schendule schendule, 
-                               ArrayList<CompleteInscription> completesInscriptions){
+    public void enrollComplete(CampamentDTO campament, AssistantDTO assistant, Schendule schendule, 
+                               ArrayList<CompleteInscriptionDTO> completesInscriptions){
 
-        CompleteInscription completeInscription;
-        ArrayList<Monitor> monitors = campament.getMonitors();
+        CompleteInscriptionDTO completeInscriptionDTO;
+        ArrayList<MonitorDTO> monitors = campament.getMonitors();
         InscriptionFactory factory = getFactory(campament);
 
         if(factory == null){
@@ -93,7 +93,7 @@ public class InscriptionsManager {
         }
 
         if(assistant.getAtention()){
-            for(Monitor m : monitors){
+            for(MonitorDTO m : monitors){
                 if(m.isEspecial())
                     campament.associateSpecialMonitor(m);
             }
@@ -104,11 +104,11 @@ public class InscriptionsManager {
             return;
         }
 
-        completeInscription = factory.createCompleteInscription(campament, assistant, schendule, LocalDate.now());
+        completeInscriptionDTO = factory.createCompleteInscription(campament, assistant, schendule, LocalDate.now());
 
         double price = calcPrice(campament, assistant.getAtention());
-        completeInscription.setPrice(price);
-        completesInscriptions.add(completeInscription);
+        completeInscriptionDTO.setPrice(price);
+        completesInscriptions.add(completeInscriptionDTO);
     }
 
     /**
@@ -118,11 +118,11 @@ public class InscriptionsManager {
      * @param schendule
      * @param parcialsInscriptions
      */
-    public void enrollParcial(Campament campament, Assistant assistant, Schendule schendule, 
-                              ArrayList<ParcialInscription> parcialsInscriptions){
+    public void enrollParcial(CampamentDTO campament, AssistantDTO assistant, Schendule schendule, 
+                              ArrayList<ParcialInscriptionDTO> parcialsInscriptions){
 
-        ParcialInscription parcialInscription;
-        ArrayList<Monitor> monitors = campament.getMonitors();
+        ParcialInscriptionDTO parcialInscriptionDTO;
+        ArrayList<MonitorDTO> monitors = campament.getMonitors();
         InscriptionFactory factory = getFactory(campament);
 
         if(factory == null){
@@ -131,7 +131,7 @@ public class InscriptionsManager {
         }
 
         if(assistant.getAtention()){
-            for(Monitor m : monitors){
+            for(MonitorDTO m : monitors){
                 if(m.isEspecial())
                     campament.associateSpecialMonitor(m);
             }
@@ -142,10 +142,10 @@ public class InscriptionsManager {
             return;
         }
 
-        parcialInscription = factory.createParcialInscription(campament, assistant, LocalDate.now());
+        parcialInscriptionDTO = factory.createParcialInscription(campament, assistant, LocalDate.now());
 
         double price = calcPrice(campament, assistant.getAtention());
-        parcialInscription.setPrice(price);
-        parcialsInscriptions.add(parcialInscription);
+        parcialInscriptionDTO.setPrice(price);
+        parcialsInscriptions.add(parcialInscriptionDTO);
     }
 }

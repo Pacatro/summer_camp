@@ -1,8 +1,8 @@
-package managers;
+package business.managers;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import classes.Assistant;
+import business.assistant.AssistantDTO;
 
 /**
  * Manages operations related to assistants in the system, such as registration, search, modification, and printing.
@@ -16,7 +16,7 @@ public class AssistantManager {
      * @param list The list of assistants in the system.
      * @return true if the assistant is successfully registered, false if the assistant already exists in the list.
      */
-    public boolean register(Assistant a, ArrayList<Assistant> list){
+    public boolean register(AssistantDTO a, ArrayList<AssistantDTO> list){
         for(int i=0; i<list.size();i++){
             if(list.get(i) == a){
                 return false;
@@ -33,8 +33,8 @@ public class AssistantManager {
      * @param list The list of assistants to search within.
      * @return The assistant with the specified ID, or null if not found.
      */
-    public Assistant search(int id, ArrayList<Assistant> list) {
-        for (Assistant a : list){
+    public AssistantDTO search(int id, ArrayList<AssistantDTO> list) {
+        for (AssistantDTO a : list){
             if (a.getId() == id) {
                 return a;
             }
@@ -53,8 +53,8 @@ public class AssistantManager {
      * @param list        The list of assistants in the system.
      * @return true if the assistant is successfully modified, false if the assistant is not found.
      */
-    public boolean modify(int id, String newname, String newsurname, LocalDate newdate, boolean newatention, ArrayList<Assistant> list){
-        Assistant a1=search(id, list);
+    public boolean modify(int id, String newname, String newsurname, LocalDate newdate, boolean newatention, ArrayList<AssistantDTO> list){
+        AssistantDTO a1=search(id, list);
         if(a1!=null){
             a1.setName(newname);
             a1.setSurname(newsurname);
@@ -70,8 +70,8 @@ public class AssistantManager {
      *
      * @param register The list of registered assistants to be printed.
      */
-    public void print(ArrayList<Assistant> register){
-        for(Assistant a : register){
+    public void print(ArrayList<AssistantDTO> register){
+        for(AssistantDTO a : register){
             System.out.println("ID: " + a.getId());
             System.out.println("Nombre: " + a.getName());
             System.out.println("Apellido: " + a.getSurname());

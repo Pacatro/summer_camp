@@ -1,9 +1,9 @@
-package classes;
+package business.monitor;
 
 /**
  * Represents a monitor of the system.
  */
-public class Monitor{
+public class MonitorDTO{
 	
     private int ID;
 	private String name;
@@ -13,7 +13,7 @@ public class Monitor{
 	/**
 	 * Constructor without parameters.
 	 */
-    public Monitor() {}
+    public MonitorDTO() {}
 	
 	/**
 	 * Default constructor
@@ -22,7 +22,7 @@ public class Monitor{
 	 * @param surname
 	 * @param isEspecial
 	 */
-    public Monitor(int ID, String name, String surname, boolean isEspecial) {
+    public MonitorDTO(int ID, String name, String surname, boolean isEspecial) {
 		this.ID = ID;
 		this.name = name;
 		this.surname = surname;

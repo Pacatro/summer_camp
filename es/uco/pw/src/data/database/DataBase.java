@@ -1,4 +1,4 @@
-package data;
+package data.database;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -9,16 +9,16 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import classes.Activity;
-import classes.Assistant;
-import classes.Campament;
-import classes.Monitor;
-import enums.Level;
-import enums.Schendule;
-import factory.CompleteInscription;
-import factory.ParcialInscription;
-import factory.EarlyRegInscriptionFactory;
-import factory.LateRegInscriptionFactory;
+import business.activity.ActivityDTO;
+import business.assistant.AssistantDTO;
+import business.campament.CampamentDTO;
+import business.monitor.MonitorDTO;
+import business.level.Level;
+import business.schendule.Schendule;
+import business.factory.CompleteInscriptionDTO;
+import business.factory.ParcialInscriptionDTO;
+import business.factory.EarlyRegInscriptionFactory;
+import business.factory.LateRegInscriptionFactory;
 
 
 /**
@@ -29,17 +29,17 @@ public class DataBase {
 
     public DataBase(Properties properties) {this.properties = properties;}
 
-    public ArrayList<Monitor> importMonitors() throws Exception{
+    public ArrayList<MonitorDTO> importMonitors() throws Exception{
         BufferedReader file = new BufferedReader(new FileReader(new File(this.properties.getProperty("monitors"))));
 
-        ArrayList<Monitor> monitors = new ArrayList<Monitor>();
+        ArrayList<MonitorDTO> monitors = new ArrayList<MonitorDTO>();
 
         String line;
 
         while((line = file.readLine()) != null){
             String[] elements = line.split(" ");
 
-            Monitor auxMonitor = new Monitor();
+            MonitorDTO auxMonitor = new MonitorDTO();
 
             auxMonitor.setID(Integer.parseInt(elements[0]));
             auxMonitor.setName(elements[1]);
@@ -55,17 +55,17 @@ public class DataBase {
         
     }
 
-    public ArrayList<Activity> importActivities(ArrayList<Monitor> monitors) throws Exception{
+    public ArrayList<ActivityDTO> importActivities(ArrayList<MonitorDTO> monitors) throws Exception{
         BufferedReader file = new BufferedReader(new FileReader(new File(this.properties.getProperty("activities"))));
 
-        ArrayList<Activity> activities = new ArrayList<Activity>();
+        ArrayList<ActivityDTO> activities = new ArrayList<ActivityDTO>();
 
         String line;
 
         while((line = file.readLine()) != null){
             String[] elements = line.split(" ");
             
-            Activity auxActivity = new Activity();
+            ActivityDTO auxActivity = new ActivityDTO();
             auxActivity.setname(elements[0]);
             auxActivity.setMaxParticipants(Integer.parseInt(elements[3]));
             auxActivity.setNumMonitors(Integer.parseInt(elements[4]));
@@ -103,17 +103,17 @@ public class DataBase {
 
     }
 
-    public ArrayList<Assistant> importAssistants() throws Exception{
+    public ArrayList<AssistantDTO> importAssistants() throws Exception{
         BufferedReader file = new BufferedReader(new FileReader(new File(this.properties.getProperty("assistants"))));
 
-        ArrayList<Assistant> assistants = new ArrayList<Assistant>();
+        ArrayList<AssistantDTO> assistants = new ArrayList<AssistantDTO>();
 
         String line;
 
         while((line = file.readLine()) != null){
             String[] elements = line.split(" ");
 
-            Assistant auxAssistant = new Assistant();
+            AssistantDTO auxAssistant = new AssistantDTO();
 
             auxAssistant.setId(Integer.parseInt(elements[0]));
             auxAssistant.setName(elements[1]);
@@ -130,17 +130,17 @@ public class DataBase {
 
     }
 
-    public ArrayList<Campament> importCampaments(ArrayList<Activity> activities, ArrayList<Monitor> monitors) throws Exception{
+    public ArrayList<CampamentDTO> importCampaments(ArrayList<ActivityDTO> activities, ArrayList<MonitorDTO> monitors) throws Exception{
         BufferedReader file = new BufferedReader(new FileReader(new File(this.properties.getProperty("campaments"))));
 
-        ArrayList<Campament> campaments = new ArrayList<Campament>();
+        ArrayList<CampamentDTO> campaments = new ArrayList<CampamentDTO>();
 
         String line;
 
         while((line = file.readLine()) != null){
             String[] elements = line.split(" ");
 
-            Campament auxCampament = new Campament();
+            CampamentDTO auxCampament = new CampamentDTO();
 
             auxCampament.setId(Integer.parseInt(elements[0]));
             auxCampament.setInitDate(LocalDate.parse(elements[1]));
@@ -192,20 +192,20 @@ public class DataBase {
         return campaments;
     }
 
-    public ArrayList<CompleteInscription> importCompleteInscriptions(ArrayList<Campament> campaments, ArrayList<Assistant> assistants) throws Exception{
+    public ArrayList<CompleteInscriptionDTO> importCompleteInscriptions(ArrayList<CampamentDTO> campaments, ArrayList<AssistantDTO> assistants) throws Exception{
         BufferedReader file = new BufferedReader(new FileReader(new File(this.properties.getProperty("completeinscriptions"))));
 
-        ArrayList<CompleteInscription> inscriptions = new ArrayList<CompleteInscription>();
+        ArrayList<CompleteInscriptionDTO> inscriptions = new ArrayList<CompleteInscriptionDTO>();
 
         String line;
 
         while((line = file.readLine()) != null){
             String elements[] = line.split(" ");
 
-            CompleteInscription auxCompleteInscription;
+            CompleteInscriptionDTO auxCompleteInscription;
 
             boolean flag = false;
-            Campament auxCampament = new Campament();
+            CampamentDTO auxCampament = new CampamentDTO();
             for(int i = 0; i < campaments.size() && !flag; i++){
                 if(campaments.get(i).getId() == (Integer.parseInt(elements[1]))){
                     auxCampament = campaments.get(i);
@@ -214,7 +214,7 @@ public class DataBase {
             }
 
             flag = false;
-            Assistant auxAssistant = new Assistant();
+            AssistantDTO auxAssistant = new AssistantDTO();
             for(int i = 0; i < assistants.size() && !flag; i++){
                 if(assistants.get(i).getId() == (Integer.parseInt(elements[0]))){
                     auxAssistant = assistants.get(i);
@@ -249,20 +249,20 @@ public class DataBase {
         return inscriptions;
     }
 
-    public ArrayList<ParcialInscription> importParcialInscriptions(ArrayList<Campament> campaments, ArrayList<Assistant> assistants) throws Exception{
+    public ArrayList<ParcialInscriptionDTO> importParcialInscriptions(ArrayList<CampamentDTO> campaments, ArrayList<AssistantDTO> assistants) throws Exception{
         BufferedReader file = new BufferedReader(new FileReader(new File(this.properties.getProperty("parcialinscriptions"))));
 
-        ArrayList<ParcialInscription> inscriptions = new ArrayList<ParcialInscription>();
+        ArrayList<ParcialInscriptionDTO> inscriptions = new ArrayList<ParcialInscriptionDTO>();
 
         String line;
 
         while((line = file.readLine()) != null){
             String elements[] = line.split(" ");
 
-            ParcialInscription auxParcialInscription;
+            ParcialInscriptionDTO auxParcialInscription;
 
             boolean flag = false;
-            Campament auxCampament = new Campament();
+            CampamentDTO auxCampament = new CampamentDTO();
             for(int i = 0; i < campaments.size() && !flag; i++){
                 if(campaments.get(i).getId() == (Integer.parseInt(elements[1]))){
                     auxCampament = campaments.get(i);
@@ -271,7 +271,7 @@ public class DataBase {
             }
 
             flag = true;
-            Assistant auxAssistant = new Assistant();
+            AssistantDTO auxAssistant = new AssistantDTO();
             for(int i = 0; i < assistants.size() && !flag; i++){
                 if(assistants.get(i).getId() == (Integer.parseInt(elements[0]))){
                     auxAssistant = assistants.get(i);
@@ -299,23 +299,23 @@ public class DataBase {
         return inscriptions;
     }
 
-    public void exportMonitors(ArrayList<Monitor> monitors) throws Exception{
+    public void exportMonitors(ArrayList<MonitorDTO> monitors) throws Exception{
         BufferedWriter file = new BufferedWriter(new FileWriter(new File(this.properties.getProperty("monitors"))));
 
-        for(Monitor monitor: monitors){
+        for(MonitorDTO monitor: monitors){
             file.write(monitor.getID() + " " + monitor.getName() + " " + monitor.getSurname() + " " + monitor.isEspecial() + "\n");
         }
 
         file.close();
     }
 
-    public void exportActivities(ArrayList<Activity> activities) throws Exception{
+    public void exportActivities(ArrayList<ActivityDTO> activities) throws Exception{
         BufferedWriter file = new BufferedWriter(new FileWriter(new File(this.properties.getProperty(("activities")))));
 
-        for(Activity activity: activities){
+        for(ActivityDTO activity: activities){
             String line = activity.getname() + " " + activity.getLevel() + " " + activity.getSchendule() + " " + activity.getMaxParticipants() + " " + activity.getNumMonitors();
 
-            for(Monitor monitor: activity.getMonitors()){
+            for(MonitorDTO monitor: activity.getMonitors()){
                 line += (" " + (monitor.getID()));
             }
             
@@ -325,29 +325,29 @@ public class DataBase {
         file.close();
     }
 
-    public void exportAssistants(ArrayList<Assistant> assistants) throws Exception{
+    public void exportAssistants(ArrayList<AssistantDTO> assistants) throws Exception{
         BufferedWriter file = new BufferedWriter(new FileWriter(new File(this.properties.getProperty("assistants"))));
 
-        for(Assistant assistant: assistants){
+        for(AssistantDTO assistant: assistants){
             file.write(assistant.getId() + " " + assistant.getName() + " " + assistant.getSurname() + " " + assistant.getDate() + " " + assistant.getAtention() + "\n");
         }
 
         file.close();
     }
 
-    public void exportCampaments(ArrayList<Campament> campaments) throws Exception{
+    public void exportCampaments(ArrayList<CampamentDTO> campaments) throws Exception{
         BufferedWriter file = new BufferedWriter(new FileWriter(new File(this.properties.getProperty("campaments"))));
 
-        for(Campament campament: campaments){
+        for(CampamentDTO campament: campaments){
             String line = campament.getId() + " " + campament.getInitDate() + " " + campament.getFinalDate() + " " + campament.getMaxAssistants() + " " + campament.getLevel();
 
-            for(Activity activity: (campament.getActivities())){
+            for(ActivityDTO activity: (campament.getActivities())){
                 line += (" " + activity.getname());
             }
 
             line += " /";
 
-            for(Monitor monitor: (campament.getMonitors())){
+            for(MonitorDTO monitor: (campament.getMonitors())){
                 line += (" " + monitor.getID());
             }
 
@@ -357,20 +357,20 @@ public class DataBase {
         file.close();
     }
 
-    public void exportCompleteInscriptions(ArrayList<CompleteInscription> inscriptions) throws Exception{
+    public void exportCompleteInscriptions(ArrayList<CompleteInscriptionDTO> inscriptions) throws Exception{
         BufferedWriter file = new BufferedWriter(new FileWriter(new File(this.properties.getProperty("completeinscriptions"))));
 
-        for(CompleteInscription inscription: inscriptions){
+        for(CompleteInscriptionDTO inscription: inscriptions){
             file.write(inscription.getIdParticipant() + " " + inscription.getIdCampament() + " " + inscription.getDate() + " " + inscription.getPrice() + " " + inscription.getCancellation() + " " + inscription.getSchendule() + "\n");
         }
 
         file.close();
     }
 
-    public void exportParcialInscriptions(ArrayList<ParcialInscription> inscriptions) throws Exception{
+    public void exportParcialInscriptions(ArrayList<ParcialInscriptionDTO> inscriptions) throws Exception{
         BufferedWriter file = new BufferedWriter(new FileWriter(new File(this.properties.getProperty("parcialinscriptions"))));
 
-        for(ParcialInscription inscription: inscriptions){
+        for(ParcialInscriptionDTO inscription: inscriptions){
             file.write(inscription.getIdParticipant() + " " + inscription.getIdCampament() + " " + inscription.getDate() + " " + inscription.getPrice() + " " + inscription.getCancellation() + " " + inscription.getSchendule() + "\n");
         }
 

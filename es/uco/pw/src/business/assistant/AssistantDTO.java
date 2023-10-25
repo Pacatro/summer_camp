@@ -1,4 +1,4 @@
-package es.uco.pw.src.business.assistant;
+package business.assistant;
 import java.time.LocalDate;
 
 /**
@@ -16,9 +16,9 @@ public class AssistantDTO {
 
 	/*Constructores*/
 
-	public Assistant(){}
+	public AssistantDTO(){}
 
-	public Assistant(int id, String name, String surname, LocalDate date, boolean atention){
+	public AssistantDTO(int id, String name, String surname, LocalDate date, boolean atention){
 		this.id=id;
 		this.name=name;
 		this.surname=surname;

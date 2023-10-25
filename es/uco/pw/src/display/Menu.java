@@ -1,32 +1,32 @@
-package menu;
+package display;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import classes.Activity;
-import classes.Assistant;
-import classes.Campament;
-import classes.Monitor;
-import enums.Level;
-import enums.Schendule;
-import factory.CompleteInscription;
-import factory.ParcialInscription;
-import managers.AssistantManager;
-import managers.CampamentsManager;
-import managers.InscriptionsManager;
+import business.activity.ActivityDTO;
+import business.assistant.AssistantDTO;
+import business.campament.CampamentDTO;
+import business.monitor.MonitorDTO;
+import business.level.Level;
+import business.schendule.Schendule;
+import business.factory.CompleteInscriptionDTO;
+import business.factory.ParcialInscriptionDTO;
+import business.managers.AssistantManager;
+import business.managers.CampamentsManager;
+import business.managers.InscriptionsManager;
 
 /**
  * Represents a menu for managing the system's assistants, campaments, and inscriptions.
  */
 public class Menu {
     private Scanner scanner;
-    private ArrayList<Monitor> monitors;
-    private ArrayList<Activity> activities;
-    private ArrayList<Assistant> assistants;
-    private ArrayList<Campament> campaments;
-    private ArrayList<CompleteInscription> completeInscriptions;
-    private ArrayList<ParcialInscription> parcialInscriptions;
+    private ArrayList<MonitorDTO> monitors;
+    private ArrayList<ActivityDTO> activities;
+    private ArrayList<AssistantDTO> assistants;
+    private ArrayList<CampamentDTO> campaments;
+    private ArrayList<CompleteInscriptionDTO> completeInscriptions;
+    private ArrayList<ParcialInscriptionDTO> parcialInscriptions;
 
     /**
      * Initializes a new Menu instance with the required data.
@@ -39,8 +39,8 @@ public class Menu {
      * @param completeInscriptions The list of complete inscriptions in the system.
      * @param parcialInscriptions  The list of parcial inscriptions in the system.
      */
-    public Menu(Scanner scanner, ArrayList<Monitor> monitors, ArrayList<Activity> activities, ArrayList<Assistant> assistants,
-                ArrayList<Campament> campaments, ArrayList<CompleteInscription> completeInscriptions, ArrayList<ParcialInscription> parcialInscriptions){
+    public Menu(Scanner scanner, ArrayList<MonitorDTO> monitors, ArrayList<ActivityDTO> activities, ArrayList<AssistantDTO> assistants,
+                ArrayList<CampamentDTO> campaments, ArrayList<CompleteInscriptionDTO> completeInscriptions, ArrayList<ParcialInscriptionDTO> parcialInscriptions){
         
         this.scanner = scanner;
         this.monitors = monitors;
@@ -107,7 +107,7 @@ public class Menu {
                 case 1:
                     System.out.println("Creando asistente...");
                     
-                    Assistant assistant;
+                    AssistantDTO assistant;
 
                     System.out.print("Introduzca el id del asistente: ");
                     int assistantID = Integer.parseInt(this.scanner.nextLine());
@@ -133,7 +133,7 @@ public class Menu {
                     System.out.print("¿El asistente necesita atencion especial? (true/false): ");
                     boolean atention = Boolean.parseBoolean(this.scanner.nextLine());
                     
-                    assistant = new Assistant(assistantID, assistantName, assistantSurname, assistantBday, atention);
+                    assistant = new AssistantDTO(assistantID, assistantName, assistantSurname, assistantBday, atention);
 
                     if(!manager.register(assistant, this.assistants)){
                         System.out.println("\nNo se ha podido registrar al asistente.");
@@ -344,7 +344,7 @@ public class Menu {
                         selectedActivityIndex = Integer.parseInt(this.scanner.nextLine());
                     }
             
-                    Activity activity = activities.get(selectedActivityIndex);
+                    ActivityDTO activity = activities.get(selectedActivityIndex);
 
                     int numMonitorsNeeded = activity.getNumMonitors();
                     System.out.println("Número de monitores a asociar a esta actividad: " + numMonitorsNeeded);
@@ -392,7 +392,7 @@ public class Menu {
                         selectedCampamentIndex = this.scanner.nextInt();
                         this.scanner.nextLine();
                     }
-                    Campament selectedCampament = campaments.get(selectedCampamentIndex);
+                    CampamentDTO selectedCampament = campaments.get(selectedCampamentIndex);
                     Level campamentLevel = selectedCampament.getLevel();
                     
                     for (int j = 0; j < activities.size(); j++) {
@@ -430,7 +430,7 @@ public class Menu {
                         System.out.println("Selecciona un campamento:");
                     }
             
-                    Campament selectedCampament2= campaments.get(selectedCampamentIndex3);
+                    CampamentDTO selectedCampament2= campaments.get(selectedCampamentIndex3);
             
                     for (int j = 0; j < monitors.size(); j++) {
                         System.out.println(j + ". " + monitors.get(j).getName());
@@ -486,7 +486,7 @@ public class Menu {
             System.out.print("Indique el id del campamento: ");
             int campId = Integer.parseInt(this.scanner.nextLine());
             
-            Campament campament = new Campament();
+            CampamentDTO campament = new CampamentDTO();
             boolean flag = false;
             for(int i = 0; i < this.campaments.size() && !flag; i++){
                 if(this.campaments.get(i).getId() == campId){
@@ -504,7 +504,7 @@ public class Menu {
             System.out.print("Indique el id del asistente: ");
             int assisId = Integer.parseInt(this.scanner.nextLine());
 
-            Assistant assistant = new Assistant();
+            AssistantDTO assistant = new AssistantDTO();
             flag = false;
             for(int i = 0; i < this.assistants.size() && !flag; i++){
                 if(this.assistants.get(i).getId() == assisId){

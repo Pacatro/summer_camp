@@ -1,12 +1,12 @@
-package managers;
+package business.managers;
 
 import java.util.ArrayList;
 
-import classes.Activity;
-import classes.Campament;
-import classes.Monitor;
-import enums.Level;
-import enums.Schendule;
+import business.activity.ActivityDTO;
+import business.campament.CampamentDTO;
+import business.monitor.MonitorDTO;
+import business.level.Level;
+import business.schendule.Schendule;
 
 import java.time.LocalDate;
 
@@ -25,9 +25,9 @@ public class CampamentsManager {
      * @param max_participants The maximum number of participants for the activity.
      * @param num_monitors     The number of monitors for the activity.
      */
-    public void createActivity(ArrayList<Activity> activities, String name, Level level, Schendule schendule, int max_participants, int num_monitors) throws Exception {
+    public void createActivity(ArrayList<ActivityDTO> activities, String name, Level level, Schendule schendule, int max_participants, int num_monitors) throws Exception {
         
-        Activity newActivity = new Activity(name, level, schendule, max_participants, num_monitors);
+        ActivityDTO newActivity = new ActivityDTO(name, level, schendule, max_participants, num_monitors);
         activities.add(newActivity);
     }
 
@@ -40,10 +40,10 @@ public class CampamentsManager {
      * @param surname     The surname of the monitor.
      * @param isEspecial  Whether the monitor is a special needs monitor (true/false).
      */
-    public void createMonitor(ArrayList<Monitor> monitors, int id, String name, String surname, boolean isEspecial)
+    public void createMonitor(ArrayList<MonitorDTO> monitors, int id, String name, String surname, boolean isEspecial)
             throws Exception {
 
-        Monitor newMonitor = new Monitor(id, name, surname, isEspecial);
+        MonitorDTO newMonitor = new MonitorDTO(id, name, surname, isEspecial);
         monitors.add(newMonitor);
 
     }
@@ -57,10 +57,10 @@ public class CampamentsManager {
      * @param finalDate  The end date of the campament.
      * @param level      The level of the campament.
      */
-    public void createCampaments(ArrayList<Campament> campaments, int id, LocalDate initDate, LocalDate finalDate,
+    public void createCampaments(ArrayList<CampamentDTO> campaments, int id, LocalDate initDate, LocalDate finalDate,
             Level level) throws Exception {
         
-        Campament nuevoCampamento = new Campament(id, initDate, finalDate, level);
+        CampamentDTO nuevoCampamento = new CampamentDTO(id, initDate, finalDate, level);
         campaments.add(nuevoCampamento);
 
     }
@@ -73,9 +73,9 @@ public class CampamentsManager {
      * @param selectedMonitorIndex   The index of the selected monitor.
      * @param activity               The activity to associate with the monitor.
      */
-    public void associateMonitorsToActivities(ArrayList<Activity> activities, ArrayList<Monitor> monitors, int selectedMonitorIndex, Activity activity) {
+    public void associateMonitorsToActivities(ArrayList<ActivityDTO> activities, ArrayList<MonitorDTO> monitors, int selectedMonitorIndex, ActivityDTO activity) {
         
-        Monitor selectedMonitor = monitors.get(selectedMonitorIndex);
+        MonitorDTO selectedMonitor = monitors.get(selectedMonitorIndex);
         boolean isMonitorAdded = activity.associateMonitor(selectedMonitor);
         if (!isMonitorAdded) {
             System.out.println("No se admiten mas monitores en esta actividad.");
@@ -91,9 +91,9 @@ public class CampamentsManager {
      * @param selectedActivityIndex   The index of the selected activity.
      * @param selectedCampament       The campament to associate the activity with.
      */
-    public void associateActivitiesToCampaments(ArrayList<Campament> campaments, ArrayList<Activity> activities, int selectedActivityIndex, Campament selectedCampament) {
+    public void associateActivitiesToCampaments(ArrayList<CampamentDTO> campaments, ArrayList<ActivityDTO> activities, int selectedActivityIndex, CampamentDTO selectedCampament) {
         
-        Activity selectedActivity = activities.get(selectedActivityIndex);
+        ActivityDTO selectedActivity = activities.get(selectedActivityIndex);
         selectedCampament.associateActivity(selectedActivity);
     }
 
@@ -105,9 +105,9 @@ public class CampamentsManager {
      * @param selectedMonitorIndex    The index of the selected monitor.
      * @param selectedCampament       The campament to associate the monitor with.
      */
-    public void associateMonitorsToCampaments(ArrayList<Campament> campaments, ArrayList<Monitor> monitors, int selectedMonitorIndex, Campament selectedCampament) {
-        Monitor selectedMonitor = monitors.get(selectedMonitorIndex);
-        ArrayList<Monitor> activityMonitors = selectedCampament.getAllActivityMonitors();
+    public void associateMonitorsToCampaments(ArrayList<CampamentDTO> campaments, ArrayList<MonitorDTO> monitors, int selectedMonitorIndex, CampamentDTO selectedCampament) {
+        MonitorDTO selectedMonitor = monitors.get(selectedMonitorIndex);
+        ArrayList<MonitorDTO> activityMonitors = selectedCampament.getAllActivityMonitors();
 
         if (selectedMonitor.isEspecial() && (selectedCampament.existsEspecialAssistant() && !activityMonitors.contains(selectedMonitor))
             ||

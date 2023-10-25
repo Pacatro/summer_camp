@@ -1,4 +1,4 @@
-package es.uco.pw.src.business;
+package classes;
 import java.util.ArrayList;
 
 import enums.Level;
@@ -7,7 +7,7 @@ import enums.Schendule;
 /**
  * Represents an activity of the system.
  */
-public class ActivityDTO {
+public class Activity {
     
     /* Atributos */
     private String name;

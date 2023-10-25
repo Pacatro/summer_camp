@@ -9,7 +9,7 @@ import enums.Level;
 /**
  * Represents a campament for the system.
  */
-public class CampamentDTO {
+public class Campament{
     private int id;
     private LocalDate initDate;
     private LocalDate finalDate;

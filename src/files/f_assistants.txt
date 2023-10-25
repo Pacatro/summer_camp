@@ -1,4 +1,0 @@
-0 nombre apellido 2003-10-12 true
-1 nombre2 apellido2 2005-10-12 false
-69 Paco Algar 2003-09-15 false
-2 Fulanito Fulanito 2003-08-02 true

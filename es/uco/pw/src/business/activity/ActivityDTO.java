@@ -1,4 +1,4 @@
-package classes;
+package es.uco.pw.src.business;
 import java.util.ArrayList;
 
 import enums.Level;
@@ -7,7 +7,7 @@ import enums.Schendule;
 /**
  * Represents an activity of the system.
  */
-public class Activity {
+public class ActivityDTO {
     
     /* Atributos */
     private String name;
@@ -93,16 +93,6 @@ public class Activity {
                                 + this.schendule + ", el maximo de participantes es " + this.max_participants
                                 + " y los monitores son " + this.num_monitors + ": " + monitors.toString();
         return activityInfo;
-    }
-
-    public boolean associateMonitor(Monitor newMonitor){
-        
-        if(this.monitors.size() < this.num_monitors){
-            this.monitors.add(newMonitor);
-            return true;
-        }
-        
-        return false;
     }
 
 }

@@ -1,10 +1,10 @@
-package classes;
+package es.uco.pw.src.business.assistant;
 import java.time.LocalDate;
 
 /**
  * Represents a assistant of the system.
  */
-public class Assistant {
+public class AssistantDTO {
 
 	/*Atributos */
 

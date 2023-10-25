@@ -1,7 +1,0 @@
-DROP DATABASE IF EXISTS i12gafen;
-CREATE DATABASE IF NOT EXISTS i12gafen;
-USE i12gafen;
-
-CREATE TABLE activities (
-    id INT PRIMARY KEY;
-)

@@ -7,7 +7,7 @@ import classes.Activity;
 import classes.Assistant;
 import classes.Campament;
 import classes.Monitor;
-import database.DataBase;
+import data.DataBase;
 import factory.CompleteInscription;
 import factory.ParcialInscription;
 import menu.Menu;

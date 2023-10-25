@@ -1,8 +1,8 @@
-package factory;
+package business.factory;
 
-import classes.Assistant;
-import classes.Campament;
-import enums.Schendule;
+import business.assistant.AssistantDTO;
+import business.campament.CampamentDTO;
+import business.schendule.Schendule;
 
 import java.time.LocalDate;
 
@@ -22,7 +22,7 @@ public abstract class InscriptionFactory {
      * @param date       The date on which the inscription is made.
      * @return An instance of CompleteInscription representing the complete inscription.
      */
-    public abstract CompleteInscription createCompleteInscription(Campament campament, Assistant assistant, Schendule schendule, LocalDate date);
+    public abstract CompleteInscriptionDTO createCompleteInscription(CampamentDTO campament, AssistantDTO assistant, Schendule schendule, LocalDate date);
     
     /**
      * Creates a partial inscription for a given camp and assistant on a specific date.
@@ -32,5 +32,5 @@ public abstract class InscriptionFactory {
      * @param date       The date on which the inscription is made.
      * @return An instance of ParcialInscription representing the partial inscription.
      */
-    public abstract ParcialInscription createParcialInscription(Campament campament, Assistant assistant, LocalDate date);
+    public abstract ParcialInscriptionDTO createParcialInscription(CampamentDTO campament, AssistantDTO assistant, LocalDate date);
 }

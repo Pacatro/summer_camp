@@ -1,31 +1,34 @@
-package classes;
+package business.campament;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-import enums.Level;
+import business.level.Level;
+import business.activity.ActivityDTO;
+import business.monitor.MonitorDTO;
+import business.assistant.AssistantDTO;
 
 /**
  * Represents a campament for the system.
  */
-public class Campament{
+public class CampamentDTO{
     private int id;
     private LocalDate initDate;
     private LocalDate finalDate;
     private int maxAssistants;
     private Level level;
-    private ArrayList<Activity> activities;
-    private ArrayList<Monitor> monitors;
-    private ArrayList<Assistant> assistants;
+    private ArrayList<ActivityDTO> activities;
+    private ArrayList<MonitorDTO> monitors;
+    private ArrayList<AssistantDTO> assistants;
 
     /**
      * Default constructor for a Campament. Initializes activity and monitor lists.
      */
-    public Campament() {
-        this.activities = new ArrayList<Activity>();
-        this.monitors = new ArrayList<Monitor>();
-        this.assistants = new ArrayList<Assistant>();
+    public CampamentDTO() {
+        this.activities = new ArrayList<ActivityDTO>();
+        this.monitors = new ArrayList<MonitorDTO>();
+        this.assistants = new ArrayList<AssistantDTO>();
     }
 
     /**
@@ -35,22 +38,22 @@ public class Campament{
      * @param initDate  The start date of the camp.
      * @param finalDate The end date of the camp.
      */
-    public Campament(int id, LocalDate initDate, LocalDate finalDate, Level level) {
+    public CampamentDTO(int id, LocalDate initDate, LocalDate finalDate, Level level) {
         this.id = id;
         this.initDate = initDate;
         this.finalDate = finalDate;
-        this.activities = new ArrayList<Activity>();
-        this.monitors = new ArrayList<Monitor>();
-        this.assistants = new ArrayList<Assistant>();
+        this.activities = new ArrayList<ActivityDTO>();
+        this.monitors = new ArrayList<MonitorDTO>();
+        this.assistants = new ArrayList<AssistantDTO>();
     }
 
-    public Campament(int id, LocalDate initDate, LocalDate finalDate, int maxAssistants, Level level) {
+    public CampamentDTO(int id, LocalDate initDate, LocalDate finalDate, int maxAssistants, Level level) {
         this.id = id;
         this.initDate = initDate;
         this.finalDate = finalDate;
-        this.activities = new ArrayList<Activity>();
-        this.monitors = new ArrayList<Monitor>();
-        this.assistants = new ArrayList<Assistant>();
+        this.activities = new ArrayList<ActivityDTO>();
+        this.monitors = new ArrayList<MonitorDTO>();
+        this.assistants = new ArrayList<AssistantDTO>();
         this.maxAssistants = maxAssistants;
         this.level = level;
     }
@@ -75,11 +78,11 @@ public class Campament{
         return level;
     }
 
-    public ArrayList<Activity> getActivities() {
+    public ArrayList<ActivityDTO> getActivities() {
         return activities;
     }
 
-    public ArrayList<Monitor> getMonitors() {
+    public ArrayList<MonitorDTO> getMonitors() {
         return monitors;
     }
 
@@ -103,15 +106,15 @@ public class Campament{
         this.level = level;
     }
 
-    public void setActivities(ArrayList<Activity> activities) {
+    public void setActivities(ArrayList<ActivityDTO> activities) {
         this.activities = activities;
     }
 
-    public void setMonitors(ArrayList<Monitor> monitors) {
+    public void setMonitors(ArrayList<MonitorDTO> monitors) {
         this.monitors = monitors;
     }
 
-    public void setAssistants(ArrayList<Assistant> assistants) {
+    public void setAssistants(ArrayList<AssistantDTO> assistants) {
         this.assistants = assistants;
     }
 
@@ -129,7 +132,7 @@ public class Campament{
      * 
      * @param activity
      */
-    public void associateActivity(Activity activity) {
+    public void associateActivity(ActivityDTO activity) {
         if (activity.getLevel() != this.level) {
             System.out.println("El nivel de la actividad no coincide con el nivel del campamento.");
             return;
@@ -142,8 +145,8 @@ public class Campament{
      * 
      * @param monitor
      */
-    public void associateMonitor(Monitor monitor) {
-        for (Activity a : this.activities) {
+    public void associateMonitor(MonitorDTO monitor) {
+        for (ActivityDTO a : this.activities) {
             if (a.getMonitors().contains(monitor))
                 this.monitors.add(monitor);
         }
@@ -154,13 +157,13 @@ public class Campament{
      * 
      * @param monitor
      */
-    public void associateSpecialMonitor(Monitor monitor) {
+    public void associateSpecialMonitor(MonitorDTO monitor) {
         if (!monitor.isEspecial()) {
             System.out.println("El monitor no es de atención especial");
             return;
         }
 
-        for (Activity a : this.activities) {
+        for (ActivityDTO a : this.activities) {
             if (a.getMonitors().contains(monitor)) {
                 System.out.println("El monitor ya se encuentra en una actividad");
                 return;
@@ -171,7 +174,7 @@ public class Campament{
     }
 
     public boolean existsEspecialAssistant() {
-        for (Assistant it : this.assistants) {
+        for (AssistantDTO it : this.assistants) {
             if (it.getAtention())
                 return true;
         }
@@ -179,10 +182,10 @@ public class Campament{
     }
 
     //sacamos todos los monitores asociados a actividades. (Para asociar un monitor a un campamento antes tiene que estar asociado a una actividad.)
-    public ArrayList<Monitor> getAllActivityMonitors() { 
-        ArrayList<Monitor> ActivityMonitors = new ArrayList<Monitor>();
-        for (Activity activity : getActivities()) {
-            for (Monitor monitor : activity.getMonitors()) {
+    public ArrayList<MonitorDTO> getAllActivityMonitors() { 
+        ArrayList<MonitorDTO> ActivityMonitors = new ArrayList<MonitorDTO>();
+        for (ActivityDTO activity : getActivities()) {
+            for (MonitorDTO monitor : activity.getMonitors()) {
                 if (!ActivityMonitors.contains(monitor)) {
                     ActivityMonitors.add(monitor);
                 }

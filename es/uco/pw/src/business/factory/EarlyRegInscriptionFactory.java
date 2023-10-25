@@ -1,11 +1,11 @@
-package factory;
+package business.factory;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
-import classes.Assistant;
-import classes.Campament;
-import enums.Schendule;
+import business.assistant.AssistantDTO;
+import business.campament.CampamentDTO;
+import business.schendule.Schendule;
 
 /**
  * A factory for creating early registration inscriptions for a camp.
@@ -13,8 +13,8 @@ import enums.Schendule;
  */
 public class EarlyRegInscriptionFactory extends InscriptionFactory {
     @Override
-    public CompleteInscription createCompleteInscription(Campament campament, Assistant assistant, Schendule schendule, LocalDate date){
-        CompleteInscription cInscription = new CompleteInscription(schendule);
+    public CompleteInscriptionDTO createCompleteInscription(CampamentDTO campament, AssistantDTO assistant, Schendule schendule, LocalDate date){
+        CompleteInscriptionDTO cInscription = new CompleteInscriptionDTO(schendule);
 
         //LocalDate date = LocalDate.now();
         LocalDate campamentDate = campament.getInitDate();
@@ -35,8 +35,8 @@ public class EarlyRegInscriptionFactory extends InscriptionFactory {
     }
 
     @Override
-    public ParcialInscription createParcialInscription(Campament campament, Assistant assistant, LocalDate date){
-        ParcialInscription pInscription = new ParcialInscription();
+    public ParcialInscriptionDTO createParcialInscription(CampamentDTO campament, AssistantDTO assistant, LocalDate date){
+        ParcialInscriptionDTO pInscription = new ParcialInscriptionDTO();
 
         //LocalDate date = LocalDate.now();
         LocalDate campamentDate = campament.getInitDate();

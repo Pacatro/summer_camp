@@ -1,8 +1,8 @@
-package factory;
+package business.factory;
 
 import java.time.LocalDate;
 
-import enums.Schendule;
+import business.schendule.Schendule;
 
 /**
  * Represents a model inscription.

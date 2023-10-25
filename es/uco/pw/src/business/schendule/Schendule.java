@@ -1,4 +1,4 @@
-package enums;
+package business.schendule;
 
 /**
  * Represents the schendule of an activity.

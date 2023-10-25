@@ -1,18 +1,18 @@
-package factory;
+package business.factory;
 
-import enums.Schendule;
+import business.schendule.Schendule;
 
 /**
  * Represents a partial inscription for a camp with morning schedule.
  * This class extends the general Inscription class to provide specific functionality
  * for partial inscriptions with a detailed string representation.
  */
-public class ParcialInscription extends Inscription{
+public class ParcialInscriptionDTO extends Inscription{
     
     /**
      * Constructs a partial inscription with a morning schedule.
      */
-    public ParcialInscription(){
+    public ParcialInscriptionDTO(){
         setSchendule(Schendule.MORNING);
     }
 

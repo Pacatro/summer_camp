@@ -1,13 +1,14 @@
-package classes;
+package business.activity;
 import java.util.ArrayList;
 
-import enums.Level;
-import enums.Schendule;
+import business.level.Level;
+import business.schendule.Schendule;
+import business.monitor.MonitorDTO;
 
 /**
  * Represents an activity of the system.
  */
-public class Activity {
+public class ActivityDTO {
     
     /* Atributos */
     private String name;
@@ -20,26 +21,26 @@ public class Activity {
 
     private int num_monitors;
 
-    private ArrayList<Monitor> monitors;
+    private ArrayList<MonitorDTO> monitors;
 
     /* Constructores */
 
-    public Activity(){
+    public ActivityDTO(){
         this.name = "";
         this.level = Level.CHILD;
         this.schendule = Schendule.MORNING;
         this.max_participants = 0;
         this.num_monitors = 0;
-        this.monitors = new ArrayList<Monitor>();
+        this.monitors = new ArrayList<MonitorDTO>();
     }
 
-    public Activity(String name, Level level, Schendule schendule, int max_participants, int num_monitors){
+    public ActivityDTO(String name, Level level, Schendule schendule, int max_participants, int num_monitors){
         this.name = name;
         this.level = level;
         this.schendule = schendule;
         this.max_participants = max_participants;
         this.num_monitors = num_monitors;
-        this.monitors = new ArrayList<Monitor>();
+        this.monitors = new ArrayList<MonitorDTO>();
     }
 
     /* Metodos */
@@ -64,7 +65,7 @@ public class Activity {
         return num_monitors;
     }
 
-    public ArrayList<Monitor> getMonitors(){
+    public ArrayList<MonitorDTO> getMonitors(){
         return monitors;
     }
 

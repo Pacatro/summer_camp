@@ -75,12 +75,12 @@ public class CampamentsManager {
      */
     public void associateMonitorsToActivities(ArrayList<ActivityDTO> activities, ArrayList<MonitorDTO> monitors, int selectedMonitorIndex, ActivityDTO activity) {
         
-        MonitorDTO selectedMonitor = monitors.get(selectedMonitorIndex);
-        boolean isMonitorAdded = activity.associateMonitor(selectedMonitor);
-        if (!isMonitorAdded) {
-            System.out.println("No se admiten mas monitores en esta actividad.");
-            return;
-        }
+        // MonitorDTO selectedMonitor = monitors.get(selectedMonitorIndex);
+        // boolean isMonitorAdded = activity.associateMonitor(selectedMonitor);
+        // if (!isMonitorAdded) {
+        //     System.out.println("No se admiten mas monitores en esta actividad.");
+        //     return;
+        // }
     }
 
     /**

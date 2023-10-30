@@ -55,53 +55,53 @@ public class DataBase {
         
     }
 
-    public ArrayList<ActivityDTO> importActivities(ArrayList<MonitorDTO> monitors) throws Exception{
-        BufferedReader file = new BufferedReader(new FileReader(new File(this.properties.getProperty("activities"))));
+    // public ArrayList<ActivityDTO> importActivities(ArrayList<MonitorDTO> monitors) throws Exception{
+    //     BufferedReader file = new BufferedReader(new FileReader(new File(this.properties.getProperty("activities"))));
 
-        ArrayList<ActivityDTO> activities = new ArrayList<ActivityDTO>();
+    //     ArrayList<ActivityDTO> activities = new ArrayList<ActivityDTO>();
 
-        String line;
+    //     String line;
 
-        while((line = file.readLine()) != null){
-            String[] elements = line.split(" ");
+    //     while((line = file.readLine()) != null){
+    //         String[] elements = line.split(" ");
             
-            ActivityDTO auxActivity = new ActivityDTO();
-            auxActivity.setname(elements[0]);
-            auxActivity.setMaxParticipants(Integer.parseInt(elements[3]));
-            auxActivity.setNumMonitors(Integer.parseInt(elements[4]));
+    //         ActivityDTO auxActivity = new ActivityDTO();
+    //         auxActivity.setname(elements[0]);
+    //         auxActivity.setMaxParticipants(Integer.parseInt(elements[3]));
+    //         auxActivity.setNumMonitors(Integer.parseInt(elements[4]));
 
-            if(elements[1].equals("CHILD")){
-                auxActivity.setLevel(Level.CHILD);
-            }else if(elements[1].equals("YOUTH")){
-                auxActivity.setLevel(Level.YOUTH);
-            }else if(elements[1].equals("TEENAGER")){
-                auxActivity.setLevel(Level.TEENAGER);
-            }
+    //         if(elements[1].equals("CHILD")){
+    //             auxActivity.setLevel(Level.CHILD);
+    //         }else if(elements[1].equals("YOUTH")){
+    //             auxActivity.setLevel(Level.YOUTH);
+    //         }else if(elements[1].equals("TEENAGER")){
+    //             auxActivity.setLevel(Level.TEENAGER);
+    //         }
 
-            if(elements[2].equals("MORNING")){
-                auxActivity.setSchendule(Schendule.MORNING);
-            }else if(elements[2].equals("AFTERNOON")){
-                auxActivity.setSchendule(Schendule.AFTERNOON);
-            }
+    //         if(elements[2].equals("MORNING")){
+    //             auxActivity.setSchendule(Schendule.MORNING);
+    //         }else if(elements[2].equals("AFTERNOON")){
+    //             auxActivity.setSchendule(Schendule.AFTERNOON);
+    //         }
 
-            for(int i = 5; i < elements.length; i++){
-                boolean flag = false;
-                for(int j = 0; j < monitors.size() && !flag; j++){
-                    if(monitors.get(j).getID() == (Integer.parseInt(elements[i]))){
-                        auxActivity.associateMonitor(monitors.get(j));
-                        flag = true;
-                    }
-                }
-            }
+    //         for(int i = 5; i < elements.length; i++){
+    //             boolean flag = false;
+    //             for(int j = 0; j < monitors.size() && !flag; j++){
+    //                 if(monitors.get(j).getID() == (Integer.parseInt(elements[i]))){
+    //                     auxActivity.associateMonitor(monitors.get(j));
+    //                     flag = true;
+    //                 }
+    //             }
+    //         }
             
-            activities.add(auxActivity);
-        }
+    //         activities.add(auxActivity);
+    //     }
 
-        file.close();
+    //     file.close();
 
-        return activities;
+    //     return activities;
 
-    }
+    // }
 
     public ArrayList<AssistantDTO> importAssistants() throws Exception{
         BufferedReader file = new BufferedReader(new FileReader(new File(this.properties.getProperty("assistants"))));

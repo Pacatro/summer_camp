@@ -48,7 +48,7 @@ public class Main {
         // DB.exportParcialInscriptions(parcialInscriptions);
 
         Properties properties = new Properties();
-        properties.load(new FileInputStream("SQLproperties.txt"));
+        properties.load(new FileInputStream("sqlProperties.txt"));
         ConnectionDB connectionDB = new ConnectionDB(properties);
 
         Statement stmt = null;

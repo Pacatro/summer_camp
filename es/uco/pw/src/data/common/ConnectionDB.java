@@ -27,12 +27,12 @@ public class ConnectionDB {
         this.url = "jdbc:mysql://" + host + ":3306/" + dbName;
 
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection(url, username, password);
+            Class.forName("com.mysql.jdbc.Driver");
+            this.conn = DriverManager.getConnection(url, username, password);
         } catch (Exception e) {
             System.out.println(e);
         }
 
-        return conn;
+        return this.conn;
     }
 }

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import es.uco.pw.business.level.Level;
 import es.uco.pw.business.activity.ActivityDTO;
 import es.uco.pw.business.monitor.MonitorDTO;
-import es.uco.pw.business.assistant.AssistantDTO;
+//import es.uco.pw.business.assistant.AssistantDTO;
 
 /**
  * Represents a campament for the system.
@@ -20,7 +20,7 @@ public class CampamentDTO{
     private Level level;
     private ArrayList<ActivityDTO> activities;
     private ArrayList<MonitorDTO> monitors;
-    private ArrayList<AssistantDTO> assistants;
+    //private ArrayList<AssistantDTO> assistants;
 
     /**
      * Default constructor for a Campament. Initializes activity and monitor lists.
@@ -28,7 +28,7 @@ public class CampamentDTO{
     public CampamentDTO() {
         this.activities = new ArrayList<ActivityDTO>();
         this.monitors = new ArrayList<MonitorDTO>();
-        this.assistants = new ArrayList<AssistantDTO>();
+        //this.assistants = new ArrayList<AssistantDTO>();
     }
 
     /**
@@ -44,7 +44,7 @@ public class CampamentDTO{
         this.finalDate = finalDate;
         this.activities = new ArrayList<ActivityDTO>();
         this.monitors = new ArrayList<MonitorDTO>();
-        this.assistants = new ArrayList<AssistantDTO>();
+        //this.assistants = new ArrayList<AssistantDTO>();
     }
 
     public CampamentDTO(int id, LocalDate initDate, LocalDate finalDate, int maxAssistants, Level level) {
@@ -53,7 +53,7 @@ public class CampamentDTO{
         this.finalDate = finalDate;
         this.activities = new ArrayList<ActivityDTO>();
         this.monitors = new ArrayList<MonitorDTO>();
-        this.assistants = new ArrayList<AssistantDTO>();
+        //this.assistants = new ArrayList<AssistantDTO>();
         this.maxAssistants = maxAssistants;
         this.level = level;
     }
@@ -114,9 +114,9 @@ public class CampamentDTO{
         this.monitors = monitors;
     }
 
-    public void setAssistants(ArrayList<AssistantDTO> assistants) {
-        this.assistants = assistants;
-    }
+    // public void setAssistants(ArrayList<AssistantDTO> assistants) {
+    //     this.assistants = assistants;
+    // }
 
     public String toString() {
         String campamentInfo = "El campamento con id: " + this.id + " empieza el " +
@@ -132,65 +132,65 @@ public class CampamentDTO{
      * 
      * @param activity
      */
-    public void associateActivity(ActivityDTO activity) {
-        if (activity.getLevel() != this.level) {
-            System.out.println("El nivel de la actividad no coincide con el nivel del campamento.");
-            return;
-        }
-        this.activities.add(activity);
-    }
+    // public void associateActivity(ActivityDTO activity) {
+    //     if (activity.getLevel() != this.level) {
+    //         System.out.println("El nivel de la actividad no coincide con el nivel del campamento.");
+    //         return;
+    //     }
+    //     this.activities.add(activity);
+    // }
 
     /**
      * Asociate a monitor to the campament.
      * 
      * @param monitor
      */
-    public void associateMonitor(MonitorDTO monitor) {
-        for (ActivityDTO a : this.activities) {
-            if (a.getMonitors().contains(monitor))
-                this.monitors.add(monitor);
-        }
-    }
+    // public void associateMonitor(MonitorDTO monitor) {
+    //     for (ActivityDTO a : this.activities) {
+    //         if (a.getMonitors().contains(monitor))
+    //             this.monitors.add(monitor);
+    //     }
+    // }
 
     /**
      * Asociate a special monitor to the campament.
      * 
      * @param monitor
      */
-    public void associateSpecialMonitor(MonitorDTO monitor) {
-        if (!monitor.isEspecial()) {
-            System.out.println("El monitor no es de atención especial");
-            return;
-        }
+    // public void associateSpecialMonitor(MonitorDTO monitor) {
+    //     if (!monitor.isEspecial()) {
+    //         System.out.println("El monitor no es de atención especial");
+    //         return;
+    //     }
 
-        for (ActivityDTO a : this.activities) {
-            if (a.getMonitors().contains(monitor)) {
-                System.out.println("El monitor ya se encuentra en una actividad");
-                return;
-            }
-        }
+    //     for (ActivityDTO a : this.activities) {
+    //         if (a.getMonitors().contains(monitor)) {
+    //             System.out.println("El monitor ya se encuentra en una actividad");
+    //             return;
+    //         }
+    //     }
 
-        this.monitors.add(monitor);
-    }
+    //     this.monitors.add(monitor);
+    // }
 
-    public boolean existsEspecialAssistant() {
-        for (AssistantDTO it : this.assistants) {
-            if (it.getAtention())
-                return true;
-        }
-        return false;
-    }
+    // public boolean existsEspecialAssistant() {
+    //     for (AssistantDTO it : this.assistants) {
+    //         if (it.getAtention())
+    //             return true;
+    //     }
+    //     return false;
+    // }
 
     //sacamos todos los monitores asociados a actividades. (Para asociar un monitor a un campamento antes tiene que estar asociado a una actividad.)
-    public ArrayList<MonitorDTO> getAllActivityMonitors() { 
-        ArrayList<MonitorDTO> ActivityMonitors = new ArrayList<MonitorDTO>();
-        for (ActivityDTO activity : getActivities()) {
-            for (MonitorDTO monitor : activity.getMonitors()) {
-                if (!ActivityMonitors.contains(monitor)) {
-                    ActivityMonitors.add(monitor);
-                }
-            }
-        }
-        return ActivityMonitors;
-    }
+    // public ArrayList<MonitorDTO> getAllActivityMonitors() { 
+    //     ArrayList<MonitorDTO> ActivityMonitors = new ArrayList<MonitorDTO>();
+    //     for (ActivityDTO activity : getActivities()) {
+    //         for (MonitorDTO monitor : activity.getMonitors()) {
+    //             if (!ActivityMonitors.contains(monitor)) {
+    //                 ActivityMonitors.add(monitor);
+    //             }
+    //         }
+    //     }
+    //     return ActivityMonitors;
+    // }
 }

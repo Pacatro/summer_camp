@@ -96,4 +96,15 @@ public class ActivityDTO {
         return activityInfo;
     }
 
+    //TOOD hacer asociar monitor como dao
+    /*public boolean associateMonitor(Monitor newMonitor){
+        
+        if(this.monitors.size() < this.num_monitors){
+            this.monitors.add(newMonitor);
+            return true;
+        }
+        
+        return false;
+    } */
+
 }

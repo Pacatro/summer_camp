@@ -65,3 +65,9 @@ ALTER TABLE monitors_campaments ADD FOREIGN KEY (monitor_id) REFERENCES monitors
 ALTER TABLE monitors_campaments ADD FOREIGN KEY (camp_id) REFERENCES campaments(camp_id);
 ALTER TABLE inscriptions ADD FOREIGN KEY (campament_id) REFERENCES campaments(camp_id);
 ALTER TABLE inscriptions ADD FOREIGN KEY (ass_id) REFERENCES assistants(ass_id);
+
+INSERT INTO assistants(ass_id, name, surname, birth_date, attention) VALUES
+(1, 'Juan', 'Perez', '1990-01-01', TRUE),
+(2, 'Maria', 'Garcia', '1991-02-02', FALSE);
+
+SELECT * FROM assistants;

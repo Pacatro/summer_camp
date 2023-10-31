@@ -1,4 +1,4 @@
-DB_HOST = oraclepr.uco.es:3306
+DB_HOST = 127.0.0.1
 DB_NAME = i12gafen
-DB_USER = i12gafen
-DB_PASSWORD = contraseña
+DB_USER = paco
+DB_PASSWORD = 3BbMFt6j3*ht7*sQ62%VwkRB9

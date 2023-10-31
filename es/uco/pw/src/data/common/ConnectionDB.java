@@ -1,41 +1,34 @@
 package data.common;
 
-import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.Properties;
 
 public class ConnectionDB {
-
-    private Properties SQLproperties;
+    private Properties sqlProperties;
     private String host;
     private String dbName;
-    private String userName;
+    private String username;
     private String password;
     private String url;
+    private Connection conn;
     
-    public ConnectionDB(String propertiesPath) {
-        // this.SQLproperties = new Properties();
-        // this.SQLproperties.load(new FileInputStream(propertiesPath));
-    }
-
-    public void setSQLproperties(Properties SQLproperties) {
-        this.SQLproperties = SQLproperties;
+    public ConnectionDB(Properties sqlProperties) {
+        this.sqlProperties = sqlProperties;
+        this.conn = null;
     }
 
     public Connection getConnection(){
-        Connection conn = null;
-        
-        this.host = this.SQLproperties.getProperty("DB_HOST");
-        this.dbName = this.SQLproperties.getProperty("DB_NAME");
-        this.userName = this.SQLproperties.getProperty("DB_USER");
-        this.password = this.SQLproperties.getProperty("DB_PASSWORD");
+        this.host = this.sqlProperties.getProperty("DB_HOST");
+        this.dbName = this.sqlProperties.getProperty("DB_NAME");
+        this.username = this.sqlProperties.getProperty("DB_USER");
+        this.password = this.sqlProperties.getProperty("DB_PASSWORD");
 
-        this.url = "jdbc:mysql://" + host + "/" + dbName;
+        this.url = "jdbc:mysql://" + host + ":3306/" + dbName;
 
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection(url, userName, password);
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = DriverManager.getConnection(url, username, password);
         } catch (Exception e) {
             System.out.println(e);
         }

@@ -75,12 +75,12 @@ public class CampamentsManager {
      */
     public void associateMonitorsToActivities(ArrayList<ActivityDTO> activities, ArrayList<MonitorDTO> monitors, int selectedMonitorIndex, ActivityDTO activity) {
         
-        MonitorDTO selectedMonitor = monitors.get(selectedMonitorIndex);
-        boolean isMonitorAdded = activity.associateMonitor(selectedMonitor); //TODO hacer funcion con DAO
-        if (!isMonitorAdded) {
-            System.out.println("No se admiten mas monitores en esta actividad.");
-            return;
-        }
+        // MonitorDTO selectedMonitor = monitors.get(selectedMonitorIndex);
+        // boolean isMonitorAdded = activity.associateMonitor(selectedMonitor); //TODO hacer funcion con DAO
+        // if (!isMonitorAdded) {
+        //     System.out.println("No se admiten mas monitores en esta actividad.");
+        //     return;
+        // }
     }
 
     /**
@@ -93,8 +93,8 @@ public class CampamentsManager {
      */
     public void associateActivitiesToCampaments(ArrayList<CampamentDTO> campaments, ArrayList<ActivityDTO> activities, int selectedActivityIndex, CampamentDTO selectedCampament) {
         
-        ActivityDTO selectedActivity = activities.get(selectedActivityIndex);
-        selectedCampament.associateActivity(selectedActivity);
+        // ActivityDTO selectedActivity = activities.get(selectedActivityIndex);
+        // selectedCampament.associateActivity(selectedActivity);
     }
 
     /**
@@ -106,13 +106,13 @@ public class CampamentsManager {
      * @param selectedCampament       The campament to associate the monitor with.
      */
     public void associateMonitorsToCampaments(ArrayList<CampamentDTO> campaments, ArrayList<MonitorDTO> monitors, int selectedMonitorIndex, CampamentDTO selectedCampament) {
-        MonitorDTO selectedMonitor = monitors.get(selectedMonitorIndex);
-        ArrayList<MonitorDTO> activityMonitors = selectedCampament.getAllActivityMonitors();
+        // MonitorDTO selectedMonitor = monitors.get(selectedMonitorIndex);
+        // ArrayList<MonitorDTO> activityMonitors = selectedCampament.getAllActivityMonitors();
 
-        if (selectedMonitor.isEspecial() && (selectedCampament.existsEspecialAssistant() && !activityMonitors.contains(selectedMonitor))
-            ||
-            !selectedMonitor.isEspecial() && activityMonitors.contains(selectedMonitor)) {
-                selectedCampament.associateMonitor(selectedMonitor);
-        }
+        // if (selectedMonitor.isEspecial() && (selectedCampament.existsEspecialAssistant() && !activityMonitors.contains(selectedMonitor))
+        //     ||
+        //     !selectedMonitor.isEspecial() && activityMonitors.contains(selectedMonitor)) {
+        //         selectedCampament.associateMonitor(selectedMonitor);
+        // }
     }
 }

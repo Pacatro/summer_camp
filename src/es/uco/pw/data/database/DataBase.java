@@ -60,44 +60,44 @@ public class DataBase {
 
         ArrayList<ActivityDTO> activities = new ArrayList<ActivityDTO>();
 
-        String line;
+        // String line;
 
-        while((line = file.readLine()) != null){
-            String[] elements = line.split(" ");
+        // while((line = file.readLine()) != null){
+        //     String[] elements = line.split(" ");
             
-            ActivityDTO auxActivity = new ActivityDTO();
-            auxActivity.setname(elements[0]);
-            auxActivity.setMaxParticipants(Integer.parseInt(elements[3]));
-            auxActivity.setNumMonitors(Integer.parseInt(elements[4]));
+        //     ActivityDTO auxActivity = new ActivityDTO();
+        //     auxActivity.setname(elements[0]);
+        //     auxActivity.setMaxParticipants(Integer.parseInt(elements[3]));
+        //     auxActivity.setNumMonitors(Integer.parseInt(elements[4]));
 
-            if(elements[1].equals("CHILD")){
-                auxActivity.setLevel(Level.CHILD);
-            }else if(elements[1].equals("YOUTH")){
-                auxActivity.setLevel(Level.YOUTH);
-            }else if(elements[1].equals("TEENAGER")){
-                auxActivity.setLevel(Level.TEENAGER);
-            }
+        //     if(elements[1].equals("CHILD")){
+        //         auxActivity.setLevel(Level.CHILD);
+        //     }else if(elements[1].equals("YOUTH")){
+        //         auxActivity.setLevel(Level.YOUTH);
+        //     }else if(elements[1].equals("TEENAGER")){
+        //         auxActivity.setLevel(Level.TEENAGER);
+        //     }
 
-            if(elements[2].equals("MORNING")){
-                auxActivity.setSchendule(Schendule.MORNING);
-            }else if(elements[2].equals("AFTERNOON")){
-                auxActivity.setSchendule(Schendule.AFTERNOON);
-            }
+        //     if(elements[2].equals("MORNING")){
+        //         auxActivity.setSchendule(Schendule.MORNING);
+        //     }else if(elements[2].equals("AFTERNOON")){
+        //         auxActivity.setSchendule(Schendule.AFTERNOON);
+        //     }
 
-            for(int i = 5; i < elements.length; i++){
-                boolean flag = false;
-                for(int j = 0; j < monitors.size() && !flag; j++){
-                    if(monitors.get(j).getID() == (Integer.parseInt(elements[i]))){
-                        auxActivity.associateMonitor(monitors.get(j)); //TODO hacer funcion en DAO
-                        flag = true;
-                    }
-                }
-            }
+        //     for(int i = 5; i < elements.length; i++){
+        //         boolean flag = false;
+        //         for(int j = 0; j < monitors.size() && !flag; j++){
+        //             if(monitors.get(j).getID() == (Integer.parseInt(elements[i]))){
+        //                 auxActivity.associateMonitor(monitors.get(j)); //TODO hacer funcion en DAO
+        //                 flag = true;
+        //             }
+        //         }
+        //     }
             
-            activities.add(auxActivity);
-        }
+        //     activities.add(auxActivity);
+        // }
 
-        file.close();
+        // file.close();
 
         return activities;
 
@@ -137,57 +137,57 @@ public class DataBase {
 
         String line;
 
-        while((line = file.readLine()) != null){
-            String[] elements = line.split(" ");
+        // while((line = file.readLine()) != null){
+        //     String[] elements = line.split(" ");
 
-            CampamentDTO auxCampament = new CampamentDTO();
+        //     CampamentDTO auxCampament = new CampamentDTO();
 
-            auxCampament.setId(Integer.parseInt(elements[0]));
-            auxCampament.setInitDate(LocalDate.parse(elements[1]));
-            auxCampament.setFinalDate(LocalDate.parse(elements[2]));
-            auxCampament.setMaxAssistants(Integer.parseInt(elements[3]));
+        //     auxCampament.setId(Integer.parseInt(elements[0]));
+        //     auxCampament.setInitDate(LocalDate.parse(elements[1]));
+        //     auxCampament.setFinalDate(LocalDate.parse(elements[2]));
+        //     auxCampament.setMaxAssistants(Integer.parseInt(elements[3]));
 
-            if(elements[4].equals("CHILD")){
-                auxCampament.setLevel(Level.CHILD);
-            }else if(elements[4].equals("YOUTH")){
-                auxCampament.setLevel(Level.YOUTH);
-            }else if(elements[4].equals("TEENAGER")){
-                auxCampament.setLevel(Level.TEENAGER);
-            }
+        //     if(elements[4].equals("CHILD")){
+        //         auxCampament.setLevel(Level.CHILD);
+        //     }else if(elements[4].equals("YOUTH")){
+        //         auxCampament.setLevel(Level.YOUTH);
+        //     }else if(elements[4].equals("TEENAGER")){
+        //         auxCampament.setLevel(Level.TEENAGER);
+        //     }
 
-            int i = 5;
+        //     int i = 5;
 
-            while(i < elements.length && !elements[i].equals("/")){
-                boolean flag = false;
-                for(int j = 0; j < activities.size() && !flag; j++){
-                    if(elements[i].equals(activities.get(j).getname())){
-                        auxCampament.associateActivity(activities.get(j));
-                        flag = true;
-                    }
-                }
+        //     while(i < elements.length && !elements[i].equals("/")){
+        //         boolean flag = false;
+        //         for(int j = 0; j < activities.size() && !flag; j++){
+        //             if(elements[i].equals(activities.get(j).getname())){
+        //                 auxCampament.associateActivity(activities.get(j));
+        //                 flag = true;
+        //             }
+        //         }
 
-                i++;
-            }
+        //         i++;
+        //     }
 
-            i++;
+        //     i++;
 
-            while(i < elements.length && !(auxCampament.getActivities().isEmpty())){
-                boolean flag = false;
-                for(int j = 0; j < monitors.size() && !flag; j++){
-                    if((Integer.parseInt(elements[i])) == (monitors.get(j).getID())){
-                        auxCampament.associateMonitor(monitors.get(j));
-                        flag = true;
-                    }
-                }
+        //     while(i < elements.length && !(auxCampament.getActivities().isEmpty())){
+        //         boolean flag = false;
+        //         for(int j = 0; j < monitors.size() && !flag; j++){
+        //             if((Integer.parseInt(elements[i])) == (monitors.get(j).getID())){
+        //                 auxCampament.associateMonitor(monitors.get(j));
+        //                 flag = true;
+        //             }
+        //         }
 
-                i++;
-            }
+        //         i++;
+        //     }
 
-            campaments.add(auxCampament);
+        //     campaments.add(auxCampament);
 
-        }
+        // }
 
-        file.close();
+        // file.close();
 
         return campaments;
     }

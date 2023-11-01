@@ -83,32 +83,32 @@ public class InscriptionsManager {
     public void enrollComplete(CampamentDTO campament, AssistantDTO assistant, Schendule schendule, 
                                ArrayList<CompleteInscriptionDTO> completesInscriptions){
 
-        CompleteInscriptionDTO completeInscriptionDTO;
-        ArrayList<MonitorDTO> monitors = campament.getMonitors();
-        InscriptionFactory factory = getFactory(campament);
+        // CompleteInscriptionDTO completeInscriptionDTO;
+        // ArrayList<MonitorDTO> monitors = campament.getMonitors();
+        // InscriptionFactory factory = getFactory(campament);
 
-        if(factory == null){
-            System.out.println("No se ha podido crear la fabrica de inscripciones");
-            return;
-        }
+        // if(factory == null){
+        //     System.out.println("No se ha podido crear la fabrica de inscripciones");
+        //     return;
+        // }
 
-        if(assistant.getAtention()){
-            for(MonitorDTO m : monitors){
-                if(m.isEspecial())
-                    campament.associateSpecialMonitor(m);
-            }
-        }
+        // if(assistant.getAtention()){
+        //     for(MonitorDTO m : monitors){
+        //         if(m.isEspecial())
+        //             campament.associateSpecialMonitor(m);
+        //     }
+        // }
 
-        if(!canEnroll(campament)){ 
-            System.out.println("El campamento ya ha comenzado.");
-            return;
-        }
+        // if(!canEnroll(campament)){ 
+        //     System.out.println("El campamento ya ha comenzado.");
+        //     return;
+        // }
 
-        completeInscriptionDTO = factory.createCompleteInscription(campament, assistant, schendule, LocalDate.now());
+        // completeInscriptionDTO = factory.createCompleteInscription(campament, assistant, schendule, LocalDate.now());
 
-        double price = calcPrice(campament, assistant.getAtention());
-        completeInscriptionDTO.setPrice(price);
-        completesInscriptions.add(completeInscriptionDTO);
+        // double price = calcPrice(campament, assistant.getAtention());
+        // completeInscriptionDTO.setPrice(price);
+        // completesInscriptions.add(completeInscriptionDTO);
     }
 
     /**
@@ -121,31 +121,31 @@ public class InscriptionsManager {
     public void enrollParcial(CampamentDTO campament, AssistantDTO assistant, Schendule schendule, 
                               ArrayList<ParcialInscriptionDTO> parcialsInscriptions){
 
-        ParcialInscriptionDTO parcialInscriptionDTO;
-        ArrayList<MonitorDTO> monitors = campament.getMonitors();
-        InscriptionFactory factory = getFactory(campament);
+        // ParcialInscriptionDTO parcialInscriptionDTO;
+        // ArrayList<MonitorDTO> monitors = campament.getMonitors();
+        // InscriptionFactory factory = getFactory(campament);
 
-        if(factory == null){
-            System.out.println("No se ha podido crear la fabrica de inscripciones");
-            return;
-        }
+        // if(factory == null){
+        //     System.out.println("No se ha podido crear la fabrica de inscripciones");
+        //     return;
+        // }
 
-        if(assistant.getAtention()){
-            for(MonitorDTO m : monitors){
-                if(m.isEspecial())
-                    campament.associateSpecialMonitor(m);
-            }
-        }
+        // if(assistant.getAtention()){
+        //     for(MonitorDTO m : monitors){
+        //         if(m.isEspecial())
+        //             campament.associateSpecialMonitor(m);
+        //     }
+        // }
 
-        if(!canEnroll(campament)){ 
-            System.out.println("El campamento ya ha comenzado.");
-            return;
-        }
+        // if(!canEnroll(campament)){ 
+        //     System.out.println("El campamento ya ha comenzado.");
+        //     return;
+        // }
 
-        parcialInscriptionDTO = factory.createParcialInscription(campament, assistant, LocalDate.now());
+        // parcialInscriptionDTO = factory.createParcialInscription(campament, assistant, LocalDate.now());
 
-        double price = calcPrice(campament, assistant.getAtention());
-        parcialInscriptionDTO.setPrice(price);
-        parcialsInscriptions.add(parcialInscriptionDTO);
+        // double price = calcPrice(campament, assistant.getAtention());
+        // parcialInscriptionDTO.setPrice(price);
+        // parcialsInscriptions.add(parcialInscriptionDTO);
     }
 }

@@ -1,4 +1,4 @@
-package data.common;
+package es.uco.pw.data.common;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

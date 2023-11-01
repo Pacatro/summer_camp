@@ -8,7 +8,12 @@ import es.uco.pw.business.schendule.Schendule;
  * for complete inscriptions with a detailed string representation.
  */
 public class CompleteInscriptionDTO extends Inscription {
-    
+
+    /**
+     * Constructs a complete inscription without parameters
+     */
+    public CompleteInscriptionDTO(){}
+
     /**
      * Constructs a complete inscription with the provided schedule.
      *

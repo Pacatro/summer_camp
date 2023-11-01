@@ -1,8 +1,8 @@
-package business.factory;
+package es.uco.pw.business.factory;
 
-import business.assistant.AssistantDTO;
-import business.campament.CampamentDTO;
-import business.schendule.Schendule;
+import es.uco.pw.business.assistant.AssistantDTO;
+import es.uco.pw.business.campament.CampamentDTO;
+import es.uco.pw.business.schendule.Schendule;
 
 import java.time.LocalDate;
 

@@ -1,8 +1,8 @@
-package business.managers;
+package es.uco.pw.business.managers;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import business.assistant.AssistantDTO;
+import es.uco.pw.business.assistant.AssistantDTO;
 
 /**
  * Manages operations related to assistants in the system, such as registration, search, modification, and printing.

@@ -1,4 +1,4 @@
-package business.monitor;
+package es.uco.pw.business.monitor;
 
 /**
  * Represents a monitor of the system.

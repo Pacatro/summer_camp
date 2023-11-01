@@ -1,4 +1,4 @@
-package display;
+package es.uco.pw.display;
 
 import java.util.Scanner;
 
@@ -11,13 +11,13 @@ import java.sql.ResultSet;
 import java.util.Properties;
 import java.sql.Statement;
 
-import business.activity.ActivityDTO;
-import business.assistant.AssistantDTO;
-import business.campament.CampamentDTO;
-import business.monitor.MonitorDTO;
-import data.database.DataBase;
-import business.factory.CompleteInscriptionDTO;
-import business.factory.ParcialInscriptionDTO;
+import es.uco.pw.business.activity.ActivityDTO;
+import es.uco.pw.business.assistant.AssistantDTO;
+import es.uco.pw.business.campament.CampamentDTO;
+import es.uco.pw.business.monitor.MonitorDTO;
+import es.uco.pw.data.database.DataBase;
+import es.uco.pw.business.factory.CompleteInscriptionDTO;
+import es.uco.pw.business.factory.ParcialInscriptionDTO;
 
 import data.common.ConnectionDB;
 

@@ -1,9 +1,9 @@
-package business.activity;
+package es.uco.pw.business.activity;
 import java.util.ArrayList;
 
-import business.level.Level;
-import business.schendule.Schendule;
-import business.monitor.MonitorDTO;
+import es.uco.pw.business.level.Level;
+import es.uco.pw.business.schendule.Schendule;
+import es.uco.pw.business.monitor.MonitorDTO;
 
 /**
  * Represents an activity of the system.
@@ -95,5 +95,16 @@ public class ActivityDTO {
                                 + " y los monitores son " + this.num_monitors + ": " + monitors.toString();
         return activityInfo;
     }
+
+    //TOOD hacer asociar monitor como dao
+    /*public boolean associateMonitor(Monitor newMonitor){
+        
+        if(this.monitors.size() < this.num_monitors){
+            this.monitors.add(newMonitor);
+            return true;
+        }
+        
+        return false;
+    } */
 
 }

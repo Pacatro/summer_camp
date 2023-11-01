@@ -1,4 +1,4 @@
-package data.database;
+package es.uco.pw.data.database;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -9,16 +9,16 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import business.activity.ActivityDTO;
-import business.assistant.AssistantDTO;
-import business.campament.CampamentDTO;
-import business.monitor.MonitorDTO;
-import business.level.Level;
-import business.schendule.Schendule;
-import business.factory.CompleteInscriptionDTO;
-import business.factory.ParcialInscriptionDTO;
-import business.factory.EarlyRegInscriptionFactory;
-import business.factory.LateRegInscriptionFactory;
+import es.uco.pw.business.activity.ActivityDTO;
+import es.uco.pw.business.assistant.AssistantDTO;
+import es.uco.pw.business.campament.CampamentDTO;
+import es.uco.pw.business.monitor.MonitorDTO;
+import es.uco.pw.business.level.Level;
+import es.uco.pw.business.schendule.Schendule;
+import es.uco.pw.business.factory.CompleteInscriptionDTO;
+import es.uco.pw.business.factory.ParcialInscriptionDTO;
+import es.uco.pw.business.factory.EarlyRegInscriptionFactory;
+import es.uco.pw.business.factory.LateRegInscriptionFactory;
 
 
 /**
@@ -55,53 +55,53 @@ public class DataBase {
         
     }
 
-    // public ArrayList<ActivityDTO> importActivities(ArrayList<MonitorDTO> monitors) throws Exception{
-    //     BufferedReader file = new BufferedReader(new FileReader(new File(this.properties.getProperty("activities"))));
+    public ArrayList<ActivityDTO> importActivities(ArrayList<MonitorDTO> monitors) throws Exception{
+        BufferedReader file = new BufferedReader(new FileReader(new File(this.properties.getProperty("activities"))));
 
-    //     ArrayList<ActivityDTO> activities = new ArrayList<ActivityDTO>();
+        ArrayList<ActivityDTO> activities = new ArrayList<ActivityDTO>();
 
-    //     String line;
+        String line;
 
-    //     while((line = file.readLine()) != null){
-    //         String[] elements = line.split(" ");
+        while((line = file.readLine()) != null){
+            String[] elements = line.split(" ");
             
-    //         ActivityDTO auxActivity = new ActivityDTO();
-    //         auxActivity.setname(elements[0]);
-    //         auxActivity.setMaxParticipants(Integer.parseInt(elements[3]));
-    //         auxActivity.setNumMonitors(Integer.parseInt(elements[4]));
+            ActivityDTO auxActivity = new ActivityDTO();
+            auxActivity.setname(elements[0]);
+            auxActivity.setMaxParticipants(Integer.parseInt(elements[3]));
+            auxActivity.setNumMonitors(Integer.parseInt(elements[4]));
 
-    //         if(elements[1].equals("CHILD")){
-    //             auxActivity.setLevel(Level.CHILD);
-    //         }else if(elements[1].equals("YOUTH")){
-    //             auxActivity.setLevel(Level.YOUTH);
-    //         }else if(elements[1].equals("TEENAGER")){
-    //             auxActivity.setLevel(Level.TEENAGER);
-    //         }
+            if(elements[1].equals("CHILD")){
+                auxActivity.setLevel(Level.CHILD);
+            }else if(elements[1].equals("YOUTH")){
+                auxActivity.setLevel(Level.YOUTH);
+            }else if(elements[1].equals("TEENAGER")){
+                auxActivity.setLevel(Level.TEENAGER);
+            }
 
-    //         if(elements[2].equals("MORNING")){
-    //             auxActivity.setSchendule(Schendule.MORNING);
-    //         }else if(elements[2].equals("AFTERNOON")){
-    //             auxActivity.setSchendule(Schendule.AFTERNOON);
-    //         }
+            if(elements[2].equals("MORNING")){
+                auxActivity.setSchendule(Schendule.MORNING);
+            }else if(elements[2].equals("AFTERNOON")){
+                auxActivity.setSchendule(Schendule.AFTERNOON);
+            }
 
-    //         for(int i = 5; i < elements.length; i++){
-    //             boolean flag = false;
-    //             for(int j = 0; j < monitors.size() && !flag; j++){
-    //                 if(monitors.get(j).getID() == (Integer.parseInt(elements[i]))){
-    //                     auxActivity.associateMonitor(monitors.get(j));
-    //                     flag = true;
-    //                 }
-    //             }
-    //         }
+            for(int i = 5; i < elements.length; i++){
+                boolean flag = false;
+                for(int j = 0; j < monitors.size() && !flag; j++){
+                    if(monitors.get(j).getID() == (Integer.parseInt(elements[i]))){
+                        auxActivity.associateMonitor(monitors.get(j)); //TODO hacer funcion en DAO
+                        flag = true;
+                    }
+                }
+            }
             
-    //         activities.add(auxActivity);
-    //     }
+            activities.add(auxActivity);
+        }
 
-    //     file.close();
+        file.close();
 
-    //     return activities;
+        return activities;
 
-    // }
+    }
 
     public ArrayList<AssistantDTO> importAssistants() throws Exception{
         BufferedReader file = new BufferedReader(new FileReader(new File(this.properties.getProperty("assistants"))));

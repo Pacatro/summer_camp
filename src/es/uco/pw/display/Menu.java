@@ -1,20 +1,20 @@
-package display;
+package es.uco.pw.display;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import business.activity.ActivityDTO;
-import business.assistant.AssistantDTO;
-import business.campament.CampamentDTO;
-import business.monitor.MonitorDTO;
-import business.level.Level;
-import business.schendule.Schendule;
-import business.factory.CompleteInscriptionDTO;
-import business.factory.ParcialInscriptionDTO;
-import business.managers.AssistantManager;
-import business.managers.CampamentsManager;
-import business.managers.InscriptionsManager;
+import es.uco.pw.business.activity.ActivityDTO;
+import es.uco.pw.business.assistant.AssistantDTO;
+import es.uco.pw.business.campament.CampamentDTO;
+import es.uco.pw.business.monitor.MonitorDTO;
+import es.uco.pw.business.level.Level;
+import es.uco.pw.business.schendule.Schendule;
+import es.uco.pw.business.factory.CompleteInscriptionDTO;
+import es.uco.pw.business.factory.ParcialInscriptionDTO;
+import es.uco.pw.business.managers.AssistantManager;
+import es.uco.pw.business.managers.CampamentsManager;
+import es.uco.pw.business.managers.InscriptionsManager;
 
 /**
  * Represents a menu for managing the system's assistants, campaments, and inscriptions.

@@ -1,12 +1,12 @@
-package business.managers;
+package es.uco.pw.business.managers;
 
 import java.util.ArrayList;
 
-import business.activity.ActivityDTO;
-import business.campament.CampamentDTO;
-import business.monitor.MonitorDTO;
-import business.level.Level;
-import business.schendule.Schendule;
+import es.uco.pw.business.activity.ActivityDTO;
+import es.uco.pw.business.campament.CampamentDTO;
+import es.uco.pw.business.monitor.MonitorDTO;
+import es.uco.pw.business.level.Level;
+import es.uco.pw.business.schendule.Schendule;
 
 import java.time.LocalDate;
 
@@ -75,12 +75,12 @@ public class CampamentsManager {
      */
     public void associateMonitorsToActivities(ArrayList<ActivityDTO> activities, ArrayList<MonitorDTO> monitors, int selectedMonitorIndex, ActivityDTO activity) {
         
-        // MonitorDTO selectedMonitor = monitors.get(selectedMonitorIndex);
-        // boolean isMonitorAdded = activity.associateMonitor(selectedMonitor);
-        // if (!isMonitorAdded) {
-        //     System.out.println("No se admiten mas monitores en esta actividad.");
-        //     return;
-        // }
+        MonitorDTO selectedMonitor = monitors.get(selectedMonitorIndex);
+        boolean isMonitorAdded = activity.associateMonitor(selectedMonitor); //TODO hacer funcion con DAO
+        if (!isMonitorAdded) {
+            System.out.println("No se admiten mas monitores en esta actividad.");
+            return;
+        }
     }
 
     /**

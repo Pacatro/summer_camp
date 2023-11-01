@@ -1,6 +1,6 @@
-package business.factory;
+package es.uco.pw.business.factory;
 
-import business.schendule.Schendule;
+import es.uco.pw.business.schendule.Schendule;
 
 /**
  * Represents a partial inscription for a camp with morning schedule.

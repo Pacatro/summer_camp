@@ -1,4 +1,4 @@
-package business.level;
+package es.uco.pw.business.level;
 
 /**
  * Represents the level of the activity and campament.

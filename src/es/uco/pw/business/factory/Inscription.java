@@ -1,8 +1,8 @@
-package business.factory;
+package es.uco.pw.business.factory;
 
 import java.time.LocalDate;
 
-import business.schendule.Schendule;
+import es.uco.pw.business.schendule.Schendule;
 
 /**
  * Represents a model inscription.

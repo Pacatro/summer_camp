@@ -1,4 +1,4 @@
-package business.assistant;
+package es.uco.pw.business.assistant;
 import java.time.LocalDate;
 
 /**

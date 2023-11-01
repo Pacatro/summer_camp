@@ -1,19 +1,19 @@
-package business.managers;
+package es.uco.pw.business.managers;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
-import business.activity.ActivityDTO;
-import business.assistant.AssistantDTO;
-import business.campament.CampamentDTO;
-import business.monitor.MonitorDTO;
-import business.schendule.Schendule;
-import business.factory.CompleteInscriptionDTO;
-import business.factory.EarlyRegInscriptionFactory;
-import business.factory.InscriptionFactory;
-import business.factory.LateRegInscriptionFactory;
-import business.factory.ParcialInscriptionDTO;
+import es.uco.pw.business.activity.ActivityDTO;
+import es.uco.pw.business.assistant.AssistantDTO;
+import es.uco.pw.business.campament.CampamentDTO;
+import es.uco.pw.business.monitor.MonitorDTO;
+import es.uco.pw.business.schendule.Schendule;
+import es.uco.pw.business.factory.CompleteInscriptionDTO;
+import es.uco.pw.business.factory.EarlyRegInscriptionFactory;
+import es.uco.pw.business.factory.InscriptionFactory;
+import es.uco.pw.business.factory.LateRegInscriptionFactory;
+import es.uco.pw.business.factory.ParcialInscriptionDTO;
 
 /**
  * Manages the completes and parcials inscriptions lists.

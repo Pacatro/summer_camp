@@ -18,7 +18,7 @@ public class ConnectionDB {
     
     public ConnectionDB() throws FileNotFoundException, IOException {
         this.sqlProperties = new Properties();
-        this.sqlProperties.load(new FileInputStream("sqlProperties.txt"));
+        this.sqlProperties.load(new FileInputStream("dbProperties.txt"));
 
         this.conn = null;
         this.host = this.sqlProperties.getProperty("DB_HOST");

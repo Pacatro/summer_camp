@@ -4,7 +4,13 @@ import java.util.Scanner;
 
 import java.util.ArrayList;
 import java.io.FileInputStream;
+import java.time.LocalDate;
 
+import es.uco.pw.business.assistant.AssistantDTO;
+import es.uco.pw.business.campament.CampamentDTO;
+import es.uco.pw.business.level.Level;
+import es.uco.pw.business.managers.InscriptionsManager;
+import es.uco.pw.business.schendule.Schendule;
 
 // import es.uco.pw.business.activity.ActivityDTO;
 // import es.uco.pw.business.assistant.AssistantDTO;
@@ -41,6 +47,13 @@ public class Main {
         // DB.exportCampaments(campaments);
         // DB.exportCompleteInscriptions(completeInscriptions);
         // DB.exportParcialInscriptions(parcialInscriptions);
+
+        CampamentDTO campamentDTO = new CampamentDTO(4, LocalDate.of(2024, 9, 15), LocalDate.of(2024, 11, 12), Level.CHILD);
+        AssistantDTO assistantDTO = new AssistantDTO(7, "Mayte", "Alba", LocalDate.of(2003, 9, 15), false);
+
+        InscriptionsManager iManager = new InscriptionsManager();
+
+        iManager.enrollParcial(campamentDTO, assistantDTO);
     }
 
 }

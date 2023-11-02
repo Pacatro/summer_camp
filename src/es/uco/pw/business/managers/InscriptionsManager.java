@@ -85,7 +85,7 @@ public class InscriptionsManager {
      */
     public void enrollComplete(CampamentDTO campament, AssistantDTO assistant, Schendule schendule) throws Exception{
         CompleteInscriptionDTO completeInscriptionDTO;
-        ArrayList<MonitorDTO> monitors = campament.getMonitors();
+        // ArrayList<MonitorDTO> monitors = campament.getMonitors();
         InscriptionFactory factory = getFactory(campament);
 
         if(factory == null){
@@ -104,7 +104,7 @@ public class InscriptionsManager {
             System.out.println("El campamento ya ha comenzado.");
             return;
         }
-
+        
         completeInscriptionDTO = factory.createCompleteInscription(campament, assistant, schendule, LocalDate.now());
 
         double price = calcPrice(campament, assistant.getAtention());
@@ -122,10 +122,10 @@ public class InscriptionsManager {
      * @param schendule
      * @param parcialsInscriptions
      */
-    public void enrollParcial(CampamentDTO campament, AssistantDTO assistant, Schendule schendule) throws Exception{
+    public void enrollParcial(CampamentDTO campament, AssistantDTO assistant) throws Exception{
 
         ParcialInscriptionDTO parcialInscriptionDTO;
-        ArrayList<MonitorDTO> monitors = campament.getMonitors();
+        // ArrayList<MonitorDTO> monitors = campament.getMonitors();
         InscriptionFactory factory = getFactory(campament);
 
         if(factory == null){

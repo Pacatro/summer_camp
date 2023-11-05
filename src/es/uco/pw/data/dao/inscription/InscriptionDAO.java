@@ -1,4 +1,4 @@
-package es.uco.pw.data.dao;
+package es.uco.pw.data.dao.inscription;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import es.uco.pw.business.factory.CompleteInscriptionDTO;
 import es.uco.pw.business.factory.ParcialInscriptionDTO;
 import es.uco.pw.data.common.ConnectionDB;
-import es.uco.pw.data.common.IDAO;
+import es.uco.pw.data.dao.common.IDAO;
 
 public class InscriptionDAO implements IDAO<CompleteInscriptionDTO> {
     public InscriptionDAO(){}

@@ -2,8 +2,6 @@ package es.uco.pw.data.dao.activity;
 
 import java.util.ArrayList;
 
-import java.sql.Statement;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,6 +12,7 @@ import es.uco.pw.business.monitor.MonitorDTO;
 import es.uco.pw.business.schendule.Schendule;
 import es.uco.pw.data.common.ConnectionDB;
 import es.uco.pw.data.dao.common.IDAO;
+import es.uco.pw.data.dao.monitor.MonitorDAO;
 
 /**
  * Manage the data from the activities table
@@ -94,15 +93,8 @@ public class ActivityDAO implements IDAO<ActivityDTO>{
 
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                String sql2 = "SELECT * FROM monitors WHERE monitor_id=? VALUES (?)";
-                PreparedStatement psMon = conn.prepareStatement(sql2);
-
-                psMon.setInt(1, rs.getInt("monitor_id"));
-
-                ResultSet rsMon = psMon.executeQuery();
-
-                monitors.add(new MonitorDTO(rsMon.getInt("monitor_id"), rsMon.getString("name"), 
-                                            rsMon.getString("surname"), rsMon.getBoolean("special_edu")));
+                MonitorDAO monitorDAO = new MonitorDAO();
+                monitors.add(monitorDAO.getById(rs.getInt("monitor_id")));
             }
 
             return monitors;
@@ -116,7 +108,7 @@ public class ActivityDAO implements IDAO<ActivityDTO>{
     }
 
     @Override
-    public ActivityDTO getById() throws Exception{
+    public ActivityDTO getById(int id) throws Exception{
         throw new UnsupportedOperationException("Unimplemented method 'getById'");
     }
 

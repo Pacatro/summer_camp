@@ -52,7 +52,7 @@ public class InscriptionDAO implements IDAO<CompleteInscriptionDTO> {
     public ArrayList<CompleteInscriptionDTO> getAll() throws Exception { throw new UnsupportedOperationException("Unimplemented method 'getAll'"); }
 
     @Override
-    public CompleteInscriptionDTO getById() throws Exception { throw new UnsupportedOperationException("Unimplemented method 'getById'"); }
+    public CompleteInscriptionDTO getById(int id) throws Exception { throw new UnsupportedOperationException("Unimplemented method 'getById'"); }
 
     @Override
     public void update(CompleteInscriptionDTO dto) throws Exception { throw new UnsupportedOperationException("Unimplemented method 'update'"); }

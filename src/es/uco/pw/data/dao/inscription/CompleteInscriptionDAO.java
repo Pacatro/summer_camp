@@ -1,20 +1,33 @@
 package es.uco.pw.data.dao.inscription;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+
 import java.util.ArrayList;
+import java.util.Properties;
 
 import es.uco.pw.business.factory.CompleteInscriptionDTO;
 import es.uco.pw.data.common.ConnectionDB;
 import es.uco.pw.data.common.IDAO;
 
 public class CompleteInscriptionDAO implements IDAO<CompleteInscriptionDTO>{
+    private Properties sqlProperties;
+    
+    CompleteInscriptionDAO() throws FileNotFoundException, IOException{
+        this.sqlProperties = new Properties();
+        this.sqlProperties.load(new FileInputStream("sql.properties"));
+    }
+    
     @Override
     public void insert(CompleteInscriptionDTO completeInscriptionDTO) throws Exception {
         try {
             Connection conn = new ConnectionDB().getConnection();
 
-            String sql = "INSERT INTO inscriptions (ass_id, type, date, cancelled, price, schendule, camp_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String sql = this.sqlProperties.getProperty("INSERT_INSCRIPTION");
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ps.setInt(1, completeInscriptionDTO.getIdParticipant());

@@ -21,7 +21,7 @@ import es.uco.pw.business.schendule.Schendule;
 // import es.uco.pw.business.factory.ParcialInscriptionDTO;
 
 import es.uco.pw.data.dao.InscriptionDAO;
-
+import es.uco.pw.data.dao.AssistantDAO.AssistantDAO;
 
 public class Main {
     public static void main(String[] args) throws Exception {

@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS monitors_campaments(
 );
 
 CREATE TABLE IF NOT EXISTS assistants(
-    ass_id INT PRIMARY KEY,
+    assi_id INT PRIMARY KEY,
     name VARCHAR(64),
     surname VARCHAR(64),
     birth_date DATE,

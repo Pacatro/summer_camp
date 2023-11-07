@@ -7,7 +7,7 @@ import es.uco.pw.business.schendule.Schendule;
  * This class extends the general Inscription class to provide specific functionality
  * for partial inscriptions with a detailed string representation.
  */
-public class ParcialInscriptionDTO extends Inscription{
+public class ParcialInscriptionDTO extends InscriptionDTO{
     
     /**
      * Constructs a partial inscription with a morning schedule.

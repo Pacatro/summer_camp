@@ -8,7 +8,7 @@ import es.uco.pw.business.schendule.Schendule;
  * Represents a model inscription.
  * This abstract class defines the attributes and methods common to all types of inscriptions.
  */
-public abstract class Inscription {
+public abstract class InscriptionDTO {
     
     /* Atributtes */
     
@@ -30,7 +30,7 @@ public abstract class Inscription {
      * Default constructor for an Inscription.
      * Initializes default values for some attributes.
      */
-    public Inscription(){
+    public InscriptionDTO(){
         this.participantId = 0;
         this.campamentId = 0;
         this.date = LocalDate.now();

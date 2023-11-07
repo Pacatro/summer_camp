@@ -11,16 +11,7 @@ import es.uco.pw.business.campament.CampamentDTO;
 import es.uco.pw.business.level.Level;
 import es.uco.pw.business.managers.InscriptionsManager;
 import es.uco.pw.business.schendule.Schendule;
-
-// import es.uco.pw.business.activity.ActivityDTO;
-// import es.uco.pw.business.assistant.AssistantDTO;
-// import es.uco.pw.business.campament.CampamentDTO;
-// import es.uco.pw.business.monitor.MonitorDTO;
-// import es.uco.pw.data.database.DataBase;
-// import es.uco.pw.business.factory.CompleteInscriptionDTO;
-// import es.uco.pw.business.factory.ParcialInscriptionDTO;
-
-import es.uco.pw.data.dao.InscriptionDAO;
+import es.uco.pw.data.dao.inscription.ParcialInscriptionDAO;
 
 
 public class Main {

@@ -17,7 +17,7 @@ import es.uco.pw.data.common.IDAO;
 public class CompleteInscriptionDAO implements IDAO<CompleteInscriptionDTO>{
     private Properties sqlProperties;
     
-    CompleteInscriptionDAO() throws FileNotFoundException, IOException{
+    public CompleteInscriptionDAO() throws FileNotFoundException, IOException{
         this.sqlProperties = new Properties();
         this.sqlProperties.load(new FileInputStream("sql.properties"));
     }

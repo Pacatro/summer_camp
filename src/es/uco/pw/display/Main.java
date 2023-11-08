@@ -42,15 +42,15 @@ public class Main {
         // DB.exportCompleteInscriptions(completeInscriptions);
         // DB.exportParcialInscriptions(parcialInscriptions);
 
-        // CampamentDTO campamentDTO = new CampamentDTO(4, LocalDate.of(2024, 9, 15), LocalDate.of(2024, 11, 12), Level.CHILD);
-        // AssistantDTO assistantDTO = new AssistantDTO(7, "Mayte", "Alba", LocalDate.of(2003, 9, 15), false);
+        CampamentDTO campamentDTO = new CampamentDTO(4, LocalDate.of(2024, 9, 15), LocalDate.of(2024, 11, 12), Level.CHILD);
+        AssistantDTO assistantDTO = new AssistantDTO(7, "Mayte", "Alba", LocalDate.of(2003, 9, 15), false);
 
-        // InscriptionsManager iManager = new InscriptionsManager();
+        InscriptionsManager iManager = new InscriptionsManager();
 
-        // iManager.enrollParcial(campamentDTO, assistantDTO);
+        iManager.enrollParcial(campamentDTO, assistantDTO);
 
-        CampamentsManager cManager = new CampamentsManager();
-        cManager.associateMonitorsToActivities(100, "baloncesto");
+        // CampamentsManager cManager = new CampamentsManager();
+        // cManager.associateMonitorsToActivities(100, "baloncesto");
     }
 
 }

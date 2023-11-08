@@ -12,10 +12,17 @@ import es.uco.pw.business.factory.CompleteInscriptionDTO;
 import es.uco.pw.data.common.ConnectionDB;
 import es.uco.pw.data.dao.common.IDAO;
 
+/**
+ * This class represents a Data Access Object (DAO) for managing CompleteInscriptionDTO objects.
+ * It provides methods to interact with the database for complete inscriptions.
+ */
 public class CompleteInscriptionDAO implements IDAO<CompleteInscriptionDTO, Integer>{
     
+    /**
+     * Default constructor for the CompleteInscriptionDAO class.
+     */
     public CompleteInscriptionDAO(){}
-    
+
     @Override
     public void insert(CompleteInscriptionDTO completeInscriptionDTO) throws Exception {
         Properties sqlProperties = new Properties();
@@ -28,7 +35,7 @@ public class CompleteInscriptionDAO implements IDAO<CompleteInscriptionDTO, Inte
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ps.setInt(1, completeInscriptionDTO.getIdParticipant());
-            ps.setString(2, "Completa");
+            ps.setString(2, "COMPLETE");
             ps.setString(3, completeInscriptionDTO.getDate().toString());
             ps.setBoolean(4, completeInscriptionDTO.getCancellation());
             ps.setDouble(5, completeInscriptionDTO.getPrice());

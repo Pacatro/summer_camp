@@ -12,10 +12,17 @@ import es.uco.pw.business.factory.ParcialInscriptionDTO;
 import es.uco.pw.data.common.ConnectionDB;
 import es.uco.pw.data.dao.common.IDAO;
 
+/**
+ * This class represents a Data Access Object (DAO) for managing ParcialInscriptionDTO objects.
+ * It provides methods to interact with the database for parcial inscriptions.
+ */
 public class ParcialInscriptionDAO implements IDAO<ParcialInscriptionDTO, Integer> {
     
+    /**
+     * Default constructor for the ParcialInscriptionDAO class.
+     */
     public ParcialInscriptionDAO(){}
-    
+
     @Override
     public void insert(ParcialInscriptionDTO parcialInscriptionDTO) throws Exception {
         Properties sqlProperties = new Properties();
@@ -28,7 +35,7 @@ public class ParcialInscriptionDAO implements IDAO<ParcialInscriptionDTO, Intege
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ps.setInt(1, parcialInscriptionDTO.getIdParticipant());
-            ps.setString(2, "Parcial");
+            ps.setString(2, "PARCIAL");
             ps.setString(3, parcialInscriptionDTO.getDate().toString());
             ps.setBoolean(4, parcialInscriptionDTO.getCancellation());
             ps.setDouble(5, parcialInscriptionDTO.getPrice());

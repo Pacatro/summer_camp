@@ -1,4 +1,4 @@
--- Active: 1694521027087@@127.0.0.1@3306@i12gafen
+-- Active: 1694082650616@@127.0.0.1@3306@i12gafen
 DROP DATABASE IF EXISTS i12gafen;
 CREATE DATABASE IF NOT EXISTS i12gafen;
 USE i12gafen;
@@ -36,17 +36,20 @@ CREATE TABLE IF NOT EXISTS campaments(
 );
 
 CREATE TABLE IF NOT EXISTS activities_monitors(
-    act_id VARCHAR(64) PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    act_id VARCHAR(64),
     monitor_id INT
 );
 
 CREATE TABLE IF NOT EXISTS activities_campaments(
-    act_id VARCHAR(64) PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    act_id VARCHAR(64),
     camp_id INT
 );
 
 CREATE TABLE IF NOT EXISTS monitors_campaments(
-    monitor_id INT PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    monitor_id INT,
     camp_id INT
 );
 
@@ -139,3 +142,5 @@ SELECT * FROM campaments;
 
 SELECT * FROM inscriptions WHERE type = 'Parcial';
 SELECT * FROM inscriptions WHERE type = 'Completa';
+
+SELECT * FROM campaments WHERE camp_id = (SELECT camp_id FROM activities_campaments WHERE act_id = 'Actividad1');

@@ -83,9 +83,9 @@ ALTER TABLE inscriptions ADD FOREIGN KEY (ass_id) REFERENCES assistants(ass_id);
 -- Insertar datos en la tabla 'activities'
 INSERT INTO activities (name, education_level, schedule, max_participants, num_monitors)
 VALUES
-    ('Actividad1', 'Infantil', 'MORNING', 20, 3),
-    ('Actividad2', 'Juvenil', 'AFTERNOON', 15, 2),
-    ('Actividad3', 'Infantil', 'AFTERNOON', 25, 4);
+    ('Actividad1', 'CHILD', 'MORNING', 20, 3),
+    ('Actividad2', 'YOUTH', 'AFTERNOON', 15, 2),
+    ('Actividad3', 'CHILD', 'AFTERNOON', 25, 4);
 
 -- Insertar datos en la tabla 'monitors'
 INSERT INTO monitors (monitor_id, name, surname, special_edu)
@@ -97,9 +97,9 @@ VALUES
 -- Insertar datos en la tabla 'campaments'
 INSERT INTO campaments (camp_id, start_date, end_date, educate_level, max_assistant)
 VALUES
-    (1, '2023-07-01', '2023-07-10', 'Infantil', 100),
-    (2, '2023-08-15', '2023-08-24', 'Juvenil', 80),
-    (3, '2023-06-20', '2023-06-30', 'Infantil', 120);
+    (1, '2023-07-01', '2023-07-10', 'CHILD', 100),
+    (2, '2023-08-15', '2023-08-24', 'YOUTH', 80),
+    (3, '2023-06-20', '2023-06-30', 'CHILD', 120);
 
 -- Insertar datos en la tabla 'activities_monitors'
 INSERT INTO activities_monitors (act_id, monitor_id)
@@ -132,15 +132,15 @@ VALUES
 -- Insertar datos en la tabla 'inscriptions'
 INSERT INTO inscriptions (ass_id, type, date, cancelled, price, schendule, camp_id)
 VALUES
-    (1, 'Parcial', '2023-05-10', false, 100.00, 'MORNING', 1),
-    (2, 'Completa', '2023-06-05', false, 120.00, 'AFTERNOON', 1),
-    (3, 'Parcial', '2023-05-20', false, 110.00, 'MORNING', 2);
+    (1, 'PARCIAL', '2023-05-10', false, 100.00, 'MORNING', 1),
+    (2, 'COMPLETE', '2023-06-05', false, 120.00, 'AFTERNOON', 1),
+    (3, 'PARCIAL', '2023-05-20', false, 110.00, 'MORNING', 2);
 
 
 SELECT * FROM assistants;
 SELECT * FROM campaments;
 
-SELECT * FROM inscriptions WHERE type = 'Parcial';
-SELECT * FROM inscriptions WHERE type = 'Completa';
+SELECT * FROM inscriptions WHERE type = 'PARCIAL';
+SELECT * FROM inscriptions WHERE type = 'COMPLETE';
 
 SELECT * FROM campaments WHERE camp_id = (SELECT camp_id FROM activities_campaments WHERE act_id = 'Actividad1');

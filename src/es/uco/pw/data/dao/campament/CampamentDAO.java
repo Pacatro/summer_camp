@@ -1,18 +1,21 @@
 package es.uco.pw.data.dao.campament;
 
+import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Properties;
 import java.sql.Date;
 
 import es.uco.pw.business.campament.CampamentDTO;
+import es.uco.pw.business.level.Level;
 import es.uco.pw.data.common.ConnectionDB;
 import es.uco.pw.data.common.IDAO;
 
 
 
-public class CampamentDAO implements IDAO<CampamentDTO>{
+public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
 
     public CampamentDAO(){}
     
@@ -21,7 +24,9 @@ public class CampamentDAO implements IDAO<CampamentDTO>{
         try{
             Connection conn = new ConnectionDB().getConnection();
 
-            String sql= "INSERT INTO campament (camp_id, initDate, finalDate, maxAssistants, level) VALUES (?,?,?,?,?)";
+            Properties properties = new Properties();
+            properties.load(new FileInputStream("sql.properties"));
+            String sql = properties.getProperty("INSERT_CAMPAMENT");
             PreparedStatement ps = conn.prepareStatement(sql);
             
             ps.setInt(1, campamentDTO.getId());
@@ -48,7 +53,9 @@ public class CampamentDAO implements IDAO<CampamentDTO>{
         try{
             Connection conn = new ConnectionDB().getConnection();
 
-            String sql= "INSERT INTO activities_campaments (act_id, camp_id) VALUES (?,?)";
+            Properties properties = new Properties();
+            properties.load(new FileInputStream("sql.properties"));
+            String sql = properties.getProperty("INSERT_ACTIVITY_CAMPAMENT");
             PreparedStatement ps = conn.prepareStatement(sql);
             
             ps.setString(1, activityId);
@@ -63,7 +70,9 @@ public class CampamentDAO implements IDAO<CampamentDTO>{
         try{
             Connection conn = new ConnectionDB().getConnection();
 
-            String sql= "INSERT INTO monitors_campaments (camp_id, monitor_id) VALUES (?,?)";
+            Properties properties = new Properties();
+            properties.load(new FileInputStream("sql.properties"));
+            String sql = properties.getProperty("INSERT_MONITOR_CAMPAMENT");
             PreparedStatement ps = conn.prepareStatement(sql);
             
             ps.setInt(1, campId);
@@ -78,7 +87,9 @@ public class CampamentDAO implements IDAO<CampamentDTO>{
         try{
             Connection conn = new ConnectionDB().getConnection();
 
-            String sql= "SELECT i.ass_id FROM inscriptions i JOIN assistants a ON i.ass_id = a.ass_id  WHERE i.camp_id = ? and a.attention = true ";
+            Properties properties = new Properties();
+            properties.load(new FileInputStream("sql.properties"));
+            String sql = properties.getProperty("GET_ESPECIAL_ASISTANT");
             PreparedStatement ps = conn.prepareStatement(sql);
             
             ps.setInt(1, campId);
@@ -91,16 +102,42 @@ public class CampamentDAO implements IDAO<CampamentDTO>{
         } catch (Exception e) { throw e; }
     }
 
+    //meter en el manager
+    
+    @Override
+    public CampamentDTO getById(Integer id) throws Exception{
+        try{
+            Properties properties = new Properties();
+            properties.load(new FileInputStream("sql.properties"));
+            String sql = properties.getProperty("GETBYID_CAMPAMENT");
 
-    public ArrayList<CampamentDTO> getAll() throws Exception{
-        return null;
+            Connection conn = new ConnectionDB().getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+
+            ResultSet rs = ps.executeQuery();
+
+            
+            CampamentDTO act = new CampamentDTO();
+            
+            while(rs.next()){
+                act.setId(rs.getInt("camp_id"));
+                act.setInitDate(rs.getDate("init_date").toLocalDate());
+                act.setFinalDate(rs.getDate("end_date").toLocalDate());
+                act.setMaxAssistants(rs.getInt("max_assistant"));
+                act.setLevel(Level.valueOf(rs.getString("level")));
+            }
+
+            return act;
+        } catch (Exception e) {throw e;}
     }
-    public CampamentDTO getById() throws Exception{
-        return null;
-    }
-    public void update(CampamentDTO dto) throws Exception{
-        return;
-    }
+
+    
+    @Override
+    public void update(CampamentDTO campamentDTO) throws Exception { throw new UnsupportedOperationException("Unimplemented method 'update'"); }
+    
+    @Override
+    public ArrayList<CampamentDTO> getAll() throws Exception { throw new UnsupportedOperationException("Unimplemented method 'getAll'"); }
 
 
 

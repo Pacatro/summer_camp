@@ -1,4 +1,0 @@
-DB_HOST = oraclepr.uco.es
-DB_NAME = i12almuf
-DB_USER = i12almuf
-DB_PASSWORD = pwbd

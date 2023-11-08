@@ -50,7 +50,7 @@ public class Main {
         // iManager.enrollParcial(campamentDTO, assistantDTO);
 
         CampamentsManager cManager = new CampamentsManager();
-        cManager.createActivity("Baloncesto", Level.CHILD, Schendule.MORNING, 20, 10);
+        cManager.associateMonitorsToActivities(1, "Actividad3");
     }
 
 }

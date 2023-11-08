@@ -20,7 +20,8 @@ import es.uco.pw.business.schendule.Schedule;
 import es.uco.pw.data.dao.inscription.CompleteInscriptionDAO;
 import es.uco.pw.data.dao.inscription.ParcialInscriptionDAO;
 
-import es.uco.pw.data.dao.InscriptionDAO;
+import es.uco.pw.data.dao.inscription.CompleteInscriptionDAO;
+import es.uco.pw.data.dao.inscription.ParcialInscriptionDAO;
 
 /**
  * Manages the completes and parcials inscriptions lists.

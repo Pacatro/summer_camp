@@ -22,7 +22,7 @@ public abstract class InscriptionFactory {
      * @param date       The date on which the inscription is made.
      * @return An instance of CompleteInscription representing the complete inscription.
      */
-    public abstract CompleteInscriptionDTO createCompleteInscription(CampamentDTO campament, AssistantDTO assistant, Schendule schendule, LocalDate date) throws Exception;
+    public abstract CompleteInscriptionDTO createCompleteInscription(CampamentDTO campament, AssistantDTO assistant, Schedule schendule, LocalDate date) throws Exception;
     
     /**
      * Creates a partial inscription for a given camp and assistant on a specific date.

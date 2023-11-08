@@ -4,17 +4,21 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
-import es.uco.pw.business.activity.ActivityDTO;
-import es.uco.pw.business.assistant.AssistantDTO;
-import es.uco.pw.business.campament.CampamentDTO;
-import es.uco.pw.business.monitor.MonitorDTO;
-import es.uco.pw.business.schendule.Schendule;
-import es.uco.pw.data.dao.inscription.InscriptionDAO;
-import es.uco.pw.business.factory.CompleteInscriptionDTO;
 import es.uco.pw.business.factory.EarlyRegInscriptionFactory;
 import es.uco.pw.business.factory.InscriptionFactory;
 import es.uco.pw.business.factory.LateRegInscriptionFactory;
+
+import es.uco.pw.business.activity.ActivityDTO;
+import es.uco.pw.business.assistant.AssistantDTO;
+import es.uco.pw.business.campament.CampamentDTO;
+import es.uco.pw.business.factory.CompleteInscriptionDTO;
 import es.uco.pw.business.factory.ParcialInscriptionDTO;
+//import es.uco.pw.business.monitor.MonitorDTO;
+
+import es.uco.pw.business.schendule.Schendule;
+
+import es.uco.pw.data.dao.inscription.CompleteInscriptionDAO;
+import es.uco.pw.data.dao.inscription.ParcialInscriptionDAO;
 
 /**
  * Manages the completes and parcials inscriptions lists.
@@ -109,7 +113,7 @@ public class InscriptionsManager {
         double price = calcPrice(campament, assistant.getAtention());
         completeInscriptionDTO.setPrice(price);
         
-        InscriptionDAO iDao = new InscriptionDAO();
+        CompleteInscriptionDAO iDao = new CompleteInscriptionDAO();
 
         iDao.insert(completeInscriptionDTO);
     }
@@ -149,7 +153,7 @@ public class InscriptionsManager {
         double price = calcPrice(campament, assistant.getAtention());
         parcialInscriptionDTO.setPrice(price);
 
-        InscriptionDAO iDao = new InscriptionDAO();
+        ParcialInscriptionDAO iDao = new ParcialInscriptionDAO();
 
         iDao.insert(parcialInscriptionDTO);
     }

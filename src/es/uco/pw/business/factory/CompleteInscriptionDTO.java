@@ -7,7 +7,7 @@ import es.uco.pw.business.schendule.Schendule;
  * This class extends the general Inscription class to provide specific functionality
  * for complete inscriptions with a detailed string representation.
  */
-public class CompleteInscriptionDTO extends Inscription {
+public class CompleteInscriptionDTO extends InscriptionDTO {
 
     /**
      * Constructs a complete inscription without parameters

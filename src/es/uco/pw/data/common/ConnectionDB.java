@@ -8,7 +8,7 @@ import java.sql.DriverManager;
 import java.util.Properties;
 
 public class ConnectionDB {
-    private Properties sqlProperties;
+    private Properties configProperties;
     private Connection conn;
     private String host;
     private String dbName;
@@ -17,14 +17,14 @@ public class ConnectionDB {
     private String url;
     
     public ConnectionDB() throws FileNotFoundException, IOException {
-        this.sqlProperties = new Properties();
-        this.sqlProperties.load(new FileInputStream("dbProperties.txt"));
+        this.configProperties = new Properties();
+        this.configProperties.load(new FileInputStream("config.properties"));
 
         this.conn = null;
-        this.host = this.sqlProperties.getProperty("DB_HOST");
-        this.dbName = this.sqlProperties.getProperty("DB_NAME");
-        this.username = this.sqlProperties.getProperty("DB_USER");
-        this.password = this.sqlProperties.getProperty("DB_PASSWORD");
+        this.host = this.configProperties.getProperty("DB_HOST");
+        this.dbName = this.configProperties.getProperty("DB_NAME");
+        this.username = this.configProperties.getProperty("DB_USER");
+        this.password = this.configProperties.getProperty("DB_PASSWORD");
     
         this.url = "jdbc:mysql://" + host + ":3306/" + dbName;
     }

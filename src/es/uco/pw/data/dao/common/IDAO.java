@@ -7,5 +7,5 @@ public interface IDAO<T,E> {
     public T getById(E id) throws Exception;
     public void insert(T dto) throws Exception;
     public void update(T dto) throws Exception;
-    // public void delete() throws Exception;
+    // public void delete(T dto) throws Exception;
 }

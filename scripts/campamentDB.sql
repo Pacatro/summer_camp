@@ -1,4 +1,4 @@
--- Active: 1694521027087@@127.0.0.1@3306@i12gafen
+-- Active: 1694082650616@@127.0.0.1@3306@i12gafen
 DROP DATABASE IF EXISTS i12gafen;
 CREATE DATABASE IF NOT EXISTS i12gafen;
 USE i12gafen;
@@ -36,17 +36,20 @@ CREATE TABLE IF NOT EXISTS campaments(
 );
 
 CREATE TABLE IF NOT EXISTS activities_monitors(
-    act_id VARCHAR(64) PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    act_id VARCHAR(64),
     monitor_id INT
 );
 
 CREATE TABLE IF NOT EXISTS activities_campaments(
-    act_id VARCHAR(64) PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    act_id VARCHAR(64),
     camp_id INT
 );
 
 CREATE TABLE IF NOT EXISTS monitors_campaments(
-    monitor_id INT PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    monitor_id INT,
     camp_id INT
 );
 
@@ -77,56 +80,67 @@ ALTER TABLE monitors_campaments ADD FOREIGN KEY (camp_id) REFERENCES campaments(
 ALTER TABLE inscriptions ADD FOREIGN KEY (camp_id) REFERENCES campaments(camp_id);
 ALTER TABLE inscriptions ADD FOREIGN KEY (ass_id) REFERENCES assistants(ass_id);
 
+-- Insertar datos en la tabla 'activities'
 INSERT INTO activities (name, education_level, schedule, max_participants, num_monitors)
 VALUES
-    ('Natación', 'Infantil', 'Mañana', 20, 2),
-    ('Senderismo', 'Adolescente', 'Tarde', 15, 1),
-    ('Manualidades', 'Juvenil', 'Noche', 10, 3);
+    ('Actividad1', 'Infantil', 'MORNING', 20, 3),
+    ('Actividad2', 'Juvenil', 'AFTERNOON', 15, 2),
+    ('Actividad3', 'Infantil', 'AFTERNOON', 25, 4);
 
+-- Insertar datos en la tabla 'monitors'
 INSERT INTO monitors (monitor_id, name, surname, special_edu)
 VALUES
-    (1, 'Juan', 'Pérez', true),
-    (2, 'María', 'López', false),
-    (3, 'Miguel', 'González', true);
+    (1, 'Juan', 'Perez', true),
+    (2, 'Luis', 'Martínez', false),
+    (3, 'Ana', 'Sánchez', true);
 
+-- Insertar datos en la tabla 'campaments'
 INSERT INTO campaments (camp_id, start_date, end_date, educate_level, max_assistant)
 VALUES
-    (1, '2023-07-15', '2023-07-22', 'Infantil', 50),
-    (2, '2023-08-10', '2023-08-17', 'Juvenil', 40),
-    (3, '2023-09-05', '2023-09-12', 'Adolescente', 30);
+    (1, '2023-07-01', '2023-07-10', 'Infantil', 100),
+    (2, '2023-08-15', '2023-08-24', 'Juvenil', 80),
+    (3, '2023-06-20', '2023-06-30', 'Infantil', 120);
 
+-- Insertar datos en la tabla 'activities_monitors'
 INSERT INTO activities_monitors (act_id, monitor_id)
 VALUES
-    ('Natación', 1),
-    ('Senderismo', 2),
-    ('Manualidades', 3);
+    ('Actividad1', 1),
+    ('Actividad2', 2),
+    ('Actividad3', 3);
 
+-- Insertar datos en la tabla 'activities_campaments'
 INSERT INTO activities_campaments (act_id, camp_id)
 VALUES
-    ('Natación', 1),
-    ('Senderismo', 2),
-    ('Manualidades', 3);
+    ('Actividad1', 1),
+    ('Actividad2', 2),
+    ('Actividad3', 3);
 
+-- Insertar datos en la tabla 'monitors_campaments'
 INSERT INTO monitors_campaments (monitor_id, camp_id)
 VALUES
     (1, 1),
     (2, 2),
     (3, 3);
 
+-- Insertar datos en la tabla 'assistants'
 INSERT INTO assistants (ass_id, name, surname, birth_date, attention)
 VALUES
-    (1, 'Ana', 'Martínez', '2005-03-12', true),
-    (2, 'David', 'Gómez', '2006-08-27', false),
-    (3, 'Olivia', 'Johnson', '2004-11-05', true);
+    (1, 'Maria', 'Gonzalez', '2005-03-15', true),
+    (2, 'Pedro', 'López', '2006-02-20', true),
+    (3, 'Sofia', 'Rodriguez', '2004-08-10', false);
 
+-- Insertar datos en la tabla 'inscriptions'
 INSERT INTO inscriptions (ass_id, type, date, cancelled, price, schendule, camp_id)
 VALUES
-    (1, 'Completa', '2023-07-05', FALSE, 350.00, 'MORNING', 1),
-    (2, 'Completa', '2023-07-10', FALSE, 300.00, 'AFTERNOON', 1),
-    (3, 'Parcial', '2023-09-01', FALSE, 320.00, 'MORNING', 3);
+    (1, 'Parcial', '2023-05-10', false, 100.00, 'MORNING', 1),
+    (2, 'Completa', '2023-06-05', false, 120.00, 'AFTERNOON', 1),
+    (3, 'Parcial', '2023-05-20', false, 110.00, 'MORNING', 2);
+
 
 SELECT * FROM assistants;
 SELECT * FROM campaments;
 
 SELECT * FROM inscriptions WHERE type = 'Parcial';
 SELECT * FROM inscriptions WHERE type = 'Completa';
+
+SELECT * FROM campaments WHERE camp_id = (SELECT camp_id FROM activities_campaments WHERE act_id = 'Actividad1');

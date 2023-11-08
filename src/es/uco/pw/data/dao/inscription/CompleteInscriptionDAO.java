@@ -1,47 +1,42 @@
 package es.uco.pw.data.dao.inscription;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+
 import java.util.ArrayList;
+import java.util.Properties;
 
 import es.uco.pw.business.factory.CompleteInscriptionDTO;
-import es.uco.pw.business.factory.ParcialInscriptionDTO;
 import es.uco.pw.data.common.ConnectionDB;
-import es.uco.pw.data.dao.common.IDAO;
+import es.uco.pw.data.common.IDAO;
 
-public class InscriptionDAO implements IDAO<CompleteInscriptionDTO> {
-    public InscriptionDAO(){}
+public class CompleteInscriptionDAO implements IDAO<CompleteInscriptionDTO>{
+    private Properties sqlProperties;
     
+    public CompleteInscriptionDAO() throws FileNotFoundException, IOException{
+        this.sqlProperties = new Properties();
+        this.sqlProperties.load(new FileInputStream("sql.properties"));
+    }
+    
+    @Override
     public void insert(CompleteInscriptionDTO completeInscriptionDTO) throws Exception {
         try {
             Connection conn = new ConnectionDB().getConnection();
 
-            String sql = "INSERT INTO inscriptions (ass_id, type, date, price, camp_id) VALUES (?, ?, ?, ?, ?)";
+            String sql = this.sqlProperties.getProperty("INSERT_INSCRIPTION");
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ps.setInt(1, completeInscriptionDTO.getIdParticipant());
             ps.setString(2, "Completa");
             ps.setString(3, completeInscriptionDTO.getDate().toString());
-            ps.setDouble(4, completeInscriptionDTO.getPrice());
-            ps.setInt(5, completeInscriptionDTO.getIdCampament());
-
-            ps.execute();
-
-        } catch (Exception e) { throw e; }
-    }
-
-    public void insert(ParcialInscriptionDTO parcialInscriptionDTO) throws Exception {
-        try {
-            Connection conn = new ConnectionDB().getConnection();
-
-            String sql = "INSERT INTO inscriptions (ass_id, type, date, price, camp_id) VALUES (?, ?, ?, ?, ?)";
-            PreparedStatement ps = conn.prepareStatement(sql);
-
-            ps.setInt(1, parcialInscriptionDTO.getIdParticipant());
-            ps.setString(2, "Parcial");
-            ps.setString(3, parcialInscriptionDTO.getDate().toString());
-            ps.setDouble(4, parcialInscriptionDTO.getPrice());
-            ps.setInt(5, parcialInscriptionDTO.getIdCampament());
+            ps.setBoolean(4, completeInscriptionDTO.getCancellation());
+            ps.setDouble(5, completeInscriptionDTO.getPrice());
+            ps.setString(6, completeInscriptionDTO.getSchendule().toString());
+            ps.setInt(7, completeInscriptionDTO.getIdCampament());
 
             ps.execute();
 

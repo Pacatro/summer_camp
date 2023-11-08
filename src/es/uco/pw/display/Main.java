@@ -14,7 +14,7 @@ import es.uco.pw.business.managers.CampamentsManager;
 import es.uco.pw.business.managers.InscriptionsManager;
 import es.uco.pw.business.monitor.MonitorDTO;
 import es.uco.pw.business.schendule.Schendule;
-import es.uco.pw.data.dao.inscription.InscriptionDAO;
+import es.uco.pw.data.dao.inscription.ParcialInscriptionDAO;
 
 
 public class Main {

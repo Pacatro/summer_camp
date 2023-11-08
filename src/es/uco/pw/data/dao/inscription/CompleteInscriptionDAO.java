@@ -39,7 +39,7 @@ public class CompleteInscriptionDAO implements IDAO<CompleteInscriptionDTO, Inte
             ps.setString(3, completeInscriptionDTO.getDate().toString());
             ps.setBoolean(4, completeInscriptionDTO.getCancellation());
             ps.setDouble(5, completeInscriptionDTO.getPrice());
-            ps.setString(6, completeInscriptionDTO.getSchendule().toString());
+            ps.setString(6, completeInscriptionDTO.getSchedule().toString());
             ps.setInt(7, completeInscriptionDTO.getIdCampament());
 
             ps.execute();

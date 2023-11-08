@@ -13,8 +13,8 @@ import es.uco.pw.business.activity.ActivityDTO;
 import es.uco.pw.business.assistant.AssistantDTO;
 import es.uco.pw.business.campament.CampamentDTO;
 import es.uco.pw.business.monitor.MonitorDTO;
+import es.uco.pw.business.schedule.Schedule;
 import es.uco.pw.business.level.Level;
-import es.uco.pw.business.schendule.Schedule;
 import es.uco.pw.business.factory.CompleteInscriptionDTO;
 import es.uco.pw.business.factory.ParcialInscriptionDTO;
 import es.uco.pw.business.factory.EarlyRegInscriptionFactory;
@@ -79,9 +79,9 @@ public class DataBase {
         //     }
 
         //     if(elements[2].equals("MORNING")){
-        //         auxActivity.setSchendule(Schendule.MORNING);
+        //         auxActivity.setSchedule(Schedule.MORNING);
         //     }else if(elements[2].equals("AFTERNOON")){
-        //         auxActivity.setSchendule(Schendule.AFTERNOON);
+        //         auxActivity.setSchedule(Schedule.AFTERNOON);
         //     }
 
         //     for(int i = 5; i < elements.length; i++){
@@ -222,11 +222,11 @@ public class DataBase {
                 }
             }
 
-            Schedule auxSchendule = Schedule.MORNING;
+            Schedule auxSchedule = Schedule.MORNING;
             if(elements[5].equals("MORNING")){
-                auxSchendule = Schedule.MORNING;
+                auxSchedule = Schedule.MORNING;
             }else if(elements[5].equals("AFTERNOON")){
-                auxSchendule = Schedule.AFTERNOON;
+                auxSchedule = Schedule.AFTERNOON;
             }
 
             int dif = (auxCampament.getInitDate().compareTo(LocalDate.parse(elements[2])));
@@ -234,11 +234,11 @@ public class DataBase {
             if(dif > 15){
                 EarlyRegInscriptionFactory eFactory = new EarlyRegInscriptionFactory();
 
-                auxCompleteInscription = eFactory.createCompleteInscription(auxCampament, auxAssistant, auxSchendule, LocalDate.parse(elements[2]));
+                auxCompleteInscription = eFactory.createCompleteInscription(auxCampament, auxAssistant, auxSchedule, LocalDate.parse(elements[2]));
             }else{
                 LateRegInscriptionFactory lFactory = new LateRegInscriptionFactory();
 
-                auxCompleteInscription = lFactory.createCompleteInscription(auxCampament, auxAssistant, auxSchendule, LocalDate.parse(elements[2]));
+                auxCompleteInscription = lFactory.createCompleteInscription(auxCampament, auxAssistant, auxSchedule, LocalDate.parse(elements[2]));
             }
 
             auxCompleteInscription.setPrice(Double.parseDouble(elements[3]));
@@ -313,7 +313,7 @@ public class DataBase {
         BufferedWriter file = new BufferedWriter(new FileWriter(new File(this.properties.getProperty(("activities")))));
 
         for(ActivityDTO activity: activities){
-            String line = activity.getname() + " " + activity.getLevel() + " " + activity.getSchendule() + " " + activity.getMaxParticipants() + " " + activity.getNumMonitors();
+            String line = activity.getname() + " " + activity.getLevel() + " " + activity.getSchedule() + " " + activity.getMaxParticipants() + " " + activity.getNumMonitors();
 
             for(MonitorDTO monitor: activity.getMonitors()){
                 line += (" " + (monitor.getID()));
@@ -361,7 +361,7 @@ public class DataBase {
         BufferedWriter file = new BufferedWriter(new FileWriter(new File(this.properties.getProperty("completeinscriptions"))));
 
         for(CompleteInscriptionDTO inscription: inscriptions){
-            file.write(inscription.getIdParticipant() + " " + inscription.getIdCampament() + " " + inscription.getDate() + " " + inscription.getPrice() + " " + inscription.getCancellation() + " " + inscription.getSchendule() + "\n");
+            file.write(inscription.getIdParticipant() + " " + inscription.getIdCampament() + " " + inscription.getDate() + " " + inscription.getPrice() + " " + inscription.getCancellation() + " " + inscription.getSchedule() + "\n");
         }
 
         file.close();
@@ -371,7 +371,7 @@ public class DataBase {
         BufferedWriter file = new BufferedWriter(new FileWriter(new File(this.properties.getProperty("parcialinscriptions"))));
 
         for(ParcialInscriptionDTO inscription: inscriptions){
-            file.write(inscription.getIdParticipant() + " " + inscription.getIdCampament() + " " + inscription.getDate() + " " + inscription.getPrice() + " " + inscription.getCancellation() + " " + inscription.getSchendule() + "\n");
+            file.write(inscription.getIdParticipant() + " " + inscription.getIdCampament() + " " + inscription.getDate() + " " + inscription.getPrice() + " " + inscription.getCancellation() + " " + inscription.getSchedule() + "\n");
         }
 
         file.close();

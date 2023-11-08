@@ -10,10 +10,11 @@ import java.sql.ResultSet;
 import es.uco.pw.business.activity.ActivityDTO;
 import es.uco.pw.business.level.Level;
 import es.uco.pw.business.monitor.MonitorDTO;
-import es.uco.pw.business.schendule.Schedule;
+import es.uco.pw.business.schedule.Schedule;
 import es.uco.pw.data.common.ConnectionDB;
 import es.uco.pw.data.dao.common.IDAO;
 import es.uco.pw.data.dao.monitor.MonitorDAO;
+
 
 /**
  * Manage the data from the activities table
@@ -33,7 +34,7 @@ public class ActivityDAO implements IDAO<ActivityDTO,String>{
 
             ps.setString(1, activity.getname());
             ps.setString(2, activity.getLevel().toString());
-            ps.setString(3, activity.getSchendule().toString());
+            ps.setString(3, activity.getSchedule().toString());
             ps.setInt(4, activity.getMaxParticipants());
             ps.setInt(5, activity.getNumMonitors());
 
@@ -148,9 +149,9 @@ public class ActivityDAO implements IDAO<ActivityDTO,String>{
 
                 String scheduleString = rs.getString("schedule");
                 if(scheduleString.equals("MORNING")){
-                    act.setSchendule(Schedule.MORNING);
+                    act.setSchedule(Schedule.MORNING);
                 }else{
-                    act.setSchendule(Schedule.AFTERNOON);
+                    act.setSchedule(Schedule.AFTERNOON);
                 }
 
                 activities.add(act);
@@ -191,9 +192,9 @@ public class ActivityDAO implements IDAO<ActivityDTO,String>{
 
             String scheduleString = rs.getString("schedule");
             if(scheduleString.equals("MORNING")){
-                act.setSchendule(Schedule.MORNING);
+                act.setSchedule(Schedule.MORNING);
             }else{
-                act.setSchendule(Schedule.AFTERNOON);
+                act.setSchedule(Schedule.AFTERNOON);
             }
 
             return act;

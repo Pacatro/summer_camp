@@ -8,8 +8,8 @@ import es.uco.pw.business.activity.ActivityDTO;
 import es.uco.pw.business.assistant.AssistantDTO;
 import es.uco.pw.business.campament.CampamentDTO;
 import es.uco.pw.business.monitor.MonitorDTO;
+import es.uco.pw.business.schedule.Schedule;
 import es.uco.pw.business.level.Level;
-import es.uco.pw.business.schendule.Schedule;
 import es.uco.pw.business.factory.CompleteInscriptionDTO;
 import es.uco.pw.business.factory.ParcialInscriptionDTO;
 import es.uco.pw.business.managers.AssistantManager;
@@ -21,12 +21,6 @@ import es.uco.pw.business.managers.InscriptionsManager;
  */
 public class Menu {
     private Scanner scanner;
-    private ArrayList<MonitorDTO> monitors;
-    private ArrayList<ActivityDTO> activities;
-    private ArrayList<AssistantDTO> assistants;
-    private ArrayList<CampamentDTO> campaments;
-    private ArrayList<CompleteInscriptionDTO> completeInscriptions;
-    private ArrayList<ParcialInscriptionDTO> parcialInscriptions;
 
     /**
      * Initializes a new Menu instance with the required data.
@@ -39,17 +33,7 @@ public class Menu {
      * @param completeInscriptions The list of complete inscriptions in the system.
      * @param parcialInscriptions  The list of parcial inscriptions in the system.
      */
-    public Menu(Scanner scanner, ArrayList<MonitorDTO> monitors, ArrayList<ActivityDTO> activities, ArrayList<AssistantDTO> assistants,
-                ArrayList<CampamentDTO> campaments, ArrayList<CompleteInscriptionDTO> completeInscriptions, ArrayList<ParcialInscriptionDTO> parcialInscriptions){
-        
-        this.scanner = scanner;
-        this.monitors = monitors;
-        this.activities = activities;
-        this.assistants = assistants;
-        this.campaments = campaments;
-        this.completeInscriptions = completeInscriptions;
-        this.parcialInscriptions = parcialInscriptions;
-    }
+    public Menu(Scanner scanner){}
 
     public void mainMenu() throws Exception{
         int opt;
@@ -112,7 +96,7 @@ public class Menu {
                     System.out.print("Introduzca el id del asistente: ");
                     int assistantID = Integer.parseInt(this.scanner.nextLine());
 
-                    assistant = manager.search(assistantID, assistants);
+                    assistant = manager.getById(assistantID);
 
                     if(assistant != null){
                         System.out.println("\nEl id del asistente ya ha sido registrado previamente.");
@@ -135,10 +119,15 @@ public class Menu {
                     
                     assistant = new AssistantDTO(assistantID, assistantName, assistantSurname, assistantBday, atention);
 
-                    if(!manager.register(assistant, this.assistants)){
+                    // TODO: HACER MEJOR CONTROL ERRORES
+                    manager.register(assistant);
+
+                    /*
+                    if(!manager.register(assistant)){
                         System.out.println("\nNo se ha podido registrar al asistente.");
                         break;
                     }
+                    */
 
                     System.out.println("\nEl asistente ha sido registrado con exito.");
 
@@ -150,7 +139,7 @@ public class Menu {
                     System.out.print("Introduzca el id del asistente a modificar: ");
                     int newAssistantID = Integer.parseInt(this.scanner.nextLine());
 
-                    if(manager.search(newAssistantID, this.assistants) == null){
+                    if(manager.getById(newAssistantID) == null){
                         System.out.println("\nNo existe un asistente con ese id en la lista.");
                         break;
                     }
@@ -169,17 +158,22 @@ public class Menu {
                     System.out.print("El asistente necesita atencion especial (true/false): ");
                     boolean newAtention = Boolean.parseBoolean(this.scanner.nextLine());
 
-                    if(!manager.modify(newAssistantID, newAssistantName, newAssistantSurname, newAssistantBday, newAtention, this.assistants)){
+                    // TODO: HACER MEJOR CONTROL ERRORES
+                    manager.modify(newAssistantID, newAssistantName, newAssistantSurname, newAssistantBday, newAtention);
+                    /*
+                    if(!manager.modify(newAssistantID, newAssistantName, newAssistantSurname, newAssistantBday, newAtention)){
                         System.out.println("\nEl asistente no se ha modificado correctamente.");
                         break;
                     }
+                    */
 
                     System.out.println("\nAsistente modificado correctamente.");
                 break;
 
                 case 3:
                     System.out.println("Lista de asistentes: ");
-                    manager.print(this.assistants);
+                    // TODO: NO SE SI ESTA FUNCION ESTA ACABADA
+                    manager.print();
                 break;
 
                 case 4:
@@ -325,10 +319,12 @@ public class Menu {
 
                     }while(subopt != 1 && subopt != 2);
 
-                    manager.createCampaments(this.campaments, campId, initDate, finalDate, campLevel);
+                    manager.createCampaments(campId, initDate, finalDate, campLevel);
                 break;
 
                 case 4:
+                    
+                    /* TODO: IMPLEMENTAR ESTO USANDO LOS MANAGERS INSERTANDO EN LAS TABLAS DE RELACION DE LA BD
                     System.out.println("Asociando monitor - actividad...");
 
                     for (int k = 0; k < activities.size(); k++) {
@@ -370,10 +366,12 @@ public class Menu {
                         
                     }
 
-                    // manager.associateMonitorsToActivities(selectedMonitorIndex, activity);
+                    manager.associateMonitorsToActivities(selectedMonitorIndex, activity);
+                    */
 
                 break;
                 case 5:
+                    /* TODO: IMPLEMENTAR ESTO USANDO LOS MANAGERS INSERTANDO EN LAS TABLAS DE RELACION DE LA BD
                     System.out.println("Asociando actividad - campamento...");
 
                     System.out.println("Asociación de actividades a campamentos:");
@@ -413,9 +411,12 @@ public class Menu {
                     }
 
                     manager.associateActivitiesToCampaments(this.campaments, this.activities, selectedActivityIndex2, selectedCampament);
+                    */
                 break;
 
                 case 6:
+                    /* TODO: IMPLEMENTAR ESTO USANDO LOS MANAGERS INSERTANDO EN LAS TABLAS DE RELACION DE LA BD
+
                     System.out.println("Asociando monitor - campamento...");
                     for (int k = 0; k < campaments.size(); k++) {
                         System.out.println("Campamento: " + k + ")" + campaments.get(k).getId());
@@ -448,6 +449,7 @@ public class Menu {
                     }
                     
                     manager.associateMonitorsToCampaments(this.campaments, this.monitors, selectedCampamentIndex3, selectedCampament2);
+                    */
                 break;
 
                 case 7:
@@ -493,7 +495,6 @@ public class Menu {
             System.out.print("Indique el id del asistente: ");
             int assisId = Integer.parseInt(this.scanner.nextLine());
 
-            //hacer getbyid manager
             AssistantManager assistantManager = new AssistantManager();
             AssistantDTO assistant = assistantManager.getById(assisId);
 

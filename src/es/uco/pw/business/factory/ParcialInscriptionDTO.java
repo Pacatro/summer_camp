@@ -1,6 +1,6 @@
 package es.uco.pw.business.factory;
 
-import es.uco.pw.business.schendule.Schedule;
+import es.uco.pw.business.schedule.Schedule;
 
 /**
  * Represents a partial inscription for a camp with morning schedule.
@@ -13,7 +13,7 @@ public class ParcialInscriptionDTO extends InscriptionDTO{
      * Constructs a partial inscription with a morning schedule.
      */
     public ParcialInscriptionDTO(){
-        setSchendule(Schedule.MORNING);
+        setSchedule(Schedule.MORNING);
     }
 
     @Override

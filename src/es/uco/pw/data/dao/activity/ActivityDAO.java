@@ -107,8 +107,10 @@ public class ActivityDAO implements IDAO<ActivityDTO,String>{
 
             ActivityDTO activity = getById(act_id);
 
-            if(activity.getNumMonitors() <= rs.getInt("COUNT")){
-                return true;
+            while(rs.next()){
+                if(activity.getNumMonitors() <= rs.getInt("count(monitor_id)")){
+                    return true;
+                }
             }
 
             return false;
@@ -173,27 +175,18 @@ public class ActivityDAO implements IDAO<ActivityDTO,String>{
 
             ResultSet rs = ps.executeQuery();
 
-            
             ActivityDTO act = new ActivityDTO();
 
-            act.setname(rs.getString("name"));
-            act.setMaxParticipants(rs.getInt("max_participants"));
-            act.setNumMonitors(rs.getInt("num_monitors"));
+            while(rs.next()){
+                act.setname(rs.getString("name"));
+                act.setMaxParticipants(rs.getInt("max_participants"));
+                act.setNumMonitors(rs.getInt("num_monitors"));
 
-            String levelString = rs.getString("education_level");
-            if(levelString.equals("CHILD")){
-                act.setLevel(Level.CHILD);
-            }else if(levelString.equals("TEENAGER")){
-                act.setLevel(Level.TEENAGER);
-            }else{
-                act.setLevel(Level.YOUTH);
-            }
+                String levelString = rs.getString("education_level");
+                act.setLevel(Level.valueOf(levelString));
 
-            String scheduleString = rs.getString("schedule");
-            if(scheduleString.equals("MORNING")){
-                act.setSchendule(Schendule.MORNING);
-            }else{
-                act.setSchendule(Schendule.AFTERNOON);
+                String scheduleString = rs.getString("schedule");
+                act.setSchendule(Schendule.valueOf(scheduleString));
             }
 
             return act;

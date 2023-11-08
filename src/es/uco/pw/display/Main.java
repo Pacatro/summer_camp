@@ -51,6 +51,7 @@ public class Main {
 
         CampamentsManager cManager = new CampamentsManager();
         cManager.createActivity("Baloncesto", Level.CHILD, Schedule.MORNING, 20, 10);
+        cManager.associateMonitorsToActivities(1, "Actividad3");
     }
 
 }

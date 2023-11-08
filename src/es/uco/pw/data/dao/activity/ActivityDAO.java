@@ -93,6 +93,29 @@ public class ActivityDAO implements IDAO<ActivityDTO,String>{
         } catch(Exception e) {throw e;}
     }
 
+    public boolean isMonitorsFull(String act_id) throws Exception{
+        try{
+            Properties properties = new Properties();
+            properties.load(new FileInputStream("sql.properties"));
+            String sql = properties.getProperty("GET_NUMMONITORS_ACTIVITY");
+
+            Connection conn = new ConnectionDB().getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setString(1, act_id);
+            ResultSet rs = ps.executeQuery();
+
+            ActivityDTO activity = getById(act_id);
+
+            if(activity.getNumMonitors() <= rs.getInt("COUNT")){
+                return true;
+            }
+
+            return false;
+
+        } catch(Exception e) {throw e;}
+    }
+
     @Override
     public ArrayList<ActivityDTO> getAll() throws Exception{
         try{

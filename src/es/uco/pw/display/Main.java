@@ -48,12 +48,14 @@ public class Main {
         // DB.exportCompleteInscriptions(completeInscriptions);
         // DB.exportParcialInscriptions(parcialInscriptions);
 
-        CampamentDTO campamentDTO = new CampamentDTO(4, LocalDate.of(2024, 9, 15), LocalDate.of(2024, 11, 12), Level.CHILD);
+        //CampamentDTO campamentDTO = new CampamentDTO(4, LocalDate.of(2024, 9, 15), LocalDate.of(2024, 11, 12), Level.CHILD);
         AssistantDTO assistantDTO = new AssistantDTO(7, "Mayte", "Alba", LocalDate.of(2003, 9, 15), false);
+        AssistantDTO assistantDTO2 = new AssistantDTO(3, "Nuria", "Garofano", LocalDate.of(2003, 5, 6), false);
 
-        InscriptionsManager iManager = new InscriptionsManager();
+        //InscriptionsManager iManager = new InscriptionsManager();
 
-        iManager.enrollParcial(campamentDTO, assistantDTO);
+        //iManager.enrollParcial(campamentDTO, assistantDTO);
+
     }
 
 }

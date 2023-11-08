@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import es.uco.pw.business.activity.ActivityDTO;
 import es.uco.pw.business.level.Level;
 import es.uco.pw.business.monitor.MonitorDTO;
-import es.uco.pw.business.schendule.Schendule;
+import es.uco.pw.business.schendule.Schedule;
 import es.uco.pw.data.common.ConnectionDB;
 import es.uco.pw.data.dao.common.IDAO;
 import es.uco.pw.data.dao.monitor.MonitorDAO;
@@ -125,9 +125,9 @@ public class ActivityDAO implements IDAO<ActivityDTO,String>{
 
                 String scheduleString = rs.getString("schedule");
                 if(scheduleString.equals("MORNING")){
-                    act.setSchendule(Schendule.MORNING);
+                    act.setSchendule(Schedule.MORNING);
                 }else{
-                    act.setSchendule(Schendule.AFTERNOON);
+                    act.setSchendule(Schedule.AFTERNOON);
                 }
 
                 activities.add(act);
@@ -168,9 +168,9 @@ public class ActivityDAO implements IDAO<ActivityDTO,String>{
 
             String scheduleString = rs.getString("schedule");
             if(scheduleString.equals("MORNING")){
-                act.setSchendule(Schendule.MORNING);
+                act.setSchendule(Schedule.MORNING);
             }else{
-                act.setSchendule(Schendule.AFTERNOON);
+                act.setSchendule(Schedule.AFTERNOON);
             }
 
             return act;

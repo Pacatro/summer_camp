@@ -14,7 +14,7 @@ import es.uco.pw.business.assistant.AssistantDTO;
 import es.uco.pw.business.campament.CampamentDTO;
 import es.uco.pw.business.monitor.MonitorDTO;
 import es.uco.pw.business.level.Level;
-import es.uco.pw.business.schendule.Schendule;
+import es.uco.pw.business.schendule.Schedule;
 import es.uco.pw.business.factory.CompleteInscriptionDTO;
 import es.uco.pw.business.factory.ParcialInscriptionDTO;
 import es.uco.pw.business.factory.EarlyRegInscriptionFactory;
@@ -222,11 +222,11 @@ public class DataBase {
                 }
             }
 
-            Schendule auxSchendule = Schendule.MORNING;
+            Schedule auxSchendule = Schedule.MORNING;
             if(elements[5].equals("MORNING")){
-                auxSchendule = Schendule.MORNING;
+                auxSchendule = Schedule.MORNING;
             }else if(elements[5].equals("AFTERNOON")){
-                auxSchendule = Schendule.AFTERNOON;
+                auxSchendule = Schedule.AFTERNOON;
             }
 
             int dif = (auxCampament.getInitDate().compareTo(LocalDate.parse(elements[2])));

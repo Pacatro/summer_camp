@@ -6,7 +6,7 @@ import es.uco.pw.business.activity.ActivityDTO;
 import es.uco.pw.business.campament.CampamentDTO;
 import es.uco.pw.business.monitor.MonitorDTO;
 import es.uco.pw.business.level.Level;
-import es.uco.pw.business.schendule.Schendule;
+import es.uco.pw.business.schendule.Schedule;
 import es.uco.pw.data.dao.activity.ActivityDAO;
 import es.uco.pw.data.dao.monitor.MonitorDAO;
 
@@ -27,7 +27,7 @@ public class CampamentsManager {
      * @param max_participants The maximum number of participants for the activity.
      * @param num_monitors     The number of monitors for the activity.
      */
-    public void createActivity(String name, Level level, Schendule schendule, int max_participants, int num_monitors) throws Exception {
+    public void createActivity(String name, Level level, Schedule schendule, int max_participants, int num_monitors) throws Exception {
         try{
 
             ActivityDAO dao = new ActivityDAO();

@@ -13,7 +13,7 @@ import es.uco.pw.business.level.Level;
 import es.uco.pw.business.managers.CampamentsManager;
 import es.uco.pw.business.managers.InscriptionsManager;
 import es.uco.pw.business.monitor.MonitorDTO;
-import es.uco.pw.business.schendule.Schendule;
+import es.uco.pw.business.schendule.Schedule;
 import es.uco.pw.data.dao.inscription.ParcialInscriptionDAO;
 
 
@@ -50,7 +50,7 @@ public class Main {
         iManager.enrollParcial(campamentDTO, assistantDTO);
 
         CampamentsManager cManager = new CampamentsManager();
-        cManager.createActivity("Baloncesto", Level.CHILD, Schendule.MORNING, 20, 10);
+        cManager.createActivity("Baloncesto", Level.CHILD, Schedule.MORNING, 20, 10);
     }
 
 }

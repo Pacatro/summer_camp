@@ -148,4 +148,10 @@ public class CampamentsManager {
         //         selectedCampament.associateMonitor(selectedMonitor);
         // }
     }
+
+    public CampamentDTO getById(int id) throws Exception{
+        CampamentDAO campamentDAO = new CampamentDAO();
+        CampamentDTO campament = campamentDAO.getById(id);
+        return campament;
+    }
 }

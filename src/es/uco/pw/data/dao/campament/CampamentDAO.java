@@ -1,4 +1,4 @@
-package es.uco.pw.data.dao;
+package es.uco.pw.data.dao.campament;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

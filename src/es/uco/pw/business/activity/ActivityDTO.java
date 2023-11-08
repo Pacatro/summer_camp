@@ -2,7 +2,7 @@ package es.uco.pw.business.activity;
 import java.util.ArrayList;
 
 import es.uco.pw.business.level.Level;
-import es.uco.pw.business.schendule.Schendule;
+import es.uco.pw.business.schendule.Schedule;
 import es.uco.pw.business.monitor.MonitorDTO;
 
 /**
@@ -15,7 +15,7 @@ public class ActivityDTO {
 
     private Level level;
 
-    private Schendule schendule;
+    private Schedule schendule;
 
     private int max_participants;
 
@@ -28,13 +28,13 @@ public class ActivityDTO {
     public ActivityDTO(){
         this.name = "";
         this.level = Level.CHILD;
-        this.schendule = Schendule.MORNING;
+        this.schendule = Schedule.MORNING;
         this.max_participants = 0;
         this.num_monitors = 0;
         this.monitors = new ArrayList<MonitorDTO>();
     }
 
-    public ActivityDTO(String name, Level level, Schendule schendule, int max_participants, int num_monitors){
+    public ActivityDTO(String name, Level level, Schedule schendule, int max_participants, int num_monitors){
         this.name = name;
         this.level = level;
         this.schendule = schendule;
@@ -53,7 +53,7 @@ public class ActivityDTO {
         return level;
     }
 
-    public Schendule getSchendule(){
+    public Schedule getSchendule(){
         return schendule;
     }
 
@@ -77,7 +77,7 @@ public class ActivityDTO {
         this.level = level;
     }
 
-    public void setSchendule(Schendule schendule){
+    public void setSchendule(Schedule schendule){
         this.schendule = schendule;
     }
 

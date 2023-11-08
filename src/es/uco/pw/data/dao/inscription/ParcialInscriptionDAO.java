@@ -1,10 +1,10 @@
 package es.uco.pw.data.dao.inscription;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -13,19 +13,18 @@ import es.uco.pw.data.common.ConnectionDB;
 import es.uco.pw.data.dao.common.IDAO;
 
 public class ParcialInscriptionDAO implements IDAO<ParcialInscriptionDTO, Integer> {
-    private Properties sqlProperties;
     
-    public ParcialInscriptionDAO() throws FileNotFoundException, IOException{
-        this.sqlProperties = new Properties();
-        this.sqlProperties.load(new FileInputStream("sql.properties"));
-    }
-
+    public ParcialInscriptionDAO(){}
+    
     @Override
     public void insert(ParcialInscriptionDTO parcialInscriptionDTO) throws Exception {
+        Properties sqlProperties = new Properties();
+        sqlProperties.load(new FileInputStream("sql.properties"));
+
         try {
             Connection conn = new ConnectionDB().getConnection();
 
-            String sql = this.sqlProperties.getProperty("INSERT_INSCRIPTION");
+            String sql = sqlProperties.getProperty("INSERT_INSCRIPTION");
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ps.setInt(1, parcialInscriptionDTO.getIdParticipant());

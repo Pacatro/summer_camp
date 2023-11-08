@@ -1,6 +1,8 @@
 package es.uco.pw.data.dao.monitor;
 
 import java.util.ArrayList;
+import java.util.Properties;
+import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,8 +17,11 @@ public class MonitorDAO implements IDAO<MonitorDTO,Integer>{
     @Override
     public void insert(MonitorDTO monitor) throws Exception{
         try{
+            Properties properties = new Properties();
+            properties.load(new FileInputStream("sql.properties"));
+            String sql = properties.getProperty("INSERT_MONITOR");
+
             Connection conn = new ConnectionDB().getConnection();
-            String sql = "INSERT INTO monitors (monitor_id, name, surname, special_edu) VALUES (?, ?, ?, ?)";
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ps.setInt(1, monitor.getID());
@@ -32,9 +37,12 @@ public class MonitorDAO implements IDAO<MonitorDTO,Integer>{
     @Override
     public MonitorDTO getById(Integer id) throws Exception{
         try{
+            Properties properties = new Properties();
+            properties.load(new FileInputStream("sql.properties"));
+            String sql = properties.getProperty("GETBYID_MONITOR");
+
             Connection conn = new ConnectionDB().getConnection();
-            String sql2 = "SELECT * FROM monitors WHERE monitor_id=?";
-            PreparedStatement ps = conn.prepareStatement(sql2);
+            PreparedStatement ps = conn.prepareStatement(sql);
 
             ps.setInt(1, id);
 
@@ -48,8 +56,11 @@ public class MonitorDAO implements IDAO<MonitorDTO,Integer>{
     @Override
     public ArrayList<MonitorDTO> getAll() throws Exception{
         try{
+            Properties properties = new Properties();
+            properties.load(new FileInputStream("sql.properties"));
+            String sql = properties.getProperty("GETALL_MONITOR");
+
             Connection conn = new ConnectionDB().getConnection();
-            String sql = "SELECT * FROM monitors";
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ResultSet rs = ps.executeQuery();

@@ -94,30 +94,10 @@ public class CampamentsManager {
 
         try{
             ActivityDAO act_dao = new ActivityDAO();
-            MonitorDAO mon_dao = new MonitorDAO();
 
-            ActivityDTO activity = act_dao.getById(activity_id);
+            ArrayList<MonitorDTO> monitors = act_dao.getMonitors(activity_id);
 
-            ArrayList<MonitorDTO> monitors = mon_dao.getAll();
-
-            if(monitors.size() >= activity.getNumMonitors()){
-                return; //TODO representar que hubo un error
-            }
-            
             boolean flag = false;
-            for(MonitorDTO m: monitors){
-                if(m.getID() == monitor_id){
-                    flag = true;
-                }
-            }
-
-            if(!flag){
-                return; //TODO representar que hubo un error
-            }
-
-            monitors = act_dao.getMonitors(activity_id);
-
-            flag = false;
             for(MonitorDTO m: monitors){
                 if(m.getID() == monitor_id){
                     flag = true;

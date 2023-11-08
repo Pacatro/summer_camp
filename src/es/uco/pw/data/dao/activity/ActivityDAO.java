@@ -1,7 +1,8 @@
 package es.uco.pw.data.dao.activity;
 
 import java.util.ArrayList;
-
+import java.util.Properties;
+import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,36 +24,22 @@ public class ActivityDAO implements IDAO<ActivityDTO,String>{
     @Override
     public void insert(ActivityDTO activity) throws Exception{
         try{
-            Connection conn = new ConnectionDB().getConnection();
+            Properties properties = new Properties();
+            properties.load(new FileInputStream("sql.properties"));
+            String sql = properties.getProperty("INSERT_ACTIVITY");
 
-            String sql = "INSERT INTO activities (name, education_level, schedule, max_participants, num_monitors) VALUES (?, ?, ?, ?, ?)";
+            Connection conn = new ConnectionDB().getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
 
-            String level;
-            if(activity.getLevel() == Level.CHILD){
-                level = "CHILD";
-            }else if(activity.getLevel() == Level.TEENAGER){
-                level = "TEENAGER";
-            }else{
-                level = "YOUTH";
-            }
-
-            String schendule;
-            if(activity.getSchendule() == Schendule.MORNING){
-                schendule = "MORNING";
-            }else{
-                schendule = "AFTERNOON";
-            }
-
             ps.setString(1, activity.getname());
-            ps.setString(2, level);
-            ps.setString(3, schendule);
+            ps.setString(2, activity.getLevel().toString());
+            ps.setString(3, activity.getSchendule().toString());
             ps.setInt(4, activity.getMaxParticipants());
             ps.setInt(5, activity.getNumMonitors());
 
             ps.execute();
 
-            sql = "INSERT INTO activities_monitors (act_id, monitor_id) VALUES (?, ?)";
+            sql = properties.getProperty("INSERT_ACTIVITY_MONITOR");
             ps = conn.prepareStatement(sql);
             
             ps.setString(1, activity.getname());
@@ -68,9 +55,11 @@ public class ActivityDAO implements IDAO<ActivityDTO,String>{
 
     public void addMonitor(String act_id, int mon_id) throws Exception{
         try {
-            Connection conn = new ConnectionDB().getConnection();
+            Properties properties = new Properties();
+            properties.load(new FileInputStream("sql.properties"));
+            String sql = properties.getProperty("INSERT_ACTIVITY_MONITOR");
 
-            String sql = "INSERT INTO activities_monitors (act_id, monitor_id) VALUES (?, ?)";
+            Connection conn = new ConnectionDB().getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ps.setString(1, act_id);
@@ -83,14 +72,16 @@ public class ActivityDAO implements IDAO<ActivityDTO,String>{
 
     public ArrayList<MonitorDTO> getMonitors(String act_id) throws Exception{
         try{
-            ArrayList<MonitorDTO> monitors = new ArrayList<MonitorDTO>();
-
+            Properties properties = new Properties();
+            properties.load(new FileInputStream("sql.properties"));
+            String sql = properties.getProperty("GETBYID_MONITOR_IN_ACTIVITY");
+            
             Connection conn = new ConnectionDB().getConnection();
-            String sql = "SELECT monitor_id FROM activities_monitors where act_id=? VALUES (?)";
             PreparedStatement ps = conn.prepareStatement(sql);
-
+            
             ps.setString(1, act_id);
-
+            
+            ArrayList<MonitorDTO> monitors = new ArrayList<MonitorDTO>();
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 MonitorDAO monitorDAO = new MonitorDAO();
@@ -105,8 +96,11 @@ public class ActivityDAO implements IDAO<ActivityDTO,String>{
     @Override
     public ArrayList<ActivityDTO> getAll() throws Exception{
         try{
+            Properties properties = new Properties();
+            properties.load(new FileInputStream("sql.properties"));
+            String sql = properties.getProperty("GETALL_ACTIVITY");
+
             Connection conn = new ConnectionDB().getConnection();
-            String sql = "SELECT * FROM activities";
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ResultSet rs = ps.executeQuery();
@@ -146,8 +140,11 @@ public class ActivityDAO implements IDAO<ActivityDTO,String>{
     @Override
     public ActivityDTO getById(String id) throws Exception{
         try{
+            Properties properties = new Properties();
+            properties.load(new FileInputStream("sql.properties"));
+            String sql = properties.getProperty("GETBYID_ACTIVITY");
+
             Connection conn = new ConnectionDB().getConnection();
-            String sql = "SELECT * FROM activities WHERE name=?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, id);
 

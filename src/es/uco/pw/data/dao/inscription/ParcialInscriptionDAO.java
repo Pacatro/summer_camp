@@ -10,9 +10,9 @@ import java.util.Properties;
 
 import es.uco.pw.business.factory.ParcialInscriptionDTO;
 import es.uco.pw.data.common.ConnectionDB;
-import es.uco.pw.data.common.IDAO;
+import es.uco.pw.data.dao.common.IDAO;
 
-public class ParcialInscriptionDAO implements IDAO<ParcialInscriptionDTO> {
+public class ParcialInscriptionDAO implements IDAO<ParcialInscriptionDTO, Integer> {
     private Properties sqlProperties;
     
     public ParcialInscriptionDAO() throws FileNotFoundException, IOException{
@@ -45,7 +45,7 @@ public class ParcialInscriptionDAO implements IDAO<ParcialInscriptionDTO> {
     public ArrayList<ParcialInscriptionDTO> getAll() throws Exception { throw new UnsupportedOperationException("Unimplemented method 'getAll'"); }
 
     @Override
-    public ParcialInscriptionDTO getById(int id) throws Exception { throw new UnsupportedOperationException("Unimplemented method 'getById'"); }
+    public ParcialInscriptionDTO getById(Integer id) throws Exception { throw new UnsupportedOperationException("Unimplemented method 'getById'"); }
 
     @Override
     public void update(ParcialInscriptionDTO dto) throws Exception { throw new UnsupportedOperationException("Unimplemented method 'update'"); }

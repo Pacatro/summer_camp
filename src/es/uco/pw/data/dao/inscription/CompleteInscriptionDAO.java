@@ -12,9 +12,9 @@ import java.util.Properties;
 
 import es.uco.pw.business.factory.CompleteInscriptionDTO;
 import es.uco.pw.data.common.ConnectionDB;
-import es.uco.pw.data.common.IDAO;
+import es.uco.pw.data.dao.common.IDAO;
 
-public class CompleteInscriptionDAO implements IDAO<CompleteInscriptionDTO>{
+public class CompleteInscriptionDAO implements IDAO<CompleteInscriptionDTO, Integer>{
     private Properties sqlProperties;
     
     public CompleteInscriptionDAO() throws FileNotFoundException, IOException{
@@ -47,7 +47,7 @@ public class CompleteInscriptionDAO implements IDAO<CompleteInscriptionDTO>{
     public ArrayList<CompleteInscriptionDTO> getAll() throws Exception { throw new UnsupportedOperationException("Unimplemented method 'getAll'"); }
 
     @Override
-    public CompleteInscriptionDTO getById(int id) throws Exception { throw new UnsupportedOperationException("Unimplemented method 'getById'"); }
+    public CompleteInscriptionDTO getById(Integer id) throws Exception { throw new UnsupportedOperationException("Unimplemented method 'getById'"); }
 
     @Override
     public void update(CompleteInscriptionDTO dto) throws Exception { throw new UnsupportedOperationException("Unimplemented method 'update'"); }

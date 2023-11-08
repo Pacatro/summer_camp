@@ -1,5 +1,8 @@
 package es.uco.pw.data.common;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.Properties;
@@ -13,8 +16,9 @@ public class ConnectionDB {
     private String password;
     private String url;
     
-    public ConnectionDB(Properties sqlProperties) {
-        this.sqlProperties = sqlProperties;
+    public ConnectionDB() throws FileNotFoundException, IOException {
+        this.sqlProperties = new Properties();
+        this.sqlProperties.load(new FileInputStream("dbProperties.txt"));
 
         this.conn = null;
         this.host = this.sqlProperties.getProperty("DB_HOST");

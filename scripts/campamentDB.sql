@@ -1,16 +1,16 @@
 -- Active: 1694521027087@@127.0.0.1@3306@i12gafen
--- DROP DATABASE IF EXISTS i12gafen;
--- CREATE DATABASE IF NOT EXISTS i12gafen;
--- USE i12gafen;
+DROP DATABASE IF EXISTS i12gafen;
+CREATE DATABASE IF NOT EXISTS i12gafen;
+USE i12gafen;
 
--- DROP TABLE IF EXISTS activities_monitors;
--- DROP TABLE IF EXISTS activities_campaments;
--- DROP TABLE IF EXISTS monitors_campaments;
--- DROP TABLE IF EXISTS activities;
--- DROP TABLE IF EXISTS monitors;
--- DROP TABLE IF EXISTS inscriptions;
--- DROP TABLE IF EXISTS campaments;
--- DROP TABLE IF EXISTS assistants;
+DROP TABLE IF EXISTS activities_monitors;
+DROP TABLE IF EXISTS activities_campaments;
+DROP TABLE IF EXISTS monitors_campaments;
+DROP TABLE IF EXISTS activities;
+DROP TABLE IF EXISTS monitors;
+DROP TABLE IF EXISTS inscriptions;
+DROP TABLE IF EXISTS campaments;
+DROP TABLE IF EXISTS assistants;
 
 CREATE TABLE IF NOT EXISTS activities(
     name VARCHAR(64) PRIMARY KEY,
@@ -59,12 +59,13 @@ CREATE TABLE IF NOT EXISTS assistants(
 );
 
 CREATE TABLE IF NOT EXISTS inscriptions(
-    i_id INT PRIMARY KEY,
+    ass_id INT PRIMARY KEY,
     type VARCHAR(64),
     date DATE,
+    cancelled BOOLEAN,
     price FLOAT,
-    campament_id INT,
-    ass_id INT
+    schendule VARCHAR(64),
+    camp_id INT
 );
 
 ALTER TABLE activities_monitors ADD FOREIGN KEY (act_id) REFERENCES activities(name);
@@ -73,7 +74,7 @@ ALTER TABLE activities_campaments ADD FOREIGN KEY (act_id) REFERENCES activities
 ALTER TABLE activities_campaments ADD FOREIGN KEY (camp_id) REFERENCES campaments(camp_id);
 ALTER TABLE monitors_campaments ADD FOREIGN KEY (monitor_id) REFERENCES monitors(monitor_id);
 ALTER TABLE monitors_campaments ADD FOREIGN KEY (camp_id) REFERENCES campaments(camp_id);
-ALTER TABLE inscriptions ADD FOREIGN KEY (campament_id) REFERENCES campaments(camp_id);
+ALTER TABLE inscriptions ADD FOREIGN KEY (camp_id) REFERENCES campaments(camp_id);
 ALTER TABLE inscriptions ADD FOREIGN KEY (ass_id) REFERENCES assistants(ass_id);
 
 INSERT INTO activities (name, education_level, schedule, max_participants, num_monitors)
@@ -118,12 +119,14 @@ VALUES
     (2, 'David', 'Gómez', '2006-08-27', false),
     (3, 'Olivia', 'Johnson', '2004-11-05', true);
 
-INSERT INTO inscriptions (i_id, type, date, price, campament_id, ass_id)
+INSERT INTO inscriptions (ass_id, type, date, cancelled, price, schendule, camp_id)
 VALUES
-    (1, 'Completa', '2023-07-05', 350.00, 1, 1),
-    (2, 'Completa', '2023-07-10', 300.00, 1, 2),
-    (3, 'Parcial', '2023-08-05', 500.00, 2, 1),
-    (4, 'Completa', '2023-09-01', 320.00, 3, 3);
+    (1, 'Completa', '2023-07-05', FALSE, 350.00, 'MORNING', 1),
+    (2, 'Completa', '2023-07-10', FALSE, 300.00, 'AFTERNOON', 1),
+    (3, 'Parcial', '2023-09-01', FALSE, 320.00, 'MORNING', 3);
 
 SELECT * FROM assistants;
 SELECT * FROM campaments;
+
+SELECT * FROM inscriptions WHERE type = 'Parcial';
+SELECT * FROM inscriptions WHERE type = 'Completa';

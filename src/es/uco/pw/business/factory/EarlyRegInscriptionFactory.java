@@ -13,7 +13,7 @@ import es.uco.pw.business.schendule.Schendule;
  */
 public class EarlyRegInscriptionFactory extends InscriptionFactory {
     @Override
-    public CompleteInscriptionDTO createCompleteInscription(CampamentDTO campament, AssistantDTO assistant, Schendule schendule, LocalDate date){
+    public CompleteInscriptionDTO createCompleteInscription(CampamentDTO campament, AssistantDTO assistant, Schendule schendule, LocalDate date) throws Exception {
         CompleteInscriptionDTO cInscription = new CompleteInscriptionDTO(schendule);
 
         //LocalDate date = LocalDate.now();
@@ -24,10 +24,7 @@ public class EarlyRegInscriptionFactory extends InscriptionFactory {
 
         long dif = ChronoUnit.DAYS.between(date, campamentDate);
 
-        if(dif < 15){
-            System.out.println("Fecha incorrecta");
-            return null;
-        }
+        if(dif < 15) throw new Exception("Fecha incorrecta");
 
         cInscription.setDate(date);
         
@@ -35,7 +32,7 @@ public class EarlyRegInscriptionFactory extends InscriptionFactory {
     }
 
     @Override
-    public ParcialInscriptionDTO createParcialInscription(CampamentDTO campament, AssistantDTO assistant, LocalDate date){
+    public ParcialInscriptionDTO createParcialInscription(CampamentDTO campament, AssistantDTO assistant, LocalDate date) throws Exception {
         ParcialInscriptionDTO pInscription = new ParcialInscriptionDTO();
 
         //LocalDate date = LocalDate.now();
@@ -46,10 +43,7 @@ public class EarlyRegInscriptionFactory extends InscriptionFactory {
 
         long dif = ChronoUnit.DAYS.between(date, campamentDate);
 
-        if(dif < 15){
-            System.out.println("Fecha incorrecta");
-            return null;
-        }
+        if(dif < 15) throw new Exception("Fecha incorrecta");
 
         pInscription.setDate(date);
         

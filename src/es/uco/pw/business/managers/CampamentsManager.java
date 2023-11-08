@@ -7,6 +7,8 @@ import es.uco.pw.business.campament.CampamentDTO;
 import es.uco.pw.business.monitor.MonitorDTO;
 import es.uco.pw.business.level.Level;
 import es.uco.pw.business.schendule.Schendule;
+import es.uco.pw.data.dao.activity.ActivityDAO;
+import es.uco.pw.data.dao.monitor.MonitorDAO;
 
 import java.time.LocalDate;
 
@@ -25,10 +27,14 @@ public class CampamentsManager {
      * @param max_participants The maximum number of participants for the activity.
      * @param num_monitors     The number of monitors for the activity.
      */
-    public void createActivity(ArrayList<ActivityDTO> activities, String name, Level level, Schendule schendule, int max_participants, int num_monitors) throws Exception {
-        
-        ActivityDTO newActivity = new ActivityDTO(name, level, schendule, max_participants, num_monitors);
-        activities.add(newActivity);
+    public void createActivity(String name, Level level, Schendule schendule, int max_participants, int num_monitors) throws Exception {
+        try{
+
+            ActivityDAO dao = new ActivityDAO();
+            ActivityDTO newActivity = new ActivityDTO(name, level, schendule, max_participants, num_monitors);
+            dao.insert(newActivity);
+            
+        } catch (Exception e) {throw e;}
     }
 
     /**
@@ -40,12 +46,14 @@ public class CampamentsManager {
      * @param surname     The surname of the monitor.
      * @param isEspecial  Whether the monitor is a special needs monitor (true/false).
      */
-    public void createMonitor(ArrayList<MonitorDTO> monitors, int id, String name, String surname, boolean isEspecial)
-            throws Exception {
+    public void createMonitor(int id, String name, String surname, boolean isEspecial) throws Exception {
+        try{
 
-        MonitorDTO newMonitor = new MonitorDTO(id, name, surname, isEspecial);
-        monitors.add(newMonitor);
+            MonitorDAO dao = new MonitorDAO();
+            MonitorDTO newMonitor = new MonitorDTO(id, name, surname, isEspecial);
+            dao.insert(newMonitor);
 
+        } catch (Exception e) {throw e;}
     }
 
     /**
@@ -73,14 +81,57 @@ public class CampamentsManager {
      * @param selectedMonitorIndex   The index of the selected monitor.
      * @param activity               The activity to associate with the monitor.
      */
-    public void associateMonitorsToActivities(ArrayList<ActivityDTO> activities, ArrayList<MonitorDTO> monitors, int selectedMonitorIndex, ActivityDTO activity) {
+    public void associateMonitorsToActivities(int monitor_id, String activity_id) throws Exception{
         
         // MonitorDTO selectedMonitor = monitors.get(selectedMonitorIndex);
-        // boolean isMonitorAdded = activity.associateMonitor(selectedMonitor); //TODO hacer funcion con DAO
+        // boolean isMonitorAdded = activity.associateMonitor(selectedMonitor);
         // if (!isMonitorAdded) {
         //     System.out.println("No se admiten mas monitores en esta actividad.");
         //     return;
         // }
+
+        //Modificada para que solo se añada un monitor
+
+        try{
+            ActivityDAO act_dao = new ActivityDAO();
+            MonitorDAO mon_dao = new MonitorDAO();
+
+            ActivityDTO activity = act_dao.getById(activity_id);
+
+            ArrayList<MonitorDTO> monitors = mon_dao.getAll();
+
+            if(monitors.size() >= activity.getNumMonitors()){
+                return; //TODO representar que hubo un error
+            }
+            
+            boolean flag = false;
+            for(MonitorDTO m: monitors){
+                if(m.getID() == monitor_id){
+                    flag = true;
+                }
+            }
+
+            if(!flag){
+                return; //TODO representar que hubo un error
+            }
+
+            monitors = act_dao.getMonitors(activity_id);
+
+            flag = false;
+            for(MonitorDTO m: monitors){
+                if(m.getID() == monitor_id){
+                    flag = true;
+                }
+            }
+
+            if(!flag){
+                return; //TODO representar que hubo un error
+            }
+
+            act_dao.addMonitor(activity_id, monitor_id);
+
+        } catch(Exception e) {throw e;}
+        
     }
 
     /**

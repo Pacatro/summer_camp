@@ -17,7 +17,7 @@ import es.uco.pw.data.dao.monitor.MonitorDAO;
 /**
  * Manage the data from the activities table
  */
-public class ActivityDAO implements IDAO<ActivityDTO>{
+public class ActivityDAO implements IDAO<ActivityDTO,String>{
     public ActivityDAO(){}
 
     @Override
@@ -25,7 +25,7 @@ public class ActivityDAO implements IDAO<ActivityDTO>{
         try{
             Connection conn = new ConnectionDB().getConnection();
 
-            String sql = "INSERT INTO activities (name, education_level, schendule, max_participants, num_monitors) VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO activities (name, education_level, schedule, max_participants, num_monitors) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement ps = conn.prepareStatement(sql);
 
             String level;
@@ -104,12 +104,80 @@ public class ActivityDAO implements IDAO<ActivityDTO>{
 
     @Override
     public ArrayList<ActivityDTO> getAll() throws Exception{
-        throw new UnsupportedOperationException("Unimplemented method 'getAll'");
+        try{
+            Connection conn = new ConnectionDB().getConnection();
+            String sql = "SELECT * FROM activities";
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+
+            ArrayList<ActivityDTO> activities = new ArrayList<ActivityDTO>();
+
+            while(rs.next()){
+                ActivityDTO act = new ActivityDTO();
+
+                act.setname(rs.getString("name"));
+                act.setMaxParticipants(rs.getInt("max_participants"));
+                act.setNumMonitors(rs.getInt("num_monitors"));
+
+                String levelString = rs.getString("education_level");
+                if(levelString.equals("CHILD")){
+                    act.setLevel(Level.CHILD);
+                }else if(levelString.equals("TEENAGER")){
+                    act.setLevel(Level.TEENAGER);
+                }else{
+                    act.setLevel(Level.YOUTH);
+                }
+
+                String scheduleString = rs.getString("schedule");
+                if(scheduleString.equals("MORNING")){
+                    act.setSchendule(Schendule.MORNING);
+                }else{
+                    act.setSchendule(Schendule.AFTERNOON);
+                }
+
+                activities.add(act);
+            }
+
+            return activities;
+        } catch (Exception e) {throw e;}
     }
 
     @Override
-    public ActivityDTO getById(int id) throws Exception{
-        throw new UnsupportedOperationException("Unimplemented method 'getById'");
+    public ActivityDTO getById(String id) throws Exception{
+        try{
+            Connection conn = new ConnectionDB().getConnection();
+            String sql = "SELECT * FROM activities WHERE name=?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, id);
+
+            ResultSet rs = ps.executeQuery();
+
+            
+            ActivityDTO act = new ActivityDTO();
+
+            act.setname(rs.getString("name"));
+            act.setMaxParticipants(rs.getInt("max_participants"));
+            act.setNumMonitors(rs.getInt("num_monitors"));
+
+            String levelString = rs.getString("education_level");
+            if(levelString.equals("CHILD")){
+                act.setLevel(Level.CHILD);
+            }else if(levelString.equals("TEENAGER")){
+                act.setLevel(Level.TEENAGER);
+            }else{
+                act.setLevel(Level.YOUTH);
+            }
+
+            String scheduleString = rs.getString("schedule");
+            if(scheduleString.equals("MORNING")){
+                act.setSchendule(Schendule.MORNING);
+            }else{
+                act.setSchendule(Schendule.AFTERNOON);
+            }
+
+            return act;
+        } catch (Exception e) {throw e;}
     }
 
     @Override

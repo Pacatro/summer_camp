@@ -1,7 +1,6 @@
 package es.uco.pw.data.dao.monitor;
 
 import java.util.ArrayList;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,7 +9,7 @@ import es.uco.pw.business.monitor.MonitorDTO;
 import es.uco.pw.data.common.ConnectionDB;
 import es.uco.pw.data.dao.common.IDAO;
 
-public class MonitorDAO implements IDAO<MonitorDTO>{
+public class MonitorDAO implements IDAO<MonitorDTO,Integer>{
     public MonitorDAO(){}
 
     @Override
@@ -31,22 +30,39 @@ public class MonitorDAO implements IDAO<MonitorDTO>{
     }
 
     @Override
-    public MonitorDTO getById(int id) throws Exception{
-        Connection conn = new ConnectionDB().getConnection();
-        String sql2 = "SELECT * FROM monitors WHERE monitor_id=? VALUES (?)";
-        PreparedStatement ps = conn.prepareStatement(sql2);
+    public MonitorDTO getById(Integer id) throws Exception{
+        try{
+            Connection conn = new ConnectionDB().getConnection();
+            String sql2 = "SELECT * FROM monitors WHERE monitor_id=?";
+            PreparedStatement ps = conn.prepareStatement(sql2);
 
-        ps.setInt(1, id);
+            ps.setInt(1, id);
 
-        ResultSet rs = ps.executeQuery();
+            ResultSet rs = ps.executeQuery();
 
-        return (new MonitorDTO(rs.getInt("monitor_id"), rs.getString("name"), 
-                               rs.getString("surname"), rs.getBoolean("special_edu")));
+            return (new MonitorDTO(rs.getInt("monitor_id"), rs.getString("name"), 
+                                   rs.getString("surname"), rs.getBoolean("special_edu")));
+        } catch (Exception e) {throw e;}
     }
 
     @Override
     public ArrayList<MonitorDTO> getAll() throws Exception{
-        throw new UnsupportedOperationException("Unimplemented method 'getAll'");
+        try{
+            Connection conn = new ConnectionDB().getConnection();
+            String sql = "SELECT * FROM monitors";
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+
+            ArrayList<MonitorDTO> monitors = new ArrayList<MonitorDTO>();
+
+            while(rs.next()){
+                monitors.add(new MonitorDTO(rs.getInt("monitor_id"), rs.getString("name"), 
+                                            rs.getString("surname"), rs.getBoolean("special_edu")));
+            }
+
+            return monitors;
+        } catch (Exception e) {throw e;}
     }
 
     @Override

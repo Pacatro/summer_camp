@@ -8,6 +8,7 @@ import es.uco.pw.business.monitor.MonitorDTO;
 import es.uco.pw.business.level.Level;
 import es.uco.pw.business.schendule.Schedule;
 import es.uco.pw.data.dao.activity.ActivityDAO;
+import es.uco.pw.data.dao.campament.CampamentDAO;
 import es.uco.pw.data.dao.monitor.MonitorDAO;
 
 import java.time.LocalDate;
@@ -65,12 +66,14 @@ public class CampamentsManager {
      * @param finalDate  The end date of the campament.
      * @param level      The level of the campament.
      */
-    public void createCampaments(ArrayList<CampamentDTO> campaments, int id, LocalDate initDate, LocalDate finalDate,
-            Level level) throws Exception {
-        
-        CampamentDTO nuevoCampamento = new CampamentDTO(id, initDate, finalDate, level);
-        campaments.add(nuevoCampamento);
+    public void createCampaments(int id, LocalDate initDate, LocalDate finalDate, Level level) throws Exception {
+                try{
 
+                    CampamentDAO dao = new CampamentDAO();
+                    CampamentDTO newCampament = new CampamentDTO(id, initDate, finalDate, level);
+                    dao.insert(newCampament);
+        
+                } catch (Exception e) {throw e;}
     }
     
     /**
@@ -95,16 +98,15 @@ public class CampamentsManager {
 
     /**
      * Associates an activity with a campament.
-     *
-     * @param campaments              The list of campaments.
-     * @param activities              The list of activities.
+     * 
      * @param selectedActivityIndex   The index of the selected activity.
      * @param selectedCampament       The campament to associate the activity with.
      */
-    public void associateActivitiesToCampaments(ArrayList<CampamentDTO> campaments, ArrayList<ActivityDTO> activities, int selectedActivityIndex, CampamentDTO selectedCampament) {
+    public void associateActivitiesToCampaments(int campId, String activityId) throws Exception {
         
         // ActivityDTO selectedActivity = activities.get(selectedActivityIndex);
         // selectedCampament.associateActivity(selectedActivity);
+
     }
 
     /**
@@ -124,5 +126,11 @@ public class CampamentsManager {
         //     !selectedMonitor.isEspecial() && activityMonitors.contains(selectedMonitor)) {
         //         selectedCampament.associateMonitor(selectedMonitor);
         // }
+    }
+
+    public CampamentDTO getById(int id) throws Exception{
+        CampamentDAO campamentDAO = new CampamentDAO();
+        CampamentDTO campament = campamentDAO.getById(id);
+        return campament;
     }
 }

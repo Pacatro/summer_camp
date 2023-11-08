@@ -486,20 +486,9 @@ public class Menu {
             System.out.print("Indique el id del campamento: ");
             int campId = Integer.parseInt(this.scanner.nextLine());
             
-            CampamentDTO campament = new CampamentDTO();
-            boolean flag = false;
-            for(int i = 0; i < this.campaments.size() && !flag; i++){
-                if(this.campaments.get(i).getId() == campId){
-                    campament = (this.campaments.get(i));
-                    flag = true;
-                }
-            }
+            CampamentsManager campamentsManager = new CampamentsManager();
 
-            if(!flag){
-                System.out.println("Error, no se encontro el campamento");
-                return;
-            }
-
+            CampamentDTO campament = campamentsManager.getById(campId);
             
             System.out.print("Indique el id del asistente: ");
             int assisId = Integer.parseInt(this.scanner.nextLine());

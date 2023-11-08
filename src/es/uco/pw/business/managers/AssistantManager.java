@@ -61,4 +61,10 @@ public class AssistantManager {
         }*/
     }
 
+    public AssistantDTO getById(int id) throws Exception{
+        AssistantDAO assistantDAO = new AssistantDAO();
+        AssistantDTO assistantDTO = assistantDAO.getById(id);
+        return assistantDTO;
+    }
+
 }

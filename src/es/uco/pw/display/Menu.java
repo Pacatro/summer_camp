@@ -493,22 +493,12 @@ public class Menu {
             System.out.print("Indique el id del asistente: ");
             int assisId = Integer.parseInt(this.scanner.nextLine());
 
-            AssistantDTO assistant = new AssistantDTO();
-            flag = false;
-            for(int i = 0; i < this.assistants.size() && !flag; i++){
-                if(this.assistants.get(i).getId() == assisId){
-                    assistant = (this.assistants.get(i));
-                    flag = true;
-                }
-            }
-
-            if(!flag){
-                System.out.println("Error, no se encontro el assistente");
-                return;
-            }
-
+            //hacer getbyid manager
+            AssistantManager assistantManager = new AssistantManager();
+            AssistantDTO assistant = assistantManager.getById(assisId);
 
             Schedule schedule = Schedule.MORNING;
+            
             do{
                 System.out.println();
                 System.out.println("Indique el horario:");

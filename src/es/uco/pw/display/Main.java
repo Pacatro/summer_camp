@@ -6,22 +6,16 @@ import java.util.ArrayList;
 import java.io.FileInputStream;
 import java.time.LocalDate;
 
+import es.uco.pw.business.activity.ActivityDTO;
 import es.uco.pw.business.assistant.AssistantDTO;
 import es.uco.pw.business.campament.CampamentDTO;
 import es.uco.pw.business.level.Level;
+import es.uco.pw.business.managers.CampamentsManager;
 import es.uco.pw.business.managers.InscriptionsManager;
-import es.uco.pw.business.schendule.Schendule;
+import es.uco.pw.business.monitor.MonitorDTO;
+import es.uco.pw.business.schendule.Schedule;
+import es.uco.pw.data.dao.inscription.ParcialInscriptionDAO;
 
-// import es.uco.pw.business.activity.ActivityDTO;
-// import es.uco.pw.business.assistant.AssistantDTO;
-// import es.uco.pw.business.campament.CampamentDTO;
-// import es.uco.pw.business.monitor.MonitorDTO;
-// import es.uco.pw.data.database.DataBase;
-// import es.uco.pw.business.factory.CompleteInscriptionDTO;
-// import es.uco.pw.business.factory.ParcialInscriptionDTO;
-
-import es.uco.pw.data.dao.InscriptionDAO;
-import es.uco.pw.data.dao.AssistantDAO.AssistantDAO;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -51,7 +45,7 @@ public class Main {
         //CampamentDTO campamentDTO = new CampamentDTO(4, LocalDate.of(2024, 9, 15), LocalDate.of(2024, 11, 12), Level.CHILD);
         AssistantDTO assistantDTO = new AssistantDTO(7, "Mayte", "Alba", LocalDate.of(2003, 9, 15), false);
         AssistantDTO assistantDTO2 = new AssistantDTO(3, "Nuria", "Garofano", LocalDate.of(2003, 5, 6), false);
-
+        
         //InscriptionsManager iManager = new InscriptionsManager();
 
         //iManager.enrollParcial(campamentDTO, assistantDTO);

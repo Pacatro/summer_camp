@@ -1,13 +1,13 @@
 package es.uco.pw.business.factory;
 
-import es.uco.pw.business.schendule.Schendule;
+import es.uco.pw.business.schendule.Schedule;
 
 /**
  * Represents a complete inscription for a camp with both morning and afternoon schedule.
  * This class extends the general Inscription class to provide specific functionality
  * for complete inscriptions with a detailed string representation.
  */
-public class CompleteInscriptionDTO extends Inscription {
+public class CompleteInscriptionDTO extends InscriptionDTO {
 
     /**
      * Constructs a complete inscription without parameters
@@ -19,7 +19,7 @@ public class CompleteInscriptionDTO extends Inscription {
      *
      * @param schendule The schedule associated with the complete inscription.
      */
-    public CompleteInscriptionDTO(Schendule schendule){
+    public CompleteInscriptionDTO(Schedule schendule){
         setSchendule(schendule);
     }
 

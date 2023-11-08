@@ -2,13 +2,13 @@ package es.uco.pw.business.factory;
 
 import java.time.LocalDate;
 
-import es.uco.pw.business.schendule.Schendule;
+import es.uco.pw.business.schendule.Schedule;
 
 /**
  * Represents a model inscription.
  * This abstract class defines the attributes and methods common to all types of inscriptions.
  */
-public abstract class Inscription {
+public abstract class InscriptionDTO {
     
     /* Atributtes */
     
@@ -22,7 +22,7 @@ public abstract class Inscription {
 
     private boolean cancellation;
 
-    private Schendule schendule;
+    private Schedule schendule;
 
     /* Constructor */
 
@@ -30,7 +30,7 @@ public abstract class Inscription {
      * Default constructor for an Inscription.
      * Initializes default values for some attributes.
      */
-    public Inscription(){
+    public InscriptionDTO(){
         this.participantId = 0;
         this.campamentId = 0;
         this.date = LocalDate.now();
@@ -59,7 +59,7 @@ public abstract class Inscription {
         return this.cancellation;
     }
 
-    public Schendule getSchendule() {
+    public Schedule getSchendule() {
         return this.schendule;
     }
 
@@ -83,7 +83,7 @@ public abstract class Inscription {
         this.cancellation = cancellation;
     }
 
-    public void setSchendule(Schendule schendule) {
+    public void setSchendule(Schedule schendule) {
         this.schendule = schendule;
     }
 

@@ -123,12 +123,26 @@ public class CampamentsManager {
      * @param selectedActivityIndex   The index of the selected activity.
      * @param selectedCampament       The campament to associate the activity with.
      */
-    public void associateActivitiesToCampaments(int campId, String activityId) throws Exception {
+    public void associateActivitiesToCampaments(int camp_id, String activityId) throws Exception {
         
         // ActivityDTO selectedActivity = activities.get(selectedActivityIndex);
         // selectedCampament.associateActivity(selectedActivity);
-
-    }
+        try {
+            CampamentDAO campamentDAO = new CampamentDAO();
+            ActivityDAO activityDAO = new ActivityDAO();
+    
+            // Obtener el campamento y la actividad
+            CampamentDTO campament = campamentDAO.getById(camp_id);
+            ActivityDTO activity = activityDAO.getById(activityId);
+    
+            // Verificar si tienen el mismo nivel
+            if (campament.getLevel() == activity.getLevel()) {
+                campamentDAO.addActivity(camp_id, activityId);
+            }
+           
+            }catch (Exception e) {throw e;}
+        }
+    
 
     /**
      * Associates a monitor with a campament based on specific criteria.

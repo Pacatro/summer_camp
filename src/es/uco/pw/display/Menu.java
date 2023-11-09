@@ -346,24 +346,25 @@ public class Menu {
 
                     ArrayList<MonitorDTO> monitors = manager.getAllMonitorsNotEspecial();
 
-                    int selectedMonitorIndex = 0;
-
                     System.out.println("\nSelecciona un monitor:\n");
         
                     for (int j = 0; j < monitors.size(); j++) {
                         System.out.println("Monitor: " + j + ") " + monitors.get(j).getName() + " " + monitors.get(j).getSurname());
                     }
         
-                    selectedMonitorIndex = Integer.parseInt(this.scanner.nextLine());
+                    int selectedMonitorIndex = Integer.parseInt(this.scanner.nextLine());
+                    
                     while (!(selectedMonitorIndex >= 0 && selectedMonitorIndex < monitors.size()
                             && monitors.get(selectedMonitorIndex).isEspecial() == false)) {
                         System.out.println("Índice de monitor no válido.");
                         System.out.print("Selecciona un monitor: ");
                         selectedMonitorIndex = Integer.parseInt(this.scanner.nextLine());
                     }
+
+                    MonitorDTO monitor = monitors.get(selectedMonitorIndex);
                         
 
-                    manager.associateMonitorsToActivities(selectedMonitorIndex, activity.getname());
+                    manager.associateMonitorsToActivities(monitor.getID(), activity.getname());
 
                 break;
                 case 5:

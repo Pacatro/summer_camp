@@ -319,9 +319,29 @@ public class Menu {
                             System.out.println("Elija una opcion correcta");
                         }
 
-                    }while(subopt != 1 && subopt != 2);
+                    }while(subopt < 1 || subopt > 3);
+                    System.out.println("Introduzca el número máximo de participantes: ");
+                
 
-                    manager.createCampaments(campId, initDate, finalDate, campLevel);
+                    int numMaxParticipants = 0;
+                    do{
+                    try{
+                        max_participants = Integer.parseInt(this.scanner.nextLine());
+                        if(max_participants < 0){
+                            System.out.println("El número de participantes no puede ser negativo.");
+                            max_participants = 0;
+                        }
+                    }catch (NumberFormatException e){
+                        System.out.println("El número de participantes debe ser un número entero.");
+                        max_participants = 0;
+                    }
+                    }while(numMaxParticipants != 0);
+
+                    if(manager.createCampaments(campId, initDate, finalDate, campLevel, max_participants)){
+                        System.out.println("Campamento creado correctamente.");
+                    }else{
+                     System.out.println("No se ha podido crear el campamento.");
+                    }
                 break;
 
                 case 4:
@@ -367,10 +387,10 @@ public class Menu {
 
                 break;
                 case 5:
-                    /* TODO: IMPLEMENTAR ESTO USANDO LOS MANAGERS INSERTANDO EN LAS TABLAS DE RELACION DE LA BD
                     System.out.println("Asociando actividad - campamento...");
 
-                    System.out.println("Asociación de actividades a campamentos:");
+                    ArrayList<CampamentDTO> campaments = manager.getAllCampaments();
+                    activities = manager.getAllActivities();
 
                     for (int k = 0; k < campaments.size(); k++) {
                         System.out.println("Campamento: " + k + ") " + campaments.get(k).getId());
@@ -405,14 +425,19 @@ public class Menu {
                         selectedActivityIndex2 = this.scanner.nextInt();
                         this.scanner.nextLine();
                     }
+                    ActivityDTO selectedActivity = activities.get(selectedActivityIndex2);
 
-                    manager.associateActivitiesToCampaments(this.campaments, this.activities, selectedActivityIndex2, selectedCampament);
-                    */
+                    if(manager.associateActivitiesToCampaments(selectedCampament.getId(),selectedActivity.getname())){
+                        System.out.println("Actividad asociada correctamente.");
+                    }else{
+                        System.out.println("No se ha podido asociar la actividad.");
+                    }
+                
                 break;
 
                 case 6:
-                    /* TODO: IMPLEMENTAR ESTO USANDO LOS MANAGERS INSERTANDO EN LAS TABLAS DE RELACION DE LA BD
-
+                    campaments = manager.getAllCampaments();
+                    monitors = manager.getAllMonitors();
                     System.out.println("Asociando monitor - campamento...");
                     for (int k = 0; k < campaments.size(); k++) {
                         System.out.println("Campamento: " + k + ")" + campaments.get(k).getId());
@@ -443,9 +468,14 @@ public class Menu {
                         selectedMonitorIndex = this.scanner.nextInt();
                         this.scanner.nextLine();
                     }
+                    MonitorDTO selectedMonitor = monitors.get(selectedMonitorIndex3);
+
+                    if(manager.associateMonitorsToCampaments(selectedCampament2.getId(), selectedMonitor.getID())){
+                        System.out.println("Monitor asociado correctamente.");
+                    }else{
+                        System.out.println("No se ha podido asociar el monitor.");
+                    }
                     
-                    manager.associateMonitorsToCampaments(this.campaments, this.monitors, selectedCampamentIndex3, selectedCampament2);
-                    */
                 break;
 
                 case 7:

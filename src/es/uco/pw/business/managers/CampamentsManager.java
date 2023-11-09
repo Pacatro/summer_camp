@@ -66,14 +66,16 @@ public class CampamentsManager {
      * @param finalDate  The end date of the campament.
      * @param level      The level of the campament.
      */
-    public void createCampaments(int id, LocalDate initDate, LocalDate finalDate, Level level) throws Exception {
+    public boolean createCampaments(int id, LocalDate initDate, LocalDate finalDate, Level level ,int max_assistants) throws Exception {
         try{
-
+    
             CampamentDAO dao = new CampamentDAO();
-            CampamentDTO newCampament = new CampamentDTO(id, initDate, finalDate, level);
+            CampamentDTO newCampament = new CampamentDTO(id, initDate, finalDate,max_assistants, level);
             dao.insert(newCampament);
+            return true;
 
-        } catch (Exception e) {throw e;}
+        } catch (Exception e) {return false;}
+        
     }
     
     /**
@@ -125,10 +127,10 @@ public class CampamentsManager {
     /**
      * Associates an activity with a campament.
      * 
-     * @param selectedActivityIndex   The index of the selected activity.
-     * @param selectedCampament       The campament to associate the activity with.
+     * @param camp_id   The campament id to associate.
+     * @param activityId  The activity id to associate.
      */
-    public void associateActivitiesToCampaments(int camp_id, String activityId) throws Exception {
+    public boolean associateActivitiesToCampaments(int camp_id, String activityId) throws Exception {
         
         // ActivityDTO selectedActivity = activities.get(selectedActivityIndex);
         // selectedCampament.associateActivity(selectedActivity);
@@ -143,12 +145,32 @@ public class CampamentsManager {
             // Verificar si tienen el mismo nivel
             if (campament.getLevel() == activity.getLevel()) {
                 campamentDAO.addActivity(camp_id, activityId);
+                return true;
             }
            
             }catch (Exception e) {throw e;}
+            return false;
         }
     
+/**
+ * 
+ * 
+ */
+        public ArrayList<CampamentDTO> getAllCampaments() throws Exception{
+            try{
+                CampamentDAO dao = new CampamentDAO();
+                return dao.getAll();
+            } catch (Exception e) {throw e;}
+        }
 
+        public ArrayList<MonitorDTO> getAllMonitors() throws Exception{
+            try{
+                MonitorDAO dao = new MonitorDAO();
+                return dao.getAll();
+            } catch (Exception e) {throw e;}
+        }
+
+    
     /**
      * Associates a monitor with a campament based on specific criteria.
      *
@@ -157,15 +179,26 @@ public class CampamentsManager {
      * @param selectedMonitorIndex    The index of the selected monitor.
      * @param selectedCampament       The campament to associate the monitor with.
      */
-    public void associateMonitorsToCampaments(ArrayList<CampamentDTO> campaments, ArrayList<MonitorDTO> monitors, int selectedMonitorIndex, CampamentDTO selectedCampament) {
-        // MonitorDTO selectedMonitor = monitors.get(selectedMonitorIndex);
-        // ArrayList<MonitorDTO> activityMonitors = selectedCampament.getAllActivityMonitors();
+    public boolean associateMonitorsToCampaments(int camp_id, int monitor_id) throws Exception {
+        try{
+    
+                MonitorDAO monitorDAO = new MonitorDAO();
+                CampamentDAO campamentDAO = new CampamentDAO();
 
-        // if (selectedMonitor.isEspecial() && (selectedCampament.existsEspecialAssistant() && !activityMonitors.contains(selectedMonitor))
-        //     ||
-        //     !selectedMonitor.isEspecial() && activityMonitors.contains(selectedMonitor)) {
-        //         selectedCampament.associateMonitor(selectedMonitor);
-        // }
+                MonitorDTO selectedMonitor = monitorDAO.getById(monitor_id);
+                CampamentDTO selectedCampament = getById(camp_id);
+                ArrayList<MonitorDTO> activityMonitors = selectedCampament.getMonitors();
+
+
+                if (selectedMonitor.isEspecial() && (campamentDAO.existsEspecialAsistant(camp_id) && !activityMonitors.contains(selectedMonitor))
+                    ||
+                    !selectedMonitor.isEspecial() && activityMonitors.contains(selectedMonitor)) {
+                    
+                        campamentDAO.addMonitor(camp_id, monitor_id);
+                        return true;
+                }
+            } catch (Exception e) {throw e;}
+         return false;
     }
 
     public CampamentDTO getById(int id) throws Exception{

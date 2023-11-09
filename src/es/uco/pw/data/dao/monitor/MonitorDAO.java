@@ -47,10 +47,12 @@ public class MonitorDAO implements IDAO<MonitorDTO,Integer>{
             ps.setInt(1, id);
 
             ResultSet rs = ps.executeQuery();
-
+            while(rs.next()){
             return (new MonitorDTO(rs.getInt("monitor_id"), rs.getString("name"), 
                                    rs.getString("surname"), rs.getBoolean("special_edu")));
+            }
         } catch (Exception e) {throw e;}
+        return null;
     }
 
     @Override

@@ -79,42 +79,21 @@ public class CampamentsManager {
     /**
      * Associates a monitor with an activity, if possible.
      *
-     * @param activities             The list of activities.
-     * @param monitors               The list of monitors.
-     * @param selectedMonitorIndex   The index of the selected monitor.
-     * @param activity               The activity to associate with the monitor.
+     * @param monitor_id             The monitor id to associate.
+     * @param activity_id            The activity id to associate.
      */
     public void associateMonitorsToActivities(int monitor_id, String activity_id) throws Exception{
-        
-        // MonitorDTO selectedMonitor = monitors.get(selectedMonitorIndex);
-        // boolean isMonitorAdded = activity.associateMonitor(selectedMonitor);
-        // if (!isMonitorAdded) {
-        //     System.out.println("No se admiten mas monitores en esta actividad.");
-        //     return;
-        // }
-
         //Modificada para que solo se añada un monitor
-
         try{
             ActivityDAO act_dao = new ActivityDAO();
 
-            ArrayList<MonitorDTO> monitors = act_dao.getMonitors(activity_id);
-
-            boolean flag = false;
-            for(MonitorDTO m: monitors){
-                if(m.getID() == monitor_id){
-                    flag = true;
-                }
-            }
-
-            if(!flag){
-                return; //TODO representar que hubo un error
+            if(act_dao.isMonitorsFull(activity_id)){ //TODO que se vea el error
+                return;
             }
 
             act_dao.addMonitor(activity_id, monitor_id);
 
         } catch(Exception e) {throw e;}
-        
     }
 
     /**

@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import es.uco.pw.business.activity.ActivityDTO;
 import es.uco.pw.business.campament.CampamentDTO;
 import es.uco.pw.business.monitor.MonitorDTO;
+import es.uco.pw.business.schedule.Schedule;
 import es.uco.pw.business.level.Level;
-import es.uco.pw.business.schendule.Schedule;
 import es.uco.pw.data.dao.activity.ActivityDAO;
 import es.uco.pw.data.dao.campament.CampamentDAO;
 import es.uco.pw.data.dao.monitor.MonitorDAO;
@@ -24,15 +24,15 @@ public class CampamentsManager {
      * @param activities       The list of activities.
      * @param name             The name of the activity.
      * @param level            The level of the activity.
-     * @param schendule        The schedule of the activity.
+     * @param schedule        The schedule of the activity.
      * @param max_participants The maximum number of participants for the activity.
      * @param num_monitors     The number of monitors for the activity.
      */
-    public void createActivity(String name, Level level, Schedule schendule, int max_participants, int num_monitors) throws Exception {
+    public void createActivity(String name, Level level, Schedule schedule, int max_participants, int num_monitors) throws Exception {
         try{
 
             ActivityDAO dao = new ActivityDAO();
-            ActivityDTO newActivity = new ActivityDTO(name, level, schendule, max_participants, num_monitors);
+            ActivityDTO newActivity = new ActivityDTO(name, level, schedule, max_participants, num_monitors);
             dao.insert(newActivity);
             
         } catch (Exception e) {throw e;}
@@ -67,13 +67,13 @@ public class CampamentsManager {
      * @param level      The level of the campament.
      */
     public void createCampaments(int id, LocalDate initDate, LocalDate finalDate, Level level) throws Exception {
-                try{
+        try{
 
-                    CampamentDAO dao = new CampamentDAO();
-                    CampamentDTO newCampament = new CampamentDTO(id, initDate, finalDate, level);
-                    dao.insert(newCampament);
-        
-                } catch (Exception e) {throw e;}
+            CampamentDAO dao = new CampamentDAO();
+            CampamentDTO newCampament = new CampamentDTO(id, initDate, finalDate, level);
+            dao.insert(newCampament);
+
+        } catch (Exception e) {throw e;}
     }
     
     /**
@@ -82,18 +82,44 @@ public class CampamentsManager {
      * @param monitor_id             The monitor id to associate.
      * @param activity_id            The activity id to associate.
      */
-    public void associateMonitorsToActivities(int monitor_id, String activity_id) throws Exception{
+    public boolean associateMonitorsToActivities(int monitor_id, String activity_id) throws Exception{
         //Modificada para que solo se añada un monitor
         try{
             ActivityDAO act_dao = new ActivityDAO();
 
             if(act_dao.isMonitorsFull(activity_id)){ //TODO que se vea el error
-                return;
+                return false;
             }
 
             act_dao.addMonitor(activity_id, monitor_id);
 
+            return true;
+
         } catch(Exception e) {throw e;}
+    }
+
+    public ArrayList<ActivityDTO> getAllActivities() throws Exception{
+        try{
+            ActivityDAO dao = new ActivityDAO();
+            return dao.getAll();
+        } catch (Exception e) {throw e;}
+    }
+
+    public ArrayList<MonitorDTO> getAllMonitorsNotEspecial() throws Exception{
+        try{
+            MonitorDAO dao = new MonitorDAO();
+            ArrayList<MonitorDTO> monitors = dao.getAll();
+            ArrayList<MonitorDTO> notEspecial = new ArrayList<MonitorDTO>();
+
+            for(MonitorDTO m: monitors){
+                if(!(m.isEspecial())){
+                    notEspecial.add(m);
+                }
+            }
+
+            return notEspecial;
+            
+        } catch (Exception e) {throw e;}
     }
 
     /**

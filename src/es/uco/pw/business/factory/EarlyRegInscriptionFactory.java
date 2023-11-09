@@ -5,7 +5,7 @@ import java.time.temporal.ChronoUnit;
 
 import es.uco.pw.business.assistant.AssistantDTO;
 import es.uco.pw.business.campament.CampamentDTO;
-import es.uco.pw.business.schendule.Schedule;
+import es.uco.pw.business.schedule.Schedule;
 
 /**
  * A factory for creating early registration inscriptions for a camp.

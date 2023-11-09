@@ -2,7 +2,7 @@ package es.uco.pw.business.factory;
 
 import es.uco.pw.business.assistant.AssistantDTO;
 import es.uco.pw.business.campament.CampamentDTO;
-import es.uco.pw.business.schendule.Schedule;
+import es.uco.pw.business.schedule.Schedule;
 
 import java.time.LocalDate;
 

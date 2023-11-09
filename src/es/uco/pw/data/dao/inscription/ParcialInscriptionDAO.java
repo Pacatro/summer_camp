@@ -39,7 +39,7 @@ public class ParcialInscriptionDAO implements IDAO<ParcialInscriptionDTO, Intege
             ps.setString(3, parcialInscriptionDTO.getDate().toString());
             ps.setBoolean(4, parcialInscriptionDTO.getCancellation());
             ps.setDouble(5, parcialInscriptionDTO.getPrice());
-            ps.setString(6, parcialInscriptionDTO.getSchendule().toString());
+            ps.setString(6, parcialInscriptionDTO.getSchedule().toString());
             ps.setInt(7, parcialInscriptionDTO.getIdCampament());
 
             ps.execute();

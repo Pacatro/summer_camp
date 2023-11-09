@@ -1,4 +1,4 @@
-package es.uco.pw.data.dao.common;
+package es.uco.pw.data.common;
 
 import java.util.ArrayList;
 

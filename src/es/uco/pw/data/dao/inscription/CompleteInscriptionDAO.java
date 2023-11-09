@@ -1,8 +1,6 @@
 package es.uco.pw.data.dao.inscription;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,28 +12,34 @@ import es.uco.pw.business.factory.CompleteInscriptionDTO;
 import es.uco.pw.data.common.ConnectionDB;
 import es.uco.pw.data.dao.common.IDAO;
 
+/**
+ * This class represents a Data Access Object (DAO) for managing CompleteInscriptionDTO objects.
+ * It provides methods to interact with the database for complete inscriptions.
+ */
 public class CompleteInscriptionDAO implements IDAO<CompleteInscriptionDTO, Integer>{
-    private Properties sqlProperties;
     
-    public CompleteInscriptionDAO() throws FileNotFoundException, IOException{
-        this.sqlProperties = new Properties();
-        this.sqlProperties.load(new FileInputStream("sql.properties"));
-    }
-    
+    /**
+     * Default constructor for the CompleteInscriptionDAO class.
+     */
+    public CompleteInscriptionDAO(){}
+
     @Override
     public void insert(CompleteInscriptionDTO completeInscriptionDTO) throws Exception {
+        Properties sqlProperties = new Properties();
+        sqlProperties.load(new FileInputStream("sql.properties"));
+
         try {
             Connection conn = new ConnectionDB().getConnection();
 
-            String sql = this.sqlProperties.getProperty("INSERT_INSCRIPTION");
+            String sql = sqlProperties.getProperty("INSERT_INSCRIPTION");
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ps.setInt(1, completeInscriptionDTO.getIdParticipant());
-            ps.setString(2, "Completa");
+            ps.setString(2, "COMPLETE");
             ps.setString(3, completeInscriptionDTO.getDate().toString());
             ps.setBoolean(4, completeInscriptionDTO.getCancellation());
             ps.setDouble(5, completeInscriptionDTO.getPrice());
-            ps.setString(6, completeInscriptionDTO.getSchendule().toString());
+            ps.setString(6, completeInscriptionDTO.getSchedule().toString());
             ps.setInt(7, completeInscriptionDTO.getIdCampament());
 
             ps.execute();

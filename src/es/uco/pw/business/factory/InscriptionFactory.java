@@ -2,7 +2,7 @@ package es.uco.pw.business.factory;
 
 import es.uco.pw.business.assistant.AssistantDTO;
 import es.uco.pw.business.campament.CampamentDTO;
-import es.uco.pw.business.schendule.Schendule;
+import es.uco.pw.business.schedule.Schedule;
 
 import java.time.LocalDate;
 
@@ -22,7 +22,7 @@ public abstract class InscriptionFactory {
      * @param date       The date on which the inscription is made.
      * @return An instance of CompleteInscription representing the complete inscription.
      */
-    public abstract CompleteInscriptionDTO createCompleteInscription(CampamentDTO campament, AssistantDTO assistant, Schendule schendule, LocalDate date) throws Exception;
+    public abstract CompleteInscriptionDTO createCompleteInscription(CampamentDTO campament, AssistantDTO assistant, Schedule schendule, LocalDate date) throws Exception;
     
     /**
      * Creates a partial inscription for a given camp and assistant on a specific date.

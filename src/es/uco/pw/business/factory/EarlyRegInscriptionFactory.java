@@ -5,7 +5,7 @@ import java.time.temporal.ChronoUnit;
 
 import es.uco.pw.business.assistant.AssistantDTO;
 import es.uco.pw.business.campament.CampamentDTO;
-import es.uco.pw.business.schendule.Schendule;
+import es.uco.pw.business.schedule.Schedule;
 
 /**
  * A factory for creating early registration inscriptions for a camp.
@@ -13,7 +13,7 @@ import es.uco.pw.business.schendule.Schendule;
  */
 public class EarlyRegInscriptionFactory extends InscriptionFactory {
     @Override
-    public CompleteInscriptionDTO createCompleteInscription(CampamentDTO campament, AssistantDTO assistant, Schendule schendule, LocalDate date) throws Exception {
+    public CompleteInscriptionDTO createCompleteInscription(CampamentDTO campament, AssistantDTO assistant, Schedule schendule, LocalDate date) throws Exception {
         CompleteInscriptionDTO cInscription = new CompleteInscriptionDTO(schendule);
 
         //LocalDate date = LocalDate.now();

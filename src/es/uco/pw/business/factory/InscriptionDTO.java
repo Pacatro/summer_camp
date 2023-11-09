@@ -2,7 +2,7 @@ package es.uco.pw.business.factory;
 
 import java.time.LocalDate;
 
-import es.uco.pw.business.schendule.Schendule;
+import es.uco.pw.business.schedule.Schedule;
 
 /**
  * Represents a model inscription.
@@ -22,7 +22,7 @@ public abstract class InscriptionDTO {
 
     private boolean cancellation;
 
-    private Schendule schendule;
+    private Schedule schedule;
 
     /* Constructor */
 
@@ -59,8 +59,8 @@ public abstract class InscriptionDTO {
         return this.cancellation;
     }
 
-    public Schendule getSchendule() {
-        return this.schendule;
+    public Schedule getSchedule() {
+        return this.schedule;
     }
 
     public void setIdParticipant(int participantId){
@@ -83,8 +83,8 @@ public abstract class InscriptionDTO {
         this.cancellation = cancellation;
     }
 
-    public void setSchendule(Schendule schendule) {
-        this.schendule = schendule;
+    public void setSchedule(Schedule schedule) {
+        this.schedule = schedule;
     }
 
     public String toString(){

@@ -5,9 +5,10 @@ import java.util.ArrayList;
 import es.uco.pw.business.activity.ActivityDTO;
 import es.uco.pw.business.campament.CampamentDTO;
 import es.uco.pw.business.monitor.MonitorDTO;
+import es.uco.pw.business.schedule.Schedule;
 import es.uco.pw.business.level.Level;
-import es.uco.pw.business.schendule.Schendule;
 import es.uco.pw.data.dao.activity.ActivityDAO;
+import es.uco.pw.data.dao.campament.CampamentDAO;
 import es.uco.pw.data.dao.monitor.MonitorDAO;
 
 import java.time.LocalDate;
@@ -23,15 +24,15 @@ public class CampamentsManager {
      * @param activities       The list of activities.
      * @param name             The name of the activity.
      * @param level            The level of the activity.
-     * @param schendule        The schedule of the activity.
+     * @param schedule        The schedule of the activity.
      * @param max_participants The maximum number of participants for the activity.
      * @param num_monitors     The number of monitors for the activity.
      */
-    public void createActivity(String name, Level level, Schendule schendule, int max_participants, int num_monitors) throws Exception {
+    public void createActivity(String name, Level level, Schedule schedule, int max_participants, int num_monitors) throws Exception {
         try{
 
             ActivityDAO dao = new ActivityDAO();
-            ActivityDTO newActivity = new ActivityDTO(name, level, schendule, max_participants, num_monitors);
+            ActivityDTO newActivity = new ActivityDTO(name, level, schedule, max_participants, num_monitors);
             dao.insert(newActivity);
             
         } catch (Exception e) {throw e;}
@@ -65,12 +66,14 @@ public class CampamentsManager {
      * @param finalDate  The end date of the campament.
      * @param level      The level of the campament.
      */
-    public void createCampaments(ArrayList<CampamentDTO> campaments, int id, LocalDate initDate, LocalDate finalDate,
-            Level level) throws Exception {
-        
-        CampamentDTO nuevoCampamento = new CampamentDTO(id, initDate, finalDate, level);
-        campaments.add(nuevoCampamento);
+    public void createCampaments(int id, LocalDate initDate, LocalDate finalDate, Level level) throws Exception {
+                try{
 
+                    CampamentDAO dao = new CampamentDAO();
+                    CampamentDTO newCampament = new CampamentDTO(id, initDate, finalDate, level);
+                    dao.insert(newCampament);
+        
+                } catch (Exception e) {throw e;}
     }
     
     /**
@@ -95,16 +98,15 @@ public class CampamentsManager {
 
     /**
      * Associates an activity with a campament.
-     *
-     * @param campaments              The list of campaments.
-     * @param activities              The list of activities.
+     * 
      * @param selectedActivityIndex   The index of the selected activity.
      * @param selectedCampament       The campament to associate the activity with.
      */
-    public void associateActivitiesToCampaments(ArrayList<CampamentDTO> campaments, ArrayList<ActivityDTO> activities, int selectedActivityIndex, CampamentDTO selectedCampament) {
+    public void associateActivitiesToCampaments(int campId, String activityId) throws Exception {
         
         // ActivityDTO selectedActivity = activities.get(selectedActivityIndex);
         // selectedCampament.associateActivity(selectedActivity);
+
     }
 
     /**
@@ -124,5 +126,11 @@ public class CampamentsManager {
         //     !selectedMonitor.isEspecial() && activityMonitors.contains(selectedMonitor)) {
         //         selectedCampament.associateMonitor(selectedMonitor);
         // }
+    }
+
+    public CampamentDTO getById(int id) throws Exception{
+        CampamentDAO campamentDAO = new CampamentDAO();
+        CampamentDTO campament = campamentDAO.getById(id);
+        return campament;
     }
 }

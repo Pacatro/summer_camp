@@ -1,10 +1,10 @@
 package es.uco.pw.data.dao.inscription;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -12,28 +12,34 @@ import es.uco.pw.business.factory.ParcialInscriptionDTO;
 import es.uco.pw.data.common.ConnectionDB;
 import es.uco.pw.data.dao.common.IDAO;
 
+/**
+ * This class represents a Data Access Object (DAO) for managing ParcialInscriptionDTO objects.
+ * It provides methods to interact with the database for parcial inscriptions.
+ */
 public class ParcialInscriptionDAO implements IDAO<ParcialInscriptionDTO, Integer> {
-    private Properties sqlProperties;
     
-    public ParcialInscriptionDAO() throws FileNotFoundException, IOException{
-        this.sqlProperties = new Properties();
-        this.sqlProperties.load(new FileInputStream("sql.properties"));
-    }
+    /**
+     * Default constructor for the ParcialInscriptionDAO class.
+     */
+    public ParcialInscriptionDAO(){}
 
     @Override
     public void insert(ParcialInscriptionDTO parcialInscriptionDTO) throws Exception {
+        Properties sqlProperties = new Properties();
+        sqlProperties.load(new FileInputStream("sql.properties"));
+
         try {
             Connection conn = new ConnectionDB().getConnection();
 
-            String sql = this.sqlProperties.getProperty("INSERT_INSCRIPTION");
+            String sql = sqlProperties.getProperty("INSERT_INSCRIPTION");
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ps.setInt(1, parcialInscriptionDTO.getIdParticipant());
-            ps.setString(2, "Parcial");
+            ps.setString(2, "PARCIAL");
             ps.setString(3, parcialInscriptionDTO.getDate().toString());
             ps.setBoolean(4, parcialInscriptionDTO.getCancellation());
             ps.setDouble(5, parcialInscriptionDTO.getPrice());
-            ps.setString(6, parcialInscriptionDTO.getSchendule().toString());
+            ps.setString(6, parcialInscriptionDTO.getSchedule().toString());
             ps.setInt(7, parcialInscriptionDTO.getIdCampament());
 
             ps.execute();

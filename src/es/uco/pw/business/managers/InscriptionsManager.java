@@ -14,8 +14,9 @@ import es.uco.pw.business.campament.CampamentDTO;
 import es.uco.pw.business.factory.CompleteInscriptionDTO;
 import es.uco.pw.business.factory.ParcialInscriptionDTO;
 //import es.uco.pw.business.monitor.MonitorDTO;
-
-import es.uco.pw.business.schendule.Schendule;
+import es.uco.pw.business.schedule.Schedule;
+import es.uco.pw.data.dao.inscription.CompleteInscriptionDAO;
+import es.uco.pw.data.dao.inscription.ParcialInscriptionDAO;
 
 import es.uco.pw.data.dao.inscription.CompleteInscriptionDAO;
 import es.uco.pw.data.dao.inscription.ParcialInscriptionDAO;
@@ -86,7 +87,7 @@ public class InscriptionsManager {
      * @param completesInscriptions
      * @throws Exception
      */
-    public void enrollComplete(CampamentDTO campament, AssistantDTO assistant, Schendule schendule) throws Exception{
+    public void enrollComplete(CampamentDTO campament, AssistantDTO assistant, Schedule schendule) throws Exception{
         CompleteInscriptionDTO completeInscriptionDTO;
         // ArrayList<MonitorDTO> monitors = campament.getMonitors();
         InscriptionFactory factory = getFactory(campament);

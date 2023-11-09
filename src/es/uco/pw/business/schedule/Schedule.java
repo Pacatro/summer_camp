@@ -1,9 +1,9 @@
-package es.uco.pw.business.schendule;
+package es.uco.pw.business.schedule;
 
 /**
  * Represents the schendule of an activity.
  */
-public enum Schendule{
+public enum Schedule{
     MORNING, 
     AFTERNOON;
 }

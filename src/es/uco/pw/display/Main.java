@@ -10,10 +10,11 @@ import es.uco.pw.business.activity.ActivityDTO;
 import es.uco.pw.business.assistant.AssistantDTO;
 import es.uco.pw.business.campament.CampamentDTO;
 import es.uco.pw.business.level.Level;
+import es.uco.pw.business.managers.AssistantManager;
 import es.uco.pw.business.managers.CampamentsManager;
 import es.uco.pw.business.managers.InscriptionsManager;
 import es.uco.pw.business.monitor.MonitorDTO;
-import es.uco.pw.business.schendule.Schendule;
+import es.uco.pw.business.schedule.Schedule;
 import es.uco.pw.data.dao.inscription.ParcialInscriptionDAO;
 
 
@@ -42,15 +43,17 @@ public class Main {
         // DB.exportCompleteInscriptions(completeInscriptions);
         // DB.exportParcialInscriptions(parcialInscriptions);
 
-        // CampamentDTO campamentDTO = new CampamentDTO(4, LocalDate.of(2024, 9, 15), LocalDate.of(2024, 11, 12), Level.CHILD);
-        // AssistantDTO assistantDTO = new AssistantDTO(7, "Mayte", "Alba", LocalDate.of(2003, 9, 15), false);
+        //CampamentDTO campamentDTO = new CampamentDTO(4, LocalDate.of(2024, 9, 15), LocalDate.of(2024, 11, 12), Level.CHILD);
+        AssistantDTO assistantDTO = new AssistantDTO(7, "Mayte", "Alba", LocalDate.of(2003, 9, 15), false);
+        AssistantDTO assistantDTO2 = new AssistantDTO(100, "Nuria", "Garofano", LocalDate.of(2003, 5, 6), false);
+        
+        //InscriptionsManager iManager = new InscriptionsManager();
+        AssistantManager amanager=new AssistantManager();
+        //amanager.register(assistantDTO2);
+        //amanager.modify(100,"Mayte", "Alba", LocalDate.of(2003, 5, 6), false);
+        //amanager.print();
+        //iManager.enrollParcial(campamentDTO, assistantDTO);
 
-        // InscriptionsManager iManager = new InscriptionsManager();
-
-        // iManager.enrollParcial(campamentDTO, assistantDTO);
-
-        CampamentsManager cManager = new CampamentsManager();
-        cManager.associateMonitorsToActivities(1, "Actividad3");
     }
 
 }

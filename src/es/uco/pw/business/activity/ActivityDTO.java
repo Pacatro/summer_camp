@@ -2,8 +2,8 @@ package es.uco.pw.business.activity;
 import java.util.ArrayList;
 
 import es.uco.pw.business.level.Level;
-import es.uco.pw.business.schendule.Schendule;
 import es.uco.pw.business.monitor.MonitorDTO;
+import es.uco.pw.business.schedule.Schedule;
 
 /**
  * Represents an activity of the system.
@@ -15,7 +15,7 @@ public class ActivityDTO {
 
     private Level level;
 
-    private Schendule schendule;
+    private Schedule schedule;
 
     private int max_participants;
 
@@ -28,16 +28,16 @@ public class ActivityDTO {
     public ActivityDTO(){
         this.name = "";
         this.level = Level.CHILD;
-        this.schendule = Schendule.MORNING;
+        this.schedule = Schedule.MORNING;
         this.max_participants = 0;
         this.num_monitors = 0;
         this.monitors = new ArrayList<MonitorDTO>();
     }
 
-    public ActivityDTO(String name, Level level, Schendule schendule, int max_participants, int num_monitors){
+    public ActivityDTO(String name, Level level, Schedule schedule, int max_participants, int num_monitors){
         this.name = name;
         this.level = level;
-        this.schendule = schendule;
+        this.schedule = schedule;
         this.max_participants = max_participants;
         this.num_monitors = num_monitors;
         this.monitors = new ArrayList<MonitorDTO>();
@@ -53,8 +53,8 @@ public class ActivityDTO {
         return level;
     }
 
-    public Schendule getSchendule(){
-        return schendule;
+    public Schedule getSchedule(){
+        return schedule;
     }
 
     public int getMaxParticipants(){
@@ -77,8 +77,8 @@ public class ActivityDTO {
         this.level = level;
     }
 
-    public void setSchendule(Schendule schendule){
-        this.schendule = schendule;
+    public void setSchedule(Schedule schedule){
+        this.schedule = schedule;
     }
 
     public void setMaxParticipants(int max_participants){
@@ -91,7 +91,7 @@ public class ActivityDTO {
 
     public String toString(){
         String activityInfo = "Actividad " + this.name + " de nivel " + this.level + " en el horario de "
-                                + this.schendule + ", el maximo de participantes es " + this.max_participants
+                                + this.schedule + ", el maximo de participantes es " + this.max_participants
                                 + " y los monitores son " + this.num_monitors + ": " + monitors.toString();
         return activityInfo;
     }

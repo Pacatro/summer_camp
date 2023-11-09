@@ -1,4 +1,4 @@
-package es.uco.pw.business.schedule;
+package es.uco.pw.business.common.schedule;
 
 /**
  * Represents the schendule of an activity.

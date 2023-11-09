@@ -10,9 +10,9 @@ import java.sql.Date;
 
 import es.uco.pw.business.activity.ActivityDTO;
 import es.uco.pw.business.campament.CampamentDTO;
-import es.uco.pw.business.level.Level;
+import es.uco.pw.business.common.level.Level;
+import es.uco.pw.business.common.schedule.Schedule;
 import es.uco.pw.business.monitor.MonitorDTO;
-import es.uco.pw.business.schedule.Schedule;
 import es.uco.pw.data.common.ConnectionDB;
 import es.uco.pw.data.dao.common.IDAO;
 

@@ -1,6 +1,6 @@
 package es.uco.pw.business.factory;
 
-import es.uco.pw.business.schedule.Schedule;
+import es.uco.pw.business.common.schedule.Schedule;
 
 /**
  * Represents a complete inscription for a camp with both morning and afternoon schedule.

@@ -7,8 +7,8 @@ import java.util.Scanner;
 import es.uco.pw.business.activity.ActivityDTO;
 import es.uco.pw.business.assistant.AssistantDTO;
 import es.uco.pw.business.campament.CampamentDTO;
-import es.uco.pw.business.schedule.Schedule;
-import es.uco.pw.business.level.Level;
+import es.uco.pw.business.common.level.Level;
+import es.uco.pw.business.common.schedule.Schedule;
 import es.uco.pw.business.managers.AssistantManager;
 import es.uco.pw.business.managers.CampamentsManager;
 import es.uco.pw.business.managers.InscriptionsManager;
@@ -549,11 +549,25 @@ public class Menu {
             
             switch(opt){
                 case 1:
-                    manager.enrollComplete(campament, assistant, schedule);
+                    try {
+                        manager.enrollComplete(campament, assistant, schedule);
+                    } catch (Exception e) {
+                        System.err.println("Error: " + e.getMessage());
+                        break;
+                    }
+
+                    System.out.println("Inscripcion parcial creada con exito.");
                 break;
 
                 case 2:
-                    manager.enrollParcial(campament, assistant);
+                    try {
+                        manager.enrollParcial(campament, assistant);
+                    } catch (Exception e) {
+                        System.err.println("Error: " + e.getMessage());
+                        break;
+                    }
+
+                    System.out.println("Inscripcion completa creada con exito.");
                 break;
 
                 default:

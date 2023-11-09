@@ -11,10 +11,9 @@ import es.uco.pw.business.factory.LateRegInscriptionFactory;
 import es.uco.pw.business.activity.ActivityDTO;
 import es.uco.pw.business.assistant.AssistantDTO;
 import es.uco.pw.business.campament.CampamentDTO;
+import es.uco.pw.business.common.schedule.Schedule;
 import es.uco.pw.business.factory.CompleteInscriptionDTO;
 import es.uco.pw.business.factory.ParcialInscriptionDTO;
-//import es.uco.pw.business.monitor.MonitorDTO;
-import es.uco.pw.business.schedule.Schedule;
 import es.uco.pw.data.dao.inscription.CompleteInscriptionDAO;
 import es.uco.pw.data.dao.inscription.ParcialInscriptionDAO;
 
@@ -83,30 +82,24 @@ public class InscriptionsManager {
      * @param assistant The AssistantDTO object representing the assistant.
      * @param schedule The Schedule object representing the schedule.
      */
-    public void enrollComplete(CampamentDTO campament, AssistantDTO assistant, Schedule schendule) throws Exception{
-        try{
-            CompleteInscriptionDTO completeInscriptionDTO;
-            InscriptionFactory factory = getFactory(campament);
+    public void enrollComplete(CampamentDTO campament, AssistantDTO assistant, Schedule schendule) throws Exception {
+        CompleteInscriptionDTO completeInscriptionDTO;
+        InscriptionFactory factory = getFactory(campament);
 
-            if(factory == null){
-                System.out.println("No se ha podido crear la fabrica de inscripciones");
-                return;
-            }
+        if(factory == null)
+            throw new Exception("Es demasiado tarde para apuntarse a este campamento.");
 
-            if(!canEnroll(campament)){ 
-                System.out.println("El campamento ya ha comenzado.");
-                return;
-            }
-            
-            completeInscriptionDTO = factory.createCompleteInscription(campament, assistant, schendule, LocalDate.now());
+        if(!canEnroll(campament))
+            throw new Exception("El campamento ya ha comenzado.");
+        
+        completeInscriptionDTO = factory.createCompleteInscription(campament, assistant, schendule, LocalDate.now());
 
-            double price = calcPrice(campament, assistant.getAtention());
-            completeInscriptionDTO.setPrice(price);
-            
-            CompleteInscriptionDAO iDao = new CompleteInscriptionDAO();
+        double price = calcPrice(campament, assistant.getAtention());
+        completeInscriptionDTO.setPrice(price);
+        
+        CompleteInscriptionDAO iDao = new CompleteInscriptionDAO();
 
-            iDao.insert(completeInscriptionDTO);
-        } catch (Exception e) {throw e;}
+        iDao.insert(completeInscriptionDTO);
     }
 
     /**
@@ -115,29 +108,23 @@ public class InscriptionsManager {
      * @param campament The CampamentDTO object representing the campament.
      * @param assistant The AssistantDTO object representing the assistant.
      */
-    public void enrollParcial(CampamentDTO campament, AssistantDTO assistant) throws Exception{
-        try{
-            ParcialInscriptionDTO parcialInscriptionDTO;
-            InscriptionFactory factory = getFactory(campament);
+    public void enrollParcial(CampamentDTO campament, AssistantDTO assistant) throws Exception {
+        ParcialInscriptionDTO parcialInscriptionDTO;
+        InscriptionFactory factory = getFactory(campament);
 
-            if(factory == null){
-                System.out.println("No se ha podido crear la fabrica de inscripciones");
-                return;
-            }
+        if(factory == null)
+            throw new Exception("Es demasiado tarde para apuntarse a este campamento.");
 
-            if(!canEnroll(campament)){ 
-                System.out.println("El campamento ya ha comenzado.");
-                return;
-            }
+        if(!canEnroll(campament))
+            throw new Exception("El campamento ya ha comenzado.");
 
-            parcialInscriptionDTO = factory.createParcialInscription(campament, assistant, LocalDate.now());
+        parcialInscriptionDTO = factory.createParcialInscription(campament, assistant, LocalDate.now());
 
-            double price = calcPrice(campament, assistant.getAtention());
-            parcialInscriptionDTO.setPrice(price);
+        double price = calcPrice(campament, assistant.getAtention());
+        parcialInscriptionDTO.setPrice(price);
 
-            ParcialInscriptionDAO iDao = new ParcialInscriptionDAO();
+        ParcialInscriptionDAO iDao = new ParcialInscriptionDAO();
 
-            iDao.insert(parcialInscriptionDTO);
-        } catch (Exception e) {throw e;}
+        iDao.insert(parcialInscriptionDTO);
     }
 }

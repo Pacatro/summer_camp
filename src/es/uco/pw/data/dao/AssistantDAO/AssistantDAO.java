@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import com.mysql.jdbc.ResultSet;
+import java.sql.ResultSet;
 
 import es.uco.pw.business.assistant.AssistantDTO;
 import es.uco.pw.data.common.ConnectionDB;
@@ -51,10 +51,12 @@ public class AssistantDAO implements IDAO<AssistantDTO, Integer> {
             String sql= properties.getProperty("GETBYID_ASSISTANT");
             PreparedStatement ps = conn.prepareStatement(sql);
 
-            ps.setInt(1, idDTO);
+            ps.setInt(1, idDTO.intValue());
 
-            ResultSet rs=(ResultSet) ps.executeQuery(sql);
+            ResultSet rs = ps.executeQuery();
+
             while (rs.next()) {
+                assi.setId(rs.getInt("ass_id"));
 				assi.setName(rs.getString("name"));
                 assi.setSurname(rs.getString("surname"));
                 assi.setDate(rs.getDate("birth_date").toLocalDate());

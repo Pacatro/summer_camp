@@ -1,28 +1,31 @@
-# Sistema de gestión de campamentos de verano
+# Sistema de Gestión de Campamentos de Verano
 
-## Estructura de carpetas
+## Descripción
 
-El espacio de trabajo consta de las siguientes carpetas:
+Este repositorio contiene un sistema de gestión de campamentos de verano que utiliza el patrón de diseño Modelo-Vista-Controlador (MVC). El proyecto se ha organizado en tres capas con los siguientes directorios:
 
-* `src`: la carpeta para mantener las fuentes
-  * `classes`: carpeta donde se encuentran todos los modelos del sistema.
-  * `database`: carpeta donde se encuentran el controlador de la base de datos.
-  * `enums`: carpeta donde se hallan todas las clases enumaradas del sistema.
-  * `factory`: carpeta donde se encuentra implementado el patrón abstract factory.
-  * `files`: carpeta donde se encuentran los ficheros de texto dedicados a almacenar la información del sistema.
-  * `managers`: carpeta donde se encuentran los gestores del sistema.
-  * `menu`: carpeta donde se modela el sistema de menús.
-  * `Main.java`: clase principal del sistema.
-  * `properties.txt`: fichero de texto con las rutas absolutas de los archivos destinados a la base de datos.
-* `docs`: carpeta con los archivos HTML de toda la documentación del sistema.
-* `summer_camp.jar`: ejecutable del sistema.
+* `src/es/uco/pw`
+  * `business`: Capa de negocio: contiene la lógica principal del proyecto, incluyendo clases y gestores.
+  * `data`: Capa de datos: se encarga de la gestión de los datos y su almacenamiento en una base de datos.
+  * `display`: Capa de visualización: se encarga de la interfaz de usuario y la presentación de datos.
 
-Al compilar se creará una carpeta `bin` con los ficheros `.java` compilados en ficheros `.class`.
+## Instrucciones de ejecución
 
-## Ejecución
+Para ejecutar la aplicación, sigue los siguientes pasos:
 
-Para ejecutar el archivo `summer_camp.jar` es necesario escribir el siguiente comado:
+1. Asegúrate de que el archivo `summer_camp.jar` se encuentra en la raíz del proyecto.
+
+2. Abre tu terminal.
+
+3. Ejecuta el siguiente comando:
 
 ```bash
 java -jar summer_camp.jar
 ```
+
+## Autores
+
+* Francisco de Paula Algar Muñoz
+* María Teresa Alba Rueda
+* Nuria Garofano Fernández
+* Noelia Cobo Carrillo

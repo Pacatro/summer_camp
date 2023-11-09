@@ -1,9 +1,9 @@
 package es.uco.pw.business.activity;
 import java.util.ArrayList;
 
-import es.uco.pw.business.level.Level;
+import es.uco.pw.business.common.level.Level;
+import es.uco.pw.business.common.schedule.Schedule;
 import es.uco.pw.business.monitor.MonitorDTO;
-import es.uco.pw.business.schedule.Schedule;
 
 /**
  * Represents an activity of the system.

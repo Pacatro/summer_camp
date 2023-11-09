@@ -2,7 +2,7 @@ package es.uco.pw.business.factory;
 
 import java.time.LocalDate;
 
-import es.uco.pw.business.schedule.Schedule;
+import es.uco.pw.business.common.schedule.Schedule;
 
 /**
  * Represents a model inscription.

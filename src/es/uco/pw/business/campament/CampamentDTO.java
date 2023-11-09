@@ -42,6 +42,7 @@ public class CampamentDTO{
         this.id = id;
         this.initDate = initDate;
         this.finalDate = finalDate;
+        this.level = level;
         this.activities = new ArrayList<ActivityDTO>();
         this.monitors = new ArrayList<MonitorDTO>();
         //this.assistants = new ArrayList<AssistantDTO>();

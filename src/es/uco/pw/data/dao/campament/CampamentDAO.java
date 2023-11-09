@@ -1,7 +1,6 @@
 package es.uco.pw.data.dao.campament;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,7 +17,9 @@ import es.uco.pw.data.common.ConnectionDB;
 import es.uco.pw.data.dao.common.IDAO;
 
 
-
+/**
+ * Manage the data from the campaments table
+ */
 public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
 
     public CampamentDAO(){}
@@ -52,7 +53,12 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
         } catch (Exception e) { throw e; }
     }
 
-
+    /**
+     * Adds an activity to a specific camp in the database.
+     *
+     * @param campId The identifier of the camp to which the activity is added.
+     * @param activityId The identifier of the activity being added.
+     */
     public void addActivity(int campId, String activityId) throws Exception{
         try{
             Connection conn = new ConnectionDB().getConnection();
@@ -70,6 +76,12 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
         } catch (Exception e) { throw e; }
     }
 
+    /**
+     * Adds a monitor to a specific camp in the database.
+     *
+     * @param campId The identifier of the camp to which the monitor is added.
+     * @param monitorId The identifier of the monitor being added.
+     */
     public void addMonitor(int campId, int monitorId) throws Exception{
         try{
             Connection conn = new ConnectionDB().getConnection();
@@ -87,6 +99,12 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
         } catch (Exception e) { throw e; }
     }
 
+    /**
+     * Checks if a special assistant exists for a specific camp in the database.
+     *
+     * @param campId The identifier of the camp to check for a special assistant.
+     * @return True if a special assistant exists for the camp, false otherwise.
+     */
     public boolean existsEspecialAsistant(int campId) throws Exception{
         try{
             Connection conn = new ConnectionDB().getConnection();
@@ -106,8 +124,6 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
         } catch (Exception e) { throw e; }
     }
 
-  
-    
     @Override
     public CampamentDTO getById(Integer id) throws Exception{
         try{
@@ -138,76 +154,87 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
         } catch (Exception e) {throw e;}
     }
 
+    /**
+     * Retrieves a list of monitors associated with a specific camp in the database.
+     *
+     * @param id The identifier of the camp for which monitors are retrieved.
+     * @return An ArrayList of MonitorDTO objects representing the monitors associated with the camp.
+     */
     public ArrayList<MonitorDTO> getMonitorsFromCampament(Integer id) throws Exception{
         try{
-                    Properties properties = new Properties();
-                    properties.load(new FileInputStream("sql.properties"));
-                    String sql = properties.getProperty("GET_MONITORS_CAMPAMENT");
+            Properties properties = new Properties();
+            properties.load(new FileInputStream("sql.properties"));
+            String sql = properties.getProperty("GET_MONITORS_CAMPAMENT");
 
-                    Connection conn = new ConnectionDB().getConnection();
-                    PreparedStatement ps = conn.prepareStatement(sql);
+            Connection conn = new ConnectionDB().getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
 
-                    ps.setInt(1, id);
+            ps.setInt(1, id);
 
-                    ResultSet rs = ps.executeQuery();
+            ResultSet rs = ps.executeQuery();
 
-                    ArrayList<MonitorDTO> monitors = new ArrayList<MonitorDTO>();
+            ArrayList<MonitorDTO> monitors = new ArrayList<MonitorDTO>();
 
-                    while(rs.next()){
-                        monitors.add(new MonitorDTO(rs.getInt("monitor_id"), rs.getString("name"), 
-                                   rs.getString("surname"), rs.getBoolean("special_edu")));
-                    }
+            while(rs.next()){
+                monitors.add(new MonitorDTO(rs.getInt("monitor_id"), rs.getString("name"), 
+                            rs.getString("surname"), rs.getBoolean("special_edu")));
+            }
 
-                    return monitors;
-                 } catch (Exception e) {throw e;}
+            return monitors;
+        } catch (Exception e) {throw e;}
     }
 
+    /**
+     * Retrieves a list of activities associated with a specific camp in the database.
+     *
+     * @param id The identifier of the camp for which activities are retrieved.
+     * @return An ArrayList of ActivityDTO objects representing the activities associated with the camp.
+     */
     public ArrayList<ActivityDTO> getActivitiesFromCampament(Integer id)throws Exception{
         try{
-                    Properties properties = new Properties();
-                    properties.load(new FileInputStream("sql.properties"));
-                    String sql = properties.getProperty("GET_ACTIVITIES_CAMPAMENT");
+            Properties properties = new Properties();
+            properties.load(new FileInputStream("sql.properties"));
+            String sql = properties.getProperty("GET_ACTIVITIES_CAMPAMENT");
 
-                    Connection conn = new ConnectionDB().getConnection();
-                    PreparedStatement ps = conn.prepareStatement(sql);
+            Connection conn = new ConnectionDB().getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
 
-                    ps.setInt(1, id);
+            ps.setInt(1, id);
 
-                    ResultSet rs = ps.executeQuery();
+            ResultSet rs = ps.executeQuery();
 
-                    ArrayList<ActivityDTO> activities = new ArrayList<ActivityDTO>();
+            ArrayList<ActivityDTO> activities = new ArrayList<ActivityDTO>();
 
-                    while(rs.next()){
-                        ActivityDTO act = new ActivityDTO();
+            while(rs.next()){
+                ActivityDTO act = new ActivityDTO();
 
-                        act.setname(rs.getString("name"));
-                        act.setMaxParticipants(rs.getInt("max_participants"));
-                        act.setNumMonitors(rs.getInt("num_monitors"));
+                act.setname(rs.getString("name"));
+                act.setMaxParticipants(rs.getInt("max_participants"));
+                act.setNumMonitors(rs.getInt("num_monitors"));
 
-                        String levelString = rs.getString("education_level");
-                        if(levelString.equals("CHILD")){
-                            act.setLevel(Level.CHILD);
-                        }else if(levelString.equals("TEENAGER")){
-                            act.setLevel(Level.TEENAGER);
-                        }else{
-                            act.setLevel(Level.YOUTH);
-                        }
+                String levelString = rs.getString("education_level");
+                if(levelString.equals("CHILD")){
+                    act.setLevel(Level.CHILD);
+                }else if(levelString.equals("TEENAGER")){
+                    act.setLevel(Level.TEENAGER);
+                }else{
+                    act.setLevel(Level.YOUTH);
+                }
 
-                        String scheduleString = rs.getString("schedule");
-                        if(scheduleString.equals("MORNING")){
-                            act.setSchedule(Schedule.MORNING);
-                        }else{
-                            act.setSchedule(Schedule.AFTERNOON);
-                        }
+                String scheduleString = rs.getString("schedule");
+                if(scheduleString.equals("MORNING")){
+                    act.setSchedule(Schedule.MORNING);
+                }else{
+                    act.setSchedule(Schedule.AFTERNOON);
+                }
 
-                        activities.add(act);
-                    }
+                activities.add(act);
+            }
 
-                    return activities;
-                } catch (Exception e) {throw e;}
+            return activities;
+        } catch (Exception e) {throw e;}
     }
 
-    
     @Override
     public void update(CampamentDTO campamentDTO) throws Exception { throw new UnsupportedOperationException("Unimplemented method 'update'"); }
     

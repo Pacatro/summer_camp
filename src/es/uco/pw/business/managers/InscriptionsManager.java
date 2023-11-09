@@ -77,82 +77,67 @@ public class InscriptionsManager {
     }
 
     /**
-     * Add a new registration for a new inscription to the list of completed inscriptions for a campament.
-     * @param campament
-     * @param assistant
-     * @param schendule
-     * @param completesInscriptions
-     * @throws Exception
+     * Enrolls an assistant in a campament with a complete inscription.
+     *
+     * @param campament The CampamentDTO object representing the campament.
+     * @param assistant The AssistantDTO object representing the assistant.
+     * @param schedule The Schedule object representing the schedule.
      */
     public void enrollComplete(CampamentDTO campament, AssistantDTO assistant, Schedule schendule) throws Exception{
-        CompleteInscriptionDTO completeInscriptionDTO;
-        // ArrayList<MonitorDTO> monitors = campament.getMonitors();
-        InscriptionFactory factory = getFactory(campament);
+        try{
+            CompleteInscriptionDTO completeInscriptionDTO;
+            InscriptionFactory factory = getFactory(campament);
 
-        if(factory == null){
-            System.out.println("No se ha podido crear la fabrica de inscripciones");
-            return;
-        }
+            if(factory == null){
+                System.out.println("No se ha podido crear la fabrica de inscripciones");
+                return;
+            }
 
-        // if(assistant.getAtention()){
-        //     for(MonitorDTO m : monitors){
-        //         if(m.isEspecial())
-        //             campament.associateSpecialMonitor(m);
-        //     }
-        // }
+            if(!canEnroll(campament)){ 
+                System.out.println("El campamento ya ha comenzado.");
+                return;
+            }
+            
+            completeInscriptionDTO = factory.createCompleteInscription(campament, assistant, schendule, LocalDate.now());
 
-        if(!canEnroll(campament)){ 
-            System.out.println("El campamento ya ha comenzado.");
-            return;
-        }
-        
-        completeInscriptionDTO = factory.createCompleteInscription(campament, assistant, schendule, LocalDate.now());
+            double price = calcPrice(campament, assistant.getAtention());
+            completeInscriptionDTO.setPrice(price);
+            
+            CompleteInscriptionDAO iDao = new CompleteInscriptionDAO();
 
-        double price = calcPrice(campament, assistant.getAtention());
-        completeInscriptionDTO.setPrice(price);
-        
-        CompleteInscriptionDAO iDao = new CompleteInscriptionDAO();
-
-        iDao.insert(completeInscriptionDTO);
+            iDao.insert(completeInscriptionDTO);
+        } catch (Exception e) {throw e;}
     }
 
     /**
-     * Add a new registration for a new inscription to the list of parcials inscriptions for a campament.
-     * @param campament
-     * @param assistant
-     * @param schendule
-     * @param parcialsInscriptions
+     * Enrolls an assistant in a campament with a partial inscription.
+     *
+     * @param campament The CampamentDTO object representing the campament.
+     * @param assistant The AssistantDTO object representing the assistant.
      */
     public void enrollParcial(CampamentDTO campament, AssistantDTO assistant) throws Exception{
+        try{
+            ParcialInscriptionDTO parcialInscriptionDTO;
+            InscriptionFactory factory = getFactory(campament);
 
-        ParcialInscriptionDTO parcialInscriptionDTO;
-        // ArrayList<MonitorDTO> monitors = campament.getMonitors();
-        InscriptionFactory factory = getFactory(campament);
+            if(factory == null){
+                System.out.println("No se ha podido crear la fabrica de inscripciones");
+                return;
+            }
 
-        if(factory == null){
-            System.out.println("No se ha podido crear la fabrica de inscripciones");
-            return;
-        }
+            if(!canEnroll(campament)){ 
+                System.out.println("El campamento ya ha comenzado.");
+                return;
+            }
 
-        // if(assistant.getAtention()){
-        //     for(MonitorDTO m : monitors){
-        //         if(m.isEspecial())
-        //             campament.associateSpecialMonitor(m);
-        //     }
-        // }
+            parcialInscriptionDTO = factory.createParcialInscription(campament, assistant, LocalDate.now());
 
-        if(!canEnroll(campament)){ 
-            System.out.println("El campamento ya ha comenzado.");
-            return;
-        }
+            double price = calcPrice(campament, assistant.getAtention());
+            parcialInscriptionDTO.setPrice(price);
 
-        parcialInscriptionDTO = factory.createParcialInscription(campament, assistant, LocalDate.now());
+            ParcialInscriptionDAO iDao = new ParcialInscriptionDAO();
 
-        double price = calcPrice(campament, assistant.getAtention());
-        parcialInscriptionDTO.setPrice(price);
-
-        ParcialInscriptionDAO iDao = new ParcialInscriptionDAO();
-
-        iDao.insert(parcialInscriptionDTO);
+            iDao.insert(parcialInscriptionDTO);
+        } catch (Exception e) {throw e;}
     }
 }

@@ -24,7 +24,7 @@ public class CampamentsManager {
      * @param activities       The list of activities.
      * @param name             The name of the activity.
      * @param level            The level of the activity.
-     * @param schedule        The schedule of the activity.
+    * @param schedule          The schedule of the activity.
      * @param max_participants The maximum number of participants for the activity.
      * @param num_monitors     The number of monitors for the activity.
      */
@@ -65,6 +65,7 @@ public class CampamentsManager {
      * @param initDate   The start date of the campament.
      * @param finalDate  The end date of the campament.
      * @param level      The level of the campament.
+     * @return True if the campament was successfully created, false otherwise.
      */
     public boolean createCampaments(int id, LocalDate initDate, LocalDate finalDate, Level level ,int max_assistants) throws Exception {
         try{
@@ -79,10 +80,11 @@ public class CampamentsManager {
     }
     
     /**
-     * Associates a monitor with an activity, if possible.
+     * Associates a monitor with an activity.
      *
-     * @param monitor_id             The monitor id to associate.
-     * @param activity_id            The activity id to associate.
+     * @param monitor_id    The ID of the monitor to associate.
+     * @param activity_id   The ID of the activity to associate the monitor with.
+     * @return True if the association was successful, false if the activity is already full of monitors.
      */
     public boolean associateMonitorsToActivities(int monitor_id, String activity_id) throws Exception{
         //Modificada para que solo se añada un monitor
@@ -100,6 +102,11 @@ public class CampamentsManager {
         } catch(Exception e) {throw e;}
     }
 
+    /**
+     * Retrieves a list of all activities.
+     *
+     * @return An ArrayList of ActivityDTO objects representing all activities.
+     */
     public ArrayList<ActivityDTO> getAllActivities() throws Exception{
         try{
             ActivityDAO dao = new ActivityDAO();
@@ -107,6 +114,11 @@ public class CampamentsManager {
         } catch (Exception e) {throw e;}
     }
 
+    /**
+     * Retrieves a list of all monitors that are not special.
+     *
+     * @return An ArrayList of MonitorDTO objects representing non-special monitors.
+     */
     public ArrayList<MonitorDTO> getAllMonitorsNotEspecial() throws Exception{
         try{
             MonitorDAO dao = new MonitorDAO();
@@ -127,13 +139,12 @@ public class CampamentsManager {
     /**
      * Associates an activity with a campament.
      * 
-     * @param camp_id   The campament id to associate.
-     * @param activityId  The activity id to associate.
+     * @param camp_id       The campament id to associate.
+     * @param activityId    The activity id to associate.
+     * @return True if the association was successful, false if the levels do not match or an error occurs.
      */
     public boolean associateActivitiesToCampaments(int camp_id, String activityId) throws Exception {
         
-        // ActivityDTO selectedActivity = activities.get(selectedActivityIndex);
-        // selectedCampament.associateActivity(selectedActivity);
         try {
             CampamentDAO campamentDAO = new CampamentDAO();
             ActivityDAO activityDAO = new ActivityDAO();
@@ -148,36 +159,41 @@ public class CampamentsManager {
                 return true;
             }
            
-            }catch (Exception e) {throw e;}
-            return false;
-        }
+        }catch (Exception e) {throw e;}
+        return false;
+    }
     
-/**
- * 
- * 
- */
-        public ArrayList<CampamentDTO> getAllCampaments() throws Exception{
-            try{
-                CampamentDAO dao = new CampamentDAO();
-                return dao.getAll();
-            } catch (Exception e) {throw e;}
-        }
+    /**
+     * Retrieves a list of all campaments.
+     *
+     * @return An ArrayList of CampamentDTO objects representing all campaments.
+     */
+    public ArrayList<CampamentDTO> getAllCampaments() throws Exception{
+        try{
+            CampamentDAO dao = new CampamentDAO();
+            return dao.getAll();
+        } catch (Exception e) {throw e;}
+    }
 
-        public ArrayList<MonitorDTO> getAllMonitors() throws Exception{
-            try{
-                MonitorDAO dao = new MonitorDAO();
-                return dao.getAll();
-            } catch (Exception e) {throw e;}
-        }
+    /**
+     * Retrieves a list of all monitors.
+     * 
+     * @return An ArrayList of MonitorDTO objects representing all monitors.
+     */
+    public ArrayList<MonitorDTO> getAllMonitors() throws Exception{
+        try{
+            MonitorDAO dao = new MonitorDAO();
+            return dao.getAll();
+        } catch (Exception e) {throw e;}
+    }
 
     
     /**
-     * Associates a monitor with a campament based on specific criteria.
+     * Associates a monitor with a campament based on certain conditions.
      *
-     * @param campaments              The list of campaments.
-     * @param monitors                The list of monitors.
-     * @param selectedMonitorIndex    The index of the selected monitor.
-     * @param selectedCampament       The campament to associate the monitor with.
+     * @param camp_id The ID of the campament.
+     * @param monitor_id The ID of the monitor.
+     * @return True if the association was successful, false if conditions are not met or an error occurs.
      */
     public boolean associateMonitorsToCampaments(int camp_id, int monitor_id) throws Exception {
         try{
@@ -201,9 +217,17 @@ public class CampamentsManager {
          return false;
     }
 
+    /**
+     * Retrieves a CampamentDTO object based on its identifier.
+     *
+     * @param id The identifier of the CampamentDTO object that is to be retrieved.
+     * @return The CampamentDTO object corresponding to the provided identifier.
+     */
     public CampamentDTO getById(int id) throws Exception{
-        CampamentDAO campamentDAO = new CampamentDAO();
-        CampamentDTO campament = campamentDAO.getById(id);
-        return campament;
+        try{
+            CampamentDAO campamentDAO = new CampamentDAO();
+            CampamentDTO campament = campamentDAO.getById(id);
+            return campament;
+        } catch (Exception e) {throw e;}
     }
 }

@@ -31,7 +31,6 @@ public class AssistantManager {
      * @param newdate     The new date of birth of the assistant.
      * @param newatention The new attention status of the assistant.
      * @param list        The list of assistants in the system.
-     * @return true if the assistant is successfully modified, false if the assistant is not found.
      */
     public void modify(int id, String newname, String newsurname, LocalDate newdate, boolean newatention)throws Exception{
         try{
@@ -42,7 +41,9 @@ public class AssistantManager {
     }
 
     /**
-     * Prints the details of all registered assistants in the system.
+     * Retrieves a list of AssistantDTO objects
+     * 
+     * @return An ArrayList of AssistantDTO objects.
      */
     public ArrayList<AssistantDTO> print()throws Exception{
         try{
@@ -52,6 +53,12 @@ public class AssistantManager {
         }catch (Exception e){throw e;}
     }
 
+    /**
+     * Retrieves an AssistantDTO object based on its identifier.
+     * 
+     * @param id The identifier of the AssistantDTO object to retrieve.
+     * @return The AssistantDTO object corresponding to the provided identifier.
+     */
     public AssistantDTO getById(int id) throws Exception{
         AssistantDAO assistantDAO = new AssistantDAO();
         AssistantDTO assistantDTO = assistantDAO.getById(id);

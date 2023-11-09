@@ -16,7 +16,6 @@ public class EarlyRegInscriptionFactory extends InscriptionFactory {
     public CompleteInscriptionDTO createCompleteInscription(CampamentDTO campament, AssistantDTO assistant, Schedule schendule, LocalDate date) throws Exception {
         CompleteInscriptionDTO cInscription = new CompleteInscriptionDTO(schendule);
 
-        //LocalDate date = LocalDate.now();
         LocalDate campamentDate = campament.getInitDate();
 
         cInscription.setIdCampament(campament.getId());
@@ -35,7 +34,6 @@ public class EarlyRegInscriptionFactory extends InscriptionFactory {
     public ParcialInscriptionDTO createParcialInscription(CampamentDTO campament, AssistantDTO assistant, LocalDate date) throws Exception {
         ParcialInscriptionDTO pInscription = new ParcialInscriptionDTO();
 
-        //LocalDate date = LocalDate.now();
         LocalDate campamentDate = campament.getInitDate();
 
         pInscription.setIdCampament(campament.getId());

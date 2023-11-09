@@ -13,6 +13,9 @@ import es.uco.pw.business.assistant.AssistantDTO;
 import es.uco.pw.data.common.ConnectionDB;
 import es.uco.pw.data.dao.common.IDAO;
 
+/**
+ * Manage the data from the assitants table
+ */
 public class AssistantDAO implements IDAO<AssistantDTO, Integer> {
     public AssistantDAO(){}
 

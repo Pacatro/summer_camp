@@ -54,6 +54,12 @@ public class ActivityDAO implements IDAO<ActivityDTO,String>{
         } catch (Exception e) {throw e;}
     }
 
+    /**
+     * Adds a monitor to an activity in the database.
+     *
+     * @param act_id The identifier of the activity to which the monitor is added.
+     * @param mon_id The identifier of the monitor being added to the activity.
+     */
     public void addMonitor(String act_id, int mon_id) throws Exception{
         try {
             Properties properties = new Properties();
@@ -71,6 +77,12 @@ public class ActivityDAO implements IDAO<ActivityDTO,String>{
         } catch(Exception e) {throw e;}
     }
 
+    /**
+     * Retrieves a list of monitors associated with a specific activity.
+     *
+     * @param act_id The identifier of the activity for which monitors are retrieved.
+     * @return An ArrayList of MonitorDTO objects representing the monitors associated with the activity.
+     */
     public ArrayList<MonitorDTO> getMonitors(String act_id) throws Exception{
         try{
             Properties properties = new Properties();
@@ -94,6 +106,12 @@ public class ActivityDAO implements IDAO<ActivityDTO,String>{
         } catch(Exception e) {throw e;}
     }
 
+    /**
+     * Checks if the maximum number of monitors for a specific activity has been reached.
+     *
+     * @param act_id The identifier of the activity to check.
+     * @return True if the maximum number of monitors has been reached, false otherwise.
+     */
     public boolean isMonitorsFull(String act_id) throws Exception{
         try{
             Properties properties = new Properties();

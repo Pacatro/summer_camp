@@ -11,6 +11,9 @@ import es.uco.pw.business.monitor.MonitorDTO;
 import es.uco.pw.data.common.ConnectionDB;
 import es.uco.pw.data.dao.common.IDAO;
 
+/**
+ * Manage the data from the monitors table
+ */
 public class MonitorDAO implements IDAO<MonitorDTO,Integer>{
     public MonitorDAO(){}
 

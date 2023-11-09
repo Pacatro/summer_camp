@@ -7,14 +7,12 @@ import java.util.Scanner;
 import es.uco.pw.business.activity.ActivityDTO;
 import es.uco.pw.business.assistant.AssistantDTO;
 import es.uco.pw.business.campament.CampamentDTO;
-import es.uco.pw.business.monitor.MonitorDTO;
 import es.uco.pw.business.schedule.Schedule;
 import es.uco.pw.business.level.Level;
-import es.uco.pw.business.factory.CompleteInscriptionDTO;
-import es.uco.pw.business.factory.ParcialInscriptionDTO;
 import es.uco.pw.business.managers.AssistantManager;
 import es.uco.pw.business.managers.CampamentsManager;
 import es.uco.pw.business.managers.InscriptionsManager;
+import es.uco.pw.business.monitor.MonitorDTO;
 
 /**
  * Represents a menu for managing the system's assistants, campaments, and inscriptions.
@@ -26,14 +24,8 @@ public class Menu {
      * Initializes a new Menu instance with the required data.
      *
      * @param scanner             A Scanner object for user input.
-     * @param monitors            The list of monitors in the system.
-     * @param activities          The list of activities in the system.
-     * @param assistants          The list of assistants in the system.
-     * @param campaments          The list of campaments in the system.
-     * @param completeInscriptions The list of complete inscriptions in the system.
-     * @param parcialInscriptions  The list of parcial inscriptions in the system.
      */
-    public Menu(Scanner scanner){}
+    public Menu(Scanner scanner){this.scanner = scanner;}
 
     public void mainMenu() throws Exception{
         int opt;
@@ -173,7 +165,17 @@ public class Menu {
                 case 3:
                     System.out.println("Lista de asistentes: ");
                     // TODO: NO SE SI ESTA FUNCION ESTA ACABADA
-                    manager.print();
+                    ArrayList<AssistantDTO> assistants = manager.print();
+
+                    for(AssistantDTO a : assistants){
+                        System.out.println("ID: " + a.getId());
+                        System.out.println("Nombre: " + a.getName());
+                        System.out.println("Apellido: " + a.getSurname());
+                        System.out.println("Fecha: " + a.getDate());
+                        System.out.println("Atención: " + a.getAtention());
+                        System.out.println();
+                    }
+
                 break;
 
                 case 4:
@@ -323,9 +325,9 @@ public class Menu {
                 break;
 
                 case 4:
-                    
-                    /* TODO: IMPLEMENTAR ESTO USANDO LOS MANAGERS INSERTANDO EN LAS TABLAS DE RELACION DE LA BD
                     System.out.println("Asociando monitor - actividad...");
+
+                    ArrayList<ActivityDTO> activities = manager.getAllActivities();
 
                     for (int k = 0; k < activities.size(); k++) {
                         System.out.println("Actividad: " + k + ") " + activities.get(k).getname());
@@ -342,32 +344,26 @@ public class Menu {
             
                     ActivityDTO activity = activities.get(selectedActivityIndex);
 
-                    int numMonitorsNeeded = activity.getNumMonitors();
-                    System.out.println("Número de monitores a asociar a esta actividad: " + numMonitorsNeeded);
+                    ArrayList<MonitorDTO> monitors = manager.getAllMonitorsNotEspecial();
 
                     int selectedMonitorIndex = 0;
 
-                    for (int i = 0; i < numMonitorsNeeded; i++) {
-                        System.out.println("\nSelecciona un monitor:\n");
-            
-                        for (int j = 0; j < monitors.size(); j++) {
-                            if (!monitors.get(j).isEspecial()) {
-                                System.out.println(j + ". " + monitors.get(j).getName());
-                            }
-                        }
-            
-                        selectedMonitorIndex = Integer.parseInt(this.scanner.nextLine());
-                        while (!(selectedMonitorIndex >= 0 && selectedMonitorIndex < monitors.size()
-                                && monitors.get(selectedMonitorIndex).isEspecial() == false)) {
-                            System.out.println("Índice de monitor no válido.");
-                            System.out.print("Selecciona un monitor: ");
-                            selectedMonitorIndex = Integer.parseInt(this.scanner.nextLine());
-                        }
-                        
+                    System.out.println("\nSelecciona un monitor:\n");
+        
+                    for (int j = 0; j < monitors.size(); j++) {
+                        System.out.println("Monitor: " + j + ") " + monitors.get(j).getName() + " " + monitors.get(j).getSurname());
                     }
+        
+                    selectedMonitorIndex = Integer.parseInt(this.scanner.nextLine());
+                    while (!(selectedMonitorIndex >= 0 && selectedMonitorIndex < monitors.size()
+                            && monitors.get(selectedMonitorIndex).isEspecial() == false)) {
+                        System.out.println("Índice de monitor no válido.");
+                        System.out.print("Selecciona un monitor: ");
+                        selectedMonitorIndex = Integer.parseInt(this.scanner.nextLine());
+                    }
+                        
 
-                    manager.associateMonitorsToActivities(selectedMonitorIndex, activity);
-                    */
+                    manager.associateMonitorsToActivities(selectedMonitorIndex, activity.getname());
 
                 break;
                 case 5:

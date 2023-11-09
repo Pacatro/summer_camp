@@ -43,22 +43,13 @@ public class AssistantManager {
 
     /**
      * Prints the details of all registered assistants in the system.
-     *
-     * @param register The list of registered assistants to be printed.
      */
-    public void print()throws Exception{
+    public ArrayList<AssistantDTO> print()throws Exception{
         try{
             AssistantDAO dao=new AssistantDAO();
             ArrayList<AssistantDTO> register=dao.getAll();
+            return register;
         }catch (Exception e){throw e;}
-      /*  for(AssistantDTO a : register){
-            System.out.println("ID: " + a.getId());
-            System.out.println("Nombre: " + a.getName());
-            System.out.println("Apellido: " + a.getSurname());
-            System.out.println("Fecha: " + a.getDate());
-            System.out.println("Atención: " + a.getAtention());
-            System.out.println();
-        }*/
     }
 
     public AssistantDTO getById(int id) throws Exception{

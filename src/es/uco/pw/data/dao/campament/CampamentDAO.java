@@ -11,7 +11,7 @@ import java.sql.Date;
 import es.uco.pw.business.campament.CampamentDTO;
 import es.uco.pw.business.level.Level;
 import es.uco.pw.data.common.ConnectionDB;
-import es.uco.pw.data.common.IDAO;
+import es.uco.pw.data.dao.common.IDAO;
 
 
 

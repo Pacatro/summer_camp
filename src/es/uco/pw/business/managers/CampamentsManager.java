@@ -67,13 +67,13 @@ public class CampamentsManager {
      * @param level      The level of the campament.
      */
     public void createCampaments(int id, LocalDate initDate, LocalDate finalDate, Level level) throws Exception {
-                try{
+        try{
 
-                    CampamentDAO dao = new CampamentDAO();
-                    CampamentDTO newCampament = new CampamentDTO(id, initDate, finalDate, level);
-                    dao.insert(newCampament);
-        
-                } catch (Exception e) {throw e;}
+            CampamentDAO dao = new CampamentDAO();
+            CampamentDTO newCampament = new CampamentDTO(id, initDate, finalDate, level);
+            dao.insert(newCampament);
+
+        } catch (Exception e) {throw e;}
     }
     
     /**
@@ -82,18 +82,44 @@ public class CampamentsManager {
      * @param monitor_id             The monitor id to associate.
      * @param activity_id            The activity id to associate.
      */
-    public void associateMonitorsToActivities(int monitor_id, String activity_id) throws Exception{
+    public boolean associateMonitorsToActivities(int monitor_id, String activity_id) throws Exception{
         //Modificada para que solo se añada un monitor
         try{
             ActivityDAO act_dao = new ActivityDAO();
 
             if(act_dao.isMonitorsFull(activity_id)){ //TODO que se vea el error
-                return;
+                return false;
             }
 
             act_dao.addMonitor(activity_id, monitor_id);
 
+            return true;
+
         } catch(Exception e) {throw e;}
+    }
+
+    public ArrayList<ActivityDTO> getAllActivities() throws Exception{
+        try{
+            ActivityDAO dao = new ActivityDAO();
+            return dao.getAll();
+        } catch (Exception e) {throw e;}
+    }
+
+    public ArrayList<MonitorDTO> getAllMonitorsNotEspecial() throws Exception{
+        try{
+            MonitorDAO dao = new MonitorDAO();
+            ArrayList<MonitorDTO> monitors = dao.getAll();
+            ArrayList<MonitorDTO> notEspecial = new ArrayList<MonitorDTO>();
+
+            for(MonitorDTO m: monitors){
+                if(!(m.isEspecial())){
+                    notEspecial.add(m);
+                }
+            }
+
+            return notEspecial;
+            
+        } catch (Exception e) {throw e;}
     }
 
     /**

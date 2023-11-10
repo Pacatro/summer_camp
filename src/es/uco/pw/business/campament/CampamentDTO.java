@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import es.uco.pw.business.activity.ActivityDTO;
 import es.uco.pw.business.common.level.Level;
 import es.uco.pw.business.monitor.MonitorDTO;
-//import es.uco.pw.business.assistant.AssistantDTO;
 
 /**
  * Represents a campament for the system.

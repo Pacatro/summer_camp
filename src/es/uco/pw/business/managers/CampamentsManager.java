@@ -67,15 +67,14 @@ public class CampamentsManager {
      * @param level      The level of the campament.
      * @return True if the campament was successfully created, false otherwise.
      */
-    public boolean createCampaments(int id, LocalDate initDate, LocalDate finalDate, Level level ,int max_assistants) throws Exception {
+    public void createCampaments(int id, LocalDate initDate, LocalDate finalDate, Level level ,int max_assistants) throws Exception {
         try{
     
             CampamentDAO dao = new CampamentDAO();
             CampamentDTO newCampament = new CampamentDTO(id, initDate, finalDate,max_assistants, level);
             dao.insert(newCampament);
-            return true;
 
-        } catch (Exception e) {return false;}
+        } catch (Exception e) {throw e;}
         
     }
     
@@ -86,18 +85,16 @@ public class CampamentsManager {
      * @param activity_id   The ID of the activity to associate the monitor with.
      * @return True if the association was successful, false if the activity is already full of monitors.
      */
-    public boolean associateMonitorsToActivities(int monitor_id, String activity_id) throws Exception{
+    public void associateMonitorsToActivities(int monitor_id, String activity_id) throws Exception{
         //Modificada para que solo se añada un monitor
         try{
             ActivityDAO act_dao = new ActivityDAO();
 
-            if(act_dao.isMonitorsFull(activity_id)){ //TODO que se vea el error
-                return false;
+            if(act_dao.isMonitorsFull(activity_id)){
+                throw new Exception("Demasiados monitores para esta actividad.");
             }
 
             act_dao.addMonitor(activity_id, monitor_id);
-
-            return true;
 
         } catch(Exception e) {throw e;}
     }
@@ -143,7 +140,7 @@ public class CampamentsManager {
      * @param activityId    The activity id to associate.
      * @return True if the association was successful, false if the levels do not match or an error occurs.
      */
-    public boolean associateActivitiesToCampaments(int camp_id, String activityId) throws Exception {
+    public void associateActivitiesToCampaments(int camp_id, String activityId) throws Exception {
         
         try {
             CampamentDAO campamentDAO = new CampamentDAO();
@@ -156,11 +153,10 @@ public class CampamentsManager {
             // Verificar si tienen el mismo nivel
             if (campament.getLevel() == activity.getLevel()) {
                 campamentDAO.addActivity(camp_id, activityId);
-                return true;
+                throw new Exception("La actividad no tiene el mismo nivel que el campamento.");
             }
            
         }catch (Exception e) {throw e;}
-        return false;
     }
     
     /**
@@ -195,7 +191,7 @@ public class CampamentsManager {
      * @param monitor_id The ID of the monitor.
      * @return True if the association was successful, false if conditions are not met or an error occurs.
      */
-    public boolean associateMonitorsToCampaments(int camp_id, int monitor_id) throws Exception {
+    public void associateMonitorsToCampaments(int camp_id, int monitor_id) throws Exception {
         try{
     
                 MonitorDAO monitorDAO = new MonitorDAO();
@@ -211,10 +207,10 @@ public class CampamentsManager {
                     !selectedMonitor.isEspecial() && activityMonitors.contains(selectedMonitor)) {
                     
                         campamentDAO.addMonitor(camp_id, monitor_id);
-                        return true;
                 }
+                throw new Exception("No se ha podido asociar el monitor al campamento.");
+                
             } catch (Exception e) {throw e;}
-         return false;
     }
 
     /**

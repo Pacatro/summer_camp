@@ -157,22 +157,8 @@ public class ActivityDAO implements IDAO<ActivityDTO,String>{
                 act.setname(rs.getString("name"));
                 act.setMaxParticipants(rs.getInt("max_participants"));
                 act.setNumMonitors(rs.getInt("num_monitors"));
-
-                String levelString = rs.getString("education_level");
-                if(levelString.equals("CHILD")){
-                    act.setLevel(Level.CHILD);
-                }else if(levelString.equals("TEENAGER")){
-                    act.setLevel(Level.TEENAGER);
-                }else{
-                    act.setLevel(Level.YOUTH);
-                }
-
-                String scheduleString = rs.getString("schedule");
-                if(scheduleString.equals("MORNING")){
-                    act.setSchedule(Schedule.MORNING);
-                }else{
-                    act.setSchedule(Schedule.AFTERNOON);
-                }
+                act.setLevel(Level.valueOf(rs.getString("education_level")));
+                act.setSchedule(Schedule.valueOf(rs.getString("schedule")));
 
                 activities.add(act);
             }

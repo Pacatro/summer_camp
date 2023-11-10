@@ -111,15 +111,7 @@ public class Menu {
                     
                     assistant = new AssistantDTO(assistantID, assistantName, assistantSurname, assistantBday, atention);
 
-                    // TODO: HACER MEJOR CONTROL ERRORES
                     manager.register(assistant);
-
-                    /*
-                    if(!manager.register(assistant)){
-                        System.out.println("\nNo se ha podido registrar al asistente.");
-                        break;
-                    }
-                    */
 
                     System.out.println("\nEl asistente ha sido registrado con exito.");
 
@@ -150,21 +142,13 @@ public class Menu {
                     System.out.print("El asistente necesita atencion especial (true/false): ");
                     boolean newAtention = Boolean.parseBoolean(this.scanner.nextLine());
 
-                    // TODO: HACER MEJOR CONTROL ERRORES
                     manager.modify(newAssistantID, newAssistantName, newAssistantSurname, newAssistantBday, newAtention);
-                    /*
-                    if(!manager.modify(newAssistantID, newAssistantName, newAssistantSurname, newAssistantBday, newAtention)){
-                        System.out.println("\nEl asistente no se ha modificado correctamente.");
-                        break;
-                    }
-                    */
 
                     System.out.println("\nAsistente modificado correctamente.");
                 break;
 
                 case 3:
                     System.out.println("Lista de asistentes: ");
-                    // TODO: NO SE SI ESTA FUNCION ESTA ACABADA
                     ArrayList<AssistantDTO> assistants = manager.print();
 
                     for(AssistantDTO a : assistants){
@@ -337,11 +321,7 @@ public class Menu {
                     }
                     }while(numMaxParticipants != 0);
 
-                    if(manager.createCampaments(campId, initDate, finalDate, campLevel, max_participants)){
-                        System.out.println("Campamento creado correctamente.");
-                    }else{
-                     System.out.println("No se ha podido crear el campamento.");
-                    }
+                    manager.createCampaments(campId, initDate, finalDate, campLevel, max_participants);
                 break;
 
                 case 4:
@@ -428,11 +408,7 @@ public class Menu {
                     }
                     ActivityDTO selectedActivity = activities.get(selectedActivityIndex2);
 
-                    if(manager.associateActivitiesToCampaments(selectedCampament.getId(),selectedActivity.getname())){
-                        System.out.println("Actividad asociada correctamente.");
-                    }else{
-                        System.out.println("No se ha podido asociar la actividad.");
-                    }
+                    manager.associateActivitiesToCampaments(selectedCampament.getId(),selectedActivity.getname());
                 
                 break;
 
@@ -471,11 +447,7 @@ public class Menu {
                     }
                     MonitorDTO selectedMonitor = monitors.get(selectedMonitorIndex3);
 
-                    if(manager.associateMonitorsToCampaments(selectedCampament2.getId(), selectedMonitor.getID())){
-                        System.out.println("Monitor asociado correctamente.");
-                    }else{
-                        System.out.println("No se ha podido asociar el monitor.");
-                    }
+                    manager.associateMonitorsToCampaments(selectedCampament2.getId(), selectedMonitor.getID());
                     
                 break;
 

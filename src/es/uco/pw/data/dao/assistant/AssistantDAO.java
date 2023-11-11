@@ -43,6 +43,8 @@ public class AssistantDAO implements IDAO<AssistantDTO, Integer> {
 
     @Override
     public AssistantDTO getById(Integer idDTO) throws Exception{
+        AssistantDTO assi = null;
+
         try{
             Properties properties= new Properties();
             properties.load(new FileInputStream("sql.properties"));
@@ -55,18 +57,13 @@ public class AssistantDAO implements IDAO<AssistantDTO, Integer> {
             
             ResultSet rs = ps.executeQuery();
             
-            AssistantDTO assi=new AssistantDTO();
             while (rs.next()) {
-                assi.setId(rs.getInt("ass_id"));
-				assi.setName(rs.getString("name"));
-                assi.setSurname(rs.getString("surname"));
-                assi.setDate(rs.getDate("birth_date").toLocalDate());
-                assi.setAtention(rs.getBoolean("attention"));
+                assi = new AssistantDTO(rs.getInt("ass_id"), rs.getString("name"), rs.getString("surname"), rs.getDate("birth_date").toLocalDate(), rs.getBoolean("attention"));
 			}
             
-            return assi;
-
         } catch (Exception e) { throw new DataException("No existe ningun asistente con el id " + idDTO +  "."); }
+        
+        return assi;
     }
 
     @Override

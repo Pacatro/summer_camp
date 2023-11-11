@@ -96,13 +96,12 @@ public class Menu {
                         break;
                     }
 
-                    //TODO: SOBRA???
                     if(assistant != null){
-                        System.out.println("\nEl id del asistente ya ha sido registrado previamente.");
+                        System.out.println("\nError: El id del asistente ya ha sido registrado previamente.");
                         break;
                     }
 
-                    this.scanner.nextLine();
+                    //this.scanner.nextLine();
                     System.out.print("Nombre del asistente: ");
                     String assistantName = this.scanner.nextLine();
 
@@ -134,15 +133,19 @@ public class Menu {
 
                     System.out.print("Introduzca el id del asistente a modificar: ");
                     int newAssistantID = Integer.parseInt(this.scanner.nextLine());
-
+                    
                     try {
-                        manager.getById(newAssistantID);
+                        assistant = manager.getById(newAssistantID);
                     } catch (Exception e) {
                         DisplayException.handleException(e);
                         break;
                     }
 
-                    this.scanner.nextLine();
+                    if(assistant == null){
+                        System.out.println("\nError: El id del asistente no ha sido registrado previamente.");
+                        break;
+                    }
+
                     System.out.print("Nuevo nombre del asistente: ");
                     String newAssistantName = this.scanner.nextLine();
 
@@ -278,6 +281,8 @@ public class Menu {
                         break;
                     }
 
+                    System.out.println("\nLa actividad ha sido creada correctamente.");
+
                 break;
 
                 case 2:
@@ -301,6 +306,8 @@ public class Menu {
                         DisplayException.handleException(e);
                         break;
                     }
+
+                    System.out.println("\nEl monitor ha sido creado correctamente.");
 
                 break;
 
@@ -341,19 +348,19 @@ public class Menu {
                         }
 
                     }while(subopt < 1 || subopt > 3);
+                
                     System.out.println("Introduzca el número máximo de participantes: ");
                 
-
                     int numMaxParticipants = 0;
                     do{
                         try{
                             max_participants = Integer.parseInt(this.scanner.nextLine());
                             if(max_participants < 0){
-                                System.out.println("El número de participantes no puede ser negativo.");
+                                System.err.println("El número de participantes no puede ser negativo.");
                                 max_participants = 0;
                             }
                         }catch (NumberFormatException e){
-                            System.out.println("El número de participantes debe ser un número entero.");
+                            System.err.println("El número de participantes debe ser un número entero.");
                             max_participants = 0;
                         }
                     }while(numMaxParticipants != 0);
@@ -364,6 +371,8 @@ public class Menu {
                         DisplayException.handleException(e);
                         break;
                     }
+
+                    System.out.println("\nEl campamento ha sido creado correctamente.");
 
                 break;
 
@@ -378,8 +387,10 @@ public class Menu {
                         break;
                     }
 
+                    System.out.println("\nActividades disponibles:");
+
                     for (int k = 0; k < activities.size(); k++) {
-                        System.out.println("Actividad: " + k + ") " + activities.get(k).getname());
+                        System.out.println(k + ") " + activities.get(k).getname());
                     }
 
                     System.out.print("Selecciona una actividad: ");
@@ -401,12 +412,13 @@ public class Menu {
                         break;
                     }
 
-                    System.out.println("\nSelecciona un monitor:\n");
+                    System.out.println("\nMonitores disponibles:");
         
                     for (int j = 0; j < monitors.size(); j++) {
-                        System.out.println("Monitor: " + j + ") " + monitors.get(j).getName() + " " + monitors.get(j).getSurname());
+                        System.out.println(j + ") " + monitors.get(j).getName() + " " + monitors.get(j).getSurname());
                     }
         
+                    System.out.print("Selecciona un monitor: ");
                     int selectedMonitorIndex = Integer.parseInt(this.scanner.nextLine());
                     
                     while (!(selectedMonitorIndex >= 0 && selectedMonitorIndex < monitors.size()
@@ -425,6 +437,8 @@ public class Menu {
                         break;
                     }
 
+                    System.out.println("\nEl monitor ha sido asociado con la actividad correctamente.");
+
                 break;
                 case 5:
                     System.out.println("Asociando actividad - campamento...");
@@ -439,31 +453,35 @@ public class Menu {
                         break;
                     }
 
+                    System.out.println("\nCampamentos disponibles:");
 
                     for (int k = 0; k < campaments.size(); k++) {
-                        System.out.println("Campamento: " + k + ") " + campaments.get(k).getId());
+                        System.out.println(k + ") " + campaments.get(k).getId());
                     }
 
-                    System.out.print("Selecciona un campamento:");
+                    System.out.print("Selecciona un campamento: ");
                     int selectedCampamentIndex = this.scanner.nextInt();
                     this.scanner.nextLine();
 
                     while (!(selectedCampamentIndex >= 0 && selectedCampamentIndex < campaments.size())) {
-                        System.out.println("Índice del campamento no válido.");
-                        System.out.print("Selecciona un campamento:");
+                        System.out.println("\nÍndice del campamento no válido.");
+                        System.out.print("\nSelecciona un campamento:");
                         selectedCampamentIndex = this.scanner.nextInt();
                         this.scanner.nextLine();
                     }
+
                     CampamentDTO selectedCampament = campaments.get(selectedCampamentIndex);
                     Level campamentLevel = selectedCampament.getLevel();
                     
+                    System.out.println("\nActividades disponibles:");
+
                     for (int j = 0; j < activities.size(); j++) {
                         if (activities.get(j).getLevel().equals(campamentLevel)) {
                             System.out.println(j + ". " + activities.get(j).getname());
                         }
                     }
 
-                    System.out.print("Selecciona una actividad:");
+                    System.out.print("Selecciona una actividad: ");
                     int selectedActivityIndex2 = this.scanner.nextInt();
                     this.scanner.nextLine();
 
@@ -481,11 +499,14 @@ public class Menu {
                         DisplayException.handleException(e);
                         break;
                     }
+
+                    System.out.println("\nLa actividad ha sido asociada al campamento correctamente.");
                 
                 break;
 
                 case 6:
-                    
+                    System.out.println("Asociando monitor - campamento...");
+
                     try {
                         campaments = manager.getAllCampaments();
                         monitors = manager.getAllMonitors();
@@ -494,33 +515,36 @@ public class Menu {
                         break;
                     }
 
-                    System.out.println("Asociando monitor - campamento...");
+                    System.out.println("\nCampamentos disponibles:");
+
                     for (int k = 0; k < campaments.size(); k++) {
-                        System.out.println("Campamento: " + k + ")" + campaments.get(k).getId());
+                        System.out.println(k + ") " + campaments.get(k).getId());
                     }
             
-                    System.out.print("Selecciona un campamento:");
+                    System.out.print("Selecciona un campamento: ");
                     int selectedCampamentIndex3 = this.scanner.nextInt();
                     this.scanner.nextLine();
             
-                    while (!(selectedCampamentIndex3 >= 0 && selectedCampamentIndex3 < campaments.size())) {
-                        System.out.println("Índice del campamento no válido.");
-                        System.out.println("Selecciona un campamento:");
+                    if (selectedCampamentIndex3 > campaments.size()) {
+                        System.out.println("\nÍndice del campamento no válido.");
+                        break;
                     }
             
-                    CampamentDTO selectedCampament2= campaments.get(selectedCampamentIndex3);
+                    CampamentDTO selectedCampament2 = campaments.get(selectedCampamentIndex3);
+
+                    System.out.println("\nMonitores disponibles:");
             
                     for (int j = 0; j < monitors.size(); j++) {
                         System.out.println(j + ". " + monitors.get(j).getName());
                     }
             
-                    System.out.print("Selecciona un monitor:");
+                    System.out.print("Selecciona un monitor: ");
                     int selectedMonitorIndex3 = this.scanner.nextInt();
                     this.scanner.nextLine();
             
                     while (!(selectedMonitorIndex3 >= 0 && selectedMonitorIndex3 < monitors.size())) {
-                        System.out.println("Índice de monitor no válido.");
-                        System.out.print("Selecciona un monitor:");
+                        System.out.println("\nÍndice de monitor no válido.");
+                        System.out.print("\nSelecciona un monitor:");
                         selectedMonitorIndex = this.scanner.nextInt();
                         this.scanner.nextLine();
                     }

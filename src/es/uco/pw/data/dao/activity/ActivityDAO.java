@@ -51,7 +51,7 @@ public class ActivityDAO implements IDAO<ActivityDTO,String>{
                 ps.execute();
             }
 
-        } catch (Exception e) { throw new DataException("No se puede insertar el monitor."); }
+        } catch (Exception e) { throw new DataException("No se puede insertar la actividad."); }
     }
 
     /**

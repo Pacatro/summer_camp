@@ -1,7 +1,9 @@
 package es.uco.pw.data.common;
 
-public class DataException {
-    public static void handleException(String message) throws Exception {
-        throw new Exception(message);
+import java.sql.SQLException;
+
+public class DataException extends SQLException {
+    public DataException(String message){
+        super(message);
     }
 }

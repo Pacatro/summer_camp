@@ -88,10 +88,10 @@ public class InscriptionsManager {
         InscriptionFactory factory = getFactory(campament);
 
         if(factory == null)
-            BusinessException.handleException(new Exception("Es demasiado tarde para apuntarse a este campamento."));
+            throw new BusinessException("Es demasiado tarde para apuntarse a este campamento.");
 
         if(!canEnroll(campament))
-            BusinessException.handleException(new Exception("El campamento ya ha comenzado."));
+            throw new BusinessException("El campamento ya ha comenzado.");
         
         completeInscriptionDTO = factory.createCompleteInscription(campament, assistant, schendule, LocalDate.now());
 
@@ -114,10 +114,10 @@ public class InscriptionsManager {
         InscriptionFactory factory = getFactory(campament);
 
         if(factory == null)
-            BusinessException.handleException(new Exception("Es demasiado tarde para apuntarse a este campamento."));
+            throw new BusinessException("Es demasiado tarde para apuntarse a este campamento.");
 
         if(!canEnroll(campament))
-            BusinessException.handleException(new Exception("El campamento ya ha comenzado."));
+            throw new BusinessException("El campamento ya ha comenzado.");
 
         parcialInscriptionDTO = factory.createParcialInscription(campament, assistant, LocalDate.now());
 

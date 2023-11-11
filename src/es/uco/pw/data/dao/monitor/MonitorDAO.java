@@ -9,7 +9,8 @@ import java.sql.ResultSet;
 
 import es.uco.pw.business.monitor.MonitorDTO;
 import es.uco.pw.data.common.ConnectionDB;
-import es.uco.pw.data.dao.common.IDAO;
+import es.uco.pw.data.common.DataException;
+import es.uco.pw.data.common.IDAO;
 
 /**
  * Manage the data from the monitors table
@@ -34,7 +35,7 @@ public class MonitorDAO implements IDAO<MonitorDTO,Integer>{
 
             ps.execute();
 
-        } catch (Exception e){throw e;}
+        } catch (Exception e){throw new DataException("No se puede insertar el monitor.");}
     }
 
     @Override
@@ -54,7 +55,7 @@ public class MonitorDAO implements IDAO<MonitorDTO,Integer>{
             return (new MonitorDTO(rs.getInt("monitor_id"), rs.getString("name"), 
                                    rs.getString("surname"), rs.getBoolean("special_edu")));
             }
-        } catch (Exception e) {throw e;}
+        } catch (Exception e) {throw new DataException("No existe ningun monitor con id " + id + ".");}
         return null;
     }
 
@@ -78,7 +79,7 @@ public class MonitorDAO implements IDAO<MonitorDTO,Integer>{
             }
 
             return monitors;
-        } catch (Exception e) {throw e;}
+        } catch (Exception e) {throw new DataException("No hay monitores registrados.");}
     }
 
     @Override

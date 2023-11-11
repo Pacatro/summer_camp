@@ -158,7 +158,7 @@ public class CampamentsManager {
 
         // Verificar si tienen el mismo nivel
         if (campament.getLevel() != activity.getLevel())
-            BusinessException.handleException(new Exception("La actividad no tiene el mismo nivel que el campamento."));
+            throw new BusinessException("La actividad no tiene el mismo nivel que el campamento.");
         
         campamentDAO.addActivity(camp_id, activityId);
     }
@@ -220,7 +220,7 @@ public class CampamentsManager {
             ||
             !selectedMonitor.isEspecial() && activityMonitors.contains(selectedMonitor)) {
                 campamentDAO.addMonitor(camp_id, monitor_id);
-        } else BusinessException.handleException(new Exception("No se ha podido asociar el monitor al campamento."));
+        } else throw new BusinessException("No se ha podido asociar el monitor al campamento.");
     }
 
     /**

@@ -46,10 +46,7 @@ public class ConnectionDB {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             this.conn = DriverManager.getConnection(this.url, this.username, this.password);
-        } catch (Exception e) {
-            throw e;
-        }
-
-        return this.conn;
+            return this.conn;
+        } catch (Exception e) { throw new DataException("No se puede conectar a la base de datos."); }
     }
 }

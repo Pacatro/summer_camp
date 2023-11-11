@@ -12,7 +12,8 @@ import es.uco.pw.business.common.level.Level;
 import es.uco.pw.business.common.schedule.Schedule;
 import es.uco.pw.business.monitor.MonitorDTO;
 import es.uco.pw.data.common.ConnectionDB;
-import es.uco.pw.data.dao.common.IDAO;
+import es.uco.pw.data.common.DataException;
+import es.uco.pw.data.common.IDAO;
 import es.uco.pw.data.dao.monitor.MonitorDAO;
 
 
@@ -50,8 +51,7 @@ public class ActivityDAO implements IDAO<ActivityDTO,String>{
                 ps.execute();
             }
 
-            
-        } catch (Exception e) {throw e;}
+        } catch (Exception e) { throw new DataException("No se puede insertar el monitor."); }
     }
 
     /**
@@ -74,7 +74,7 @@ public class ActivityDAO implements IDAO<ActivityDTO,String>{
 
             ps.execute();
 
-        } catch(Exception e) {throw e;}
+        } catch(Exception e) { throw new DataException("No se puede asociar el monitor " + mon_id + " a la actividad " + act_id + "."); }
     }
 
     /**
@@ -84,6 +84,7 @@ public class ActivityDAO implements IDAO<ActivityDTO,String>{
      * @return An ArrayList of MonitorDTO objects representing the monitors associated with the activity.
      */
     public ArrayList<MonitorDTO> getMonitors(String act_id) throws Exception{
+        
         try{
             Properties properties = new Properties();
             properties.load(new FileInputStream("sql.properties"));
@@ -95,6 +96,7 @@ public class ActivityDAO implements IDAO<ActivityDTO,String>{
             ps.setString(1, act_id);
             
             ArrayList<MonitorDTO> monitors = new ArrayList<MonitorDTO>();
+    
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 MonitorDAO monitorDAO = new MonitorDAO();
@@ -103,7 +105,7 @@ public class ActivityDAO implements IDAO<ActivityDTO,String>{
 
             return monitors;
 
-        } catch(Exception e) {throw e;}
+        } catch (Exception e) { throw new DataException("No hay ningun monitor asociado a la actividad " + act_id + "."); }
     }
 
     /**
@@ -133,8 +135,8 @@ public class ActivityDAO implements IDAO<ActivityDTO,String>{
             }
 
             return false;
+        } catch(Exception e) { throw new DataException("No hay ningun monitor asociado a la actividad " + act_id + "."); }
 
-        } catch(Exception e) {throw e;}
     }
 
     @Override
@@ -164,7 +166,8 @@ public class ActivityDAO implements IDAO<ActivityDTO,String>{
             }
 
             return activities;
-        } catch (Exception e) {throw e;}
+        } catch (Exception e) { throw new DataException("No hay ninguna actividad disponible."); }
+        
     }
 
     @Override
@@ -173,13 +176,12 @@ public class ActivityDAO implements IDAO<ActivityDTO,String>{
             Properties properties = new Properties();
             properties.load(new FileInputStream("sql.properties"));
             String sql = properties.getProperty("GETBYID_ACTIVITY");
-
+            
             Connection conn = new ConnectionDB().getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, id);
-
+            
             ResultSet rs = ps.executeQuery();
-
             ActivityDTO act = new ActivityDTO();
 
             while(rs.next()){
@@ -195,7 +197,8 @@ public class ActivityDAO implements IDAO<ActivityDTO,String>{
             }
 
             return act;
-        } catch (Exception e) {throw e;}
+        } catch (Exception e) { throw new DataException("No existe ninguna actividad con el id " + id + "."); }
+        
     }
 
     @Override

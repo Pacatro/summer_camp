@@ -3,7 +3,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import es.uco.pw.business.assistant.AssistantDTO;
-import es.uco.pw.data.dao.AssistantDAO.AssistantDAO;
+import es.uco.pw.business.common.exceptions.BusinessException;
+import es.uco.pw.data.dao.assistant.AssistantDAO;
 
 /**
  * Manages operations related to assistants in the system, such as registration, search, modification, and printing.
@@ -19,7 +20,7 @@ public class AssistantManager {
         try{
             AssistantDAO dao=new AssistantDAO();
             dao.insert(a);
-        }catch (Exception e){throw e;}
+        }catch (Exception e){ BusinessException.handleException(e); }
     }
 
     /**
@@ -37,7 +38,7 @@ public class AssistantManager {
             AssistantDAO dao=new AssistantDAO();
             AssistantDTO dto=new AssistantDTO(id, newname, newsurname, newdate, newatention);
             dao.update(dto);
-        }catch (Exception e){throw e;}
+        }catch (Exception e){ BusinessException.handleException(e); }
     }
 
     /**
@@ -46,11 +47,12 @@ public class AssistantManager {
      * @return An ArrayList of AssistantDTO objects.
      */
     public ArrayList<AssistantDTO> print()throws Exception{
+        ArrayList<AssistantDTO> register = new ArrayList<>();
         try{
             AssistantDAO dao=new AssistantDAO();
-            ArrayList<AssistantDTO> register=dao.getAll();
-            return register;
-        }catch (Exception e){throw e;}
+            register=dao.getAll();
+        }catch (Exception e){ BusinessException.handleException(e); }
+        return register;
     }
 
     /**
@@ -60,8 +62,11 @@ public class AssistantManager {
      * @return The AssistantDTO object corresponding to the provided identifier.
      */
     public AssistantDTO getById(int id) throws Exception{
-        AssistantDAO assistantDAO = new AssistantDAO();
-        AssistantDTO assistantDTO = assistantDAO.getById(id);
+        AssistantDTO assistantDTO = new AssistantDTO();
+        try {
+            AssistantDAO assistantDAO = new AssistantDAO();
+            assistantDTO = assistantDAO.getById(id);
+        } catch (Exception e) { BusinessException.handleException(e); }
         return assistantDTO;
     }
 

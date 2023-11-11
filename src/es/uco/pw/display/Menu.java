@@ -13,7 +13,7 @@ import es.uco.pw.business.managers.AssistantManager;
 import es.uco.pw.business.managers.CampamentsManager;
 import es.uco.pw.business.managers.InscriptionsManager;
 import es.uco.pw.business.monitor.MonitorDTO;
-import es.uco.pw.display.exceptions.MenuException;
+import es.uco.pw.display.exceptions.DisplayException;
 
 /**
  * Represents a menu for managing the system's assistants, campaments, and inscriptions.
@@ -84,13 +84,19 @@ public class Menu {
                 case 1:
                     System.out.println("Creando asistente...");
                     
-                    AssistantDTO assistant;
+                    AssistantDTO assistant = null;
 
                     System.out.print("Introduzca el id del asistente: ");
                     int assistantID = Integer.parseInt(this.scanner.nextLine());
 
-                    assistant = manager.getById(assistantID);
+                    try {
+                        assistant = manager.getById(assistantID);
+                    } catch (Exception e) {
+                        DisplayException.handleException(e);
+                        break;
+                    }
 
+                    //TODO: SOBRA???
                     if(assistant != null){
                         System.out.println("\nEl id del asistente ya ha sido registrado previamente.");
                         break;
@@ -112,7 +118,12 @@ public class Menu {
                     
                     assistant = new AssistantDTO(assistantID, assistantName, assistantSurname, assistantBday, atention);
 
-                    manager.register(assistant);
+                    try {                   
+                        manager.register(assistant);
+                    } catch (Exception e) {
+                        DisplayException.handleException(e);
+                        break;
+                    }
 
                     System.out.println("\nEl asistente ha sido registrado con exito.");
 
@@ -124,8 +135,10 @@ public class Menu {
                     System.out.print("Introduzca el id del asistente a modificar: ");
                     int newAssistantID = Integer.parseInt(this.scanner.nextLine());
 
-                    if(manager.getById(newAssistantID) == null){
-                        System.out.println("\nNo existe un asistente con ese id en la lista.");
+                    try {
+                        manager.getById(newAssistantID);
+                    } catch (Exception e) {
+                        DisplayException.handleException(e);
                         break;
                     }
 
@@ -143,14 +156,26 @@ public class Menu {
                     System.out.print("El asistente necesita atencion especial (true/false): ");
                     boolean newAtention = Boolean.parseBoolean(this.scanner.nextLine());
 
-                    manager.modify(newAssistantID, newAssistantName, newAssistantSurname, newAssistantBday, newAtention);
+                    try {
+                        manager.modify(newAssistantID, newAssistantName, newAssistantSurname, newAssistantBday, newAtention);
+                    } catch (Exception e) {
+                        DisplayException.handleException(e);
+                        break;
+                    }
 
                     System.out.println("\nAsistente modificado correctamente.");
                 break;
 
                 case 3:
                     System.out.println("Lista de asistentes: ");
-                    ArrayList<AssistantDTO> assistants = manager.print();
+                    ArrayList<AssistantDTO> assistants = new ArrayList<>();
+
+                    try {
+                        assistants = manager.print();
+                    } catch (Exception e) {
+                        DisplayException.handleException(e);
+                        break;
+                    }
 
                     for(AssistantDTO a : assistants){
                         System.out.println("ID: " + a.getId());
@@ -249,7 +274,7 @@ public class Menu {
                     try {
                         manager.createActivity(activName, level, schedule, max_participants, num_monitors);
                     } catch (Exception e) {
-                        MenuException.handleException(e);
+                        DisplayException.handleException(e);
                         break;
                     }
 
@@ -273,7 +298,7 @@ public class Menu {
                     try {
                         manager.createMonitor(monId, monName, surname, isEspecial);
                     } catch (Exception e) {
-                        MenuException.handleException(e);
+                        DisplayException.handleException(e);
                         break;
                     }
 
@@ -336,7 +361,7 @@ public class Menu {
                     try {
                         manager.createCampaments(campId, initDate, finalDate, campLevel, max_participants);
                     } catch (Exception e) {
-                        MenuException.handleException(e);
+                        DisplayException.handleException(e);
                         break;
                     }
 
@@ -349,7 +374,7 @@ public class Menu {
                     try {
                         activities = manager.getAllActivities();
                     } catch (Exception e) {
-                        MenuException.handleException(e);
+                        DisplayException.handleException(e);
                         break;
                     }
 
@@ -372,7 +397,7 @@ public class Menu {
                     try {
                         monitors = manager.getAllMonitorsNotEspecial();
                     } catch (Exception e) {
-                        MenuException.handleException(e);
+                        DisplayException.handleException(e);
                         break;
                     }
 
@@ -396,7 +421,7 @@ public class Menu {
                     try {
                         manager.associateMonitorsToActivities(monitor.getID(), activity.getname());
                     } catch (Exception e) {
-                        MenuException.handleException(e);
+                        DisplayException.handleException(e);
                         break;
                     }
 
@@ -410,7 +435,7 @@ public class Menu {
                         campaments = manager.getAllCampaments();
                         activities = manager.getAllActivities();
                     } catch (Exception e) {
-                        MenuException.handleException(e);
+                        DisplayException.handleException(e);
                         break;
                     }
 
@@ -453,7 +478,7 @@ public class Menu {
                     try {
                         manager.associateActivitiesToCampaments(selectedCampament.getId(),selectedActivity.getname());
                     } catch (Exception e) {
-                        MenuException.handleException(e);
+                        DisplayException.handleException(e);
                         break;
                     }
                 
@@ -465,7 +490,7 @@ public class Menu {
                         campaments = manager.getAllCampaments();
                         monitors = manager.getAllMonitors();
                     } catch (Exception e) {
-                        MenuException.handleException(e);
+                        DisplayException.handleException(e);
                         break;
                     }
 
@@ -505,7 +530,7 @@ public class Menu {
                     try {
                         manager.associateMonitorsToCampaments(selectedCampament2.getId(), selectedMonitor.getID());
                     } catch (Exception e) {
-                        MenuException.handleException(e);
+                        DisplayException.handleException(e);
                         break;
                     }
 
@@ -550,14 +575,28 @@ public class Menu {
             int campId = Integer.parseInt(this.scanner.nextLine());
             
             CampamentsManager campamentsManager = new CampamentsManager();
+            CampamentDTO campament = new CampamentDTO();
 
-            CampamentDTO campament = campamentsManager.getById(campId);
+            try {
+                campament = campamentsManager.getById(campId);
+            } catch (Exception e) {
+                DisplayException.handleException(e);
+                break;
+            }
+
             
             System.out.print("Indique el id del asistente: ");
             int assisId = Integer.parseInt(this.scanner.nextLine());
 
             AssistantManager assistantManager = new AssistantManager();
-            AssistantDTO assistant = assistantManager.getById(assisId);
+            AssistantDTO assistant = new AssistantDTO();
+
+            try {
+                assistant = assistantManager.getById(assisId);
+            } catch (Exception e) {
+                DisplayException.handleException(e);
+                break;
+            }
 
             Schedule schedule = Schedule.MORNING;
             
@@ -586,7 +625,7 @@ public class Menu {
                     try {
                         manager.enrollComplete(campament, assistant, schedule);
                     } catch (Exception e) {
-                        MenuException.handleException(e);
+                        DisplayException.handleException(e);
                         break;
                     }
 

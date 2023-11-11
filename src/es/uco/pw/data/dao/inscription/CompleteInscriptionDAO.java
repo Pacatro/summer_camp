@@ -10,7 +10,8 @@ import java.util.Properties;
 
 import es.uco.pw.business.factory.CompleteInscriptionDTO;
 import es.uco.pw.data.common.ConnectionDB;
-import es.uco.pw.data.dao.common.IDAO;
+import es.uco.pw.data.common.DataException;
+import es.uco.pw.data.common.IDAO;
 
 /**
  * This class represents a Data Access Object (DAO) for managing CompleteInscriptionDTO objects.
@@ -44,7 +45,7 @@ public class CompleteInscriptionDAO implements IDAO<CompleteInscriptionDTO, Inte
 
             ps.execute();
 
-        } catch (Exception e) { throw e; }
+        } catch (Exception e) { throw new DataException("No se puede insertar la inscripcion"); }
     }
 
     @Override

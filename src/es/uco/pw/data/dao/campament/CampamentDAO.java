@@ -50,7 +50,7 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
                 addMonitor(campamentDTO.getId(), campamentDTO.getMonitors().get(i).getID());
             }
 
-        } catch (Exception e) { throw e; }
+        } catch (Exception e) { throw new Exception("No se pudo insertar el campamento."); }
     }
 
     /**
@@ -73,7 +73,7 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
 
             ps.execute();
 
-        } catch (Exception e) { throw e; }
+        } catch (Exception e) { throw new Exception("No se pudo asociar la actividad " + activityId + " con el campamento " + campId + "."); }
     }
 
     /**
@@ -96,7 +96,7 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
 
             ps.execute();
 
-        } catch (Exception e) { throw e; }
+        } catch (Exception e) { throw new Exception("No se pudo asociar el monitor " + monitorId + " con el campamento " + campId + "."); }
     }
 
     /**
@@ -120,8 +120,7 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
 
             return rs.next();
 
-
-        } catch (Exception e) { throw e; }
+        } catch (Exception e) { throw new Exception("No se pudo seleccionar ningun monitor especial en el campamento " + campId + "."); }
     }
 
     @Override
@@ -151,7 +150,7 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
             camp.setActivities(getActivitiesFromCampament(id));
             camp.setMonitors(getMonitorsFromCampament(id));
             return camp;
-        } catch (Exception e) {throw e;}
+        } catch (Exception e) { throw new Exception("No existe ningun campamento con el id: " + id + "."); }
     }
 
     /**
@@ -181,7 +180,7 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
             }
 
             return monitors;
-        } catch (Exception e) {throw e;}
+        } catch (Exception e) { throw new Exception("No se ha podido seleccionar los monitores del campamento " + id + "."); }
     }
 
     /**
@@ -232,12 +231,9 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
             }
 
             return activities;
-        } catch (Exception e) {throw e;}
+        } catch (Exception e) { throw new Exception("No se ha podido seleccionar las actividades del campamento " + id + "."); }
     }
-
-    @Override
-    public void update(CampamentDTO campamentDTO) throws Exception { throw new UnsupportedOperationException("Unimplemented method 'update'"); }
-    
+ 
     @Override
     public ArrayList<CampamentDTO> getAll() throws Exception{
         try{
@@ -265,9 +261,9 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
             }
 
             return campaments;
-        } catch (Exception e) {throw e;}
+        } catch (Exception e) { throw new Exception("No se ha podido seleccionar todos los campamentos."); }
     }
 
-
-
+    @Override
+    public void update(CampamentDTO campamentDTO) throws Exception { throw new UnsupportedOperationException("Unimplemented method 'update'"); }
 }

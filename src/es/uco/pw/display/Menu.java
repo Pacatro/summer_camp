@@ -13,6 +13,7 @@ import es.uco.pw.business.managers.AssistantManager;
 import es.uco.pw.business.managers.CampamentsManager;
 import es.uco.pw.business.managers.InscriptionsManager;
 import es.uco.pw.business.monitor.MonitorDTO;
+import es.uco.pw.display.exceptions.MenuException;
 
 /**
  * Represents a menu for managing the system's assistants, campaments, and inscriptions.
@@ -245,7 +246,12 @@ public class Menu {
                     System.out.print("Número de monitores: ");
                     int num_monitors = Integer.parseInt(this.scanner.nextLine());
 
-                    manager.createActivity(activName, level, schedule, max_participants, num_monitors);
+                    try {
+                        manager.createActivity(activName, level, schedule, max_participants, num_monitors);
+                    } catch (Exception e) {
+                        MenuException.handleException(e);
+                        break;
+                    }
 
                 break;
 
@@ -264,7 +270,13 @@ public class Menu {
                     System.out.print("¿Es un monitor de atención especial? (true/false): ");
                     boolean isEspecial = Boolean.parseBoolean(this.scanner.nextLine());
 
-                    manager.createMonitor(monId, monName, surname, isEspecial);
+                    try {
+                        manager.createMonitor(monId, monName, surname, isEspecial);
+                    } catch (Exception e) {
+                        MenuException.handleException(e);
+                        break;
+                    }
+
                 break;
 
                 case 3:
@@ -309,25 +321,37 @@ public class Menu {
 
                     int numMaxParticipants = 0;
                     do{
-                    try{
-                        max_participants = Integer.parseInt(this.scanner.nextLine());
-                        if(max_participants < 0){
-                            System.out.println("El número de participantes no puede ser negativo.");
+                        try{
+                            max_participants = Integer.parseInt(this.scanner.nextLine());
+                            if(max_participants < 0){
+                                System.out.println("El número de participantes no puede ser negativo.");
+                                max_participants = 0;
+                            }
+                        }catch (NumberFormatException e){
+                            System.out.println("El número de participantes debe ser un número entero.");
                             max_participants = 0;
                         }
-                    }catch (NumberFormatException e){
-                        System.out.println("El número de participantes debe ser un número entero.");
-                        max_participants = 0;
-                    }
                     }while(numMaxParticipants != 0);
 
-                    manager.createCampaments(campId, initDate, finalDate, campLevel, max_participants);
+                    try {
+                        manager.createCampaments(campId, initDate, finalDate, campLevel, max_participants);
+                    } catch (Exception e) {
+                        MenuException.handleException(e);
+                        break;
+                    }
+
                 break;
 
                 case 4:
                     System.out.println("Asociando monitor - actividad...");
+                    ArrayList<ActivityDTO> activities = new ArrayList<>();
 
-                    ArrayList<ActivityDTO> activities = manager.getAllActivities();
+                    try {
+                        activities = manager.getAllActivities();
+                    } catch (Exception e) {
+                        MenuException.handleException(e);
+                        break;
+                    }
 
                     for (int k = 0; k < activities.size(); k++) {
                         System.out.println("Actividad: " + k + ") " + activities.get(k).getname());
@@ -343,8 +367,14 @@ public class Menu {
                     }
             
                     ActivityDTO activity = activities.get(selectedActivityIndex);
-
-                    ArrayList<MonitorDTO> monitors = manager.getAllMonitorsNotEspecial();
+                    ArrayList<MonitorDTO> monitors = new ArrayList<>();
+                    
+                    try {
+                        monitors = manager.getAllMonitorsNotEspecial();
+                    } catch (Exception e) {
+                        MenuException.handleException(e);
+                        break;
+                    }
 
                     System.out.println("\nSelecciona un monitor:\n");
         
@@ -363,15 +393,27 @@ public class Menu {
 
                     MonitorDTO monitor = monitors.get(selectedMonitorIndex);
                         
-
-                    manager.associateMonitorsToActivities(monitor.getID(), activity.getname());
+                    try {
+                        manager.associateMonitorsToActivities(monitor.getID(), activity.getname());
+                    } catch (Exception e) {
+                        MenuException.handleException(e);
+                        break;
+                    }
 
                 break;
                 case 5:
                     System.out.println("Asociando actividad - campamento...");
 
-                    ArrayList<CampamentDTO> campaments = manager.getAllCampaments();
-                    activities = manager.getAllActivities();
+                    ArrayList<CampamentDTO> campaments = new ArrayList<>();
+
+                    try {
+                        campaments = manager.getAllCampaments();
+                        activities = manager.getAllActivities();
+                    } catch (Exception e) {
+                        MenuException.handleException(e);
+                        break;
+                    }
+
 
                     for (int k = 0; k < campaments.size(); k++) {
                         System.out.println("Campamento: " + k + ") " + campaments.get(k).getId());
@@ -408,13 +450,25 @@ public class Menu {
                     }
                     ActivityDTO selectedActivity = activities.get(selectedActivityIndex2);
 
-                    manager.associateActivitiesToCampaments(selectedCampament.getId(),selectedActivity.getname());
+                    try {
+                        manager.associateActivitiesToCampaments(selectedCampament.getId(),selectedActivity.getname());
+                    } catch (Exception e) {
+                        MenuException.handleException(e);
+                        break;
+                    }
                 
                 break;
 
                 case 6:
-                    campaments = manager.getAllCampaments();
-                    monitors = manager.getAllMonitors();
+                    
+                    try {
+                        campaments = manager.getAllCampaments();
+                        monitors = manager.getAllMonitors();
+                    } catch (Exception e) {
+                        MenuException.handleException(e);
+                        break;
+                    }
+
                     System.out.println("Asociando monitor - campamento...");
                     for (int k = 0; k < campaments.size(); k++) {
                         System.out.println("Campamento: " + k + ")" + campaments.get(k).getId());
@@ -445,10 +499,18 @@ public class Menu {
                         selectedMonitorIndex = this.scanner.nextInt();
                         this.scanner.nextLine();
                     }
+
                     MonitorDTO selectedMonitor = monitors.get(selectedMonitorIndex3);
 
-                    manager.associateMonitorsToCampaments(selectedCampament2.getId(), selectedMonitor.getID());
-                    
+                    try {
+                        manager.associateMonitorsToCampaments(selectedCampament2.getId(), selectedMonitor.getID());
+                    } catch (Exception e) {
+                        MenuException.handleException(e);
+                        break;
+                    }
+
+                    System.out.println("El monitor ha sido asociado al campamento con exito.");
+
                 break;
 
                 case 7:
@@ -524,7 +586,7 @@ public class Menu {
                     try {
                         manager.enrollComplete(campament, assistant, schedule);
                     } catch (Exception e) {
-                        System.err.println("Error: " + e.getMessage());
+                        MenuException.handleException(e);
                         break;
                     }
 

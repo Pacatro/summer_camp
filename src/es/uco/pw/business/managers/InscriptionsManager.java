@@ -11,6 +11,7 @@ import es.uco.pw.business.factory.LateRegInscriptionFactory;
 import es.uco.pw.business.activity.ActivityDTO;
 import es.uco.pw.business.assistant.AssistantDTO;
 import es.uco.pw.business.campament.CampamentDTO;
+import es.uco.pw.business.common.exceptions.BusinessException;
 import es.uco.pw.business.common.schedule.Schedule;
 import es.uco.pw.business.factory.CompleteInscriptionDTO;
 import es.uco.pw.business.factory.ParcialInscriptionDTO;
@@ -87,10 +88,10 @@ public class InscriptionsManager {
         InscriptionFactory factory = getFactory(campament);
 
         if(factory == null)
-            throw new Exception("Es demasiado tarde para apuntarse a este campamento.");
+            BusinessException.handleException(new Exception("Es demasiado tarde para apuntarse a este campamento."));
 
         if(!canEnroll(campament))
-            throw new Exception("El campamento ya ha comenzado.");
+            BusinessException.handleException(new Exception("El campamento ya ha comenzado."));
         
         completeInscriptionDTO = factory.createCompleteInscription(campament, assistant, schendule, LocalDate.now());
 
@@ -113,10 +114,10 @@ public class InscriptionsManager {
         InscriptionFactory factory = getFactory(campament);
 
         if(factory == null)
-            throw new Exception("Es demasiado tarde para apuntarse a este campamento.");
+            BusinessException.handleException(new Exception("Es demasiado tarde para apuntarse a este campamento."));
 
         if(!canEnroll(campament))
-            throw new Exception("El campamento ya ha comenzado.");
+            BusinessException.handleException(new Exception("El campamento ya ha comenzado."));
 
         parcialInscriptionDTO = factory.createParcialInscription(campament, assistant, LocalDate.now());
 
@@ -124,7 +125,6 @@ public class InscriptionsManager {
         parcialInscriptionDTO.setPrice(price);
 
         ParcialInscriptionDAO iDao = new ParcialInscriptionDAO();
-
         iDao.insert(parcialInscriptionDTO);
     }
 }

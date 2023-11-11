@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import es.uco.pw.business.activity.ActivityDTO;
 import es.uco.pw.business.campament.CampamentDTO;
+import es.uco.pw.business.common.exceptions.BusinessException;
 import es.uco.pw.business.common.level.Level;
 import es.uco.pw.business.common.schedule.Schedule;
 import es.uco.pw.business.monitor.MonitorDTO;
@@ -24,7 +25,7 @@ public class CampamentsManager {
      * @param activities       The list of activities.
      * @param name             The name of the activity.
      * @param level            The level of the activity.
-    * @param schedule          The schedule of the activity.
+     * @param schedule          The schedule of the activity.
      * @param max_participants The maximum number of participants for the activity.
      * @param num_monitors     The number of monitors for the activity.
      */
@@ -35,7 +36,7 @@ public class CampamentsManager {
             ActivityDTO newActivity = new ActivityDTO(name, level, schedule, max_participants, num_monitors);
             dao.insert(newActivity);
             
-        } catch (Exception e) {throw e;}
+        } catch (Exception e) { BusinessException.handleException(e); }
     }
 
     /**
@@ -54,7 +55,7 @@ public class CampamentsManager {
             MonitorDTO newMonitor = new MonitorDTO(id, name, surname, isEspecial);
             dao.insert(newMonitor);
 
-        } catch (Exception e) {throw e;}
+        } catch (Exception e) { BusinessException.handleException(e); }
     }
 
     /**
@@ -74,16 +75,16 @@ public class CampamentsManager {
             CampamentDTO newCampament = new CampamentDTO(id, initDate, finalDate,max_assistants, level);
             dao.insert(newCampament);
 
-        } catch (Exception e) {throw e;}
+        } catch (Exception e) { BusinessException.handleException(e); }
         
     }
     
     /**
-     * Associates a monitor with an activity.
+     * Associates a monitor to an activity, considering the limit of monitors for the activity.
      *
-     * @param monitor_id    The ID of the monitor to associate.
-     * @param activity_id   The ID of the activity to associate the monitor with.
-     * @return True if the association was successful, false if the activity is already full of monitors.
+     * @param monitor_id The ID of the monitor to be associated with the activity.
+     * @param activity_id The ID of the activity to associate the monitor with.
+     * @throws Exception If an error occurs during the association process or if the monitor limit for the activity is reached.
      */
     public void associateMonitorsToActivities(int monitor_id, String activity_id) throws Exception{
         //Modificada para que solo se añada un monitor
@@ -96,7 +97,7 @@ public class CampamentsManager {
 
             act_dao.addMonitor(activity_id, monitor_id);
 
-        } catch(Exception e) {throw e;}
+        } catch(Exception e) { BusinessException.handleException(e); }
     }
 
     /**
@@ -105,10 +106,13 @@ public class CampamentsManager {
      * @return An ArrayList of ActivityDTO objects representing all activities.
      */
     public ArrayList<ActivityDTO> getAllActivities() throws Exception{
+        ArrayList<ActivityDTO> activities = new ArrayList<>();
         try{
             ActivityDAO dao = new ActivityDAO();
-            return dao.getAll();
-        } catch (Exception e) {throw e;}
+            activities = dao.getAll();
+        } catch (Exception e) { BusinessException.handleException(e); }
+        
+        return activities;
     }
 
     /**
@@ -117,46 +121,46 @@ public class CampamentsManager {
      * @return An ArrayList of MonitorDTO objects representing non-special monitors.
      */
     public ArrayList<MonitorDTO> getAllMonitorsNotEspecial() throws Exception{
+        ArrayList<MonitorDTO> notEspecial = new ArrayList<MonitorDTO>();
+        
         try{
             MonitorDAO dao = new MonitorDAO();
             ArrayList<MonitorDTO> monitors = dao.getAll();
-            ArrayList<MonitorDTO> notEspecial = new ArrayList<MonitorDTO>();
 
             for(MonitorDTO m: monitors){
                 if(!(m.isEspecial())){
                     notEspecial.add(m);
                 }
-            }
-
-            return notEspecial;
-            
-        } catch (Exception e) {throw e;}
+            }    
+        } catch (Exception e) { BusinessException.handleException(e); }
+        
+        return notEspecial;
     }
 
     /**
-     * Associates an activity with a campament.
-     * 
-     * @param camp_id       The campament id to associate.
-     * @param activityId    The activity id to associate.
-     * @return True if the association was successful, false if the levels do not match or an error occurs.
+     * Associates an activity to a campament based on their levels.
+     *
+     * @param camp_id The ID of the campament to associate the activity with.
+     * @param activityId The ID of the activity to be associated with the campament.
+     * @throws Exception If an error occurs during the association process.
      */
     public void associateActivitiesToCampaments(int camp_id, String activityId) throws Exception {
-        
+        CampamentDAO campamentDAO = new CampamentDAO();
+        ActivityDAO activityDAO = new ActivityDAO();
+        CampamentDTO campament = new CampamentDTO();
+        ActivityDTO activity = new ActivityDTO();
+
+        // Obtener el campamento y la actividad
         try {
-            CampamentDAO campamentDAO = new CampamentDAO();
-            ActivityDAO activityDAO = new ActivityDAO();
-    
-            // Obtener el campamento y la actividad
-            CampamentDTO campament = campamentDAO.getById(camp_id);
-            ActivityDTO activity = activityDAO.getById(activityId);
-    
-            // Verificar si tienen el mismo nivel
-            if (campament.getLevel() == activity.getLevel()) {
-                campamentDAO.addActivity(camp_id, activityId);
-                throw new Exception("La actividad no tiene el mismo nivel que el campamento.");
-            }
-           
-        }catch (Exception e) {throw e;}
+            campament = campamentDAO.getById(camp_id);
+            activity = activityDAO.getById(activityId);
+        } catch (Exception e) { BusinessException.handleException(e); }
+
+        // Verificar si tienen el mismo nivel
+        if (campament.getLevel() != activity.getLevel())
+            BusinessException.handleException(new Exception("La actividad no tiene el mismo nivel que el campamento."));
+        
+        campamentDAO.addActivity(camp_id, activityId);
     }
     
     /**
@@ -165,10 +169,14 @@ public class CampamentsManager {
      * @return An ArrayList of CampamentDTO objects representing all campaments.
      */
     public ArrayList<CampamentDTO> getAllCampaments() throws Exception{
+        ArrayList<CampamentDTO> campaments = new ArrayList<>();
+        
         try{
             CampamentDAO dao = new CampamentDAO();
-            return dao.getAll();
-        } catch (Exception e) {throw e;}
+            campaments = dao.getAll();
+        } catch (Exception e) { BusinessException.handleException(e); }
+
+        return campaments;
     }
 
     /**
@@ -177,40 +185,42 @@ public class CampamentsManager {
      * @return An ArrayList of MonitorDTO objects representing all monitors.
      */
     public ArrayList<MonitorDTO> getAllMonitors() throws Exception{
+        ArrayList<MonitorDTO> monitors = new ArrayList<>();
+        
         try{
             MonitorDAO dao = new MonitorDAO();
-            return dao.getAll();
-        } catch (Exception e) {throw e;}
+            monitors = dao.getAll();
+        } catch (Exception e) { BusinessException.handleException(e); }
+
+        return monitors;
     }
 
     
     /**
-     * Associates a monitor with a campament based on certain conditions.
+     * Associates a monitor to a campament based on specified conditions.
      *
-     * @param camp_id The ID of the campament.
-     * @param monitor_id The ID of the monitor.
-     * @return True if the association was successful, false if conditions are not met or an error occurs.
+     * @param camp_id The ID of the campament to associate the monitor with.
+     * @param monitor_id The ID of the monitor to be associated with the campament.
+     * @throws Exception If an error occurs during the association process or if the monitor cannot be associated.
      */
     public void associateMonitorsToCampaments(int camp_id, int monitor_id) throws Exception {
-        try{
-    
-                MonitorDAO monitorDAO = new MonitorDAO();
-                CampamentDAO campamentDAO = new CampamentDAO();
+        MonitorDAO monitorDAO = new MonitorDAO();
+        CampamentDAO campamentDAO = new CampamentDAO();
+        MonitorDTO selectedMonitor = new MonitorDTO();
+        CampamentDTO selectedCampament = new CampamentDTO();
 
-                MonitorDTO selectedMonitor = monitorDAO.getById(monitor_id);
-                CampamentDTO selectedCampament = getById(camp_id);
-                ArrayList<MonitorDTO> activityMonitors = selectedCampament.getMonitors();
+        try {
+            selectedMonitor = monitorDAO.getById(monitor_id);
+            selectedCampament = getById(camp_id);
+        } catch (Exception e) { BusinessException.handleException(e); }
 
+        ArrayList<MonitorDTO> activityMonitors = selectedCampament.getMonitors();
 
-                if (selectedMonitor.isEspecial() && (campamentDAO.existsEspecialAsistant(camp_id) && !activityMonitors.contains(selectedMonitor))
-                    ||
-                    !selectedMonitor.isEspecial() && activityMonitors.contains(selectedMonitor)) {
-                    
-                        campamentDAO.addMonitor(camp_id, monitor_id);
-                }
-                throw new Exception("No se ha podido asociar el monitor al campamento.");
-                
-            } catch (Exception e) {throw e;}
+        if (selectedMonitor.isEspecial() && (campamentDAO.existsEspecialAsistant(camp_id) && !activityMonitors.contains(selectedMonitor))
+            ||
+            !selectedMonitor.isEspecial() && activityMonitors.contains(selectedMonitor)) {
+                campamentDAO.addMonitor(camp_id, monitor_id);
+        } else BusinessException.handleException(new Exception("No se ha podido asociar el monitor al campamento."));
     }
 
     /**
@@ -220,10 +230,13 @@ public class CampamentsManager {
      * @return The CampamentDTO object corresponding to the provided identifier.
      */
     public CampamentDTO getById(int id) throws Exception{
+        CampamentDTO campament = new CampamentDTO();
+        
         try{
             CampamentDAO campamentDAO = new CampamentDAO();
-            CampamentDTO campament = campamentDAO.getById(id);
-            return campament;
-        } catch (Exception e) {throw e;}
+            campament = campamentDAO.getById(id);
+        } catch (Exception e) { BusinessException.handleException(e); }
+
+        return campament;
     }
 }

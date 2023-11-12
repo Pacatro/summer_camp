@@ -145,11 +145,13 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
             if(!ps.execute())
                 throw new DataException("No se pudo seleccionar ningun monitor especial en el campamento " + campId + ".");
 
-            ResultSet  rs = ps.executeQuery();
+            ResultSet rs = ps.executeQuery();
+
+            boolean flag = rs.next();
 
             connDB.disconnect();
 
-            return rs.next();
+            return flag;
 
         } catch (Exception e) { throw e; }
     }

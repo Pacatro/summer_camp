@@ -674,6 +674,7 @@ public class Menu {
                 break;
             }
 
+            System.out.println("\nAsistentes disponibles:");
             for(AssistantDTO a : assistants)
                 System.out.println(a);
             
@@ -722,7 +723,7 @@ public class Menu {
                         break;
                     }
 
-                    System.out.println("Inscripcion completa creada con exito.");
+                    System.out.println("\nInscripcion completa creada con exito.");
                 break;
 
                 case 2:
@@ -733,7 +734,7 @@ public class Menu {
                         break;
                     }
 
-                    System.out.println("Inscripcion parcial creada con exito.");
+                    System.out.println("\nInscripcion parcial creada con exito.");
                 break;
 
                 default:

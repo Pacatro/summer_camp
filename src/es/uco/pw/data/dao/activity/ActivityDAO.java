@@ -29,7 +29,9 @@ public class ActivityDAO implements IDAO<ActivityDTO,String>{
             properties.load(new FileInputStream("sql.properties"));
             String sql = properties.getProperty("INSERT_ACTIVITY");
 
-            Connection conn = new ConnectionDB().getConnection();
+            ConnectionDB connDB = new ConnectionDB();
+
+            Connection conn = connDB.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ps.setString(1, activity.getname());
@@ -57,6 +59,8 @@ public class ActivityDAO implements IDAO<ActivityDTO,String>{
                     throw new DataException("No se puede insertar el monitor.");
             }
 
+            connDB.disconnect();
+
         } catch (Exception e) { throw e; }
     }
 
@@ -72,7 +76,10 @@ public class ActivityDAO implements IDAO<ActivityDTO,String>{
             properties.load(new FileInputStream("sql.properties"));
             String sql = properties.getProperty("INSERT_ACTIVITY_MONITOR");
 
-            Connection conn = new ConnectionDB().getConnection();
+            ConnectionDB connDB = new ConnectionDB();
+
+            Connection conn = connDB.getConnection();
+
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ps.setString(1, act_id);
@@ -99,7 +106,9 @@ public class ActivityDAO implements IDAO<ActivityDTO,String>{
             properties.load(new FileInputStream("sql.properties"));
             String sql = properties.getProperty("GETBYID_MONITOR_IN_ACTIVITY");
             
-            Connection conn = new ConnectionDB().getConnection();
+            ConnectionDB connDB = new ConnectionDB();
+
+            Connection conn = connDB.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
             
             ps.setString(1, act_id);
@@ -116,6 +125,8 @@ public class ActivityDAO implements IDAO<ActivityDTO,String>{
                 monitors.add(monitorDAO.getById(rs.getInt("monitor_id")));
             }
 
+            connDB.disconnect();
+            
             return monitors;
 
         } catch (Exception e) { throw e; }
@@ -133,7 +144,9 @@ public class ActivityDAO implements IDAO<ActivityDTO,String>{
             properties.load(new FileInputStream("sql.properties"));
             String sql = properties.getProperty("GET_NUMMONITORS_ACTIVITY");
 
-            Connection conn = new ConnectionDB().getConnection();
+            ConnectionDB connDB = new ConnectionDB();
+
+            Connection conn = connDB.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ps.setString(1, act_id);
@@ -150,6 +163,8 @@ public class ActivityDAO implements IDAO<ActivityDTO,String>{
                     return true;
             }
 
+            connDB.disconnect();
+
             return false;
         } catch(Exception e) { throw e; }
 
@@ -162,7 +177,9 @@ public class ActivityDAO implements IDAO<ActivityDTO,String>{
             properties.load(new FileInputStream("sql.properties"));
             String sql = properties.getProperty("GETALL_ACTIVITY");
 
-            Connection conn = new ConnectionDB().getConnection();
+            ConnectionDB connDB = new ConnectionDB();
+
+            Connection conn = connDB.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
 
             if(!ps.execute())
@@ -184,6 +201,8 @@ public class ActivityDAO implements IDAO<ActivityDTO,String>{
                 activities.add(act);
             }
 
+            connDB.disconnect();
+
             return activities;
         } catch (Exception e) { throw e; }
         
@@ -196,7 +215,9 @@ public class ActivityDAO implements IDAO<ActivityDTO,String>{
             properties.load(new FileInputStream("sql.properties"));
             String sql = properties.getProperty("GETBYID_ACTIVITY");
             
-            Connection conn = new ConnectionDB().getConnection();
+            ConnectionDB connDB = new ConnectionDB();
+
+            Connection conn = connDB.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, id);
             
@@ -219,6 +240,8 @@ public class ActivityDAO implements IDAO<ActivityDTO,String>{
                 String scheduleString = rs.getString("schedule");
                 act.setSchedule(Schedule.valueOf(scheduleString));
             }
+
+            connDB.disconnect();
 
             return act;
         } catch (Exception e) { throw e; }

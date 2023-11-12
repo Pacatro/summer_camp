@@ -4,7 +4,6 @@ import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 import java.sql.Date;
@@ -28,7 +27,10 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
     @Override
     public void insert(CampamentDTO campamentDTO) throws Exception{
         try{
-            Connection conn = new ConnectionDB().getConnection();
+
+            ConnectionDB connDB = new ConnectionDB();
+
+            Connection conn = connDB.getConnection();
 
             Properties properties = new Properties();
             properties.load(new FileInputStream("sql.properties"));
@@ -54,7 +56,9 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
                 addMonitor(campamentDTO.getId(), campamentDTO.getMonitors().get(i).getID());
             }
 
-        } catch (SQLException e) { throw e; }
+            connDB.disconnect();
+
+        } catch (Exception e) { throw e; }
     }
 
     /**
@@ -65,7 +69,10 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
      */
     public void addActivity(int campId, String activityId) throws Exception{
         try{
-            Connection conn = new ConnectionDB().getConnection();
+
+            ConnectionDB connDB = new ConnectionDB();
+
+            Connection conn = connDB.getConnection();
 
             Properties properties = new Properties();
             properties.load(new FileInputStream("sql.properties"));
@@ -80,7 +87,9 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
             if (rowsAffected <= 0)
                 throw new DataException("No se pudo asociar la actividad " + activityId + " con el campamento " + campId + ".");
 
-        } catch (SQLException e) { throw e; }
+            connDB.disconnect();
+
+        } catch (Exception e) { throw e; }
     }
 
     /**
@@ -91,7 +100,9 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
      */
     public void addMonitor(int campId, int monitorId) throws Exception{
         try{
-            Connection conn = new ConnectionDB().getConnection();
+            ConnectionDB connDB = new ConnectionDB();
+
+            Connection conn = connDB.getConnection();
 
             Properties properties = new Properties();
             properties.load(new FileInputStream("sql.properties"));
@@ -106,7 +117,9 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
             if (rowsAffected <= 0)
                 throw new DataException("No se pudo asociar el monitor " + monitorId + " con el campamento " + campId + ".");
 
-        } catch (SQLException e) { throw e; }
+            connDB.disconnect();
+
+        } catch (Exception e) { throw e; }
     }
 
     /**
@@ -117,7 +130,10 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
      */
     public boolean existsEspecialAsistant(int campId) throws Exception{
         try{
-            Connection conn = new ConnectionDB().getConnection();
+
+            ConnectionDB connDB = new ConnectionDB();
+
+            Connection conn = connDB.getConnection();
 
             Properties properties = new Properties();
             properties.load(new FileInputStream("sql.properties"));
@@ -131,9 +147,11 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
 
             ResultSet  rs = ps.executeQuery();
 
+            connDB.disconnect();
+
             return rs.next();
 
-        } catch (SQLException e) { throw e; }
+        } catch (Exception e) { throw e; }
     }
 
     @Override
@@ -143,7 +161,9 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
             properties.load(new FileInputStream("sql.properties"));
             String sql = properties.getProperty("GETBYID_CAMPAMENT");
 
-            Connection conn = new ConnectionDB().getConnection();
+            ConnectionDB connDB = new ConnectionDB();
+
+            Connection conn = connDB.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, id);
 
@@ -165,9 +185,11 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
                 camp.setMonitors(getMonitorsFromCampament(id));
             }
 
+            connDB.disconnect();
+
             return camp;
 
-        } catch (SQLException e) { throw e; }
+        } catch (Exception e) { throw e; }
     }
 
     /**
@@ -182,7 +204,9 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
             properties.load(new FileInputStream("sql.properties"));
             String sql = properties.getProperty("GET_MONITORS_CAMPAMENT");
 
-            Connection conn = new ConnectionDB().getConnection();
+            ConnectionDB connDB = new ConnectionDB();
+
+            Connection conn = connDB.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ps.setInt(1, id);
@@ -199,8 +223,10 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
                                             rs.getString("surname"), rs.getBoolean("special_edu")));
             }
 
+            connDB.disconnect();
+
             return monitors;
-        } catch (SQLException e) { throw e; }
+        } catch (Exception e) { throw e; }
     }
 
     /**
@@ -215,7 +241,9 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
             properties.load(new FileInputStream("sql.properties"));
             String sql = properties.getProperty("GET_ACTIVITIES_CAMPAMENT");
 
-            Connection conn = new ConnectionDB().getConnection();
+            ConnectionDB connDB = new ConnectionDB();
+
+            Connection conn = connDB.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ps.setInt(1, id);
@@ -243,8 +271,10 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
                 activities.add(act);
             }
 
+            connDB.disconnect();
+
             return activities;
-        } catch (SQLException e) { throw e; }
+        } catch (Exception e) { throw e; }
     }
  
     @Override
@@ -254,7 +284,9 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
             properties.load(new FileInputStream("sql.properties"));
             String sql = properties.getProperty("GETALL_CAMPAMENTS");
 
-            Connection conn = new ConnectionDB().getConnection();
+            ConnectionDB connDB = new ConnectionDB();
+
+            Connection conn = connDB.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
 
             if(!ps.execute())
@@ -276,8 +308,10 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
                 campaments.add(camp);
             }
 
+            connDB.disconnect();
+
             return campaments;
-        } catch (SQLException e) { throw e; }
+        } catch (Exception e) { throw e; }
     }
 
     @Override

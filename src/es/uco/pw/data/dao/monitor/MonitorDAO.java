@@ -25,7 +25,9 @@ public class MonitorDAO implements IDAO<MonitorDTO,Integer>{
             properties.load(new FileInputStream("sql.properties"));
             String sql = properties.getProperty("INSERT_MONITOR");
 
-            Connection conn = new ConnectionDB().getConnection();
+            ConnectionDB connDB = new ConnectionDB();
+            Connection conn = connDB.getConnection();
+
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ps.setInt(1, monitor.getID());
@@ -37,7 +39,8 @@ public class MonitorDAO implements IDAO<MonitorDTO,Integer>{
 
             if (rowsAffected <= 0)
                 throw new DataException("No se puede insertar el monitor.");
-                
+          
+            connDB.disconnect();
         } catch (Exception e){ throw e; }
     }
 
@@ -48,7 +51,9 @@ public class MonitorDAO implements IDAO<MonitorDTO,Integer>{
             properties.load(new FileInputStream("sql.properties"));
             String sql = properties.getProperty("GETBYID_MONITOR");
 
-            Connection conn = new ConnectionDB().getConnection();
+            ConnectionDB connDB = new ConnectionDB();
+
+            Connection conn = connDB.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ps.setInt(1, id);
@@ -65,8 +70,9 @@ public class MonitorDAO implements IDAO<MonitorDTO,Integer>{
                                    rs.getString("surname"), rs.getBoolean("special_edu"));
             }
 
-            return monitor;
+            connDB.disconnect();
 
+            return monitor;
         } catch (Exception e) { throw e; }
     }
 
@@ -77,7 +83,9 @@ public class MonitorDAO implements IDAO<MonitorDTO,Integer>{
             properties.load(new FileInputStream("sql.properties"));
             String sql = properties.getProperty("GETALL_MONITOR");
 
-            Connection conn = new ConnectionDB().getConnection();
+            ConnectionDB connDB = new ConnectionDB();
+
+            Connection conn = connDB.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
 
             if(!ps.execute())
@@ -91,6 +99,8 @@ public class MonitorDAO implements IDAO<MonitorDTO,Integer>{
                 monitors.add(new MonitorDTO(rs.getInt("monitor_id"), rs.getString("name"), 
                                             rs.getString("surname"), rs.getBoolean("special_edu")));
             }
+
+            connDB.disconnect();  
 
             return monitors;
         } catch (Exception e) { throw e; }

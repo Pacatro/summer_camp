@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.Properties;
 
 /**
@@ -48,5 +49,15 @@ public class ConnectionDB {
             this.conn = DriverManager.getConnection(this.url, this.username, this.password);
             return this.conn;
         } catch (Exception e) { throw new DataException("No se puede conectar a la base de datos."); }
+    }
+
+    /**
+     * Disconnects from the database.
+     * @throws Exception If an error occurs while closing the connection.
+     */
+    public void disconnect() throws SQLException {
+        if (this.conn != null && !this.conn.isClosed()) {
+            this.conn.close();
+        }
     }
 }

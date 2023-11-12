@@ -30,7 +30,9 @@ public class ParcialInscriptionDAO implements IDAO<ParcialInscriptionDTO, Intege
         sqlProperties.load(new FileInputStream("sql.properties"));
 
         try {
-            Connection conn = new ConnectionDB().getConnection();
+            ConnectionDB connDB = new ConnectionDB();
+
+            Connection conn = connDB.getConnection();
 
             String sql = sqlProperties.getProperty("INSERT_INSCRIPTION");
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -48,6 +50,8 @@ public class ParcialInscriptionDAO implements IDAO<ParcialInscriptionDTO, Intege
             if (rowsAffected <= 0)
                 throw new DataException("No se puede insertar la inscripcion");
 
+            connDB.disconnect();
+            
         } catch (Exception e) { throw e; }
     }
 

@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;   
 
 import es.uco.pw.business.assistant.AssistantDTO;
 import es.uco.pw.data.common.ConnectionDB;
@@ -26,7 +25,10 @@ public class AssistantDAO implements IDAO<AssistantDTO, Integer> {
         try{
             Properties properties= new Properties();
             properties.load(new FileInputStream("sql.properties"));
-            Connection conn = new ConnectionDB().getConnection();
+
+            ConnectionDB connDB = new ConnectionDB();
+
+            Connection conn = connDB.getConnection();
 
             String sql= properties.getProperty("INSERT_ASSISTANT");
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -42,6 +44,8 @@ public class AssistantDAO implements IDAO<AssistantDTO, Integer> {
             if (rowsAffected <= 0)
                 throw new DataException("No se pudo insertar el asistente.");
 
+            connDB.disconnect();
+
         } catch (Exception e) { throw e; }
     }
 
@@ -51,7 +55,10 @@ public class AssistantDAO implements IDAO<AssistantDTO, Integer> {
         try{
             Properties properties= new Properties();
             properties.load(new FileInputStream("sql.properties"));
-            Connection conn = new ConnectionDB().getConnection();
+
+            ConnectionDB connDB = new ConnectionDB();
+
+            Connection conn = connDB.getConnection();
             
             String sql= properties.getProperty("GETBYID_ASSISTANT");
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -68,8 +75,10 @@ public class AssistantDAO implements IDAO<AssistantDTO, Integer> {
             while (rs.next())
                 assi = new AssistantDTO(rs.getInt("ass_id"), rs.getString("name"), rs.getString("surname"), rs.getDate("birth_date").toLocalDate(), rs.getBoolean("attention"));
 			
+            connDB.disconnect();
+
             return assi;
-        } catch (SQLException e) { throw e; }
+        } catch (Exception e) { throw e; }
         
     }
 
@@ -78,7 +87,10 @@ public class AssistantDAO implements IDAO<AssistantDTO, Integer> {
         try{
             Properties properties= new Properties();
             properties.load(new FileInputStream("sql.properties"));
-            Connection conn = new ConnectionDB().getConnection();
+
+            ConnectionDB connDB = new ConnectionDB();
+
+            Connection conn = connDB.getConnection();
 
             String sql= properties.getProperty("UPDATE_ASSISTANT");
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -93,7 +105,9 @@ public class AssistantDAO implements IDAO<AssistantDTO, Integer> {
 
             if (rowsAffected <= 0)
                 throw new DataException("No se pudo actualizar la informacion del asistente.");
-            
+          
+            connDB.disconnect();
+
         } catch (Exception e) { throw e; }
     }
 
@@ -102,7 +116,10 @@ public class AssistantDAO implements IDAO<AssistantDTO, Integer> {
         try{
             Properties properties= new Properties();
             properties.load(new FileInputStream("sql.properties"));
-            Connection conn = new ConnectionDB().getConnection();
+
+            ConnectionDB connDB = new ConnectionDB();
+
+            Connection conn = connDB.getConnection();
             
             String sql= properties.getProperty("GETALL_ASSISTANT");
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -123,6 +140,8 @@ public class AssistantDAO implements IDAO<AssistantDTO, Integer> {
 				listofassi.add(new AssistantDTO(assist_id, name_c, surname_c, birth_c, attention_c));
 			}
 
+            connDB.disconnect();
+            
             return listofassi;
 
         } catch (Exception e) { throw e; }

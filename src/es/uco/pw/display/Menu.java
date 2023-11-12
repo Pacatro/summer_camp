@@ -635,7 +635,6 @@ public class Menu {
             }
 
             System.out.println("Creando inscripcion...");
-            System.out.println();
             
             CampamentsManager campamentsManager = new CampamentsManager();
             CampamentDTO campament = new CampamentDTO();

@@ -220,7 +220,7 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
 
             ps.setInt(1, id);
 
-            if(ps.execute())
+            if(!ps.execute())
                 throw new DataException("No se ha podido seleccionar las actividades del campamento " + id + ".");
 
             ResultSet rs = ps.executeQuery();

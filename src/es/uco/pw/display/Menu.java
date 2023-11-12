@@ -168,16 +168,17 @@ public class Menu {
                 break;
 
                 case 3:
-                    System.out.println("Lista de asistentes: ");
                     ArrayList<AssistantDTO> assistants = new ArrayList<>();
-
+                
                     try {
                         assistants = manager.getAll();
                     } catch (Exception e) {
                         DisplayException.handleException(e);
                         break;
                     }
-
+                
+                    System.out.println("Lista de asistentes: ");
+                    
                     for(AssistantDTO a : assistants){
                         System.out.println("ID: " + a.getId());
                         System.out.println("Nombre: " + a.getName());

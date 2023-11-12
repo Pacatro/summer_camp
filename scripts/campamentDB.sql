@@ -1,7 +1,7 @@
--- Active: 1694082650616@@127.0.0.1@3306@i12gafen
-DROP DATABASE IF EXISTS i12gafen;
-CREATE DATABASE IF NOT EXISTS i12gafen;
-USE i12gafen;
+-- Active: 1694082650616@@127.0.0.1@3306@i12almuf
+DROP DATABASE IF EXISTS i12almuf;
+CREATE DATABASE IF NOT EXISTS i12almuf;
+USE i12almuf;
 
 DROP TABLE IF EXISTS activities_monitors;
 DROP TABLE IF EXISTS activities_campaments;
@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS monitors_campaments(
 );
 
 CREATE TABLE IF NOT EXISTS assistants(
-    assi_id INT PRIMARY KEY,
+    ass_id INT PRIMARY KEY,
     name VARCHAR(64),
     surname VARCHAR(64),
     birth_date DATE,
@@ -62,12 +62,13 @@ CREATE TABLE IF NOT EXISTS assistants(
 );
 
 CREATE TABLE IF NOT EXISTS inscriptions(
-    ass_id INT PRIMARY KEY,
+    i_id INT PRIMARY KEY AUTO_INCREMENT,
     type VARCHAR(64),
     date DATE,
     cancelled BOOLEAN,
     price FLOAT,
     schendule VARCHAR(64),
+    ass_id INT,
     camp_id INT
 );
 
@@ -83,9 +84,9 @@ ALTER TABLE inscriptions ADD FOREIGN KEY (ass_id) REFERENCES assistants(ass_id);
 -- Insertar datos en la tabla 'activities'
 INSERT INTO activities (name, education_level, schedule, max_participants, num_monitors)
 VALUES
-    ('Actividad1', 'CHILD', 'MORNING', 20, 3),
-    ('Actividad2', 'YOUTH', 'AFTERNOON', 15, 2),
-    ('Actividad3', 'CHILD', 'AFTERNOON', 25, 4);
+    ('Baloncesto', 'CHILD', 'MORNING', 20, 3),
+    ('Natacion', 'YOUTH', 'AFTERNOON', 15, 2),
+    ('Futbol', 'CHILD', 'AFTERNOON', 25, 4);
 
 -- Insertar datos en la tabla 'monitors'
 INSERT INTO monitors (monitor_id, name, surname, special_edu)
@@ -104,16 +105,16 @@ VALUES
 -- Insertar datos en la tabla 'activities_monitors'
 INSERT INTO activities_monitors (act_id, monitor_id)
 VALUES
-    ('Actividad1', 1),
-    ('Actividad2', 2),
-    ('Actividad3', 3);
+    ('Baloncesto', 1),
+    ('Natacion', 2),
+    ('Futbol', 3);
 
 -- Insertar datos en la tabla 'activities_campaments'
 INSERT INTO activities_campaments (act_id, camp_id)
 VALUES
-    ('Actividad1', 1),
-    ('Actividad2', 2),
-    ('Actividad3', 3);
+    ('Baloncesto', 1),
+    ('Natacion', 2),
+    ('Futbol', 3);
 
 -- Insertar datos en la tabla 'monitors_campaments'
 INSERT INTO monitors_campaments (monitor_id, camp_id)
@@ -136,11 +137,8 @@ VALUES
     (2, 'COMPLETE', '2023-06-05', false, 120.00, 'AFTERNOON', 1),
     (3, 'PARCIAL', '2023-05-20', false, 110.00, 'MORNING', 2);
 
-
 SELECT * FROM assistants;
 SELECT * FROM campaments;
-
 SELECT * FROM inscriptions WHERE type = 'PARCIAL';
 SELECT * FROM inscriptions WHERE type = 'COMPLETE';
-
-SELECT * FROM campaments WHERE camp_id = (SELECT camp_id FROM activities_campaments WHERE act_id = 'Actividad1');
+SELECT * FROM campaments WHERE camp_id = (SELECT camp_id FROM activities_campaments WHERE act_id = 'Baloncesto');

@@ -33,9 +33,12 @@ public class MonitorDAO implements IDAO<MonitorDTO,Integer>{
             ps.setString(3, monitor.getSurname());
             ps.setBoolean(4, monitor.isEspecial());
 
-            ps.execute();
+            int rowsAffected = ps.executeUpdate();
 
-        } catch (Exception e){throw new DataException("No se puede insertar el monitor.");}
+            if (rowsAffected <= 0)
+                throw new DataException("No se puede insertar el monitor.");
+                
+        } catch (Exception e){ throw e; }
     }
 
     @Override
@@ -50,13 +53,21 @@ public class MonitorDAO implements IDAO<MonitorDTO,Integer>{
 
             ps.setInt(1, id);
 
+            if(!ps.execute())
+                throw new DataException("No existe ningun monitor con id " + id + ".");
+
+            MonitorDTO monitor = null;
+
             ResultSet rs = ps.executeQuery();
+
             while(rs.next()){
-            return (new MonitorDTO(rs.getInt("monitor_id"), rs.getString("name"), 
-                                   rs.getString("surname"), rs.getBoolean("special_edu")));
+                monitor = new MonitorDTO(rs.getInt("monitor_id"), rs.getString("name"), 
+                                   rs.getString("surname"), rs.getBoolean("special_edu"));
             }
-        } catch (Exception e) {throw new DataException("No existe ningun monitor con id " + id + ".");}
-        return null;
+
+            return monitor;
+
+        } catch (Exception e) { throw e; }
     }
 
     @Override
@@ -69,6 +80,9 @@ public class MonitorDAO implements IDAO<MonitorDTO,Integer>{
             Connection conn = new ConnectionDB().getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
 
+            if(!ps.execute())
+                throw new DataException("No hay monitores registrados.");
+
             ResultSet rs = ps.executeQuery();
 
             ArrayList<MonitorDTO> monitors = new ArrayList<MonitorDTO>();
@@ -79,7 +93,7 @@ public class MonitorDAO implements IDAO<MonitorDTO,Integer>{
             }
 
             return monitors;
-        } catch (Exception e) {throw new DataException("No hay monitores registrados.");}
+        } catch (Exception e) { throw e; }
     }
 
     @Override

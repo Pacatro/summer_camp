@@ -71,7 +71,7 @@ public class AssistantDTO {
 	/* To String */
 
 	public String toString() {
-		String personInfo = "Me llamo " + this.name + " " + this.surname + ". Naci en "+ this.date + ", mi identificador es "+ this.id; // Another way to concat strings
+		String personInfo = "Nombre: " + this.name + " " + this.surname + ". Fecha nacimiento " + this.date + ", id " + this.id; // Another way to concat strings
 		
 		return personInfo;
 	}

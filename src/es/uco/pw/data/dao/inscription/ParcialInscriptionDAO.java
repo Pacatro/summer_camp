@@ -43,9 +43,12 @@ public class ParcialInscriptionDAO implements IDAO<ParcialInscriptionDTO, Intege
             ps.setString(6, parcialInscriptionDTO.getSchedule().toString());
             ps.setInt(7, parcialInscriptionDTO.getIdCampament());
 
-            ps.execute();
+            int rowsAffected = ps.executeUpdate();
 
-        } catch (Exception e) { throw new DataException("No se puede insertar la inscripcion"); }
+            if (rowsAffected <= 0)
+                throw new DataException("No se puede insertar la inscripcion");
+
+        } catch (Exception e) { throw e; }
     }
 
     @Override

@@ -46,7 +46,7 @@ public class AssistantManager {
      * 
      * @return An ArrayList of AssistantDTO objects.
      */
-    public ArrayList<AssistantDTO> print()throws Exception{
+    public ArrayList<AssistantDTO> getAll()throws Exception{
         ArrayList<AssistantDTO> register = new ArrayList<>();
         try{
             AssistantDAO dao=new AssistantDAO();

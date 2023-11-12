@@ -41,7 +41,10 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
             ps.setInt(4, campamentDTO.getMaxAssistants());
             ps.setString(5,campamentDTO.getLevel().toString());
 
-            ps.execute();
+            int rowsAffected = ps.executeUpdate();
+
+            if (rowsAffected <= 0)
+                throw new DataException("No se pudo insertar el campamento.");
 
             for(int i=0; i<campamentDTO.getActivities().size(); i++){
                 addActivity(campamentDTO.getId(), campamentDTO.getActivities().get(i).getname());
@@ -51,7 +54,7 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
                 addMonitor(campamentDTO.getId(), campamentDTO.getMonitors().get(i).getID());
             }
 
-        } catch (SQLException e) { throw new DataException("No se pudo insertar el campamento."); }
+        } catch (SQLException e) { throw e; }
     }
 
     /**
@@ -72,9 +75,12 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
             ps.setString(1, activityId);
             ps.setInt(2, campId);
 
-            ps.execute();
+            int rowsAffected = ps.executeUpdate();
 
-        } catch (SQLException e) { throw new DataException("No se pudo asociar la actividad " + activityId + " con el campamento " + campId + "."); }
+            if (rowsAffected <= 0)
+                throw new DataException("No se pudo asociar la actividad " + activityId + " con el campamento " + campId + ".");
+
+        } catch (SQLException e) { throw e; }
     }
 
     /**
@@ -95,9 +101,12 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
             ps.setInt(1, campId);
             ps.setInt(2, monitorId);
 
-            ps.execute();
+            int rowsAffected = ps.executeUpdate();
 
-        } catch (SQLException e) { throw new DataException("No se pudo asociar el monitor " + monitorId + " con el campamento " + campId + "."); }
+            if (rowsAffected <= 0)
+                throw new DataException("No se pudo asociar el monitor " + monitorId + " con el campamento " + campId + ".");
+
+        } catch (SQLException e) { throw e; }
     }
 
     /**
@@ -117,11 +126,14 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
             
             ps.setInt(1, campId);
 
+            if(!ps.execute())
+                throw new DataException("No se pudo seleccionar ningun monitor especial en el campamento " + campId + ".");
+
             ResultSet  rs = ps.executeQuery();
 
             return rs.next();
 
-        } catch (SQLException e) { throw new DataException("No se pudo seleccionar ningun monitor especial en el campamento " + campId + "."); }
+        } catch (SQLException e) { throw e; }
     }
 
     @Override
@@ -135,23 +147,27 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, id);
 
-            ResultSet rs = ps.executeQuery();
+            if(!ps.execute())
+                throw new DataException("No existe ningun campamento con el id: " + id + ".");
 
+            ResultSet rs = ps.executeQuery();
             
-            CampamentDTO camp = new CampamentDTO();
-            
+            CampamentDTO camp = null;
+
             while(rs.next()){
+                camp = new CampamentDTO();
                 camp.setId(rs.getInt("camp_id"));
                 camp.setInitDate(rs.getDate("start_date").toLocalDate());
                 camp.setFinalDate(rs.getDate("end_date").toLocalDate());
                 camp.setMaxAssistants(rs.getInt("max_assistant"));
                 camp.setLevel(Level.valueOf(rs.getString("educate_level")));
+                camp.setActivities(getActivitiesFromCampament(id));
+                camp.setMonitors(getMonitorsFromCampament(id));
             }
 
-            camp.setActivities(getActivitiesFromCampament(id));
-            camp.setMonitors(getMonitorsFromCampament(id));
             return camp;
-        } catch (SQLException e) { throw new DataException("No existe ningun campamento con el id: " + id + "."); }
+
+        } catch (SQLException e) { throw e; }
     }
 
     /**
@@ -171,17 +187,20 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
 
             ps.setInt(1, id);
 
+            if(!ps.execute())
+                throw new DataException("No se ha podido seleccionar los monitores del campamento " + id + ".");
+
             ResultSet rs = ps.executeQuery();
 
             ArrayList<MonitorDTO> monitors = new ArrayList<MonitorDTO>();
 
             while(rs.next()){
                 monitors.add(new MonitorDTO(rs.getInt("monitor_id"), rs.getString("name"), 
-                            rs.getString("surname"), rs.getBoolean("special_edu")));
+                                            rs.getString("surname"), rs.getBoolean("special_edu")));
             }
 
             return monitors;
-        } catch (SQLException e) { throw new DataException("No se ha podido seleccionar los monitores del campamento " + id + "."); }
+        } catch (SQLException e) { throw e; }
     }
 
     /**
@@ -200,6 +219,9 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ps.setInt(1, id);
+
+            if(ps.execute())
+                throw new DataException("No se ha podido seleccionar las actividades del campamento " + id + ".");
 
             ResultSet rs = ps.executeQuery();
 
@@ -222,7 +244,7 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
             }
 
             return activities;
-        } catch (SQLException e) { throw new DataException("No se ha podido seleccionar las actividades del campamento " + id + "."); }
+        } catch (SQLException e) { throw e; }
     }
  
     @Override
@@ -234,6 +256,9 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
 
             Connection conn = new ConnectionDB().getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
+
+            if(!ps.execute())
+                throw new DataException("No se han podido seleccionar todos los campamentos.");
 
             ResultSet rs = ps.executeQuery();
 
@@ -252,7 +277,7 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
             }
 
             return campaments;
-        } catch (SQLException e) { throw new DataException("No se ha podido seleccionar todos los campamentos."); }
+        } catch (SQLException e) { throw e; }
     }
 
     @Override

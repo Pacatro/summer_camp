@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;   
 
 import es.uco.pw.business.assistant.AssistantDTO;
 import es.uco.pw.data.common.ConnectionDB;
@@ -36,34 +37,40 @@ public class AssistantDAO implements IDAO<AssistantDTO, Integer> {
             ps.setString(4, assistantDTO.getDate().toString());
             ps.setBoolean(5,assistantDTO.getAtention());
 
-            ps.execute();
+            int rowsAffected = ps.executeUpdate();
 
-        } catch (Exception e) { throw new DataException("No se puedo insertar el asistente."); }
+            if (rowsAffected <= 0)
+                throw new DataException("No se pudo insertar el asistente.");
+
+        } catch (Exception e) { throw e; }
     }
 
     @Override
     public AssistantDTO getById(Integer idDTO) throws Exception{
-        AssistantDTO assi = null;
-
+        
         try{
             Properties properties= new Properties();
             properties.load(new FileInputStream("sql.properties"));
             Connection conn = new ConnectionDB().getConnection();
-
+            
             String sql= properties.getProperty("GETBYID_ASSISTANT");
             PreparedStatement ps = conn.prepareStatement(sql);
             
             ps.setInt(1, idDTO.intValue());
             
+            if(!ps.execute())
+                throw new DataException("No existe ningun asistente con id: " + idDTO + ".");
+            
             ResultSet rs = ps.executeQuery();
-            
-            while (rs.next()) {
+
+            AssistantDTO assi = null;
+
+            while (rs.next())
                 assi = new AssistantDTO(rs.getInt("ass_id"), rs.getString("name"), rs.getString("surname"), rs.getDate("birth_date").toLocalDate(), rs.getBoolean("attention"));
-			}
-            
-        } catch (Exception e) { throw new DataException("No existe ningun asistente con el id " + idDTO +  "."); }
+			
+            return assi;
+        } catch (SQLException e) { throw e; }
         
-        return assi;
     }
 
     @Override
@@ -82,9 +89,12 @@ public class AssistantDAO implements IDAO<AssistantDTO, Integer> {
             ps.setBoolean(4,assistantDTO.getAtention());
             ps.setInt(5, assistantDTO.getId());
 
-            ps.execute();
+            int rowsAffected = ps.executeUpdate();
+
+            if (rowsAffected <= 0)
+                throw new DataException("No se pudo actualizar la informacion del asistente.");
             
-        } catch (Exception e) { throw new DataException("No se pudo actualizar la informacion del asistente."); }
+        } catch (Exception e) { throw e; }
     }
 
     @Override
@@ -96,7 +106,12 @@ public class AssistantDAO implements IDAO<AssistantDTO, Integer> {
             
             String sql= properties.getProperty("GETALL_ASSISTANT");
             PreparedStatement ps = conn.prepareStatement(sql);
+            
+            if(!ps.execute())
+                throw new DataException("No hay ningun asistente registrado");
+            
             ResultSet rs = ps.executeQuery(sql);
+
             ArrayList<AssistantDTO> listofassi = new ArrayList<AssistantDTO>();
 
             while (rs.next()) {
@@ -110,7 +125,7 @@ public class AssistantDAO implements IDAO<AssistantDTO, Integer> {
 
             return listofassi;
 
-        } catch (Exception e) { throw new DataException("No hay ningun asistente registrado"); }
+        } catch (Exception e) { throw e; }
     }
 
 

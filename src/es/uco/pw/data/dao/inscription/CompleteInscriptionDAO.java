@@ -43,9 +43,12 @@ public class CompleteInscriptionDAO implements IDAO<CompleteInscriptionDTO, Inte
             ps.setString(6, completeInscriptionDTO.getSchedule().toString());
             ps.setInt(7, completeInscriptionDTO.getIdCampament());
 
-            ps.execute();
+            int rowsAffected = ps.executeUpdate();
 
-        } catch (Exception e) { throw new DataException("No se puede insertar la inscripcion"); }
+            if (rowsAffected <= 0)
+                throw new DataException("No se puede insertar la inscripcion");
+
+        } catch (Exception e) { throw e; }
     }
 
     @Override

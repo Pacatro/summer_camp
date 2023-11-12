@@ -13,6 +13,9 @@ import es.uco.pw.business.managers.AssistantManager;
 import es.uco.pw.business.managers.CampamentsManager;
 import es.uco.pw.business.managers.InscriptionsManager;
 import es.uco.pw.business.monitor.MonitorDTO;
+import es.uco.pw.data.dao.activity.ActivityDAO;
+import es.uco.pw.data.dao.campament.CampamentDAO;
+import es.uco.pw.data.dao.monitor.MonitorDAO;
 import es.uco.pw.display.exceptions.DisplayException;
 
 /**
@@ -97,7 +100,7 @@ public class Menu {
                     }
 
                     if(assistant != null){
-                        System.out.println("\nError: El id del asistente ya ha sido registrado previamente.");
+                        DisplayException.handleException(new Exception("El id del asistente ya ha sido registrado previamente."));
                         break;
                     }
 
@@ -141,11 +144,6 @@ public class Menu {
                         break;
                     }
 
-                    if(assistant == null){
-                        System.out.println("\nError: El id del asistente no ha sido registrado previamente.");
-                        break;
-                    }
-
                     System.out.print("Nuevo nombre del asistente: ");
                     String newAssistantName = this.scanner.nextLine();
 
@@ -174,7 +172,7 @@ public class Menu {
                     ArrayList<AssistantDTO> assistants = new ArrayList<>();
 
                     try {
-                        assistants = manager.print();
+                        assistants = manager.getAll();
                     } catch (Exception e) {
                         DisplayException.handleException(e);
                         break;
@@ -225,6 +223,21 @@ public class Menu {
 
                     System.out.print("Nombre de la actividad: ");
                     String activName = this.scanner.nextLine();
+
+                    ActivityDTO activity = null;
+                    ActivityDAO activityDAO = new ActivityDAO();
+
+                    try{
+                        activity = activityDAO.getById(activName);
+                    } catch (Exception e) {
+                        DisplayException.handleException(e);
+                        break;
+                    }
+
+                    if(activity != null){
+                        DisplayException.handleException(new Exception("El nombre de la actividad ya ha sido registrado previamente."));
+                        break;
+                    }
 
                     Level level = Level.CHILD;
                     do{
@@ -291,6 +304,21 @@ public class Menu {
                     System.out.print("ID del monitor: ");
                     int monId = Integer.parseInt(this.scanner.nextLine());
 
+                    MonitorDTO monitor = null;
+                    MonitorDAO monitorDAO = new MonitorDAO();
+
+                    try{
+                        monitor = monitorDAO.getById(monId);
+                    } catch (Exception e) {
+                        DisplayException.handleException(e);
+                        break;
+                    }
+
+                    if(monitor != null){
+                        DisplayException.handleException(new Exception("El id del monitor ya ha sido registrado previamente."));
+                        break;
+                    }
+
                     System.out.print("Nombre del monitor: ");
                     String monName = this.scanner.nextLine();
 
@@ -316,6 +344,21 @@ public class Menu {
 
                     System.out.print("ID del campamento: ");
                     int campId = Integer.parseInt(this.scanner.nextLine());
+
+                    CampamentDTO campament = null;
+                    CampamentDAO campamentDAO = new CampamentDAO();
+
+                    try{
+                        campament = campamentDAO.getById(campId);
+                    } catch (Exception e) {
+                        DisplayException.handleException(e);
+                        break;
+                    }
+
+                    if(campament != null){
+                        DisplayException.handleException(new Exception("El id del monitor ya ha sido registrado previamente."));
+                        break;
+                    }
 
                     System.out.print("Fecha de inicio (AAAA-MM-DD): ");
                     String initDateStr = this.scanner.nextLine();
@@ -402,7 +445,7 @@ public class Menu {
                         selectedActivityIndex = Integer.parseInt(this.scanner.nextLine());
                     }
             
-                    ActivityDTO activity = activities.get(selectedActivityIndex);
+                    activity = activities.get(selectedActivityIndex);
                     ArrayList<MonitorDTO> monitors = new ArrayList<>();
                     
                     try {
@@ -428,7 +471,7 @@ public class Menu {
                         selectedMonitorIndex = Integer.parseInt(this.scanner.nextLine());
                     }
 
-                    MonitorDTO monitor = monitors.get(selectedMonitorIndex);
+                    monitor = monitors.get(selectedMonitorIndex);
                         
                     try {
                         manager.associateMonitorsToActivities(monitor.getID(), activity.getname());
@@ -518,7 +561,7 @@ public class Menu {
                     System.out.println("\nCampamentos disponibles:");
 
                     for (int k = 0; k < campaments.size(); k++) {
-                        System.out.println(k + ") " + campaments.get(k).getId());
+                        System.out.println(k + ") " + "Campamento " + campaments.get(k).getId());
                     }
             
                     System.out.print("Selecciona un campamento: ");
@@ -558,7 +601,7 @@ public class Menu {
                         break;
                     }
 
-                    System.out.println("El monitor ha sido asociado al campamento con exito.");
+                    System.out.println("\nEl monitor ha sido asociado al campamento con exito.");
 
                 break;
 
@@ -585,7 +628,6 @@ public class Menu {
             System.out.println("3) Cancelar");
             System.out.print("> ");
             opt = Integer.parseInt(this.scanner.nextLine());
-            System.out.println();
 
             if(opt == 3){
                 System.out.println("Volviendo al menu principal...");
@@ -594,12 +636,26 @@ public class Menu {
 
             System.out.println("Creando inscripcion...");
             System.out.println();
-
-            System.out.print("Indique el id del campamento: ");
-            int campId = Integer.parseInt(this.scanner.nextLine());
             
             CampamentsManager campamentsManager = new CampamentsManager();
             CampamentDTO campament = new CampamentDTO();
+            ArrayList<CampamentDTO> campaments = new ArrayList<>();
+            ArrayList<AssistantDTO> assistants = new ArrayList<>();
+
+            try {
+                campaments = campamentsManager.getAllCampaments();
+            } catch (Exception e) {
+                DisplayException.handleException(e);
+                break;
+            }
+
+            System.out.println("\nCampamentos disponibles:");
+
+            for(CampamentDTO c : campaments)
+                System.out.println(c);
+
+            System.out.print("Indique el id del campamento: ");
+            int campId = Integer.parseInt(this.scanner.nextLine());
 
             try {
                 campament = campamentsManager.getById(campId);
@@ -608,17 +664,31 @@ public class Menu {
                 break;
             }
 
+            AssistantManager assistantManager = new AssistantManager();
+            AssistantDTO assistant = new AssistantDTO();
+
+            try {
+                assistants = assistantManager.getAll();
+            } catch (Exception e) {
+                DisplayException.handleException(e);
+                break;
+            }
+
+            for(AssistantDTO a : assistants)
+                System.out.println(a);
             
             System.out.print("Indique el id del asistente: ");
             int assisId = Integer.parseInt(this.scanner.nextLine());
-
-            AssistantManager assistantManager = new AssistantManager();
-            AssistantDTO assistant = new AssistantDTO();
 
             try {
                 assistant = assistantManager.getById(assisId);
             } catch (Exception e) {
                 DisplayException.handleException(e);
+                break;
+            }
+
+            if(assistant == null){
+                DisplayException.handleException(new Exception("El asistente con id " + assisId + " no existe."));
                 break;
             }
 
@@ -631,7 +701,6 @@ public class Menu {
                 System.out.println("2) Tarde");
                 System.out.print("> ");
                 subopt = Integer.parseInt(this.scanner.nextLine());
-                System.out.println();
 
                 if(subopt == 1){
                     schedule = Schedule.MORNING;
@@ -653,7 +722,7 @@ public class Menu {
                         break;
                     }
 
-                    System.out.println("Inscripcion parcial creada con exito.");
+                    System.out.println("Inscripcion completa creada con exito.");
                 break;
 
                 case 2:
@@ -664,7 +733,7 @@ public class Menu {
                         break;
                     }
 
-                    System.out.println("Inscripcion completa creada con exito.");
+                    System.out.println("Inscripcion parcial creada con exito.");
                 break;
 
                 default:

@@ -70,10 +70,11 @@ public class CampamentsManager {
      */
     public void createCampaments(int id, LocalDate initDate, LocalDate finalDate, Level level ,int max_assistants) throws Exception {
         try{
-    
+            if(initDate.isBefore(finalDate)){
             CampamentDAO dao = new CampamentDAO();
             CampamentDTO newCampament = new CampamentDTO(id, initDate, finalDate,max_assistants, level);
             dao.insert(newCampament);
+            }
 
         } catch (Exception e) { BusinessException.handleException(e); }
         

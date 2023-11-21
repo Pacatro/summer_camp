@@ -1,6 +1,6 @@
 package es.uco.pw.display.javabeans;
 
-import es.uco.pw.display.javabeans.common.UserType;
+import es.uco.pw.business.common.userType.UserType;
 
 public class CustomerBean implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;

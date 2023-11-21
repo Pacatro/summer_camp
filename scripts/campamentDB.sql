@@ -1,3 +1,8 @@
+-- Active: 1694521027087@@127.0.0.1@3306@i12almuf
+DROP DATABASE IF EXISTS i12almuf;
+CREATE DATABASE IF NOT EXISTS i12almuf;
+USE i12almuf;
+
 DROP TABLE IF EXISTS activities_monitors;
 DROP TABLE IF EXISTS activities_campaments;
 DROP TABLE IF EXISTS monitors_campaments;
@@ -93,16 +98,16 @@ VALUES
     ('Futbol', 'CHILD', 'AFTERNOON', 25, 4),
     ('Voleibol', 'TEENAGER', 'MORNING', 15, 2),
     ('Artes Marciales', 'YOUTH', 'AFTERNOON', 20, 3),
-    ('Excursión al Aire Libre', 'CHILD', 'MORNING', 30, 5);
+    ('Excursion al Aire Libre', 'CHILD', 'MORNING', 30, 5);
 
 INSERT INTO monitors (monitor_id, name, surname, special_edu)
 VALUES
     (1, 'Juan', 'Perez', true),
-    (2, 'Luis', 'Martínez', false),
-    (3, 'Ana', 'Sánchez', true),
-    (4, 'Elena', 'García', false),
-    (5, 'Carlos', 'Rodríguez', true),
-    (6, 'Laura', 'Fernández', true);
+    (2, 'Luis', 'Martinez', false),
+    (3, 'Ana', 'Sanchez', true),
+    (4, 'Elena', 'Garcia', false),
+    (5, 'Carlos', 'Rodriguez', true),
+    (6, 'Laura', 'Fernandez', true);
 
 INSERT INTO campaments (camp_id, start_date, end_date, educate_level, max_assistant)
 VALUES
@@ -120,7 +125,7 @@ VALUES
     ('Futbol', 3),
     ('Voleibol', 4),
     ('Artes Marciales', 5),
-    ('Excursión al Aire Libre', 6);
+    ('Excursion al Aire Libre', 6);
 
 INSERT INTO activities_campaments (act_id, camp_id)
 VALUES
@@ -129,7 +134,7 @@ VALUES
     ('Futbol', 3),
     ('Voleibol', 4),
     ('Artes Marciales', 5),
-    ('Excursión al Aire Libre', 6);
+    ('Excursion al Aire Libre', 6);
 
 INSERT INTO monitors_campaments (monitor_id, camp_id)
 VALUES
@@ -140,29 +145,39 @@ VALUES
     (5, 5),
     (6, 6);
 
-INSERT INTO assistants (ass_id, name, surname, birth_date, attention)
+INSERT INTO users (email, name, password, type)
 VALUES
-    (1, 'Maria', 'Gonzalez', '2005-03-15', true),
-    (2, 'Pedro', 'López', '2006-02-20', true),
-    (3, 'Sofia', 'Rodriguez', '2004-08-10', false),
-    (4, 'Diego', 'Hernández', '2003-09-25', true),
-    (5, 'Alicia', 'Martínez', '2005-01-12', false),
-    (6, 'Javier', 'Díaz', '2004-07-18', true);
+    ('maria@example.com', 'Maria', 'password123', 'ASSISTANT'),
+    ('pedro@example.com', 'Pedro', 'password456', 'ASSISTANT'),
+    ('sofia@example.com', 'Sofia', 'password789', 'ADMIN'),
+    ('diego@example.com', 'Diego', 'password123', 'ADMIN'),
+    ('alicia@example.com', 'Alicia', 'password456', 'ASSISTANT'),
+    ('javier@example.com', 'Javier', 'password789', 'ASSISTANT');
 
-INSERT INTO inscriptions (ass_id, type, date, cancelled, price, schendule, camp_id)
+INSERT INTO assistants (ass_id, name, surname, birth_date, attention, email)
 VALUES
-    (1, 'PARCIAL', '2023-05-10', false, 100.00, 'MORNING', 1),
-    (2, 'COMPLETE', '2023-06-05', false, 120.00, 'AFTERNOON', 1),
-    (3, 'PARCIAL', '2023-05-20', false, 110.00, 'MORNING', 2),
-    (4, 'COMPLETE', '2024-06-01', false, 150.00, 'AFTERNOON', 4),
-    (5, 'PARCIAL', '2023-10-05', false, 80.00, 'MORNING', 5),
-    (6, 'COMPLETE', '2024-04-15', false, 130.00, 'AFTERNOON', 6);
+    (1, 'Maria', 'Gonzalez', '2005-03-15', true, 'maria@example.com'),
+    (2, 'Pedro', 'Lopez', '2006-02-20', true, 'pedro@example.com'),
+    (3, 'Sofia', 'Rodriguez', '2004-08-10', false, 'sofia@example.com'),
+    (4, 'Diego', 'Hernandez', '2003-09-25', true, 'diego@example.com'),
+    (5, 'Alicia', 'Martinez', '2005-01-12', false, 'alicia@example.com'),
+    (6, 'Javier', 'Diaz', '2004-07-18', true, 'javier@example.com');
 
--- SELECT * FROM assistants;
--- SELECT * FROM activities;
--- SELECT * FROM campaments;
--- SELECT * FROM monitors;
--- SELECT * FROM inscriptions;
--- SELECT * FROM activities_campaments;
--- SELECT * FROM activities_monitors;
--- SELECT * FROM monitors_campaments;
+INSERT INTO inscriptions (type, date, cancelled, price, schendule, ass_id, camp_id)
+VALUES
+    ('PARCIAL', '2023-05-10', false, 100.00, 'MORNING', 1, 1),
+    ('COMPLETE', '2023-06-05', false, 120.00, 'AFTERNOON', 2, 1),
+    ('PARCIAL', '2023-05-20', false, 110.00, 'MORNING', 3, 2),
+    ('COMPLETE', '2024-06-01', false, 150.00, 'AFTERNOON', 4, 4),
+    ('PARCIAL', '2023-10-05', false, 80.00, 'MORNING', 5, 5),
+    ('COMPLETE', '2024-04-15', false, 130.00, 'AFTERNOON', 6, 6);
+
+ SELECT * FROM assistants;
+ SELECT * FROM activities;
+ SELECT * FROM campaments;
+ SELECT * FROM monitors;
+ SELECT * FROM inscriptions;
+ SELECT * FROM activities_campaments;
+ SELECT * FROM activities_monitors;
+ SELECT * FROM monitors_campaments;
+SELECT * FROM users;

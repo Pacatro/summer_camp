@@ -13,13 +13,19 @@ public class Main {
 
         Menu menu = new Menu(scanner);
 
-        //menu.mainMenu();
+        // menu.mainMenu();
 
         UserDTO user = new UserDTO("juan@example.com", "Juan", "password789", UserType.ASSISTANT);
 
         UserDAO dao = new UserDAO();
 
         dao.insert(user);
+
+        // user.setName("Paco");
+        // dao.update(user);
+
+        user = dao.getById("maria@example.com");
+        System.out.println(user);
     }
 
 }

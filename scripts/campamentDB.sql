@@ -53,7 +53,8 @@ CREATE TABLE IF NOT EXISTS assistants(
     name VARCHAR(64),
     surname VARCHAR(64),
     birth_date DATE,
-    attention BOOLEAN
+    attention BOOLEAN,
+    email VARCHAR(64)
 );
 
 CREATE TABLE IF NOT EXISTS inscriptions(
@@ -67,6 +68,13 @@ CREATE TABLE IF NOT EXISTS inscriptions(
     camp_id INT
 );
 
+CREATE TABLE IF NOT EXISTS users(
+    email VARCHAR(64) PRIMARY KEY,
+    name VARCHAR(64),
+    password VARCHAR(64),
+    type VARCHAR(64)
+);
+
 ALTER TABLE activities_monitors ADD FOREIGN KEY (act_id) REFERENCES activities(name);
 ALTER TABLE activities_monitors ADD FOREIGN KEY (monitor_id) REFERENCES monitors(monitor_id);
 ALTER TABLE activities_campaments ADD FOREIGN KEY (act_id) REFERENCES activities(name);
@@ -75,6 +83,7 @@ ALTER TABLE monitors_campaments ADD FOREIGN KEY (monitor_id) REFERENCES monitors
 ALTER TABLE monitors_campaments ADD FOREIGN KEY (camp_id) REFERENCES campaments(camp_id);
 ALTER TABLE inscriptions ADD FOREIGN KEY (camp_id) REFERENCES campaments(camp_id);
 ALTER TABLE inscriptions ADD FOREIGN KEY (ass_id) REFERENCES assistants(ass_id);
+ALTER TABLE assistants ADD FOREIGN KEY (email) REFERENCES users(email);
 
 --
 INSERT INTO activities (name, education_level, schedule, max_participants, num_monitors)

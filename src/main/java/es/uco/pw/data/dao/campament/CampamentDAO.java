@@ -316,6 +316,40 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
         } catch (Exception e) { throw e; }
     }
 
+    public ArrayList<CampamentDTO> getByAssistant(int id) throws Exception{
+
+        Properties properties = new Properties();
+        properties.load(new FileInputStream("sql.properties"));
+        String sql = properties.getProperty("GET_CAMPAMENT_BYASSIST");
+
+        ConnectionDB connDB = new ConnectionDB();
+
+        Connection conn = connDB.getConnection();
+        PreparedStatement ps = conn.prepareStatement(sql);
+
+        if(!ps.execute())
+            throw new DataException("No se han podido seleccionar los campamentos.");
+
+        ResultSet rs = ps.executeQuery();
+        ArrayList<CampamentDTO> campaments = new ArrayList<CampamentDTO>();
+
+        while(rs.next()){
+            CampamentDTO camp = new CampamentDTO();
+            camp.setId(rs.getInt("camp_id"));
+            camp.setInitDate(rs.getDate("start_date").toLocalDate());
+            camp.setFinalDate(rs.getDate("end_date").toLocalDate());
+            camp.setMaxAssistants(rs.getInt("max_assistant"));
+            camp.setLevel(Level.valueOf(rs.getString("educate_level")));
+            camp.setActivities(getActivitiesFromCampament(camp.getId()));
+            camp.setMonitors(getMonitorsFromCampament(camp.getId()));
+            campaments.add(camp);
+        }
+
+        connDB.disconnect();
+
+        return campaments;
+    }
+
     @Override
     public void update(CampamentDTO campamentDTO) throws Exception { throw new UnsupportedOperationException("Unimplemented method 'update'"); }
 }

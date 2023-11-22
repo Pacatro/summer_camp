@@ -38,6 +38,7 @@ public class AssistantDAO implements IDAO<AssistantDTO, Integer> {
             ps.setString(3, assistantDTO.getSurname());
             ps.setString(4, assistantDTO.getDate().toString());
             ps.setBoolean(5,assistantDTO.getAtention());
+            ps.setString(6, assistantDTO.getEmail());
 
             int rowsAffected = ps.executeUpdate();
 
@@ -73,7 +74,7 @@ public class AssistantDAO implements IDAO<AssistantDTO, Integer> {
             AssistantDTO assi = null;
 
             while (rs.next())
-                assi = new AssistantDTO(rs.getInt("ass_id"), rs.getString("name"), rs.getString("surname"), rs.getDate("birth_date").toLocalDate(), rs.getBoolean("attention"));
+                assi = new AssistantDTO(rs.getInt("ass_id"), rs.getString("name"), rs.getString("surname"), rs.getDate("birth_date").toLocalDate(), rs.getBoolean("attention"), rs.getString("email"));
 			
             connDB.disconnect();
 
@@ -100,6 +101,7 @@ public class AssistantDAO implements IDAO<AssistantDTO, Integer> {
             ps.setString(3, assistantDTO.getDate().toString());
             ps.setBoolean(4,assistantDTO.getAtention());
             ps.setInt(5, assistantDTO.getId());
+            ps.setString(6, assistantDTO.getEmail());
 
             int rowsAffected = ps.executeUpdate();
 
@@ -137,7 +139,8 @@ public class AssistantDAO implements IDAO<AssistantDTO, Integer> {
                 String surname_c=rs.getString("surname");
                 LocalDate birth_c=rs.getDate("birth_date").toLocalDate();
                 Boolean attention_c=rs.getBoolean("attention");
-				listofassi.add(new AssistantDTO(assist_id, name_c, surname_c, birth_c, attention_c));
+                String email_c=rs.getString("email");
+				listofassi.add(new AssistantDTO(assist_id, name_c, surname_c, birth_c, attention_c, email_c));
 			}
 
             connDB.disconnect();
@@ -147,5 +150,30 @@ public class AssistantDAO implements IDAO<AssistantDTO, Integer> {
         } catch (Exception e) { throw e; }
     }
 
+    public AssistantDTO getByEmail(String email) throws Exception{
+        Properties properties= new Properties();
+        properties.load(new FileInputStream("sql.properties"));
 
+        ConnectionDB connDB = new ConnectionDB();
+        Connection conn = connDB.getConnection();
+        
+        String sql= properties.getProperty("GET_ASSISTANT_EMAIL");
+        PreparedStatement ps = conn.prepareStatement(sql);
+        
+        ps.setString(1, email);
+        
+        if(!ps.execute())
+            throw new DataException("No existe ningun asistente con email: " + email + ".");
+        
+        ResultSet rs = ps.executeQuery();
+
+        AssistantDTO assi = null;
+
+        while (rs.next())
+            assi = new AssistantDTO(rs.getInt("ass_id"), rs.getString("name"), rs.getString("surname"), rs.getDate("birth_date").toLocalDate(), rs.getBoolean("attention"), rs.getString("email"));
+        
+        connDB.disconnect();
+
+        return assi;
+    }
 }

@@ -3,8 +3,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import es.uco.pw.business.assistant.AssistantDTO;
+import es.uco.pw.business.campament.CampamentDTO;
 import es.uco.pw.business.common.exceptions.BusinessException;
 import es.uco.pw.data.dao.assistant.AssistantDAO;
+import es.uco.pw.data.dao.campament.CampamentDAO;
 
 /**
  * Manages operations related to assistants in the system, such as registration, search, modification, and printing.
@@ -31,12 +33,12 @@ public class AssistantManager {
      * @param newsurname  The new surname of the assistant.
      * @param newdate     The new date of birth of the assistant.
      * @param newatention The new attention status of the assistant.
-     * @param list        The list of assistants in the system.
+     * @param newemail    The new email of the assistant.
      */
-    public void modify(int id, String newname, String newsurname, LocalDate newdate, boolean newatention)throws Exception{
+    public void modify(int id, String newname, String newsurname, LocalDate newdate, boolean newatention, String newemail)throws Exception{
         try{
             AssistantDAO dao=new AssistantDAO();
-            AssistantDTO dto=new AssistantDTO(id, newname, newsurname, newdate, newatention);
+            AssistantDTO dto=new AssistantDTO(id, newname, newsurname, newdate, newatention, newemail);
             dao.update(dto);
         }catch (Exception e){ BusinessException.handleException(e); }
     }
@@ -68,6 +70,17 @@ public class AssistantManager {
             assistantDTO = assistantDAO.getById(id);
         } catch (Exception e) { BusinessException.handleException(e); }
         return assistantDTO;
+    }
+
+    public ArrayList<CampamentDTO> getCampaments(String email) throws Exception{
+        AssistantDTO assistantDTO = new AssistantDTO();
+        AssistantDAO assistantDAO = new AssistantDAO();
+        assistantDTO = assistantDAO.getByEmail(email);
+        
+        CampamentDAO campamentDAO = new CampamentDAO();
+        ArrayList<CampamentDTO> campaments = campamentDAO.getByAssistant(assistantDTO.getId());
+
+        return campaments;
     }
 
 }

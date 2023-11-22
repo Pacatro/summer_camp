@@ -118,7 +118,7 @@ public class Menu {
                     System.out.print("¿El asistente necesita atencion especial? (true/false): ");
                     boolean atention = Boolean.parseBoolean(this.scanner.nextLine());
                     
-                    assistant = new AssistantDTO(assistantID, assistantName, assistantSurname, assistantBday, atention);
+                    assistant = new AssistantDTO(assistantID, assistantName, assistantSurname, assistantBday, atention, null);
 
                     try {                   
                         manager.register(assistant);
@@ -158,7 +158,7 @@ public class Menu {
                     boolean newAtention = Boolean.parseBoolean(this.scanner.nextLine());
 
                     try {
-                        manager.modify(newAssistantID, newAssistantName, newAssistantSurname, newAssistantBday, newAtention);
+                        manager.modify(newAssistantID, newAssistantName, newAssistantSurname, newAssistantBday, newAtention, null);
                     } catch (Exception e) {
                         DisplayException.handleException(e);
                         break;

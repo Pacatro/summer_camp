@@ -327,6 +327,8 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
         Connection conn = connDB.getConnection();
         PreparedStatement ps = conn.prepareStatement(sql);
 
+        ps.setInt(1, id);
+
         if(!ps.execute())
             throw new DataException("No se han podido seleccionar los campamentos.");
 

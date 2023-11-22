@@ -13,7 +13,9 @@
 		</header>
 
 		<main>
-			<button>Acceder</button>
+			<button>
+				<a href="./mvc/view/loginView.jsp">Acceder</a>
+			</button>
 			<button>Registrarse</button>
 		</main>
 

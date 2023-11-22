@@ -6,7 +6,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Acceso</title>
+		<title>Registrarse</title>
 	</head>
 	<body>
 		<%
@@ -16,7 +16,7 @@
 				a) Hay parámetros en el request  -> procede del controlador /con mensaje 
 				b) No hay parámetros en el request -> procede del controlador /sin mensaje
 		*/
-		String nextPage = "../controller/loginController.jsp";
+		String nextPage = "../controller/signupController.jsp";
 		String messageNextPage = request.getParameter("message");
 		if (messageNextPage == null) messageNextPage = "";
 
@@ -26,7 +26,7 @@
 		} else { %>
 			<%= messageNextPage %><br/><br/>
 			<h1>Acceso</h1>
-			<form method="post" action="../controller/loginController.jsp">
+			<form method="post" action="../controller/signupController.jsp">
 				<label for="name">Nombre: </label>
 				<input type="text" name="name" value=""><br/>
 				<label for="email">Email: </label>

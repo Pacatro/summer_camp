@@ -2,7 +2,9 @@ package es.uco.pw.display;
 
 import java.util.Scanner;
 
-import es.uco.pw.business.managers.CampamentsManager;
+import es.uco.pw.business.common.userType.UserType;
+import es.uco.pw.business.managers.UserManager;
+import es.uco.pw.business.user.UserDTO;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -12,10 +14,9 @@ public class Main {
 
         //menu.mainMenu();
 
-        CampamentsManager manager = new CampamentsManager();
-
-        System.out.println("Completas: " + manager.getNumInscriptionsC(1));
-        System.out.println("Parciales: " + manager.getNumInscriptionsP(1));
+        UserManager manager = new UserManager();
+        UserDTO user = new UserDTO("juan@example.com", "Pepe", "password", UserType.ADMIN);
+        manager.signup(user);
     }
 
 }

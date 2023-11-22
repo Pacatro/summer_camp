@@ -75,12 +75,13 @@ public class UserDAO implements IDAO<UserDTO,String>{
 
         ps.setString(1, id);
 
-        if(!ps.execute())
+        UserDTO user = null;
+
+        if(!ps.execute()){
             throw new DataException("No existe ningun usuario con email: " + id + ".");
+        }
 
         ResultSet rs = ps.executeQuery();
-
-        UserDTO user = null;
 
         while(rs.next()){
             user = new UserDTO(rs.getString("email"), rs.getString("name"), rs.getString("password"), UserType.valueOf(rs.getString("type")));

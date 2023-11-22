@@ -14,7 +14,8 @@ public class Main {
 
         CampamentsManager manager = new CampamentsManager();
 
-        System.out.println(manager.getNumInscriptions(1));
+        System.out.println("Completas: " + manager.getNumInscriptionsC(1));
+        System.out.println("Parciales: " + manager.getNumInscriptionsP(1));
     }
 
 }

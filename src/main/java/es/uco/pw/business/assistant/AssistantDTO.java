@@ -13,17 +13,19 @@ public class AssistantDTO {
 	private String surname;
 	private LocalDate date;
 	private boolean atention;
+	private String email;
 
 	/*Constructores*/
 
 	public AssistantDTO(){}
 
-	public AssistantDTO(int id, String name, String surname, LocalDate date, boolean atention){
+	public AssistantDTO(int id, String name, String surname, LocalDate date, boolean atention, String email){
 		this.id=id;
 		this.name=name;
 		this.surname=surname;
 		this.date=date;
 		this.atention=atention;
+		this.email=email;
 	}
 
 	/*get/set */
@@ -48,6 +50,10 @@ public class AssistantDTO {
 		return atention;
 	}
 
+	public String getEmail(){
+		return email;
+	}
+
 	public void setId(int id){
 		this.id = id;
 	}
@@ -68,10 +74,14 @@ public class AssistantDTO {
 		this.atention = atention;
 	}
 
+	public void setEmail(String email){
+		this.email = email;
+	}
+
 	/* To String */
 
 	public String toString() {
-		String personInfo = "Nombre: " + this.name + " " + this.surname + ". Fecha nacimiento " + this.date + ", id " + this.id; // Another way to concat strings
+		String personInfo = "Nombre: " + this.name + " " + this.surname + ". Fecha nacimiento " + this.date + ", id " + this.id + ", correo " + this.email; // Another way to concat strings
 		
 		return personInfo;
 	}

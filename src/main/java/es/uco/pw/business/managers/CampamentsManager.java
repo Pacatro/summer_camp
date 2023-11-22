@@ -239,4 +239,9 @@ public class CampamentsManager {
 
         return campament;
     }
+
+    public int getNumInscriptions(int camp_id) throws Exception{
+        CampamentDAO campamentDAO = new CampamentDAO();
+        return campamentDAO.getNumInscriptions(camp_id);
+    }
 }

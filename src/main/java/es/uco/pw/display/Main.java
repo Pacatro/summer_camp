@@ -2,7 +2,7 @@ package es.uco.pw.display;
 
 import java.util.Scanner;
 
-import es.uco.pw.business.managers.AssistantManager;
+import es.uco.pw.business.managers.CampamentsManager;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -12,9 +12,9 @@ public class Main {
 
         //menu.mainMenu();
 
-        AssistantManager manager = new AssistantManager();
+        CampamentsManager manager = new CampamentsManager();
 
-        System.out.println(manager.getCampaments("maria@example.com"));
+        System.out.println(manager.getNumInscriptions(1));
     }
 
 }

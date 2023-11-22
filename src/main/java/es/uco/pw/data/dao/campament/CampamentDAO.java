@@ -352,6 +352,31 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
         return campaments;
     }
 
+    public int getNumInscriptions(int camp_id) throws Exception{
+        Properties properties = new Properties();
+        properties.load(new FileInputStream("sql.properties"));
+        String sql = properties.getProperty("GET_NUMINSCRIP_CAMP");
+
+        ConnectionDB connDB = new ConnectionDB();
+
+        Connection conn = connDB.getConnection();
+        PreparedStatement ps = conn.prepareStatement(sql);
+
+        ps.setInt(1, camp_id);
+
+        if(!ps.execute())
+            throw new DataException("No se han podido contar las inscripciones.");
+
+        ResultSet rs = ps.executeQuery();
+        int count = 0;
+
+        while(rs.next()){
+            count = rs.getInt("count(ass_id)");
+        }
+
+        return count;
+    }
+
     @Override
     public void update(CampamentDTO campamentDTO) throws Exception { throw new UnsupportedOperationException("Unimplemented method 'update'"); }
 }

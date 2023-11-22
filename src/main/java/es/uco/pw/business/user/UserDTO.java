@@ -62,4 +62,8 @@ public class UserDTO {
         this.type = type;
     }
 
+    public String toString(){
+        return "Usuario con nombre " + this.name + ", correo " + this.email + ", contraseña " + this.password + " y de tipo " + this.type;
+    }
+
 }

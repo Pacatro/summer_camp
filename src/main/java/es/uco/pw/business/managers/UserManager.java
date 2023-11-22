@@ -1,6 +1,5 @@
 package es.uco.pw.business.managers;
 
-import es.uco.pw.business.common.exceptions.BusinessException;
 import es.uco.pw.business.user.UserDTO;
 import es.uco.pw.data.dao.user.UserDAO;
 
@@ -9,10 +8,38 @@ public class UserManager {
         UserDAO dao = new UserDAO();
 
         if(dao.getById(user.getEmail()) != null){
-            throw new BusinessException("Ya existe un usuario con mail " + user.getEmail());
+            return false;
         }
 
         dao.insert(user);
+
+        return true;
+    }
+
+    public boolean signin(String email, String password) throws Exception{
+        UserDAO dao = new UserDAO();
+        UserDTO user = dao.getById(email);
+
+        if(user == null){
+            return false;
+        }
+        
+        if(user.getPassword() != password){
+            return false;
+        }
+
+        return true;
+
+    }
+
+    public boolean update(UserDTO user) throws Exception{
+        UserDAO dao = new UserDAO();
+
+        if(dao.getById(user.getEmail()) != null){
+            return false;
+        }
+
+        dao.update(user);
 
         return true;
     }

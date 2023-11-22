@@ -12,7 +12,7 @@
 </head>
 <body>
 
-    <h1>Hola mundo</h1>
+    <h1>Hola mundo :D</h1>
 
     <%
 		ArrayList<String> cars = new ArrayList<String>();

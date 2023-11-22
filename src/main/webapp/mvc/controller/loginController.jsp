@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import ="es.uco.pw.business.user.User,es.uco.pw.data.dao.UserDAO" %>
-<jsp:useBean  id="customerBean" scope="session" class="es.uco.pw.display.javabean.CustomerBean"></jsp:useBean>
+<jsp:useBean  id="customerBean" scope="session" class="es.uco.pw.display.javabeans.CustomerBean"></jsp:useBean>
 <%
 /* Posibles flujos:
 	1) customerBean está logado (!= null && != "") -> Se redirige al index.jsp
@@ -46,6 +46,7 @@ if (customerBean == null || customerBean.getEmailUser().equals("")) {
 	}
 }
 %>
+
 <jsp:forward page="<%=nextPage%>">
 	<jsp:param value="<%=mensajeNextPage%>" name="message"/>
 </jsp:forward>

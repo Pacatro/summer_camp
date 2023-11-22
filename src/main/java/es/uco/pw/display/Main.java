@@ -1,5 +1,7 @@
 package es.uco.pw.display;
 
+import java.io.FileInputStream;
+import java.util.Properties;
 import java.util.Scanner;
 
 import es.uco.pw.business.common.userType.UserType;
@@ -10,12 +12,17 @@ public class Main {
     public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
 
-        Menu menu = new Menu(scanner);
+        //Menu menu = new Menu(scanner);
 
         //menu.mainMenu();
 
-        UserManager manager = new UserManager();
-        UserDTO user = new UserDTO("juan@example.com", "Juan", "password", UserType.ADMIN);
+        Properties sql_properties = new Properties();
+        sql_properties.load(new FileInputStream("src/main/webapp/WEB-INF/sql.properties"));
+        Properties config_properties = new Properties();
+        config_properties.load(new FileInputStream("src/main/webapp/WEB-INF/config.properties"));
+
+        UserManager manager = new UserManager(sql_properties, config_properties);
+        UserDTO user = new UserDTO("juan@example.com", "Pepe", "password", UserType.ADMIN);
         System.out.println(manager.update(user));
     }
 

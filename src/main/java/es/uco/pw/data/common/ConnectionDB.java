@@ -1,6 +1,5 @@
 package es.uco.pw.data.common;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
@@ -25,9 +24,8 @@ public class ConnectionDB {
      * @throws FileNotFoundException If the configuration file is not found.
      * @throws IOException If an I/O error occurs.
      */
-    public ConnectionDB() throws FileNotFoundException, IOException {
-        this.configProperties = new Properties();
-        this.configProperties.load(new FileInputStream("src/main/webapp/WEB-INF/config.properties"));
+    public ConnectionDB(Properties configProperties) throws FileNotFoundException, IOException {
+        this.configProperties = configProperties;
 
         this.conn = null;
         this.host = this.configProperties.getProperty("DB_HOST");

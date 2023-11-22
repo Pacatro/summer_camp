@@ -4,7 +4,6 @@
 <%@ page import = "es.uco.pw.business.campament.CampamentDTO"%>
 <%@ page import = "es.uco.pw.data.dao.campament.CampamentDAO"%>
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +11,17 @@
     <title>Panel de Administrador</title>
 </head>
 <body>
+
+    <%
+        String file = application.getInitParameter("sqlproperties");
+        String file1 = application.getInitParameter("configproperties");
+        java.io.InputStream myIO = application.getResourceAsStream(file);
+        java.io.InputStream myIO1 = application.getResourceAsStream(file1);
+        java.util.Properties prop = new java.util.Properties();
+        java.util.Properties prop1 = new java.util.Properties();
+        prop.load(myIO);
+        prop1.load(myIO1);
+    %>
 
     <h2>Lista de Campamentos</h2>
     <table border="1">
@@ -23,7 +33,7 @@
         </thead>
         <tbody>
             <%
-            CampamentDAO campamentDAO = new CampamentDAO();
+            CampamentDAO campamentDAO = new CampamentDAO(prop, prop1);
             ArrayList<CampamentDTO> campaments = campamentDAO.getAll();
             //customerBean.setCampaments(campaments);
             %>

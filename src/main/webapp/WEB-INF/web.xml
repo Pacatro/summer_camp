@@ -12,6 +12,8 @@
   <context-param>
     <param-name>sqlproperties</param-name>
     <param-value>/WEB-INF/sql.properties</param-value>
+  </context-param>
+  <context-param>
     <param-name>configproperties</param-name>
     <param-value>/WEB-INF/config.properties</param-value>
   </context-param>

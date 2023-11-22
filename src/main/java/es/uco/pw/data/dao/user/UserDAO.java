@@ -1,6 +1,5 @@
 package es.uco.pw.data.dao.user;
 
-import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,13 +13,19 @@ import es.uco.pw.data.common.DataException;
 import es.uco.pw.data.common.IDAO;
 
 public class UserDAO implements IDAO<UserDTO,String>{
+    private Properties sql_properties;
+    private Properties config_properties;
+
+    public UserDAO(Properties sql_properties, Properties config_properties){
+        this.sql_properties = sql_properties;
+        this.config_properties = config_properties;
+    }
+    
     @Override
     public void insert(UserDTO dto) throws Exception {
-        Properties properties = new Properties();
-        properties.load(new FileInputStream("src/main/webapp/WEB-INF/sql.properties"));
-        String sql = properties.getProperty("INSERT_USER");
+        String sql = sql_properties.getProperty("INSERT_USER");
 
-        ConnectionDB connDB = new ConnectionDB();
+        ConnectionDB connDB = new ConnectionDB(config_properties);
         Connection conn = connDB.getConnection();
 
         PreparedStatement ps = conn.prepareStatement(sql);
@@ -40,13 +45,10 @@ public class UserDAO implements IDAO<UserDTO,String>{
 
     @Override
     public void update(UserDTO dto) throws Exception {
-        Properties properties = new Properties();
-        properties.load(new FileInputStream("src/main/webapp/WEB-INF/sql.properties"));
-
-        ConnectionDB connDB = new ConnectionDB();
+        ConnectionDB connDB = new ConnectionDB(config_properties);
         Connection conn = connDB.getConnection();
 
-        String sql = properties.getProperty("UPDATE_USER");
+        String sql = sql_properties.getProperty("UPDATE_USER");
         PreparedStatement ps = conn.prepareStatement(sql);
 
         ps.setString(1, dto.getName());
@@ -64,13 +66,10 @@ public class UserDAO implements IDAO<UserDTO,String>{
 
     @Override
     public UserDTO getById(String id) throws Exception {
-        Properties properties = new Properties();
-        properties.load(new FileInputStream("src/main/webapp/WEB-INF/sql.properties"));
-
-        ConnectionDB connDB = new ConnectionDB();
+        ConnectionDB connDB = new ConnectionDB(config_properties);
         Connection conn = connDB.getConnection();
 
-        String sql = properties.getProperty("GETBYID_USER");
+        String sql = sql_properties.getProperty("GETBYID_USER");
         PreparedStatement ps = conn.prepareStatement(sql);
 
         ps.setString(1, id);

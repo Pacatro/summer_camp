@@ -2,7 +2,6 @@ package es.uco.pw.data.dao.monitor;
 
 import java.util.ArrayList;
 import java.util.Properties;
-import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,16 +15,20 @@ import es.uco.pw.data.common.IDAO;
  * Manage the data from the monitors table
  */
 public class MonitorDAO implements IDAO<MonitorDTO,Integer>{
-    public MonitorDAO(){}
+    private Properties sql_properties;
+    private Properties config_properties;
+    
+    public MonitorDAO(Properties sql_properties, Properties config_properties){
+        this.sql_properties = sql_properties;
+        this.config_properties = config_properties;
+    }
 
     @Override
     public void insert(MonitorDTO monitor) throws Exception{
         try{
-            Properties properties = new Properties();
-            properties.load(new FileInputStream("src/main/webapp/WEB-INF/sql.properties"));
-            String sql = properties.getProperty("INSERT_MONITOR");
+            String sql = sql_properties.getProperty("INSERT_MONITOR");
 
-            ConnectionDB connDB = new ConnectionDB();
+            ConnectionDB connDB = new ConnectionDB(config_properties);
             Connection conn = connDB.getConnection();
 
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -47,11 +50,9 @@ public class MonitorDAO implements IDAO<MonitorDTO,Integer>{
     @Override
     public MonitorDTO getById(Integer id) throws Exception{
         try{
-            Properties properties = new Properties();
-            properties.load(new FileInputStream("src/main/webapp/WEB-INF/sql.properties"));
-            String sql = properties.getProperty("GETBYID_MONITOR");
+            String sql = sql_properties.getProperty("GETBYID_MONITOR");
 
-            ConnectionDB connDB = new ConnectionDB();
+            ConnectionDB connDB = new ConnectionDB(config_properties);
 
             Connection conn = connDB.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -79,11 +80,9 @@ public class MonitorDAO implements IDAO<MonitorDTO,Integer>{
     @Override
     public ArrayList<MonitorDTO> getAll() throws Exception{
         try{
-            Properties properties = new Properties();
-            properties.load(new FileInputStream("src/main/webapp/WEB-INF/sql.properties"));
-            String sql = properties.getProperty("GETALL_MONITOR");
+            String sql = sql_properties.getProperty("GETALL_MONITOR");
 
-            ConnectionDB connDB = new ConnectionDB();
+            ConnectionDB connDB = new ConnectionDB(config_properties);
 
             Connection conn = connDB.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);

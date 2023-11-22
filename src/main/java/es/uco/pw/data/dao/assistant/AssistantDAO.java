@@ -1,6 +1,5 @@
 package es.uco.pw.data.dao.assistant;
 
-import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.time.LocalDate;
@@ -18,19 +17,22 @@ import es.uco.pw.data.common.IDAO;
  * Manage the data from the assitants table
  */
 public class AssistantDAO implements IDAO<AssistantDTO, Integer> {
-    public AssistantDAO(){}
+    private Properties sql_properties;
+    private Properties config_properties;
+    
+    public AssistantDAO(Properties sql_properties, Properties config_properties){
+        this.sql_properties = sql_properties;
+        this.config_properties = config_properties;
+    }
 
     @Override
     public void insert(AssistantDTO assistantDTO) throws Exception{
         try{
-            Properties properties= new Properties();
-            properties.load(new FileInputStream("src/main/webapp/WEB-INF/sql.properties"));
-
-            ConnectionDB connDB = new ConnectionDB();
+            ConnectionDB connDB = new ConnectionDB(config_properties);
 
             Connection conn = connDB.getConnection();
 
-            String sql= properties.getProperty("INSERT_ASSISTANT");
+            String sql= sql_properties.getProperty("INSERT_ASSISTANT");
             PreparedStatement ps = conn.prepareStatement(sql);
             
             ps.setInt(1, assistantDTO.getId());
@@ -54,14 +56,11 @@ public class AssistantDAO implements IDAO<AssistantDTO, Integer> {
     public AssistantDTO getById(Integer idDTO) throws Exception{
         
         try{
-            Properties properties= new Properties();
-            properties.load(new FileInputStream("src/main/webapp/WEB-INF/sql.properties"));
-
-            ConnectionDB connDB = new ConnectionDB();
+            ConnectionDB connDB = new ConnectionDB(config_properties);
 
             Connection conn = connDB.getConnection();
             
-            String sql= properties.getProperty("GETBYID_ASSISTANT");
+            String sql= sql_properties.getProperty("GETBYID_ASSISTANT");
             PreparedStatement ps = conn.prepareStatement(sql);
             
             ps.setInt(1, idDTO.intValue());
@@ -86,14 +85,11 @@ public class AssistantDAO implements IDAO<AssistantDTO, Integer> {
     @Override
     public void update(AssistantDTO assistantDTO) throws Exception{
         try{
-            Properties properties= new Properties();
-            properties.load(new FileInputStream("src/main/webapp/WEB-INF/sql.properties"));
-
-            ConnectionDB connDB = new ConnectionDB();
+            ConnectionDB connDB = new ConnectionDB(config_properties);
 
             Connection conn = connDB.getConnection();
 
-            String sql= properties.getProperty("UPDATE_ASSISTANT");
+            String sql= sql_properties.getProperty("UPDATE_ASSISTANT");
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ps.setString(1, assistantDTO.getName());
@@ -116,14 +112,11 @@ public class AssistantDAO implements IDAO<AssistantDTO, Integer> {
     @Override
     public ArrayList<AssistantDTO> getAll() throws Exception { 
         try{
-            Properties properties= new Properties();
-            properties.load(new FileInputStream("src/main/webapp/WEB-INF/sql.properties"));
-
-            ConnectionDB connDB = new ConnectionDB();
+            ConnectionDB connDB = new ConnectionDB(config_properties);
 
             Connection conn = connDB.getConnection();
             
-            String sql= properties.getProperty("GETALL_ASSISTANT");
+            String sql= sql_properties.getProperty("GETALL_ASSISTANT");
             PreparedStatement ps = conn.prepareStatement(sql);
             
             if(!ps.execute())
@@ -151,13 +144,10 @@ public class AssistantDAO implements IDAO<AssistantDTO, Integer> {
     }
 
     public AssistantDTO getByEmail(String email) throws Exception{
-        Properties properties= new Properties();
-        properties.load(new FileInputStream("src/main/webapp/WEB-INF/sql.properties"));
-
-        ConnectionDB connDB = new ConnectionDB();
+        ConnectionDB connDB = new ConnectionDB(config_properties);
         Connection conn = connDB.getConnection();
         
-        String sql= properties.getProperty("GET_ASSISTANT_EMAIL");
+        String sql= sql_properties.getProperty("GET_ASSISTANT_EMAIL");
         PreparedStatement ps = conn.prepareStatement(sql);
         
         ps.setString(1, email);

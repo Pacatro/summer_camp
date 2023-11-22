@@ -16,7 +16,7 @@ public class Main {
 
         UserManager manager = new UserManager();
         UserDTO user = new UserDTO("juan@example.com", "Pepe", "password", UserType.ADMIN);
-        manager.signup(user);
+        System.out.println(manager.update(user));
     }
 
 }

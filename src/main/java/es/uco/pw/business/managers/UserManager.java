@@ -24,7 +24,7 @@ public class UserManager {
             return false;
         }
         
-        if(user.getPassword() != password){
+        if(!user.getPassword().equals(password)){
             return false;
         }
 
@@ -35,7 +35,7 @@ public class UserManager {
     public boolean update(UserDTO user) throws Exception{
         UserDAO dao = new UserDAO();
 
-        if(dao.getById(user.getEmail()) != null){
+        if(dao.getById(user.getEmail()) == null){
             return false;
         }
 

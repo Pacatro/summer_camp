@@ -23,9 +23,9 @@
                 </thead>
                 <tbody>
                     <!-- Itera sobre la lista de campamentos y muestra la información -->
-                    <c:forEach var="campamento" items="${campaments}">
+                    <c:forEach var="campaments" items="${campaments}">
                         <tr>
-                            <td>${campamento.id}</td>
+                            <td>${campaments.id}</td>
                         </tr>
                     </c:forEach>
                 </tbody>

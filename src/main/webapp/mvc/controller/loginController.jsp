@@ -29,9 +29,7 @@ if (customerBean == null || customerBean.getEmailUser().equals("")) {
 			// Usuario válido		
 			CampamentDAO campamentDAO = new CampamentDAO();
             List<campaments> campaments = campamentDAO.getAll();
-            
-            // Establecer la variable campamentos en el customerBean
-            customerBean.setCampaments(campaments);
+			customerBean.setCampamentos(campamentos);
 
 %>
 <jsp:setProperty property="emailUser" value="<%=emailUser%>" name="customerBean"/>

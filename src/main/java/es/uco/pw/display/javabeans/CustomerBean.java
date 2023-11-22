@@ -1,6 +1,6 @@
 package es.uco.pw.display.javabeans;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import es.uco.pw.business.campament.CampamentDTO;
 import es.uco.pw.business.common.userType.UserType;
@@ -15,7 +15,7 @@ public class CustomerBean implements java.io.Serializable {
 	private String emailUser = "";
 	private UserType type = UserType.ASSISTANT, type2 = UserType.ADMIN;
 
-	private List<CampamentDTO> campaments;
+	private ArrayList<CampamentDTO> campaments;
 	/**
      * Gets the customer's email address.
      *
@@ -38,7 +38,7 @@ public class CustomerBean implements java.io.Serializable {
 		return type2;
 	}
 
-	public List<CampamentDTO> getCampaments() {
+	public ArrayList<CampamentDTO> getCampaments() {
         return campaments;
     }
 
@@ -64,7 +64,7 @@ public class CustomerBean implements java.io.Serializable {
 		this.type2 = type2;
 	}
 
-	public void setCampaments(List<CampamentDTO> campaments) {
+	public void setCampaments(ArrayList<CampamentDTO> campaments) {
         this.campaments = campaments;
     }
 }

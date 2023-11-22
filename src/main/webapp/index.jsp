@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Prueba de MVC</title>
+		<title>Summer Camp</title>
 		<link href="./styles/index.css" rel="stylesheet" />
 	</head>
 	<body>

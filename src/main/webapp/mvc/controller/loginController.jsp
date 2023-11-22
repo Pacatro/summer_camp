@@ -27,6 +27,10 @@ if (customerBean == null || customerBean.getEmailUser().equals("")) {
 		//Aquí sólo comprobamos que exista el usuario
 		if (user != null && user.getEmail().equalsIgnoreCase(emailUser)) {
 			// Usuario válido		
+			CampamentDAO campamentDAO = new CampamentDAO();
+            List<campaments> campaments = campamentDAO.getAll();
+			customerBean.setCampamentos(campamentos);
+
 %>
 <jsp:setProperty property="emailUser" value="<%=emailUser%>" name="customerBean"/>
 <%

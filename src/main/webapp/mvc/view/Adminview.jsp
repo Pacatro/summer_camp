@@ -17,10 +17,10 @@
         String file1 = application.getInitParameter("configproperties");
         java.io.InputStream myIO = application.getResourceAsStream(file);
         java.io.InputStream myIO1 = application.getResourceAsStream(file1);
-        java.util.Properties prop = new java.util.Properties();
-        java.util.Properties prop1 = new java.util.Properties();
-        prop.load(myIO);
-        prop1.load(myIO1);
+        java.util.Properties sqlprop = new java.util.Properties();
+        java.util.Properties configprop = new java.util.Properties();
+        sqlprop.load(myIO);
+        configprop.load(myIO1);
     %>
 
     <h2>Lista de Campamentos</h2>
@@ -33,7 +33,7 @@
         </thead>
         <tbody>
             <%
-            CampamentDAO campamentDAO = new CampamentDAO(prop, prop1);
+            CampamentDAO campamentDAO = new CampamentDAO(sqlprop, configprop);
             ArrayList<CampamentDTO> campaments = campamentDAO.getAll();
             //customerBean.setCampaments(campaments);
             %>

@@ -1,8 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%-- <%@ page import="es.uco.pw.business.activity.ActivityDTO" %>
-<%@ page import="es.uco.pw.business.common.level.Level" %>
-<%@ page import="es.uco.pw.business.common.schedule.Schedule" %>
-<%@ page import="java.util.ArrayList" %> --%>
 
 <!DOCTYPE html>
 <html>

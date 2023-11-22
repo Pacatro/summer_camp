@@ -27,7 +27,7 @@ public class ConnectionDB {
      */
     public ConnectionDB() throws FileNotFoundException, IOException {
         this.configProperties = new Properties();
-        this.configProperties.load(new FileInputStream("config.properties"));
+        this.configProperties.load(new FileInputStream("src/main/webapp/WEB-INF/config.properties"));
 
         this.conn = null;
         this.host = this.configProperties.getProperty("DB_HOST");

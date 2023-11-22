@@ -27,7 +27,7 @@ public class ParcialInscriptionDAO implements IDAO<ParcialInscriptionDTO, Intege
     @Override
     public void insert(ParcialInscriptionDTO parcialInscriptionDTO) throws Exception {
         Properties sqlProperties = new Properties();
-        sqlProperties.load(new FileInputStream("sql.properties"));
+        sqlProperties.load(new FileInputStream("src/main/webapp/WEB-INF/sql.properties"));
 
         try {
             ConnectionDB connDB = new ConnectionDB();

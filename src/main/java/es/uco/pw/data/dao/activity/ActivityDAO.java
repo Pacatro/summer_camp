@@ -26,7 +26,7 @@ public class ActivityDAO implements IDAO<ActivityDTO,String>{
     public void insert(ActivityDTO activity) throws Exception{
         try{
             Properties properties = new Properties();
-            properties.load(new FileInputStream("sql.properties"));
+            properties.load(new FileInputStream("src/main/webapp/WEB-INF/sql.properties"));
             String sql = properties.getProperty("INSERT_ACTIVITY");
 
             ConnectionDB connDB = new ConnectionDB();
@@ -73,7 +73,7 @@ public class ActivityDAO implements IDAO<ActivityDTO,String>{
     public void addMonitor(String act_id, int mon_id) throws Exception{
         try {
             Properties properties = new Properties();
-            properties.load(new FileInputStream("sql.properties"));
+            properties.load(new FileInputStream("src/main/webapp/WEB-INF/sql.properties"));
             String sql = properties.getProperty("INSERT_ACTIVITY_MONITOR");
 
             ConnectionDB connDB = new ConnectionDB();
@@ -103,7 +103,7 @@ public class ActivityDAO implements IDAO<ActivityDTO,String>{
         
         try{
             Properties properties = new Properties();
-            properties.load(new FileInputStream("sql.properties"));
+            properties.load(new FileInputStream("src/main/webapp/WEB-INF/sql.properties"));
             String sql = properties.getProperty("GETBYID_MONITOR_IN_ACTIVITY");
             
             ConnectionDB connDB = new ConnectionDB();
@@ -141,7 +141,7 @@ public class ActivityDAO implements IDAO<ActivityDTO,String>{
     public boolean isMonitorsFull(String act_id) throws Exception{
         try{
             Properties properties = new Properties();
-            properties.load(new FileInputStream("sql.properties"));
+            properties.load(new FileInputStream("src/main/webapp/WEB-INF/sql.properties"));
             String sql = properties.getProperty("GET_NUMMONITORS_ACTIVITY");
 
             ConnectionDB connDB = new ConnectionDB();
@@ -174,7 +174,7 @@ public class ActivityDAO implements IDAO<ActivityDTO,String>{
     public ArrayList<ActivityDTO> getAll() throws Exception{
         try{
             Properties properties = new Properties();
-            properties.load(new FileInputStream("sql.properties"));
+            properties.load(new FileInputStream("src/main/webapp/WEB-INF/sql.properties"));
             String sql = properties.getProperty("GETALL_ACTIVITY");
 
             ConnectionDB connDB = new ConnectionDB();
@@ -212,7 +212,7 @@ public class ActivityDAO implements IDAO<ActivityDTO,String>{
     public ActivityDTO getById(String id) throws Exception{
         try{
             Properties properties = new Properties();
-            properties.load(new FileInputStream("sql.properties"));
+            properties.load(new FileInputStream("src/main/webapp/WEB-INF/sql.properties"));
             String sql = properties.getProperty("GETBYID_ACTIVITY");
             
             ConnectionDB connDB = new ConnectionDB();

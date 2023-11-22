@@ -27,7 +27,7 @@ public class CompleteInscriptionDAO implements IDAO<CompleteInscriptionDTO, Inte
     @Override
     public void insert(CompleteInscriptionDTO completeInscriptionDTO) throws Exception {
         Properties sqlProperties = new Properties();
-        sqlProperties.load(new FileInputStream("sql.properties"));
+        sqlProperties.load(new FileInputStream("src/main/webapp/WEB-INF/sql.properties"));
 
         try {
             ConnectionDB connDB = new ConnectionDB();

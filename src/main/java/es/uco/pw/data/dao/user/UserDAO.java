@@ -17,7 +17,7 @@ public class UserDAO implements IDAO<UserDTO,String>{
     @Override
     public void insert(UserDTO dto) throws Exception {
         Properties properties = new Properties();
-        properties.load(new FileInputStream("sql.properties"));
+        properties.load(new FileInputStream("src/main/webapp/WEB-INF/sql.properties"));
         String sql = properties.getProperty("INSERT_USER");
 
         ConnectionDB connDB = new ConnectionDB();
@@ -41,7 +41,7 @@ public class UserDAO implements IDAO<UserDTO,String>{
     @Override
     public void update(UserDTO dto) throws Exception {
         Properties properties = new Properties();
-        properties.load(new FileInputStream("sql.properties"));
+        properties.load(new FileInputStream("src/main/webapp/WEB-INF/sql.properties"));
 
         ConnectionDB connDB = new ConnectionDB();
         Connection conn = connDB.getConnection();
@@ -65,7 +65,7 @@ public class UserDAO implements IDAO<UserDTO,String>{
     @Override
     public UserDTO getById(String id) throws Exception {
         Properties properties = new Properties();
-        properties.load(new FileInputStream("sql.properties"));
+        properties.load(new FileInputStream("src/main/webapp/WEB-INF/sql.properties"));
 
         ConnectionDB connDB = new ConnectionDB();
         Connection conn = connDB.getConnection();

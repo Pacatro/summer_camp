@@ -33,7 +33,7 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
             Connection conn = connDB.getConnection();
 
             Properties properties = new Properties();
-            properties.load(new FileInputStream("sql.properties"));
+            properties.load(new FileInputStream("src/main/webapp/WEB-INF/sql.properties"));
             String sql = properties.getProperty("INSERT_CAMPAMENT");
             PreparedStatement ps = conn.prepareStatement(sql);
             
@@ -75,7 +75,7 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
             Connection conn = connDB.getConnection();
 
             Properties properties = new Properties();
-            properties.load(new FileInputStream("sql.properties"));
+            properties.load(new FileInputStream("src/main/webapp/WEB-INF/sql.properties"));
             String sql = properties.getProperty("INSERT_ACTIVITY_CAMPAMENT");
             PreparedStatement ps = conn.prepareStatement(sql);
             
@@ -105,7 +105,7 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
             Connection conn = connDB.getConnection();
 
             Properties properties = new Properties();
-            properties.load(new FileInputStream("sql.properties"));
+            properties.load(new FileInputStream("src/main/webapp/WEB-INF/sql.properties"));
             String sql = properties.getProperty("INSERT_MONITOR_CAMPAMENT");
             PreparedStatement ps = conn.prepareStatement(sql);
             
@@ -136,7 +136,7 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
             Connection conn = connDB.getConnection();
 
             Properties properties = new Properties();
-            properties.load(new FileInputStream("sql.properties"));
+            properties.load(new FileInputStream("src/main/webapp/WEB-INF/sql.properties"));
             String sql = properties.getProperty("GET_ESPECIAL_ASISTANT");
             PreparedStatement ps = conn.prepareStatement(sql);
             
@@ -160,7 +160,7 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
     public CampamentDTO getById(Integer id) throws Exception{
         try{
             Properties properties = new Properties();
-            properties.load(new FileInputStream("sql.properties"));
+            properties.load(new FileInputStream("src/main/webapp/WEB-INF/sql.properties"));
             String sql = properties.getProperty("GETBYID_CAMPAMENT");
 
             ConnectionDB connDB = new ConnectionDB();
@@ -203,7 +203,7 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
     public ArrayList<MonitorDTO> getMonitorsFromCampament(Integer id) throws Exception{
         try{
             Properties properties = new Properties();
-            properties.load(new FileInputStream("sql.properties"));
+            properties.load(new FileInputStream("src/main/webapp/WEB-INF/sql.properties"));
             String sql = properties.getProperty("GET_MONITORS_CAMPAMENT");
 
             ConnectionDB connDB = new ConnectionDB();
@@ -240,7 +240,7 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
     public ArrayList<ActivityDTO> getActivitiesFromCampament(Integer id)throws Exception{
         try{
             Properties properties = new Properties();
-            properties.load(new FileInputStream("sql.properties"));
+            properties.load(new FileInputStream("src/main/webapp/WEB-INF/sql.properties"));
             String sql = properties.getProperty("GET_ACTIVITIES_CAMPAMENT");
 
             ConnectionDB connDB = new ConnectionDB();
@@ -283,7 +283,7 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
     public ArrayList<CampamentDTO> getAll() throws Exception{
         try{
             Properties properties = new Properties();
-            properties.load(new FileInputStream("sql.properties"));
+            properties.load(new FileInputStream("src/main/webapp/WEB-INF/sql.properties"));
             String sql = properties.getProperty("GETALL_CAMPAMENTS");
 
             ConnectionDB connDB = new ConnectionDB();
@@ -319,7 +319,7 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
     public ArrayList<CampamentDTO> getByAssistant(int id) throws Exception{
 
         Properties properties = new Properties();
-        properties.load(new FileInputStream("sql.properties"));
+        properties.load(new FileInputStream("src/main/webapp/WEB-INF/sql.properties"));
         String sql = properties.getProperty("GET_CAMPAMENT_BYASSIST");
 
         ConnectionDB connDB = new ConnectionDB();
@@ -354,7 +354,7 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
 
     public int getNumInscriptionsC(int camp_id) throws Exception{
         Properties properties = new Properties();
-        properties.load(new FileInputStream("sql.properties"));
+        properties.load(new FileInputStream("src/main/webapp/WEB-INF/sql.properties"));
         String sql = properties.getProperty("GET_NUMINSCRIP_CAMP_C");
 
         ConnectionDB connDB = new ConnectionDB();
@@ -379,7 +379,7 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
 
     public int getNumInscriptionsP(int camp_id) throws Exception{
         Properties properties = new Properties();
-        properties.load(new FileInputStream("sql.properties"));
+        properties.load(new FileInputStream("src/main/webapp/WEB-INF/sql.properties"));
         String sql = properties.getProperty("GET_NUMINSCRIP_CAMP_P");
 
         ConnectionDB connDB = new ConnectionDB();

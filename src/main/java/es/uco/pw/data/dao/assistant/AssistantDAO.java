@@ -24,7 +24,7 @@ public class AssistantDAO implements IDAO<AssistantDTO, Integer> {
     public void insert(AssistantDTO assistantDTO) throws Exception{
         try{
             Properties properties= new Properties();
-            properties.load(new FileInputStream("sql.properties"));
+            properties.load(new FileInputStream("src/main/webapp/WEB-INF/sql.properties"));
 
             ConnectionDB connDB = new ConnectionDB();
 
@@ -55,7 +55,7 @@ public class AssistantDAO implements IDAO<AssistantDTO, Integer> {
         
         try{
             Properties properties= new Properties();
-            properties.load(new FileInputStream("sql.properties"));
+            properties.load(new FileInputStream("src/main/webapp/WEB-INF/sql.properties"));
 
             ConnectionDB connDB = new ConnectionDB();
 
@@ -87,7 +87,7 @@ public class AssistantDAO implements IDAO<AssistantDTO, Integer> {
     public void update(AssistantDTO assistantDTO) throws Exception{
         try{
             Properties properties= new Properties();
-            properties.load(new FileInputStream("sql.properties"));
+            properties.load(new FileInputStream("src/main/webapp/WEB-INF/sql.properties"));
 
             ConnectionDB connDB = new ConnectionDB();
 
@@ -117,7 +117,7 @@ public class AssistantDAO implements IDAO<AssistantDTO, Integer> {
     public ArrayList<AssistantDTO> getAll() throws Exception { 
         try{
             Properties properties= new Properties();
-            properties.load(new FileInputStream("sql.properties"));
+            properties.load(new FileInputStream("src/main/webapp/WEB-INF/sql.properties"));
 
             ConnectionDB connDB = new ConnectionDB();
 
@@ -152,7 +152,7 @@ public class AssistantDAO implements IDAO<AssistantDTO, Integer> {
 
     public AssistantDTO getByEmail(String email) throws Exception{
         Properties properties= new Properties();
-        properties.load(new FileInputStream("sql.properties"));
+        properties.load(new FileInputStream("src/main/webapp/WEB-INF/sql.properties"));
 
         ConnectionDB connDB = new ConnectionDB();
         Connection conn = connDB.getConnection();

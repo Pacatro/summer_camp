@@ -22,7 +22,7 @@ public class MonitorDAO implements IDAO<MonitorDTO,Integer>{
     public void insert(MonitorDTO monitor) throws Exception{
         try{
             Properties properties = new Properties();
-            properties.load(new FileInputStream("sql.properties"));
+            properties.load(new FileInputStream("src/main/webapp/WEB-INF/sql.properties"));
             String sql = properties.getProperty("INSERT_MONITOR");
 
             ConnectionDB connDB = new ConnectionDB();
@@ -48,7 +48,7 @@ public class MonitorDAO implements IDAO<MonitorDTO,Integer>{
     public MonitorDTO getById(Integer id) throws Exception{
         try{
             Properties properties = new Properties();
-            properties.load(new FileInputStream("sql.properties"));
+            properties.load(new FileInputStream("src/main/webapp/WEB-INF/sql.properties"));
             String sql = properties.getProperty("GETBYID_MONITOR");
 
             ConnectionDB connDB = new ConnectionDB();
@@ -80,7 +80,7 @@ public class MonitorDAO implements IDAO<MonitorDTO,Integer>{
     public ArrayList<MonitorDTO> getAll() throws Exception{
         try{
             Properties properties = new Properties();
-            properties.load(new FileInputStream("sql.properties"));
+            properties.load(new FileInputStream("src/main/webapp/WEB-INF/sql.properties"));
             String sql = properties.getProperty("GETALL_MONITOR");
 
             ConnectionDB connDB = new ConnectionDB();

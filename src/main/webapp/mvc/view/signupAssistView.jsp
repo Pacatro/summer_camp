@@ -6,7 +6,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Registrarse</title>
+		<title>Registro asistente</title>
 	</head>
 	<body>
 		<%

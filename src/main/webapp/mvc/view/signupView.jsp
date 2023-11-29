@@ -27,13 +27,15 @@
 			<h1>Acceso</h1>
 			<form method="post" action="../controller/signupController.jsp">
 				<label for="name">Nombre: </label>
-					<input type="text" name="name" value=""><br/>
+					<input type="text" name="name" value="">
 				<label for="email">Email: </label>
 					<input type="text" name="email">
 				<label for="password">Contraseña: </label>
 					<input type="text" name="password">
 				<label for="type">Tipo de usuario: </label>
-					<input type="drop-down" name="type">
+					<select name="type">
+						<option value="ASSISTANT">Asistente</option>
+						<option value="ADMIN">Administrador</option>
 				<br/>
 				<input type="submit" value="Submit">
 			</form>

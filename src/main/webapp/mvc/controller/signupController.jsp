@@ -23,13 +23,22 @@
     String email = request.getParameter("email");
     String name = request.getParameter("name");
     String password = request.getParameter("password");
-    UserType type = request.getParameter("usertype");
+    String typeString = request.getParameter("type");
+    
+    UserType type;
+    if(typeString.equals("assistant")){
+        type = UserType.ASSISTANT;
+    }else{
+        type = UserType.ADMIN;
+    }
 
-    if(manager.signup(UserDTO(email, name, password, type))){
+    UserDTO user = new UserDTO(email, name, password, type);
+
+    if(manager.signup(user)){
 
 %>
-<jsp:setProperty property="emailUser" value="<%=email>" name="customerBean"/>
-<jsp:setProperty property="type" value="<%=type>" name="customerBean"/>
+<jsp:setProperty property="emailUser" value="<%=email%>" name="customerBean"/>
+<jsp:setProperty property="type" value="<%=type%>" name="customerBean"/>
 <%
 
         if(type == UserType.ASSISTANT){
@@ -47,5 +56,5 @@
 %>
 
 <jsp:forward page="<%=nextPage%>">
-    <jsp:param value="<%=messageNextPage>" name="message"/>
+    <jsp:param value="<%=messageNextPage%>" name="message"/>
 </jsp:forward>

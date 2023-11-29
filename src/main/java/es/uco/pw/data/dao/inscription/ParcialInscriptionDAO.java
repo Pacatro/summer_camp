@@ -1,7 +1,5 @@
 package es.uco.pw.data.dao.inscription;
 
-import java.io.FileInputStream;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
@@ -18,23 +16,25 @@ import es.uco.pw.data.common.IDAO;
  * It provides methods to interact with the database for parcial inscriptions.
  */
 public class ParcialInscriptionDAO implements IDAO<ParcialInscriptionDTO, Integer> {
-    
+    private Properties sql_properties;
+    private Properties config_properties;
+
     /**
      * Default constructor for the ParcialInscriptionDAO class.
      */
-    public ParcialInscriptionDAO(){}
+    public ParcialInscriptionDAO(Properties sql_properties, Properties config_properties){
+        this.sql_properties = sql_properties;
+        this.config_properties = config_properties;
+    }
 
     @Override
     public void insert(ParcialInscriptionDTO parcialInscriptionDTO) throws Exception {
-        Properties sqlProperties = new Properties();
-        sqlProperties.load(new FileInputStream("sql.properties"));
-
         try {
-            ConnectionDB connDB = new ConnectionDB();
+            ConnectionDB connDB = new ConnectionDB(config_properties);
 
             Connection conn = connDB.getConnection();
 
-            String sql = sqlProperties.getProperty("INSERT_INSCRIPTION");
+            String sql = sql_properties.getProperty("INSERT_INSCRIPTION");
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ps.setInt(1, parcialInscriptionDTO.getIdParticipant());

@@ -1,6 +1,5 @@
 package es.uco.pw.data.dao.campament;
 
-import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,20 +20,22 @@ import es.uco.pw.data.common.IDAO;
  * Manage the data from the campaments table
  */
 public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
+    private Properties sql_properties;
+    private Properties config_properties;
 
-    public CampamentDAO(){}
+    public CampamentDAO(Properties sql_properties, Properties config_properties){
+        this.sql_properties = sql_properties;
+        this.config_properties = config_properties;
+    }
     
     @Override
     public void insert(CampamentDTO campamentDTO) throws Exception{
         try{
-
-            ConnectionDB connDB = new ConnectionDB();
+            ConnectionDB connDB = new ConnectionDB(config_properties);
 
             Connection conn = connDB.getConnection();
 
-            Properties properties = new Properties();
-            properties.load(new FileInputStream("sql.properties"));
-            String sql = properties.getProperty("INSERT_CAMPAMENT");
+            String sql = sql_properties.getProperty("INSERT_CAMPAMENT");
             PreparedStatement ps = conn.prepareStatement(sql);
             
             ps.setInt(1, campamentDTO.getId());
@@ -69,14 +70,11 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
      */
     public void addActivity(int campId, String activityId) throws Exception{
         try{
-
-            ConnectionDB connDB = new ConnectionDB();
+            ConnectionDB connDB = new ConnectionDB(config_properties);
 
             Connection conn = connDB.getConnection();
 
-            Properties properties = new Properties();
-            properties.load(new FileInputStream("sql.properties"));
-            String sql = properties.getProperty("INSERT_ACTIVITY_CAMPAMENT");
+            String sql = sql_properties.getProperty("INSERT_ACTIVITY_CAMPAMENT");
             PreparedStatement ps = conn.prepareStatement(sql);
             
             ps.setString(1, activityId);
@@ -100,13 +98,11 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
      */
     public void addMonitor(int campId, int monitorId) throws Exception{
         try{
-            ConnectionDB connDB = new ConnectionDB();
+            ConnectionDB connDB = new ConnectionDB(config_properties);
 
             Connection conn = connDB.getConnection();
 
-            Properties properties = new Properties();
-            properties.load(new FileInputStream("sql.properties"));
-            String sql = properties.getProperty("INSERT_MONITOR_CAMPAMENT");
+            String sql = sql_properties.getProperty("INSERT_MONITOR_CAMPAMENT");
             PreparedStatement ps = conn.prepareStatement(sql);
             
             ps.setInt(1, campId);
@@ -130,14 +126,11 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
      */
     public boolean existsEspecialAsistant(int campId) throws Exception{
         try{
-
-            ConnectionDB connDB = new ConnectionDB();
+            ConnectionDB connDB = new ConnectionDB(config_properties);
 
             Connection conn = connDB.getConnection();
 
-            Properties properties = new Properties();
-            properties.load(new FileInputStream("sql.properties"));
-            String sql = properties.getProperty("GET_ESPECIAL_ASISTANT");
+            String sql = sql_properties.getProperty("GET_ESPECIAL_ASISTANT");
             PreparedStatement ps = conn.prepareStatement(sql);
             
             ps.setInt(1, campId);
@@ -159,11 +152,9 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
     @Override
     public CampamentDTO getById(Integer id) throws Exception{
         try{
-            Properties properties = new Properties();
-            properties.load(new FileInputStream("sql.properties"));
-            String sql = properties.getProperty("GETBYID_CAMPAMENT");
+            String sql = sql_properties.getProperty("GETBYID_CAMPAMENT");
 
-            ConnectionDB connDB = new ConnectionDB();
+            ConnectionDB connDB = new ConnectionDB(config_properties);
 
             Connection conn = connDB.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -202,11 +193,9 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
      */
     public ArrayList<MonitorDTO> getMonitorsFromCampament(Integer id) throws Exception{
         try{
-            Properties properties = new Properties();
-            properties.load(new FileInputStream("sql.properties"));
-            String sql = properties.getProperty("GET_MONITORS_CAMPAMENT");
+            String sql = sql_properties.getProperty("GET_MONITORS_CAMPAMENT");
 
-            ConnectionDB connDB = new ConnectionDB();
+            ConnectionDB connDB = new ConnectionDB(config_properties);
 
             Connection conn = connDB.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -239,11 +228,9 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
      */
     public ArrayList<ActivityDTO> getActivitiesFromCampament(Integer id)throws Exception{
         try{
-            Properties properties = new Properties();
-            properties.load(new FileInputStream("sql.properties"));
-            String sql = properties.getProperty("GET_ACTIVITIES_CAMPAMENT");
+            String sql = sql_properties.getProperty("GET_ACTIVITIES_CAMPAMENT");
 
-            ConnectionDB connDB = new ConnectionDB();
+            ConnectionDB connDB = new ConnectionDB(config_properties);
 
             Connection conn = connDB.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -282,11 +269,9 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
     @Override
     public ArrayList<CampamentDTO> getAll() throws Exception{
         try{
-            Properties properties = new Properties();
-            properties.load(new FileInputStream("sql.properties"));
-            String sql = properties.getProperty("GETALL_CAMPAMENTS");
+            String sql = sql_properties.getProperty("GETALL_CAMPAMENTS");
 
-            ConnectionDB connDB = new ConnectionDB();
+            ConnectionDB connDB = new ConnectionDB(config_properties);
 
             Connection conn = connDB.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -317,12 +302,9 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
     }
 
     public ArrayList<CampamentDTO> getByAssistant(int id) throws Exception{
+        String sql = sql_properties.getProperty("GET_CAMPAMENT_BYASSIST");
 
-        Properties properties = new Properties();
-        properties.load(new FileInputStream("sql.properties"));
-        String sql = properties.getProperty("GET_CAMPAMENT_BYASSIST");
-
-        ConnectionDB connDB = new ConnectionDB();
+        ConnectionDB connDB = new ConnectionDB(config_properties);
 
         Connection conn = connDB.getConnection();
         PreparedStatement ps = conn.prepareStatement(sql);
@@ -350,6 +332,52 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
         connDB.disconnect();
 
         return campaments;
+    }
+
+    public int getNumInscriptionsC(int camp_id) throws Exception{
+        String sql = sql_properties.getProperty("GET_NUMINSCRIP_CAMP_C");
+
+        ConnectionDB connDB = new ConnectionDB(config_properties);
+
+        Connection conn = connDB.getConnection();
+        PreparedStatement ps = conn.prepareStatement(sql);
+
+        ps.setInt(1, camp_id);
+
+        if(!ps.execute())
+            throw new DataException("No se han podido contar las inscripciones.");
+
+        ResultSet rs = ps.executeQuery();
+        int count = 0;
+
+        while(rs.next()){
+            count = rs.getInt("count(ass_id)");
+        }
+
+        return count;
+    }
+
+    public int getNumInscriptionsP(int camp_id) throws Exception{
+        String sql = sql_properties.getProperty("GET_NUMINSCRIP_CAMP_P");
+
+        ConnectionDB connDB = new ConnectionDB(config_properties);
+
+        Connection conn = connDB.getConnection();
+        PreparedStatement ps = conn.prepareStatement(sql);
+
+        ps.setInt(1, camp_id);
+
+        if(!ps.execute())
+            throw new DataException("No se han podido contar las inscripciones.");
+
+        ResultSet rs = ps.executeQuery();
+        int count = 0;
+
+        while(rs.next()){
+            count = rs.getInt("count(ass_id)");
+        }
+
+        return count;
     }
 
     @Override

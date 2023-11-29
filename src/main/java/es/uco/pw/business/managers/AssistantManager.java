@@ -1,6 +1,7 @@
 package es.uco.pw.business.managers;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Properties;
 
 import es.uco.pw.business.assistant.AssistantDTO;
 import es.uco.pw.business.campament.CampamentDTO;
@@ -13,6 +14,14 @@ import es.uco.pw.data.dao.campament.CampamentDAO;
  */
 public class AssistantManager {
 
+    private Properties sqlProperties;
+    private Properties configProperties;
+    
+    public AssistantManager(Properties sqlProperties, Properties configProperties){
+        this.configProperties = configProperties;
+        this.sqlProperties = sqlProperties;
+    }
+
     /**
      * Registers a new assistant in the system.
      *
@@ -20,7 +29,7 @@ public class AssistantManager {
      */
     public void register(AssistantDTO a)throws Exception{
         try{
-            AssistantDAO dao=new AssistantDAO();
+            AssistantDAO dao = new AssistantDAO(this.sqlProperties, this.configProperties);
             dao.insert(a);
         }catch (Exception e){ BusinessException.handleException(e); }
     }
@@ -37,7 +46,7 @@ public class AssistantManager {
      */
     public void modify(int id, String newname, String newsurname, LocalDate newdate, boolean newatention, String newemail)throws Exception{
         try{
-            AssistantDAO dao=new AssistantDAO();
+            AssistantDAO dao=new AssistantDAO(this.sqlProperties, this.configProperties);
             AssistantDTO dto=new AssistantDTO(id, newname, newsurname, newdate, newatention, newemail);
             dao.update(dto);
         }catch (Exception e){ BusinessException.handleException(e); }
@@ -51,7 +60,7 @@ public class AssistantManager {
     public ArrayList<AssistantDTO> getAll()throws Exception{
         ArrayList<AssistantDTO> register = new ArrayList<>();
         try{
-            AssistantDAO dao=new AssistantDAO();
+            AssistantDAO dao=new AssistantDAO(this.sqlProperties, this.configProperties);
             register=dao.getAll();
         }catch (Exception e){ BusinessException.handleException(e); }
         return register;
@@ -66,7 +75,7 @@ public class AssistantManager {
     public AssistantDTO getById(int id) throws Exception{
         AssistantDTO assistantDTO = new AssistantDTO();
         try {
-            AssistantDAO assistantDAO = new AssistantDAO();
+            AssistantDAO assistantDAO = new AssistantDAO(this.sqlProperties, this.configProperties);
             assistantDTO = assistantDAO.getById(id);
         } catch (Exception e) { BusinessException.handleException(e); }
         return assistantDTO;
@@ -74,10 +83,10 @@ public class AssistantManager {
 
     public ArrayList<CampamentDTO> getCampaments(String email) throws Exception{
         AssistantDTO assistantDTO = new AssistantDTO();
-        AssistantDAO assistantDAO = new AssistantDAO();
+        AssistantDAO assistantDAO = new AssistantDAO(this.sqlProperties, this.configProperties);
         assistantDTO = assistantDAO.getByEmail(email);
         
-        CampamentDAO campamentDAO = new CampamentDAO();
+        CampamentDAO campamentDAO = new CampamentDAO(this.sqlProperties, this.configProperties);
         ArrayList<CampamentDTO> campaments = campamentDAO.getByAssistant(assistantDTO.getId());
 
         return campaments;

@@ -27,10 +27,10 @@
 			<%= messageNextPage %><br/><br/>
 			<h1>Acceso</h1>
 			<form method="post" action="../controller/loginController.jsp">
-				<label for="name">Nombre: </label>
-				<input type="text" name="name" value=""><br/>
 				<label for="email">Email: </label>
-				<input type="text" name="email">	
+				<input type="text" name="email" value=""><br/>
+				<label for="password">Password: </label>
+				<input type="text" name="password">	
 				<br/>
 				<input type="submit" value="Submit">
 			</form>

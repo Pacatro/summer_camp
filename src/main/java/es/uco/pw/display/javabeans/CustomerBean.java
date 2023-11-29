@@ -9,6 +9,7 @@ import es.uco.pw.business.common.userType.UserType;
 public class CustomerBean implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 
+	private String name = "";
 	private String emailUser = "";
 	private UserType type = UserType.ASSISTANT;
 
@@ -31,6 +32,15 @@ public class CustomerBean implements java.io.Serializable {
 	}
 
 	/**
+     * Gets the user name of the customer.
+     *
+     * @return The user name of the customer.
+     */
+	public String getName() {
+		return name;
+	}
+
+	/**
      * Sets the customer's email address.
      *
      * @param emailUser The new email address of the customer.
@@ -46,5 +56,14 @@ public class CustomerBean implements java.io.Serializable {
      */
 	public void setType(UserType type) {
 		this.type = type;
+	}
+
+	/**
+     * Sets the user name of the customer.
+     *
+     * @param name The new user name of the customer.
+     */
+	public void setName(String name) {
+		this.name = name;
 	}
 }

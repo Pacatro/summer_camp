@@ -32,11 +32,12 @@
 
 			UserDTO user = userManager.getById(email);
 
-			user.getType() == UserType.ADMIN ? nextPage = "../view/Adminview.jsp"
-											 : nextPage = "../view/AssistantView.jsp";
+			nextPage = (user.getType() == UserType.ADMIN) ? "../view/Adminview.jsp"
+											 			  : "../view/AssistantView.jsp";
 			%>
 			<jsp:setProperty property="emailUser" value="<%=email%>" name="customerBean"/>
 			<jsp:setProperty property="type" value="<%=user.getType()%>" name="customerBean"/>
+			<jsp:setProperty property="name" value="<%=user.getName()%>" name="customerBean"/>
 			<%		
 		} else nextPage = "../view/loginView.jsp";
 	}

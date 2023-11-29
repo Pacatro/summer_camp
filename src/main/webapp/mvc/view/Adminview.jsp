@@ -2,7 +2,7 @@
 <jsp:useBean id="customerBean" scope="session" class="es.uco.pw.display.javabeans.CustomerBean"></jsp:useBean>
 <%@ page import ="java.util.*" %>
 <%@ page import = "es.uco.pw.business.campament.CampamentDTO"%>
-<%@ page import = "es.uco.pw.data.dao.campament.CampamentDAO"%>
+<%@ page import = "es.uco.pw.data.dao.campa.CampamentDAO"%>
 
 
 <!DOCTYPE html>

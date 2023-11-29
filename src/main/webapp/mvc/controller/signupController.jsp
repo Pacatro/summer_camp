@@ -26,7 +26,7 @@
     String typeString = request.getParameter("type");
     
     UserType type;
-    if(typeString.equals("assistant")){
+    if(typeString.equals("ASSISTANT")){
         type = UserType.ASSISTANT;
     }else{
         type = UserType.ADMIN;
@@ -42,7 +42,7 @@
 <%
 
         if(type == UserType.ASSISTANT){
-            nextPage = "../view/AssistantView.jsp";
+            nextPage = "../view/signupAssistView.jsp";
         }else{
             nextPage = "../view/Adminview.jsp";
         }

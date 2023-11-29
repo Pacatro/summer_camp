@@ -1,6 +1,7 @@
 package es.uco.pw.business.managers;
 
 import java.util.ArrayList;
+import java.util.Properties;
 
 import es.uco.pw.business.activity.ActivityDTO;
 import es.uco.pw.business.campament.CampamentDTO;
@@ -19,6 +20,14 @@ import java.time.LocalDate;
  */
 public class CampamentsManager {
     
+    private Properties sqlProperties;
+    private Properties configProperties;
+    
+    public CampamentsManager(Properties sqlProperties, Properties configProperties){
+        this.configProperties = configProperties;
+        this.sqlProperties = sqlProperties;
+    }
+
     /**
      * Creates a new activity and adds it to the list of activities.
      *
@@ -32,7 +41,7 @@ public class CampamentsManager {
     public void createActivity(String name, Level level, Schedule schedule, int max_participants, int num_monitors) throws Exception {
         try{
 
-            ActivityDAO dao = new ActivityDAO();
+            ActivityDAO dao = new ActivityDAO(this.sqlProperties, this.configProperties);
             ActivityDTO newActivity = new ActivityDTO(name, level, schedule, max_participants, num_monitors);
             dao.insert(newActivity);
             
@@ -51,7 +60,7 @@ public class CampamentsManager {
     public void createMonitor(int id, String name, String surname, boolean isEspecial) throws Exception {
         try{
 
-            MonitorDAO dao = new MonitorDAO();
+            MonitorDAO dao = new MonitorDAO(this.sqlProperties, this.configProperties);
             MonitorDTO newMonitor = new MonitorDTO(id, name, surname, isEspecial);
             dao.insert(newMonitor);
 
@@ -71,7 +80,7 @@ public class CampamentsManager {
     public void createCampaments(int id, LocalDate initDate, LocalDate finalDate, Level level ,int max_assistants) throws Exception {
         try{
             if(initDate.isBefore(finalDate)){
-            CampamentDAO dao = new CampamentDAO();
+            CampamentDAO dao = new CampamentDAO(this.sqlProperties, this.configProperties);
             CampamentDTO newCampament = new CampamentDTO(id, initDate, finalDate,max_assistants, level);
             dao.insert(newCampament);
             }
@@ -90,7 +99,7 @@ public class CampamentsManager {
     public void associateMonitorsToActivities(int monitor_id, String activity_id) throws Exception{
         //Modificada para que solo se añada un monitor
         try{
-            ActivityDAO act_dao = new ActivityDAO();
+            ActivityDAO act_dao = new ActivityDAO(this.sqlProperties, this.configProperties);
 
             if(act_dao.isMonitorsFull(activity_id)){
                 throw new Exception("Demasiados monitores para esta actividad.");
@@ -109,7 +118,7 @@ public class CampamentsManager {
     public ArrayList<ActivityDTO> getAllActivities() throws Exception{
         ArrayList<ActivityDTO> activities = new ArrayList<>();
         try{
-            ActivityDAO dao = new ActivityDAO();
+            ActivityDAO dao = new ActivityDAO(this.sqlProperties, this.configProperties);
             activities = dao.getAll();
         } catch (Exception e) { BusinessException.handleException(e); }
         
@@ -125,7 +134,7 @@ public class CampamentsManager {
         ArrayList<MonitorDTO> notEspecial = new ArrayList<MonitorDTO>();
         
         try{
-            MonitorDAO dao = new MonitorDAO();
+            MonitorDAO dao = new MonitorDAO(this.sqlProperties, this.configProperties);
             ArrayList<MonitorDTO> monitors = dao.getAll();
 
             for(MonitorDTO m: monitors){
@@ -146,8 +155,8 @@ public class CampamentsManager {
      * @throws Exception If an error occurs during the association process.
      */
     public void associateActivitiesToCampaments(int camp_id, String activityId) throws Exception {
-        CampamentDAO campamentDAO = new CampamentDAO();
-        ActivityDAO activityDAO = new ActivityDAO();
+        CampamentDAO campamentDAO = new CampamentDAO(this.sqlProperties, this.configProperties);
+        ActivityDAO activityDAO = new ActivityDAO(this.sqlProperties, this.configProperties);
         CampamentDTO campament = new CampamentDTO();
         ActivityDTO activity = new ActivityDTO();
 
@@ -173,7 +182,7 @@ public class CampamentsManager {
         ArrayList<CampamentDTO> campaments = new ArrayList<>();
         
         try{
-            CampamentDAO dao = new CampamentDAO();
+            CampamentDAO dao = new CampamentDAO(this.sqlProperties, this.configProperties);
             campaments = dao.getAll();
         } catch (Exception e) { BusinessException.handleException(e); }
 
@@ -189,7 +198,7 @@ public class CampamentsManager {
         ArrayList<MonitorDTO> monitors = new ArrayList<>();
         
         try{
-            MonitorDAO dao = new MonitorDAO();
+            MonitorDAO dao = new MonitorDAO(this.sqlProperties, this.configProperties);
             monitors = dao.getAll();
         } catch (Exception e) { BusinessException.handleException(e); }
 
@@ -205,8 +214,8 @@ public class CampamentsManager {
      * @throws Exception If an error occurs during the association process or if the monitor cannot be associated.
      */
     public void associateMonitorsToCampaments(int camp_id, int monitor_id) throws Exception {
-        MonitorDAO monitorDAO = new MonitorDAO();
-        CampamentDAO campamentDAO = new CampamentDAO();
+        MonitorDAO monitorDAO = new MonitorDAO(this.sqlProperties, this.configProperties);
+        CampamentDAO campamentDAO = new CampamentDAO(this.sqlProperties, this.configProperties);
         MonitorDTO selectedMonitor = new MonitorDTO();
         CampamentDTO selectedCampament = new CampamentDTO();
 
@@ -234,10 +243,20 @@ public class CampamentsManager {
         CampamentDTO campament = new CampamentDTO();
         
         try{
-            CampamentDAO campamentDAO = new CampamentDAO();
+            CampamentDAO campamentDAO = new CampamentDAO(this.sqlProperties, this.configProperties);
             campament = campamentDAO.getById(id);
         } catch (Exception e) { BusinessException.handleException(e); }
 
         return campament;
+    }
+
+    public int getNumInscriptionsC(int camp_id) throws Exception{
+        CampamentDAO campamentDAO = new CampamentDAO(this.sqlProperties, this.configProperties);
+        return campamentDAO.getNumInscriptionsC(camp_id);
+    }
+
+    public int getNumInscriptionsP(int camp_id) throws Exception{
+        CampamentDAO campamentDAO = new CampamentDAO(this.sqlProperties, this.configProperties);
+        return campamentDAO.getNumInscriptionsP(camp_id);
     }
 }

@@ -54,4 +54,9 @@ public class UserManager {
 
         return true;
     }
+
+    public UserDTO getById(String email) throws Exception {
+        UserDAO dao = new UserDAO(this.sqlProperties, this.configProperties);
+        return dao.getById(email);
+    }
 }

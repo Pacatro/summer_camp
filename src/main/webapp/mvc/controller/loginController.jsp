@@ -1,50 +1,45 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import ="es.uco.pw.business.user.User,es.uco.pw.data.dao.UserDAO" %>
-<jsp:useBean  id="customerBean" scope="session" class="es.uco.pw.display.javabeans.CustomerBean"></jsp:useBean>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="es.uco.pw.business.user.UserDTO,es.uco.pw.business.managers.UserManager,es.uco.pw.business.common.userType.UserType" %>
+<jsp:useBean id="customerBean" scope="session" class="es.uco.pw.display.javabeans.CustomerBean" />
+
 <%
-/* Posibles flujos:
-	1) customerBean está logado (!= null && != "") -> Se redirige al index.jsp
-	2) customerBean no está logado:
-		a) Hay parámetros en el request  -> procede de la vista 
-		b) No hay parámetros en el request -> procede de otra funcionalidad o index.jsp
-	*/
-//Caso 1: Por defecto, vuelve al index
-String nextPage = "../../index.jsp";
-String mensajeNextPage = "";
-//Caso 2
-if (customerBean == null || customerBean.getEmailUser().equals("")) {
-	String nameUser = request.getParameter("name");
-	String emailUser = request.getParameter("email");
-
-	//Caso 2.a: Hay parámetros -> procede de la VISTA
-	if (nameUser != null) {
-		//Se accede a bases de datos para obtener el usuario
-		UserDAO userDAO = new UserDAO();
-		User user = userDAO.getUserByName(nameUser);
-
-		//Se realizan todas las comprobaciones necesarias del dominio
-		//Aquí sólo comprobamos que exista el usuario
-		if (user != null && user.getEmail().equalsIgnoreCase(emailUser)) {
-			// Usuario válido		
-			CampamentDAO campamentDAO = new CampamentDAO();
-            ArrayList<CampamentDTO> campaments = campamentDAO.getAll();
-			customerBean.setCampaments(campaments);
-
+    String file = application.getInitParameter("sqlproperties");
+    String file1 = application.getInitParameter("configproperties");
+    java.io.InputStream myIO = application.getResourceAsStream(file);
+    java.io.InputStream myIO1 = application.getResourceAsStream(file1);
+    java.util.Properties sqlprop = new java.util.Properties();
+    java.util.Properties configprop = new java.util.Properties();
+    sqlprop.load(myIO);
+    configprop.load(myIO1);
 %>
-<jsp:setProperty property="emailUser" value="<%=emailUser%>" name="customerBean"/>
-<jsp:setProperty property="campaments" value="<%=campaments%>" name="customerBean"/>
+
 <%
-		} else {
-			// Usuario no válido
-			nextPage = "../view/loginView.jsp";
-			mensajeNextPage = "El usuario que ha indicado no existe o no es valido";
-		}
-	//Caso 2.b -> se debe ir a la vista por primera vez
-	} else {
-		nextPage = "../view/loginView.jsp";		
+	String nextPage = "../../index.jsp";
+	String mensajeNextPage = "";
+
+	// Caso 2
+	if (customerBean == null || customerBean.getEmailUser().equals("")) {
+		String email = request.getParameter("email");
+		String password = request.getParameter("password");
+
+		if (email != null && password != null) {
+			UserManager userManager = new UserManager(sqlprop, configprop);
+			
+			if(!userManager.signin(email, password)){
+				nextPage = "../view/error/error.html";
+				mensajeNextPage = "ERROR";
+			}
+
+			UserDTO user = userManager.getById(email);
+
+			user.getType() == UserType.ADMIN ? nextPage = "../view/Adminview.jsp"
+											 : nextPage = "../view/AssistantView.jsp";
+			%>
+			<jsp:setProperty property="emailUser" value="<%=email%>" name="customerBean"/>
+			<jsp:setProperty property="type" value="<%=user.getType()%>" name="customerBean"/>
+			<%		
+		} else nextPage = "../view/loginView.jsp";
 	}
-}
 %>
 
 <jsp:forward page="<%=nextPage%>">

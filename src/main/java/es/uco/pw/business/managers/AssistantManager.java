@@ -8,6 +8,7 @@ import es.uco.pw.business.campament.CampamentDTO;
 import es.uco.pw.business.common.exceptions.BusinessException;
 import es.uco.pw.data.dao.assistant.AssistantDAO;
 import es.uco.pw.data.dao.campament.CampamentDAO;
+import es.uco.pw.data.dao.assistant.AssistantDAO;
 
 /**
  * Manages operations related to assistants in the system, such as registration, search, modification, and printing.

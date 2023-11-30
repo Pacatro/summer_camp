@@ -13,12 +13,6 @@
 			String nextPage = "../controller/signupAssistController.jsp";
 			String messageNextPage = request.getParameter("message");
 			if (messageNextPage == null) messageNextPage = "";
-
-			if (customerBean != null && !customerBean.getEmailUser().equals("")) {
-				//No debería estar aquí -> flujo salta a index.jsp
-				nextPage = "../../index.jsp";
-
-			} else {
 		%>
 
 			<%= messageNextPage %>
@@ -39,7 +33,5 @@
 				<br/>
 				<input type="submit" value="Submit">
 			</form>
-		<% } %>
-
 	</body>
 </html>

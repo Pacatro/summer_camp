@@ -181,3 +181,5 @@ VALUES
  SELECT * FROM activities_monitors;
  SELECT * FROM monitors_campaments;
 SELECT * FROM users;
+
+SELECT * FROM campaments WHERE camp_id IN (SELECT camp_id FROM inscriptions WHERE ass_id = 2);

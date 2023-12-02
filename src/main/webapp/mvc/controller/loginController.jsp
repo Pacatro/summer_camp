@@ -11,11 +11,9 @@
 	java.util.Properties configprop = new java.util.Properties();
 	sqlprop.load(myIO);
 	configprop.load(myIO1);
-%>
 
-<%
-	String nextPage = "../../index.jsp";
-	String mensajeNextPage = "";
+	String nextPage = "";
+	String messageNextPage = "";
 
 	// Caso 2
 	if (customerBean == null || customerBean.getEmailUser().equals("")) {
@@ -27,13 +25,15 @@
 			
 			if(!userManager.signin(email, password)){
 				nextPage = "../view/error/error.html";
-				mensajeNextPage = "Usuario o contraseña incorrectos";
+				messageNextPage = "Usuario o contraseña incorrectos";
 			}
 
 			UserDTO user = userManager.getById(email);
 
 			nextPage = (user.getType() == UserType.ADMIN) ? "../view/Adminview.jsp"
 											 			  : "../view/AssistantView.jsp";
+
+			messageNextPage = "Bienvenido " + user.getName();
 			%>
 			<jsp:setProperty property="emailUser" value="<%=email%>" name="customerBean"/>
 			<jsp:setProperty property="type" value="<%=user.getType()%>" name="customerBean"/>
@@ -44,5 +44,5 @@
 %>
 
 <jsp:forward page="<%=nextPage%>">
-	<jsp:param value="<%=mensajeNextPage%>" name="message"/>
+	<jsp:param value="<%=messageNextPage%>" name="message"/>
 </jsp:forward>

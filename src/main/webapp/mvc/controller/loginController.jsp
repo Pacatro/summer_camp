@@ -3,14 +3,14 @@
 <jsp:useBean id="customerBean" scope="session" class="es.uco.pw.display.javabeans.CustomerBean" />
 
 <%
-    String file = application.getInitParameter("sqlproperties");
-    String file1 = application.getInitParameter("configproperties");
-    java.io.InputStream myIO = application.getResourceAsStream(file);
-    java.io.InputStream myIO1 = application.getResourceAsStream(file1);
-    java.util.Properties sqlprop = new java.util.Properties();
-    java.util.Properties configprop = new java.util.Properties();
-    sqlprop.load(myIO);
-    configprop.load(myIO1);
+	String file = application.getInitParameter("sqlproperties");
+	String file1 = application.getInitParameter("configproperties");
+	java.io.InputStream myIO = application.getResourceAsStream(file);
+	java.io.InputStream myIO1 = application.getResourceAsStream(file1);
+	java.util.Properties sqlprop = new java.util.Properties();
+	java.util.Properties configprop = new java.util.Properties();
+	sqlprop.load(myIO);
+	configprop.load(myIO1);
 %>
 
 <%
@@ -27,7 +27,7 @@
 			
 			if(!userManager.signin(email, password)){
 				nextPage = "../view/error/error.html";
-				mensajeNextPage = "ERROR";
+				mensajeNextPage = "Usuario o contraseña incorrectos";
 			}
 
 			UserDTO user = userManager.getById(email);

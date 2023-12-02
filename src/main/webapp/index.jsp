@@ -16,7 +16,9 @@
 			<button>
 				<a href="./mvc/view/loginView.jsp">Acceder</a>
 			</button>
-			<button>Registrarse</button>
+			<button>
+				<a href="./mvc/view/signupView.jsp">Registrarse</a>
+			</button>
 		</main>
 
 		<footer>

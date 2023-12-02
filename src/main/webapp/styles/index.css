@@ -15,17 +15,19 @@ main {
     justify-content: center;
     align-items: center;
     height: 80vh;
+    flex-direction: column;
 }
 
 button {
     margin: 10px;
-    padding: 15px;
     border: none;
     border-radius: 10px;
     color: white;
     background-color: #3CB861;
     font-size: 20px;
     cursor: pointer;
+    height: 60px;
+    width: 150px;
 }
 
 footer {
@@ -35,4 +37,18 @@ footer {
     position: absolute;
     bottom: 0;
     width: 100%;
+}
+
+.message {
+    padding: 40px;
+    margin-bottom: 20px;
+    background-color: #EC7063;
+    border: 3px solid rgb(255, 0, 0);
+    border-radius: 10px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

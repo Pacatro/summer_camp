@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="es.uco.pw.business.user.UserDTO,es.uco.pw.business.managers.UserManager,es.uco.pw.business.common.userType.UserType" %>
+<%@ page errorPage="../view/errors/error.jsp"%>
 <jsp:useBean id="customerBean" scope="session" class="es.uco.pw.display.javabeans.CustomerBean" />
 
 <%

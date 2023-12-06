@@ -18,6 +18,14 @@ main {
     flex-direction: column;
 }
 
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: red;
+}
+
 button {
     margin: 10px;
     border: none;

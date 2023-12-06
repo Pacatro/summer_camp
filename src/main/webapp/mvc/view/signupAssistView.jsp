@@ -6,14 +6,20 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
+        <link href="../../styles/index.css" rel="stylesheet" />
 		<title>Registro asistente</title>
 	</head>
 	<body>
-		<%
-			String nextPage = "../controller/signupAssistController.jsp";
-			String messageNextPage = request.getParameter("message");
-			if (messageNextPage == null) messageNextPage = "";
-		%>
+		<header>
+			<h1>Summer Camp<h1>
+		</header>
+
+		<main>
+			<%
+				String nextPage = "../controller/signupAssistController.jsp";
+				String messageNextPage = request.getParameter("message");
+				if (messageNextPage == null) messageNextPage = "";
+			%>
 
 			<%= messageNextPage %>
 			<br/>
@@ -33,5 +39,10 @@
 				<br/>
 				<input type="submit" value="Submit">
 			</form>
+		</main>
+
+		<footer>
+			<h3>Summer Camp<h3>
+		</footer>
 	</body>
 </html>

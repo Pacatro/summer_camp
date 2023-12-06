@@ -6,40 +6,49 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
+        <link href="../../styles/index.css" rel="stylesheet" />
 		<title>Registrarse</title>
 	</head>
 	<body>
-		<%
-			String nextPage = "../controller/signupController.jsp";
-			String messageNextPage = request.getParameter("message");
-			if (messageNextPage == null) messageNextPage = "";
+		<header>
+			<h1>Summer Camp<h1>
+		</header>
 
-			if (customerBean != null && !customerBean.getEmailUser().equals("")) {
-				//No debería estar aquí -> flujo salta a index.jsp
-				nextPage = "../../index.jsp";
+		<main>
+			<%
+				String nextPage = "../controller/signupController.jsp";
+				String messageNextPage = request.getParameter("message");
+				if (messageNextPage == null) messageNextPage = "";
 
-			} else {
-		%>
+				if (customerBean != null && !customerBean.getEmailUser().equals("")) {
+					//No debería estar aquí -> flujo salta a index.jsp
+					nextPage = "../../index.jsp";
 
-			<%= messageNextPage %>
-			<br/>
-			<br/>
-			<h1>Acceso</h1>
-			<form method="post" action="../controller/signupController.jsp">
-				<label for="name">Nombre: </label>
-					<input type="text" name="name" value="">
-				<label for="email">Email: </label>
-					<input type="text" name="email">
-				<label for="password">Contraseña: </label>
-					<input type="text" name="password">
-				<label for="type">Tipo de usuario: </label>
-					<select name="type">
-						<option value="ASSISTANT">Asistente</option>
-						<option value="ADMIN">Administrador</option>
-				<br/>
-				<input type="submit" value="Submit">
-			</form>
-		<% } %>
+				} else {
+					%>
 
+					<%= messageNextPage %>
+					<br/>
+					<br/>
+					<h1>Acceso</h1>
+					<form method="post" action="../controller/signupController.jsp">
+						<label for="name">Nombre: </label>
+							<input type="text" name="name" value="">
+						<label for="email">Email: </label>
+							<input type="text" name="email">
+						<label for="password">Contraseña: </label>
+							<input type="text" name="password">
+						<label for="type">Tipo de usuario: </label>
+							<select name="type">
+								<option value="ASSISTANT">Asistente</option>
+								<option value="ADMIN">Administrador</option>
+						<br/>
+						<input type="submit" value="Submit">
+					</form>
+				<% } %>
+		</main>
+		<footer>
+			<h3>Summer Camp<h3>
+		</footer>
 	</body>
 </html>

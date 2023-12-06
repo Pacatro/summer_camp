@@ -6,35 +6,36 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
+        <link href="../../styles/index.css" rel="stylesheet" />
 		<title>Acceso</title>
 	</head>
 	<body>
-		<%
-		/* Posibles flujos:
-			1) customerBean está logado (!= null && != "") -> Se redirige al index.jsp (no debería estar aquí pero hay que comprobarlo)
-			2) customerBean no está logado:
-				a) Hay parámetros en el request  -> procede del controlador /con mensaje 
-				b) No hay parámetros en el request -> procede del controlador /sin mensaje
-		*/
-		String nextPage = "../controller/loginController.jsp";
-		String messageNextPage = request.getParameter("message");
-		if (messageNextPage == null) messageNextPage = "";
+		<header>
+			<h1>Summer Camp<h1>
+		</header>
 
-		if (customerBean != null && !customerBean.getEmailUser().equals("")) {
-			//No debería estar aquí -> flujo salta a index.jsp
-			nextPage = "../../index.jsp";
-		} else { %>
-			<%= messageNextPage %><br/><br/>
-			<h1>Acceso</h1>
-			<form method="post" action="../controller/loginController.jsp">
-				<label for="email">Email: </label>
-				<input type="text" name="email" value=""><br/>
-				<label for="password">Password: </label>
-				<input type="text" name="password">	
-				<br/>
-				<input type="submit" value="Submit">
-			</form>
-		<% } %>
+		<main>
+			<%
+				String nextPage = "../controller/loginController.jsp";
+				String messageNextPage = request.getParameter("message");
+				if (messageNextPage == null) messageNextPage = "";
 
+				System.out.println(customerBean.getEmailUser());
+
+				if (customerBean != null && !customerBean.getEmailUser().equals("")) {
+					nextPage = "../../index.html";
+				} else { %>
+					<h1>Acceso</h1>
+					<form method="post" action="../controller/loginController.jsp">
+						<input type="text" name="email" value="" placeholder="Correo">
+						<input type="text" name="password" placeholder="Contraseña">	
+						<input type="submit" value="Submit">
+					</form>
+				<% } %>
+		</main>
+
+		<footer>
+			<h3>Summer Camp<h3>
+		</footer>
 	</body>
 </html>

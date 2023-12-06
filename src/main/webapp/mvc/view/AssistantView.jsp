@@ -9,6 +9,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <link href="../../styles/index.css" rel="stylesheet" />
         <title>Pagina Asistente</title>
     </head>
     <body>

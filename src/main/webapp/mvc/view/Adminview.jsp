@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<jsp:useBean id="customerBean" scope="session" class="es.uco.pw.display.javabeans.CustomerBean"></jsp:useBean>
 <%@ page import ="java.util.*" %>
 <%@ page import = "es.uco.pw.business.campament.CampamentDTO"%>
 <%@ page import = "es.uco.pw.business.managers.CampamentsManager"%>
-
+<jsp:useBean id="customerBean" scope="session" class="es.uco.pw.display.javabeans.CustomerBean"></jsp:useBean>
 
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
+        <link href="../../styles/index.css" rel="stylesheet" />
         <title>Pagina de Administrador</title>
     </head>
     <body>
@@ -26,35 +26,50 @@
             String messageNextPage = request.getParameter("message");
         %>
 
-        <div class="Wellcome-message">
-            <h2><%= messageNextPage %></h2>
-        </div>
-        <h2>Lista campamentos </h2>
-        <table>
-            <thead>
-                <th> ID Campamento </th>
-                <th> Asistentes </th>
-            </thead>
-            <tbody>
-                <%
-                CampamentsManager camp = new CampamentsManager(sqlprop, configprop);
-                ArrayList<CampamentDTO> campaments = camp.getAllCampaments();
-                %>
+        <header>
+			<h1>Summer Camp<h1>
+		</header>
 
-                <% for(int i = 0; i < campaments.size(); i++){
-                    CampamentDTO campamento = campaments.get(i);
-                    int inscripcionesCompletas = camp.getNumInscriptionsC(campamento.getId());
-                    int inscripcionesParciales = camp.getNumInscriptionsP(campamento.getId());
-                %>
+		<main>
+			<div class="wellcome-message">
+                <h2><%= messageNextPage %></h2>
+            </div>
 
-                    <tr>
-                        <td><%=campaments.get(i).getId()%></td>
-                        <td>Inscripciones Completas: <%= inscripcionesCompletas %></td>
-                        <td>Inscripciones Parciales: <%= inscripcionesParciales %></td>
-                    </tr>
-                <%}%>
-                    
-            </tbody>
-        </table>
+            <h2>Lista campamentos: </h2>
+
+            <table>
+                <thead>
+                    <th> ID Campamento </th>
+                    <th> Asistentes </th>
+                </thead>
+                <tbody>
+                    <%
+                    CampamentsManager camp = new CampamentsManager(sqlprop, configprop);
+                    ArrayList<CampamentDTO> campaments = camp.getAllCampaments();
+                    %>
+
+                    <% for(int i = 0; i < campaments.size(); i++){
+                        CampamentDTO campamento = campaments.get(i);
+                        int inscripcionesCompletas = camp.getNumInscriptionsC(campamento.getId());
+                        int inscripcionesParciales = camp.getNumInscriptionsP(campamento.getId());
+                    %>
+
+                        <tr>
+                            <td><%=campaments.get(i).getId()%></td>
+                            <td>Inscripciones Completas: <%= inscripcionesCompletas %></td>
+                            <td>Inscripciones Parciales: <%= inscripcionesParciales %></td>
+                        </tr>
+                    <% } %>       
+                </tbody>
+            </table>
+
+            <button>
+				<a href="/summer_camp">Salir</a>
+			</button>
+		</main>
+
+		<footer>
+			<h3>Summer Camp<h3>
+		</footer>
     </body>
 </html>

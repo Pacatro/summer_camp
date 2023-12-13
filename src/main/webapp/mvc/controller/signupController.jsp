@@ -6,7 +6,7 @@
 <jsp:useBean  id="customerBean" scope="session" class="es.uco.pw.display.javabeans.CustomerBean"></jsp:useBean>
 
 <%
-    String nextPage = "../view/index.jsp";
+    String nextPage = "/index.js";
     String messageNextPage = "";
 
     String file = application.getInitParameter("sqlproperties");

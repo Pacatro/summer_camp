@@ -6,7 +6,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-        <link href="../../styles/index.css" rel="stylesheet" />
+        <link href="/summer_camp/styles/index.css" rel="stylesheet" />
 		<title>Registro asistente</title>
 	</head>
 	<body>

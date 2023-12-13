@@ -3,13 +3,14 @@
 <%@ page import="java.util.*" %>
 <%@ page import="es.uco.pw.business.campament.CampamentDTO"%>
 <%@ page import="es.uco.pw.business.managers.AssistantManager"%>
+<%@ page import = "es.uco.pw.business.common.userType.UserType"%>
 <jsp:useBean id="customerBean" scope="session" class="es.uco.pw.display.javabeans.CustomerBean"></jsp:useBean>
 
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
-        <link href="../../styles/index.css" rel="stylesheet" />
+        <link href="/summer_camp/styles/index.css" rel="stylesheet" />
         <title>Pagina Asistente</title>
     </head>
     <body>
@@ -27,30 +28,45 @@
             String messageNextPage = request.getParameter("message");
         %>
 
-        <button>
-            <a>Desconexion</a>
-        </button>
+        <main>
 
-        <button>
-            <a>Modificar datos</a>
-        </button>
+            <%
+                if(customerBean == null || customerBean.getEmailUser().equals("") || customerBean.getType() == UserType.ADMIN){
+                    String nextPage = "/index.html";
+            %>
+                <jsp:forward page="<%=nextPage%>">
+                    <jsp:param value="<%=messageNextPage%>" name="message"/>
+                </jsp:forward>
+            <%
+                }
+            %>
 
-        <div class="welcome-message">
-            <h2> <%= messageNextPage %> </h2>
-            <p>Fecha actual: <%= new java.util.Date() %></p>
-        </div>
+            <button>
+                <a>Desconexion</a>
+            </button>
 
-        <h2>Lista de Campamentos</h2>
-        <% 
-            AssistantManager assis=new AssistantManager(sqlprop, configprop);
-            ArrayList<CampamentDTO> campaments=assis.getCampaments(customerBean.getEmailUser());
-        %>
+            <button>
+                <a>Modificar datos</a>
+            </button>
 
-        <ul>
-            <% for(int i=0;i<campaments.size();i++){%>
-                <li> <%=campaments.get(i).getId()%> </li>
-            <%}%>
-        </ul>
+            <div class="welcome-message">
+                <h2> <%= messageNextPage %> </h2>
+                <p>Fecha actual: <%= new java.util.Date() %></p>
+            </div>
+
+            <h2>Lista de Campamentos</h2>
+            <% 
+                AssistantManager assis=new AssistantManager(sqlprop, configprop);
+                ArrayList<CampamentDTO> campaments=assis.getCampaments(customerBean.getEmailUser());
+            %>
+
+            <ul>
+                <% for(int i=0;i<campaments.size();i++){%>
+                    <li> <%=campaments.get(i).getId()%> </li>
+                <%}%>
+            </ul>
+
+        </main>
 
     </body>
 </html>

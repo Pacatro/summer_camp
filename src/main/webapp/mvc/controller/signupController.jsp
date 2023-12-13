@@ -49,8 +49,8 @@
 
     }else{
         //No se ha registrado
-        nextPage = "../view/index.jsp";//Deberia ser pagina de error, creo
-        messageNextPage = "No se ha podido realizar el registro";
+        nextPage = "../view/errors/error.jsp";
+        messageNextPage = "Ya existe un usuario con ese email";
     }
 
 %>

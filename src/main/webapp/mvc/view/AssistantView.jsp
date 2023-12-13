@@ -27,6 +27,14 @@
             String messageNextPage = request.getParameter("message");
         %>
 
+        <button>
+            <a>Desconexion</a>
+        </button>
+
+        <button>
+            <a>Modificar datos</a>
+        </button>
+
         <div class="welcome-message">
             <h2> <%= messageNextPage %> </h2>
             <p>Fecha actual: <%= new java.util.Date() %></p>

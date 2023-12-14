@@ -166,4 +166,10 @@ public class AssistantDAO implements IDAO<AssistantDTO, Integer> {
 
         return assi;
     }
+
+    @Override
+    public void delete(AssistantDTO dto) throws Exception {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+    }
 }

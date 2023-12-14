@@ -183,3 +183,5 @@ VALUES
 SELECT * FROM users;
 
 SELECT * FROM campaments WHERE camp_id IN (SELECT camp_id FROM inscriptions WHERE ass_id = 2);
+
+DELETE FROM inscriptions WHERE type = 'PARCIAL' AND camp_id = 2 AND ass_id = 3;

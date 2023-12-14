@@ -96,4 +96,10 @@ public class UserDAO implements IDAO<UserDTO,String>{
         throw new UnsupportedOperationException("Unimplemented method 'getAll'");
     }
 
+    @Override
+    public void delete(UserDTO dto) throws Exception {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+    }
+
 }

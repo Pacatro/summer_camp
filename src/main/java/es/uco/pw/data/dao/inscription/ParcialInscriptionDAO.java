@@ -2,10 +2,11 @@ package es.uco.pw.data.dao.inscription;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import es.uco.pw.business.common.schedule.Schedule;
 import es.uco.pw.business.factory.ParcialInscriptionDTO;
 import es.uco.pw.data.common.ConnectionDB;
 import es.uco.pw.data.common.DataException;
@@ -25,6 +26,40 @@ public class ParcialInscriptionDAO implements IDAO<ParcialInscriptionDTO, Intege
     public ParcialInscriptionDAO(Properties sql_properties, Properties config_properties){
         this.sql_properties = sql_properties;
         this.config_properties = config_properties;
+    }
+
+    public ParcialInscriptionDTO getByIds(int campId, int assId) throws Exception {
+        try {
+            ParcialInscriptionDTO parcialInscriptionDTO = null;
+            
+            ConnectionDB connDB = new ConnectionDB(config_properties);
+            Connection conn = connDB.getConnection();
+    
+            String sql = sql_properties.getProperty("GET_BYASSID_CAMPID_PARCIAL_INSCRIPTIONS");
+            PreparedStatement ps = conn.prepareStatement(sql);
+    
+            ps.setInt(1, campId);        
+            ps.setInt(2, assId);
+    
+            if(!ps.execute())
+                throw new DataException("No existe esa inscripcion.");
+    
+            ResultSet rs = ps.executeQuery();
+    
+            while(rs.next()) {
+                parcialInscriptionDTO = new ParcialInscriptionDTO();
+                parcialInscriptionDTO.setDate(rs.getDate("date").toLocalDate());
+                parcialInscriptionDTO.setCancellation(rs.getBoolean("cancelled"));
+                parcialInscriptionDTO.setPrice(rs.getDouble("price"));
+                parcialInscriptionDTO.setSchedule(Schedule.valueOf(rs.getString("schendule")));
+                parcialInscriptionDTO.setIdCampament(campId);
+                parcialInscriptionDTO.setIdParticipant(assId);
+            }
+
+            connDB.disconnect();
+    
+            return parcialInscriptionDTO;
+        } catch (Exception e) { throw e; }
     }
 
     @Override
@@ -52,6 +87,27 @@ public class ParcialInscriptionDAO implements IDAO<ParcialInscriptionDTO, Intege
 
             connDB.disconnect();
             
+        } catch (Exception e) { throw e; }
+    }
+
+    @Override
+    public void delete(ParcialInscriptionDTO dto) throws Exception {
+        try {
+            ConnectionDB connDB = new ConnectionDB(config_properties);
+            Connection conn = connDB.getConnection();
+    
+            String sql = sql_properties.getProperty("DELETE_PARCIAL_INSCRIPTION");
+            PreparedStatement ps = conn.prepareStatement(sql);
+    
+            ps.setInt(1, dto.getIdCampament());
+            ps.setInt(2, dto.getIdParticipant());
+    
+            int rowsAffected = ps.executeUpdate();
+    
+            if (rowsAffected <= 0)
+                throw new DataException("No se puede eliminar la inscripcion");
+    
+            connDB.disconnect();
         } catch (Exception e) { throw e; }
     }
 

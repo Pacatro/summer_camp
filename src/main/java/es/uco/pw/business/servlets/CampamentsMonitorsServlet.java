@@ -8,44 +8,54 @@ import es.uco.pw.business.managers.CampamentsManager;
 import es.uco.pw.display.javabeans.CustomerBean;
 
 import java.io.IOException;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Properties;
 
+/**
+ * Servlet implementation for associating monitors with campaments.
+ * This servlet is mapped to the URL pattern "/campamentMonitor".
+ *
+ * The expected parameters for the POST request are "camp-id" and "mon-id".
+ * These parameters are used to identify the campament and monitor that should be associated.
+ *
+ * The authentication is performed using the "customerBean" attribute stored in the session,
+ * ensuring that the user is an admin.
+ *
+ */
 @WebServlet(name = "campamentsMonitorsServlet", urlPatterns = "/campamentMonitor")
 public class CampamentsMonitorsServlet extends HttpServlet {
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws FileNotFoundException, IOException {
         HttpSession session = req.getSession();
 
         CustomerBean customerBean = (CustomerBean) session.getAttribute("customerBean");
 
         if(customerBean == null || customerBean.getType() == UserType.ASSISTANT) {
-            res.sendError(401, "Unauthorized: The user is not an admin");
+            res.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized: The user is not an admin");
             return;
         }
         
         if(req.getParameter("camp-id") == null || req.getParameter("mon-id") == null) {
-            res.sendError(400, "Bad Request: Missing parameters");
+            res.sendError(HttpServletResponse.SC_BAD_REQUEST, "Bad Request: Missing parameters");
             return;
         }
         
         int campId = Integer.parseInt(req.getParameter("camp-id"));
         int monId = Integer.parseInt(req.getParameter("mon-id"));
-
-        Properties sqlProperties = new Properties();
-        Properties configProperties = new Properties();
-        sqlProperties.load(new FileInputStream("src/main/webapp/WEB-INF/sql.properties"));
-        configProperties.load(new FileInputStream("src/main/webapp/WEB-INF/config.properties"));
-
-        CampamentsManager campamentsManager = new CampamentsManager(sqlProperties, configProperties);
-
+        
         try {
+            Properties configProperties = new Properties();
+            Properties sqlProperties = new Properties();
+            sqlProperties.load(getServletContext().getResourceAsStream("/WEB-INF/sql.properties"));
+            configProperties.load(getServletContext().getResourceAsStream("/WEB-INF/config.properties"));
+    
+            CampamentsManager campamentsManager = new CampamentsManager(sqlProperties, configProperties);
             campamentsManager.associateMonitorsToCampaments(campId, monId);
+            
+            res.setStatus(HttpServletResponse.SC_OK);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-            res.sendError(500, "Server Error: " + e.getMessage());
+            e.getStackTrace();
+            res.sendError(HttpServletResponse.SC_BAD_REQUEST, "Bad Request: " + e.getMessage());
         }
-
-        res.setStatus(200);
     }
 }

@@ -13,7 +13,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Properties;
 
-@WebServlet(name = "campamentServlet", urlPatterns = "/campaments")
+@WebServlet(name = "campamentsServlet", urlPatterns = "/campaments")
 public class CampamentsServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws FileNotFoundException, IOException {
         if (req.getParameter("start-date") == null ||

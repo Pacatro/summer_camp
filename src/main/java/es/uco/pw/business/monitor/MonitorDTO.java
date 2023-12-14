@@ -1,7 +1,7 @@
 package es.uco.pw.business.monitor;
 
 /**
- * Represents a monitor of the system.
+ * Represents a monitor of the system. 
  */
 public class MonitorDTO{
 	

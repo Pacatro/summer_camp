@@ -34,8 +34,15 @@
 		<main>
 
             <%
-                if(customerBean == null || customerBean.getEmailUser().equals("") || customerBean.getType() == UserType.ASSISTANT){
-                    String nextPage = "/index.html";
+                if(customerBean == null || customerBean.getEmailUser().equals("")){
+                    String nextPage = "/index.jsp";
+            %>
+                <jsp:forward page="<%=nextPage%>">
+					<jsp:param value="<%=messageNextPage%>" name="message"/>
+				</jsp:forward>
+            <%
+                }else if(customerBean.getType() == UserType.ASSISTANT){
+                    String nextPage = "/AssistantView.jsp";
             %>
                 <jsp:forward page="<%=nextPage%>">
 					<jsp:param value="<%=messageNextPage%>" name="message"/>

@@ -31,8 +31,15 @@
         <main>
 
             <%
-                if(customerBean == null || customerBean.getEmailUser().equals("") || customerBean.getType() == UserType.ADMIN){
-                    String nextPage = "/index.html";
+                if(customerBean == null || customerBean.getEmailUser().equals("")){
+                    String nextPage = "/index.jsp";
+            %>
+                <jsp:forward page="<%=nextPage%>">
+                    <jsp:param value="<%=messageNextPage%>" name="message"/>
+                </jsp:forward>
+            <%
+                }else if(customerBean.getType() == UserType.ADMIN){
+                    String nextPage = "/index.jsp";
             %>
                 <jsp:forward page="<%=nextPage%>">
                     <jsp:param value="<%=messageNextPage%>" name="message"/>
@@ -42,7 +49,7 @@
             %>
 
             <button>
-                <a>Desconexion</a>
+                <a href="/summer_camp/mvc/controller/logoutController.jsp">Desconexion</a>
             </button>
 
             <button>

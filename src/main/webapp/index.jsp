@@ -16,11 +16,11 @@
 		</header>
 
 		<main>
-
 			<%
-				if(customerBean != null || !customerBean.getEmailUser().equals("")){
-					String nextPage = "";
-					String messageNextPage = "";
+				String nextPage = "";
+				String messageNextPage = "";
+
+				if(customerBean != null && !customerBean.getEmailUser().equals("")){
 
 					if(customerBean.getType() == UserType.ASSISTANT){
 						nextPage = "./mvc/view/AssistantView.jsp";
@@ -29,8 +29,8 @@
 					}
 			%>
 				<jsp:forward page="<%=nextPage%>">
-					<jsp:param value="<%=messageNextPage%>" name="message"/>
-				</jsp:forward>
+                    <jsp:param value="<%=messageNextPage%>" name="message"/>
+                </jsp:forward>
 			<%
 				}
 			%>

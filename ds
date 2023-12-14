@@ -1,0 +1,197 @@
+[33m5676cdd[m[33m ([m[1;36mHEAD -> [m[1;32mAssistantView[m[33m, [m[1;31morigin/AssistantView[m[33m)[m AssistantView modificado
+[33m4b98c8e[m Merge branch 'main' into AssistantView
+[33m2616a75[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m SIGUE FUNCIONANDO
+[33m6d9a186[m[33m ([m[1;31morigin/javaThings[m[33m)[m FUNCIONA PROPERTIES AAAAAAAAAAA
+[33mf797dd8[m Merge remote-tracking branch 'origin/campamentDAOP3' into javaThings
+[33me7c4a82[m ultima version adminview
+[33mcfb1fb5[m Merge remote-tracking branch 'origin/campamentDAOP3' into javaThings
+[33m7eb4ae0[m Parece que funciona
+[33mf5254ae[m Merge remote-tracking branch 'origin/AssistantView' into javaThings
+[33ma2fb87c[m Iniciar sesion arreglado
+[33m42b449d[m Iniciar sesion y actualizar en manager
+[33mf8495fc[m Registrar usuario en manager
+[33m5d9a2b2[m adminview
+[33m64a84ff[m Merge branch 'main' into campamentDAOP3
+[33m41ecc52[m adminview creada, probando campamentos
+[33m5d6b9fe[m Numero de inscripciones parciales y completas
+[33m01fb03f[m Numero de inscripciones hecho
+[33m2df6b23[m Merge branch 'main' into AssistantView
+[33mf9b6376[m AssistantView modificado
+[33m5de6251[m Merge branch 'index'
+[33mb10c93a[m index provisional
+[33m4805c7c[m Merge branch 'main' into index
+[33ma0baef9[m Settings
+[33mcc565a0[m Ahora si funciona el getCampaments
+[33md08a2ed[m[33m ([m[1;31morigin/userclass[m[33m)[m Sacar los campamentos por correo
+[33mfed27b8[m Base de datos arreglada (yupi)
+[33m7f15188[m Merge branch 'userclass' of github.com:Pacatro/summer_camp into userclass
+[33m4a597e4[m TENEMOS BASE DE DATOS, GENTE
+[33m06c3961[m AssistantView comenzado
+[33mcdcd4cb[m no se porque no va la bd
+[33me0e2851[m index provisional hecho
+[33m82938ac[m UserDAO hecho (o eso parece)
+[33m412ed68[m Merge remote-tracking branch 'origin/customerBean' into campamentDAOP3
+[33m1455e3a[m Merge branch 'customerBean' into index
+[33m7ba34af[m[33m ([m[1;31morigin/customerBean[m[33m, [m[1;32mcustomerBean[m[33m)[m adding javadoc
+[33m63c558c[m Base de datos modificada
+[33me32362d[m customerbean actualizado
+[33m95c3538[m Merge branch 'userclass' into customerBean
+[33mb79b71f[m javabean
+[33m9e74ae5[m fecha campamento modificado
+[33me6fdde5[m DTO del usuario hecho
+[33m2da2807[m[33m ([m[1;31morigin/webapp[m[33m)[m reestructurando proyecto
+[33m4f6fac6[m p2 acabada y docs/jar generados
+[33m40c9441[m añadiendo funcion disconnect
+[33maf0bc20[m sigue sin ir la bd
+[33m989ee55[m Javadoc v2 generado
+[33m953d656[m[33m ([m[1;31morigin/exceptions[m[33m)[m falta probar inscripciones
+[33mc8906b9[m aun falta probar una ultima cosa
+[33m01a3580[m probar asociar monitores-camps e inscripciones
+[33m9a09887[m excepciones terminado
+[33m5535e41[m adding exception controll
+[33m8b7ebd9[m main bonito
+[33m973affb[m Excepciones en campamentos y otros cambios menores
+[33mb896c06[m[33m ([m[1;31morigin/dao[m[33m, [m[1;32mdao[m[33m)[m readme/restructuracion/idea_control_errores
+[33m1490993[m Comentario para javadoc hechos
+[33m9a9f35d[m Merge remote-tracking branch 'origin/campamentDAO'
+[33me54474a[m[33m ([m[1;31morigin/activity_monitor_dao[m[33m)[m FUNCIONAAA
+[33mc9dbb31[m[33m ([m[1;31morigin/campamentDAO[m[33m)[m :tada: CampamentsManager finalizado y funcional
+[33ma0180e8[m mergeado rama activit_monitor_dao v2
+[33m9d5821f[m mergeado rama activit_monitor_dao
+[33md7aa8fa[m Asociar campamentos y actividades
+[33md2414c0[m No funciona el menu de asociar m-a
+[33m5f4cdd9[m Merge remote-tracking branch 'origin/dao' into activity_monitor_dao
+[33m87baa48[m menus corregidos (faltan cosas)
+[33m897491c[m inscription in menu, getbyid in assistantmanager
+[33mb9587a3[m Merge branch 'AssistantDAO' into dao
+[33m6a0638e[m añadiendo getbyid campament
+[33m62d0148[m Merge branch 'campamentDAO' into dao
+[33me467ad6[m[33m ([m[1;31morigin/AssistantDAO[m[33m, [m[1;32mAssistantDAO[m[33m)[m arreglos assistant daoç
+[33m69dd80d[m cambiando cosas
+[33m08e9ce1[m getById en managers
+[33m9357ed6[m getbyid
+[33me351391[m FUNCIONA ASOCIAR
+[33medf2d99[m merge main
+[33mebe161f[m manager Assistant actualizado
+[33mdac557e[m Merge branch 'activity_monitor_dao' into dao
+[33mbc27722[m cambio
+[33mb644f0c[m mergeando
+[33mf700019[m CampamentDAO completo
+[33me083a4e[m Añadiendo control de errores en asociar
+[33m0c6959a[m schedule
+[33mcfcf52f[m Cambiando schedule
+[33mc4810e2[m Querys añadidas a properties
+[33mbff1890[m db cambiada
+[33me88994e[m adding docs
+[33me936540[m cambiando properties inscripciones
+[33mdf4d62f[m Arreglada interfaz
+[33m5d22415[m Merge remote-tracking branch 'origin/dao' into activity_monitor_dao
+[33ma56e13d[m Insertar funciona
+[33m3cbc1d2[m cambiando bd
+[33mfb21e08[m adding more properties xd
+[33ma61fa3a[m fixing errors
+[33m0aad32a[m adding properties
+[33m9588130[m arreglando inscriptionsdao
+[33m630c3a9[m Clase AssistantDAO hecha
+[33m938e4f6[m Queda implementar en managers y probar
+[33m9dcaa16[m Queda probar activitesDAO
+[33me4f91c0[m inscriptiondao acabado
+[33md763554[m inscriptionsDAO hecha (falta probar)
+[33m85ad990[m añadiendo scripts
+[33m33c1d32[m[33m ([m[1;31morigin/base_datos[m[33m)[m Actualizando rama
+[33m231b0cd[m Merge branch 'dto' into base_datos
+[33m3b415d2[m conexion arreglada
+[33m1df3e68[m probando probando
+[33mbda9dd4[m[33m ([m[1;31morigin/dto[m[33m)[m DTO hechas DTO (no va el programa)
+[33m76635e1[m src movido, queda terminar dto
+[33me94472e[m bd no funciona en la uco
+[33mfe95e87[m hay que probar conexion
+[33m9cab329[m[33m ([m[1;31morigin/database_script[m[33m, [m[1;32mdatabase_script[m[33m)[m script sql acabado
+[33mba11a36[m Merge branch 'main' into database_script
+[33me2d3033[m DTO añadidos y paquetes arreglados
+[33m0fc56fb[m sql
+[33m308c676[m seguimos intentandolo
+[33m678c697[m Merge branch 'main' into database_script
+[33mc29e57f[m Merge branch 'main' into database_script
+[33m7133331[m Empezando sql
+[33m324ef97[m haciendo dto
+[33mc18d50f[m Empezando sql
+[33mae2f487[m Reestructuracion del proyecto
+[33m01e6146[m añadiendo readme en txt
+[33m0ea8179[m docs y readme añadidos
+[33mbab607f[m Documentación añadida (javadoc)
+[33m2fe05b4[m Ultimos detalles p1
+[33mf999844[m añdiendo configuracion de vscode + .jar
+[33m86ed07f[m cambiando variables
+[33mbb1898a[m todo documentado
+[33m8a56689[m[33m ([m[1;31morigin/menus[m[33m)[m reestructurando archivos
+[33mdb8f5d8[m :rocket: Menu editado y funcional
+[33m16c567c[m editando menus campamentmanager
+[33m40d1caa[m[33m ([m[1;31morigin/campaments_gestor[m[33m)[m Clase Campaments_Manager completada. Modificaciones en clase campament
+[33m0673324[m menos casi acabados
+[33maa65f4d[m añadiendo clase nuri
+[33m7384479[m Merge branch 'inscription_gestor' into menus
+[33m60cb474[m merge assistant gestor
+[33m1386cc7[m[33m ([m[1;31morigin/assistant_gestor[m[33m)[m Merge branch 'menus' into assistant_gestor
+[33m33fdffe[m Faltan comentarios de la clase menu
+[33mcd0b857[m algunos comentarios hechos
+[33m9d336aa[m problemas solucionados
+[33m6b99190[m Asociaciones (campamentos) menu
+[33mb344736[m Crear monitor menu
+[33mab918d7[m creo que es error de la bd
+[33mfe1d44a[m Crear actividad implementada menu
+[33mc3f5027[m Pa mi lo de Noe v2
+[33m68fbd29[m Estructura campamentos
+[33m606309c[m clase completa
+[33m9583c20[m Pa mi los menus de Noe
+[33m187005d[m Sigue sin funcionar inscriptions
+[33mba041bc[m Estructura menu de asistentes
+[33m687006d[m Pa mi lo que ha hecho Paco
+[33m2930b6e[m arreglando enroll
+[33m8ec4419[m Esperando al gestor de inscripciones
+[33m5663dcf[m Estructura menu inscripciones
+[33me88f004[m mainmenu hecho
+[33m9e878f5[m Little fix de DB
+[33m90fdcb8[m Base de datos terminada
+[33m617ec26[m Ya escribe inscripciones en el fichero
+[33made5d1b[m Ya escribe inscripciones
+[33m2f20626[m Merge remote-tracking branch 'origin/assistant_gestor' into base_datos
+[33ma01571c[m Escribiendo inscripciones
+[33m147c413[m gestor de inscripciones hecho (creo)
+[33m3aeb098[m merge main
+[33m2297493[m Actividades, campamentos y monitores funcionan :)
+[33mf122450[m Merge branch 'main' into assistant_gestor
+[33m91fe617[m cambiando cositas
+[33md40a7a5[m Escribe en los ficheros
+[33m1cdd985[m gestor casi acabado
+[33m86b3b99[m[33m ([m[1;31morigin/inscription_gestor[m[33m)[m AssistantManager modificado
+[33m0f2ffc9[m Merge branch 'main' into inscription_gestor
+[33m38454d2[m rama actualizada
+[33mf2dfe14[m Merge branch 'main' into assistant_gestor
+[33mb193cde[m Merge branch 'main' into base_datos
+[33mbe31090[m Leer campamentos hecho
+[33mb65bd72[m Clase DB funcionando
+[33m6d6e49d[m Crear actividades, monitores y campamentos. Asociar monitores a actividades
+[33m6553f6b[m AssistantManager realizado
+[33m21ab623[m Empezando inscriptions manager
+[33m78a7ad9[m Merge branch 'factory' into assistant_gestor
+[33m59fd576[m Merge branch 'factory'
+[33mfac5892[m[33m ([m[1;31morigin/factory[m[33m)[m Factory mas arreglada que nunca
+[33mbc68652[m Se lee el archivo de asistentes
+[33mc35d43c[m error en factory
+[33m4842cdf[m Se leen los ficheros de actividades y monitores
+[33m7c1a9c1[m empezando gestor inscripciones
+[33mb30a30a[m Ya se leer de un fichero con properties
+[33m2196948[m Merge pull request #1 from Pacatro:factory
+[33m68b77cb[m factory arregalda
+[33m17d704e[m factories terminadas
+[33m3dae19d[m añadiendo metodos factory
+[33mdbf4f67[m EARLY Y LATE CREADOS
+[33m3390e82[m Get y Set de Inscription hechos
+[33m64a942c[m Faltan get/set de Inscription
+[33m0f93bfb[m empezando ej2
+[33m699f484[m README MODIFICADO
+[33md36298e[m arreglando campament
+[33mb231c41[m cambiando campament
+[33m1856bad[m Clases implementadas
+[33m0baf2fd[m first commit

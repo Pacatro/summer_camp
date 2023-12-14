@@ -42,9 +42,5 @@
 				<a href="/summer_camp/mvc/view/signupView.jsp">Registrarse</a>
 			</button>
 		</main>
-
-		<footer>
-			<h3>Summer Camp<h3>
-		</footer>
 	</body>
 </html>

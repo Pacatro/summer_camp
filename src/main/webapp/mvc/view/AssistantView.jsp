@@ -53,7 +53,7 @@
             </button>
 
             <button>
-                <a>Modificar datos</a>
+                <a href="/summer_camp/mvc/view/changeView.jsp">Modificar datos</a>
             </button>
 
             <div class="welcome-message">

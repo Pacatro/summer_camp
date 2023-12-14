@@ -6,7 +6,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-        <link href="../../styles/index.css" rel="stylesheet" />
+        <link href="../../styles/loginView.css" rel="stylesheet" />
 		<title>Acceso</title>
 	</head>
 	<body>

@@ -18,6 +18,9 @@ import java.util.Properties;
  * Servlet implementation for handling partial camp inscriptions cancellation.
  * This servlet is mapped to the URL pattern "/parcialInscription".
  *
+ * The expected parameters for the GET request are "camp-id" and "assis-id".
+ * These parameters are used to identify the camp and assistant for create the parcial inscription.
+ * 
  * The expected parameters for the POST request are "camp-id" and "assis-id".
  * These parameters are used to identify the camp and assistant for create the parcial inscription.
  * 
@@ -30,6 +33,48 @@ import java.util.Properties;
  */
 @WebServlet(name = "parcialInscriptionsServlet", urlPatterns = "/parcialInscription")
 public class ParcialInscriptionsServlet extends HttpServlet {
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+
+        CustomerBean customerBean = (CustomerBean) session.getAttribute("customerBean");
+
+        if(customerBean == null) {
+            res.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized: The user is not an admin");
+            return;
+        }
+
+        if(req.getParameter("assis-id") == null || req.getParameter("camp-id") == null) {
+            res.sendError(HttpServletResponse.SC_BAD_REQUEST, "Bad Request: Missing parameters");
+            return;
+        }
+
+        int campId = Integer.parseInt(req.getParameter("camp-id"));
+        int assisId = Integer.parseInt(req.getParameter("assis-id"));
+
+        try {
+            Properties configProperties = new Properties();
+            Properties sqlProperties = new Properties();
+            sqlProperties.load(getServletContext().getResourceAsStream("/WEB-INF/sql.properties"));
+            configProperties.load(getServletContext().getResourceAsStream("/WEB-INF/config.properties"));
+
+            CampamentsManager campamentsManager = new CampamentsManager(sqlProperties, configProperties);
+            AssistantManager assistantManager = new AssistantManager(sqlProperties, configProperties);
+            InscriptionsManager inscriptionsManager = new InscriptionsManager(sqlProperties, configProperties);
+
+            CampamentDTO campamentDTO = campamentsManager.getById(campId);
+            AssistantDTO assistantDTO = assistantManager.getById(assisId);
+
+            double price = inscriptionsManager.calcPrice(campamentDTO, assistantDTO.getAtention());
+
+            res.setStatus(HttpServletResponse.SC_OK);
+            res.setHeader("price", String.valueOf(price));
+        } catch(Exception e) {
+            e.printStackTrace();
+            res.sendError(HttpServletResponse.SC_BAD_REQUEST, "Bad Request: " + e.getMessage());
+        }
+    }
+    
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         HttpSession session = req.getSession();
@@ -51,7 +96,6 @@ public class ParcialInscriptionsServlet extends HttpServlet {
         int assisId = Integer.parseInt(req.getParameter("assis-id"));
 
         try {
-            // TODO: MOSTRAR AVISOS
             Properties configProperties = new Properties();
             Properties sqlProperties = new Properties();
             sqlProperties.load(getServletContext().getResourceAsStream("/WEB-INF/sql.properties"));
@@ -68,7 +112,7 @@ public class ParcialInscriptionsServlet extends HttpServlet {
             
             res.setStatus(HttpServletResponse.SC_CREATED);
         } catch (Exception e) {
-            e.getStackTrace();
+            e.printStackTrace();
             res.sendError(HttpServletResponse.SC_BAD_REQUEST, "Bad Request: " + e.getMessage());
         }
     }

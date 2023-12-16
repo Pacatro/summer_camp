@@ -61,6 +61,9 @@ public class CampamentsServlet extends HttpServlet {
             campamentsManager.createCampaments(campId, starDate, endDate, level, maxAssistants);
             
             res.setStatus(HttpServletResponse.SC_CREATED);
+            req.setAttribute("message", "Bienvenido/a" + customerBean.getName());
+            getServletContext().getRequestDispatcher("/mvc/view/Adminview.jsp").forward(req, res);
+
         } catch (Exception e) {
             e.getStackTrace();
             res.sendError(HttpServletResponse.SC_BAD_REQUEST, "Bad request: " + e.getMessage());

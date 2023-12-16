@@ -45,6 +45,7 @@
             nextPage = "../view/signupAssistView.jsp";
         }else{
             nextPage = "../view/Adminview.jsp";
+            messageNextPage = "Bienvenido/a " + name;
         }
 
     }else{

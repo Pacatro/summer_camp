@@ -40,6 +40,7 @@
     manager.register(assist);
 
     String nextPage = "../view/AssistantView.jsp";
+    messageNextPage = "Bienvenido/a " + user.getName();
 %>
 
 <jsp:forward page="<%=nextPage%>">

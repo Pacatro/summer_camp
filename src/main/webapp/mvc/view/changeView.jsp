@@ -43,8 +43,6 @@
                     <%
                         if(customerBean.getType() == UserType.ASSISTANT){
                     %>
-                        <label for="dni">DNI: </label>
-                            <input type="number" name="dni">
                         <label for="surname">Apellidos: </label>
                             <input type="text" name="surname">
                         <label for="birthdate">Fecha de nacimiento: </label>

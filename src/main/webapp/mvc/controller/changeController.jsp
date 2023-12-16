@@ -3,6 +3,9 @@
 <%@ page import = "es.uco.pw.business.user.UserDTO" %>
 <%@ page import = "es.uco.pw.business.managers.UserManager" %>
 <%@ page import = "es.uco.pw.business.common.userType.UserType" %>
+<%@ page import = "java.time.*"%>
+<%@ page import = "es.uco.pw.business.assistant.AssistantDTO"%>
+<%@ page import = "es.uco.pw.business.managers.AssistantManager"%>
 <jsp:useBean  id="customerBean" scope="session" class="es.uco.pw.display.javabeans.CustomerBean"></jsp:useBean>
 
 <%
@@ -28,22 +31,34 @@
     UserDTO user = new UserDTO(email, name, password, type);
 
     if(manager.update(user)){
-
-%>
-<jsp:setProperty property="emailUser" value="<%=email%>" name="customerBean"/>
-<jsp:setProperty property="type" value="<%=type%>" name="customerBean"/>
-<%
-
         if(type == UserType.ASSISTANT){
-            nextPage = "../view/signupAssistView.jsp";
+
+            AssistantManager assist_manager = new AssistantManager(sqlprop, configprop);
+            String surname = request.getParameter("surname");
+            java.time.LocalDate date = java.time.LocalDate.parse(request.getParameter("birthdate"));
+            String atentionString = request.getParameter("atention");
+
+            boolean atention;
+            if(atentionString.equals("yes")){
+                atention = true;
+            }else{
+                atention = false;
+            }
+
+            AssistantDTO assist = assist_manager.getByEmail(email);
+
+            assist_manager.modify(assist.getId(), name, surname, date, atention, email);
+
+            nextPage = "../view/AssistantView.jsp";
+            messageNextPage = "Bienvenido/a " + name;
         }else{
             nextPage = "../view/Adminview.jsp";
+            messageNextPage = "Bienvenido/a " + name;
         }
 
     }else{
-        //No se ha registrado
         nextPage = "../view/errors/error.jsp";
-        messageNextPage = "Ya existe un usuario con ese email";
+        messageNextPage = "No se ha podido realizar la modificacion";
     }
 
 %>

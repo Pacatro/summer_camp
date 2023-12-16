@@ -10,6 +10,7 @@ import es.uco.pw.business.common.level.Level;
 import es.uco.pw.business.managers.AssistantManager;
 import es.uco.pw.business.managers.CampamentsManager;
 import es.uco.pw.business.managers.InscriptionsManager;
+import es.uco.pw.business.managers.AssistantManager;
 
 public class Main {
     public static void main(String[] args) throws Exception {

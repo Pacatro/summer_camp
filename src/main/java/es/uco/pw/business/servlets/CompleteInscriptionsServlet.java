@@ -56,7 +56,6 @@ public class CompleteInscriptionsServlet extends HttpServlet {
         Schedule schedule = Schedule.valueOf(req.getParameter("schedule"));
 
         try {
-            // TODO: MOSTRAR AVISOS
             Properties configProperties = new Properties();
             Properties sqlProperties = new Properties();
             sqlProperties.load(getServletContext().getResourceAsStream("/WEB-INF/sql.properties"));
@@ -72,6 +71,7 @@ public class CompleteInscriptionsServlet extends HttpServlet {
             inscriptionsManager.enrollComplete(campamentDTO, assistantDTO, schedule);
             
             res.setStatus(HttpServletResponse.SC_CREATED);
+            res.sendRedirect("/summer_camp/mvc/view/messages/inscriptionsCreated.jsp");
         } catch (Exception e) {
             e.getStackTrace();
             res.sendError(HttpServletResponse.SC_BAD_REQUEST, "Bad Request: " + e.getMessage());
@@ -114,6 +114,7 @@ public class CompleteInscriptionsServlet extends HttpServlet {
             inscriptionsManager.cancelComplete(campamentDTO, assistantDTO);
             
             res.setStatus(HttpServletResponse.SC_OK);
+            res.sendRedirect("/summer_camp/mvc/view/messages/inscriptionsDeleted.jsp");
         } catch (Exception e) {
             e.printStackTrace();
             res.sendError(HttpServletResponse.SC_BAD_REQUEST, "Bad Request: " + e.getMessage());

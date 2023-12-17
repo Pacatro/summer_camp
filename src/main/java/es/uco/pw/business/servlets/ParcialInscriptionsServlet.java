@@ -111,6 +111,7 @@ public class ParcialInscriptionsServlet extends HttpServlet {
             inscriptionsManager.enrollParcial(campamentDTO, assistantDTO);
             
             res.setStatus(HttpServletResponse.SC_CREATED);
+            res.sendRedirect("/summer_camp/mvc/view/messages/campamentsCreated.jsp");
         } catch (Exception e) {
             e.printStackTrace();
             res.sendError(HttpServletResponse.SC_BAD_REQUEST, "Bad Request: " + e.getMessage());
@@ -152,6 +153,7 @@ public class ParcialInscriptionsServlet extends HttpServlet {
             inscriptionsManager.cancelParcial(campamentDTO, assistantDTO);
 
             res.setStatus(HttpServletResponse.SC_OK);
+            res.sendRedirect("/summer_camp/mvc/view/messages/inscriptionsDeleted.jsp");
         } catch (Exception e) {
             e.printStackTrace();
             res.sendError(HttpServletResponse.SC_BAD_REQUEST, "Bad Request: " + e.getMessage());

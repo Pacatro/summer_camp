@@ -6,7 +6,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-        <link href="../../styles/loginView.css" rel="stylesheet" />
+        <link href="/summer_camp/styles/index.css" rel="stylesheet" />
 		<title>Acceso</title>
 	</head>
 	<body>
@@ -15,6 +15,7 @@
 		</header>
 
 		<main>
+			<h1>Crear campamento</h1>
 			<%
 				String nextPage = "../controller/loginController.jsp";
 				String messageNextPage = request.getParameter("message");
@@ -23,7 +24,6 @@
 				System.out.println(customerBean.getEmailUser());
 
 				if (customerBean != null && !customerBean.getEmailUser().equals("")) { %>
-					<h1>Campament</h1>
 					<form method="post" action="/summer_camp/campaments">
 						<input type="text" name="start-date" value="" placeholder="startdate">
 						<input type="text" name="end-date" placeholder="enddate">	
@@ -33,9 +33,5 @@
 					</form>
 				<% } %>
 		</main>
-
-		<footer>
-			<h3>Summer Camp<h3>
-		</footer>
 	</body>
 </html>

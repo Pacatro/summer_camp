@@ -53,6 +53,7 @@ public class ActivitiesMonitorsServlet extends HttpServlet {
             campamentsManager.associateMonitorsToActivities(monId, actId);
             
             res.setStatus(HttpServletResponse.SC_OK);
+            res.sendRedirect("/summer_camp/mvc/view/messages/monsActsAssociated.jsp");
         } catch (Exception e) {
             System.out.println(e.getMessage());
             res.sendError(HttpServletResponse.SC_BAD_REQUEST, "Server Error: " + e.getMessage());

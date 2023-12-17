@@ -61,7 +61,7 @@ public class CampamentsServlet extends HttpServlet {
             campamentsManager.createCampaments(campId, starDate, endDate, level, maxAssistants);
             
             res.setStatus(HttpServletResponse.SC_CREATED);
-            res.sendRedirect("/mvc/view/Adminview.jsp");
+            res.sendRedirect("/summer_camp/mvc/view/messages/campamentsCreated.jsp");
         } catch (Exception e) {
             e.getStackTrace();
             res.sendError(HttpServletResponse.SC_BAD_REQUEST, "Bad request: " + e.getMessage());

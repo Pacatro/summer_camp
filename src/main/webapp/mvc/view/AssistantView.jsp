@@ -39,7 +39,8 @@
                 </jsp:forward>
             <%
                 }else if(customerBean.getType() == UserType.ADMIN){
-                    String nextPage = "/index.jsp";
+                    String nextPage = "Adminview.jsp";
+                    messageNextPage = "Bienvenido/a" + customerBean.getName();
             %>
                 <jsp:forward page="<%=nextPage%>">
                     <jsp:param value="<%=messageNextPage%>" name="message"/>

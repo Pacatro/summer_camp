@@ -63,7 +63,7 @@ public class CampamentsServlet extends HttpServlet {
             res.setStatus(HttpServletResponse.SC_CREATED);
             res.sendRedirect("/summer_camp/mvc/view/messages/campamentsCreated.jsp");
         } catch (Exception e) {
-            e.getStackTrace();
+            e.printStackTrace();
             res.sendError(HttpServletResponse.SC_BAD_REQUEST, "Bad request: " + e.getMessage());
         }
     }

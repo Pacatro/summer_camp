@@ -41,9 +41,5 @@
 					</form>
 				<% } %>
 		</main>
-
-		<footer>
-			<h3>Summer Camp<h3>
-		</footer>
 	</body>
 </html>

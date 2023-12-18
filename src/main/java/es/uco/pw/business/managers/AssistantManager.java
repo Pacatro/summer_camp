@@ -92,4 +92,15 @@ public class AssistantManager {
         return campaments;
     }
 
+    public AssistantDTO getByEmail(String email) throws Exception{
+        AssistantDTO assist = new AssistantDTO();
+        
+        try{
+            AssistantDAO dao = new AssistantDAO(this.sqlProperties, this.configProperties);
+            assist = dao.getByEmail(email);
+        }catch(Exception e) {BusinessException.handleException(e);}
+        
+        return assist;
+    }
+
 }

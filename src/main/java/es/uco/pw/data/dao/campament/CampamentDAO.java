@@ -382,4 +382,10 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
 
     @Override
     public void update(CampamentDTO campamentDTO) throws Exception { throw new UnsupportedOperationException("Unimplemented method 'update'"); }
+
+    @Override
+    public void delete(CampamentDTO dto) throws Exception {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+    }
 }

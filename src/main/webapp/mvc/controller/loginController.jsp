@@ -26,7 +26,7 @@
 			
 			if(!userManager.signin(email, password)) {
 				nextPage = "../view/errors/error.jsp";
-				messageNextPage = "El email " + email + " no se encuentra registrado.";
+				messageNextPage = "El usuario y/o la contraseña son incorrectos";
 				%>
 				<jsp:forward page="<%=nextPage%>">
 					<jsp:param value="<%=messageNextPage%>" name="message"/>

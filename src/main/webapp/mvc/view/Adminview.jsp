@@ -2,13 +2,14 @@
 <%@ page import ="java.util.*" %>
 <%@ page import = "es.uco.pw.business.campament.CampamentDTO"%>
 <%@ page import = "es.uco.pw.business.managers.CampamentsManager"%>
+<%@ page import = "es.uco.pw.business.common.userType.UserType"%>
 <jsp:useBean id="customerBean" scope="session" class="es.uco.pw.display.javabeans.CustomerBean"></jsp:useBean>
 
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
-        <link href="../../styles/index.css" rel="stylesheet" />
+        <link href="/summer_camp/styles/index.css" rel="stylesheet" />
         <title>Pagina de Administrador</title>
     </head>
     <body>
@@ -31,8 +32,31 @@
 		</header>
 
 		<main>
+
+            <%
+                if(customerBean == null || customerBean.getEmailUser().equals("")){
+                    String nextPage = "/index.jsp";
+            %>
+                <jsp:forward page="<%=nextPage%>">
+					<jsp:param value="<%=messageNextPage%>" name="message"/>
+				</jsp:forward>
+            <%
+                }else if(customerBean.getType() == UserType.ASSISTANT){
+                    String nextPage = "/AssistantView.jsp";
+            %>
+                <jsp:forward page="<%=nextPage%>">
+					<jsp:param value="<%=messageNextPage%>" name="message"/>
+				</jsp:forward>
+            <%
+                }
+            %>
+
 			<div class="wellcome-message">
-                <h2><%= messageNextPage %></h2>
+                <% if(messageNextPage == null) { %>
+                    <h2>Bienvenido/a <%= customerBean.getName() %></h2>
+                <% } else { %> 
+                    <h2><%= messageNextPage %></h2>
+                <% } %>
             </div>
 
             <h2>Lista campamentos: </h2>
@@ -62,10 +86,6 @@
                     <% } %>       
                 </tbody>
             </table>
-
-            <button>
-				<a href="/summer_camp">Salir</a>
-			</button>
 		</main>
 
 		<footer>

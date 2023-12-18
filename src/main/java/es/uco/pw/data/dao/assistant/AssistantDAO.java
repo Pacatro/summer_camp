@@ -96,8 +96,8 @@ public class AssistantDAO implements IDAO<AssistantDTO, Integer> {
             ps.setString(2, assistantDTO.getSurname());
             ps.setString(3, assistantDTO.getDate().toString());
             ps.setBoolean(4,assistantDTO.getAtention());
-            ps.setInt(5, assistantDTO.getId());
-            ps.setString(6, assistantDTO.getEmail());
+            ps.setString(5, assistantDTO.getEmail());
+            ps.setInt(6, assistantDTO.getId());
 
             int rowsAffected = ps.executeUpdate();
 
@@ -165,5 +165,11 @@ public class AssistantDAO implements IDAO<AssistantDTO, Integer> {
         connDB.disconnect();
 
         return assi;
+    }
+
+    @Override
+    public void delete(AssistantDTO dto) throws Exception {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'delete'");
     }
 }

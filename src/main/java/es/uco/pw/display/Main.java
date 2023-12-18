@@ -1,15 +1,16 @@
 package es.uco.pw.display;
 
 import java.io.FileInputStream;
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.Properties;
-import java.util.Scanner;
 
+import es.uco.pw.business.assistant.AssistantDTO;
 import es.uco.pw.business.campament.CampamentDTO;
-import es.uco.pw.business.common.userType.UserType;
+import es.uco.pw.business.common.level.Level;
 import es.uco.pw.business.managers.AssistantManager;
-import es.uco.pw.business.managers.UserManager;
-import es.uco.pw.business.user.UserDTO;
+import es.uco.pw.business.managers.CampamentsManager;
+import es.uco.pw.business.managers.InscriptionsManager;
+import es.uco.pw.business.managers.AssistantManager;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -29,12 +30,22 @@ public class Main {
         // System.out.println(manager.update(user));
 
         AssistantManager manager = new AssistantManager(sql_properties, config_properties);
-        ArrayList<CampamentDTO> list = manager.getCampaments("pedro@example.com");
 
-        for(CampamentDTO c : list)
-            System.out.println(c.getId());
+        AssistantDTO assistantDTO = new AssistantDTO(50, "paco", "algar", LocalDate.now(), false, "paco@paco.com");
+        CampamentDTO campamentDTO = new CampamentDTO(67, LocalDate.of(2026, 10, 1), LocalDate.of(2027, 10, 1), Level.TEENAGER);
 
-        System.out.println(list.size());
+        manager.register(assistantDTO);
+        CampamentsManager campamentsManager = new CampamentsManager(sql_properties, config_properties);
+        campamentsManager.createCampaments(67, LocalDate.of(2026, 10, 1), LocalDate.of(2027, 10, 1), Level.TEENAGER, 100);
+
+        InscriptionsManager inscriptionsManager = new InscriptionsManager(sql_properties, config_properties);
+
+        inscriptionsManager.enrollParcial(campamentDTO, assistantDTO);
+
+        System.out.println("oK");
+
+        inscriptionsManager.cancelParcial(campamentDTO, assistantDTO);
+        System.out.println("cancelled");
     }
 
 }

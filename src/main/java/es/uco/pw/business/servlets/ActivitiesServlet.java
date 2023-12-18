@@ -18,12 +18,13 @@ import java.util.Properties;
 
 @WebServlet(name = "ActivitiesServlet", urlPatterns = "/activities")
 public class ActivitiesServlet extends HttpServlet {
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws FileNotFoundException, IOException {
-        
         HttpSession session= req.getSession();
+        
         CustomerBean customerBean= (CustomerBean) session.getAttribute("customerBean");
         if(customerBean==null || customerBean.getType()==UserType.ASSISTANT){
-            res.sendError(401, "Unauthorized: The user is not an admin");
+            res.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized: The user is not an admin");
             return;
         }
 
@@ -32,7 +33,7 @@ public class ActivitiesServlet extends HttpServlet {
             req.getParameter("schedule") == null ||
             req.getParameter("max_participants") == null || 
             req.getParameter("num_monitors") == null) {
-            res.sendError(400, "Bad Request: Missing parameters");
+            res.sendError(HttpServletResponse.SC_BAD_REQUEST, "Bad Request: Missing parameters");
             return;
         }
         
@@ -42,20 +43,21 @@ public class ActivitiesServlet extends HttpServlet {
         int maxParticipants = Integer.parseInt(req.getParameter("max_participants"));
         int numMonitors = Integer.parseInt(req.getParameter("num_monitors"));
     
-        Properties sqlProperties = new Properties();
-        Properties configProperties = new Properties();
-        sqlProperties.load(new FileInputStream("src/main/webapp/WEB-INF/sql.properties"));
-        configProperties.load(new FileInputStream("src/main/webapp/WEB-INF/config.properties"));
-
-        CampamentsManager campamentsManager = new CampamentsManager(sqlProperties, configProperties);
-
         try {
-            campamentsManager.createActivity(name, level, schedule, maxParticipants, numMonitors);
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-            res.sendError(500, "Server Error: " + e.getMessage());
-        }
+            Properties sqlProperties = new Properties();
+            Properties configProperties = new Properties();
+            sqlProperties.load(getServletContext().getResourceAsStream("/WEB-INF/sql.properties"));
+            configProperties.load(getServletContext().getResourceAsStream("/WEB-INF/config.properties"));
 
-        res.setStatus(201);
+            CampamentsManager campamentsManager = new CampamentsManager(sqlProperties, configProperties);
+            campamentsManager.createActivity(name, level, schedule, maxParticipants, numMonitors);
+
+            res.setStatus(HttpServletResponse.SC_CREATED);
+            res.sendRedirect("/summer_camp/mvc/view/messages/activityCreated.jsp");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            res.sendError(HttpServletResponse.SC_BAD_REQUEST, "Bad request: " + e.getMessage());
+        }
     }
 }

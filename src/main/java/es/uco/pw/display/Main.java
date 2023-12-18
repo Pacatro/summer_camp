@@ -3,13 +3,9 @@ package es.uco.pw.display;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Properties;
-import java.util.Scanner;
 
 import es.uco.pw.business.campament.CampamentDTO;
-import es.uco.pw.business.common.userType.UserType;
 import es.uco.pw.business.managers.AssistantManager;
-import es.uco.pw.business.managers.UserManager;
-import es.uco.pw.business.user.UserDTO;
 
 public class Main {
     public static void main(String[] args) throws Exception {

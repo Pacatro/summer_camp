@@ -354,6 +354,8 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
             count = rs.getInt("count(ass_id)");
         }
 
+        connDB.disconnect();
+
         return count;
     }
 
@@ -376,6 +378,8 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
         while(rs.next()){
             count = rs.getInt("count(ass_id)");
         }
+
+        connDB.disconnect();
 
         return count;
     }

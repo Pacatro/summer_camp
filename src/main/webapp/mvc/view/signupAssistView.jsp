@@ -41,8 +41,8 @@
             <div class="login-section">
                 <h1>Complete el resto de la información</h1>
                 <form method="post" action="../controller/signupAssistController.jsp">
-                    <input type="number" name="dni" value="" placeholder="DNI">
-                    <input type="text" name="surname" value="" placeholder="Apellido">
+                    <input type="number" name="dni" min="0" max="99999999" placeholder="DNI">
+                    <input type="text" name="surname" placeholder="Apellido">
                     <label for="birthdate" class="label-section">Fecha de nacimiento: </label>
                     <input type="date" name="birthdate" class="date">
                     <label for="atention" class="label-section">¿Necesita atención especial? </label>

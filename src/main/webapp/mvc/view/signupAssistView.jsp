@@ -16,8 +16,6 @@
             messageNextPage = "El DNI no puede ser un número negativo.";
         }
     } catch (NumberFormatException e) {}
-
-    // Resto del código...
 %>
 
 <!DOCTYPE html>

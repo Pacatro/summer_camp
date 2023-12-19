@@ -250,13 +250,13 @@ public class CampamentsManager {
         return campament;
     }
 
-    public int getNumInscriptionsC(int camp_id) throws Exception{
-        CampamentDAO campamentDAO = new CampamentDAO(this.sqlProperties, this.configProperties);
-        return campamentDAO.getNumInscriptionsC(camp_id);
-    }
+    // public int getNumInscriptionsC(int camp_id) throws Exception{
+    //     CampamentDAO campamentDAO = new CampamentDAO(this.sqlProperties, this.configProperties);
+    //     return campamentDAO.getNumInscriptionsC(camp_id);
+    // }
 
-    public int getNumInscriptionsP(int camp_id) throws Exception{
-        CampamentDAO campamentDAO = new CampamentDAO(this.sqlProperties, this.configProperties);
-        return campamentDAO.getNumInscriptionsP(camp_id);
-    }
+    // public int getNumInscriptionsP(int camp_id) throws Exception{
+    //     CampamentDAO campamentDAO = new CampamentDAO(this.sqlProperties, this.configProperties);
+    //     return campamentDAO.getNumInscriptionsP(camp_id);
+    // }
 }

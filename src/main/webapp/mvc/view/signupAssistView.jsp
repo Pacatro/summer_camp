@@ -3,23 +3,6 @@
 <jsp:useBean  id="customerBean" scope="session" class="es.uco.pw.display.javabeans.CustomerBean"></jsp:useBean>
 <%@ page import = "es.uco.pw.business.common.userType.UserType"%>
 
-<%
-    String nextPage = "../controller/signupAssistController.jsp";
-    String messageNextPage = request.getParameter("message");
-    if (messageNextPage == null) messageNextPage = "";
-
-    // Validación para asegurarse de que el DNI no sea negativo
-    int dni = 0;
-    try {
-        dni = Integer.parseInt(request.getParameter("dni"));
-        if (dni < 0) {
-            messageNextPage = "El DNI no puede ser un número negativo.";
-        }
-    } catch (NumberFormatException e) {}
-
-    // Resto del código...
-%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,7 +44,7 @@
                     <input type="number" name="dni" value="" placeholder="DNI">
                     <input type="text" name="surname" value="" placeholder="Apellido">
                     <label for="birthdate" class="label-section">Fecha de nacimiento: </label>
-                    <input type="date" name="birthdate">
+                    <input type="date" name="birthdate" class="date">
                     <label for="atention" class="label-section">¿Necesita atención especial? </label>
                     <select name="atention" class="select">
                         <option value="yes">Si</option>
@@ -71,6 +54,7 @@
                     <input type="submit" value="Submit">
                 </form>
             </div>
+            <% } %>
         </main>
     </div>
 </body>

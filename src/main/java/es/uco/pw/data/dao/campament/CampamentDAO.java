@@ -334,10 +334,10 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
         return campaments;
     }
 
-    public void getNumInscriptionsAll(ArrayList<CampamentDTO> campaments, ArrayList<Integer> num_inscrip_c,
+    public void getNumInscriptionsAll(ArrayList<Integer> campaments, ArrayList<Integer> num_inscrip_c,
                                       ArrayList<Integer> num_inscrip_p) throws Exception{
                                         
-        String sql = sql_properties.getProperty("");
+        String sql = sql_properties.getProperty("GET_NUMINSCRIP_CAMP");
 
         ConnectionDB connDB = new ConnectionDB(config_properties);
         Connection conn = connDB.getConnection();
@@ -347,6 +347,14 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
             throw new DataException("No se han podido contar las inscripciones.");
 
         ResultSet rs = ps.executeQuery();
+
+        while(rs.next()){
+            campaments.add(rs.getInt("c.camp_id"));
+            num_inscrip_c.add(rs.getInt("num_complete"));
+            num_inscrip_p.add(rs.getInt("num_parcials"));
+        }
+
+        connDB.disconnect();
         
     }
 

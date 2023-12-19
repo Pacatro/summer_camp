@@ -6,7 +6,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-        <link href="/summer_camp/styles/index.css" rel="stylesheet" />
+        <link href="/summer_camp/styles/loginView.css" rel="stylesheet" />
 		<title>Acceso</title>
 	</head>
 	<body>
@@ -34,12 +34,7 @@
 						<label for="assis-id">DNI</label>
 						<input type="number" name="assis-id" value="" placeholder="DNI">
 						<label for="camp-id">ID del campamento</label>
-						<input type="number" name="camp-id" placeholder="ID del campamento">	
-						<label for="schedule">Horario</label>
-						<select name="schedule" id="schedule">
-							<option value="MORNING">Mañanas</option>
-							<option value="AFTERNOON">Tardes</option>
-						</select>
+						<input type="number" name="camp-id" placeholder="ID del campamento">
 						<input type="submit" value="Submit">
 					</form>
 				<% } 

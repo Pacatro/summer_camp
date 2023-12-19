@@ -211,4 +211,4 @@ LEFT JOIN
 GROUP BY
     c.camp_id;
 
-
+SELECT * FROM campaments WHERE '2024-07-01' <= start_date AND start_date <= '2024-08-01';

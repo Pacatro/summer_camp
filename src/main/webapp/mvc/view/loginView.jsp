@@ -22,10 +22,13 @@
 				if (messageNextPage == null) messageNextPage = "";
 
 				if (customerBean != null && !customerBean.getEmailUser().equals("")) {
-					if(customerBean.getType() == UserType.ASSISTANT)
+					if(customerBean.getType() == UserType.ASSISTANT){
 						nextPage = "AssistantView.jsp";
-					else
+						messageNextPage = "Bienvenido/a" + customerBean.getName();
+					}else{
 						nextPage = "Adminview.jsp";
+						messageNextPage = "Bienvenido/a" + customerBean.getName();
+					}
 			%>
 				<jsp:forward page="<%=nextPage%>">
 					<jsp:param value="<%=messageNextPage%>" name="message"/>
@@ -41,9 +44,5 @@
 					</form>
 				<% } %>
 		</main>
-
-		<footer>
-			<h3>Summer Camp<h3>
-		</footer>
 	</body>
 </html>

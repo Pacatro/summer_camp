@@ -43,6 +43,7 @@
             <%
                 }else if(customerBean.getType() == UserType.ASSISTANT){
                     String nextPage = "/AssistantView.jsp";
+                    messageNextPage = "Bienvenido/a" + customerBean.getName();
             %>
                 <jsp:forward page="<%=nextPage%>">
 					<jsp:param value="<%=messageNextPage%>" name="message"/>
@@ -87,9 +88,5 @@
                 </tbody>
             </table>
 		</main>
-
-		<footer>
-			<h3>Summer Camp<h3>
-		</footer>
     </body>
 </html>

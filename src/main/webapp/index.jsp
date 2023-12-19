@@ -21,6 +21,7 @@
 				String messageNextPage = "";
 
 				if(customerBean != null && !customerBean.getEmailUser().equals("")){
+					messageNextPage = "Bienvenido/a " + customerBean.getName();
 
 					if(customerBean.getType() == UserType.ASSISTANT){
 						nextPage = "./mvc/view/AssistantView.jsp";

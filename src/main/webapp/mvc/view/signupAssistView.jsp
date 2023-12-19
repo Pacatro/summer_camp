@@ -47,8 +47,8 @@
                     <input type="date" name="birthdate" class="date">
                     <label for="atention" class="label-section">¿Necesita atención especial? </label>
                     <select name="atention" class="select">
-                        <option value="yes">Si</option>
                         <option value="no">No</option>
+                        <option value="yes">Si</option>
                     </select>
                     <br/>
                     <input type="submit" value="Submit">

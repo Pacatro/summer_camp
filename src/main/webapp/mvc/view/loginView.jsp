@@ -44,6 +44,6 @@
 						<% } %>
 					</div>
 			</main>
+		</div>
 		</body>
-	</div>
 </html>

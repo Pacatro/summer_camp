@@ -7,55 +7,53 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-        <link href="/summer_camp/styles/index.css" rel="stylesheet" />
+        <link href="/summer_camp/styles/loginView.css" rel="stylesheet" />
 		<title>Registrarse</title>
 	</head>
 	<body>
-		<header>
-			<h1>Summer Camp<h1>
-		</header>
+		<div class="container">
+			<header>
+				<h1>Summer Camp<h1>
+			</header>
 
-		<main>
-			<%
-				String nextPage = "../controller/signupController.jsp";
-				String messageNextPage = request.getParameter("message");
-				if (messageNextPage == null) messageNextPage = "";
+			<main>
+				<%
+					String nextPage = "../controller/signupController.jsp";
+					String messageNextPage = request.getParameter("message");
+					if (messageNextPage == null) messageNextPage = "";
 
-				if (customerBean != null && !customerBean.getEmailUser().equals("")) {
-					if(customerBean.getType() == UserType.ASSISTANT)
-						nextPage = "AssistantView.jsp";
-					else
-						nextPage = "Adminview.jsp";
-			%>
-				<jsp:forward page="<%=nextPage%>">
-					<jsp:param value="<%=messageNextPage%>" name="message"/>
-				</jsp:forward>
-			<%
-				} else {
-					%>
+					if (customerBean != null && !customerBean.getEmailUser().equals("")) {
+						if(customerBean.getType() == UserType.ASSISTANT)
+							nextPage = "AssistantView.jsp";
+						else
+							nextPage = "Adminview.jsp";
+				%>
+					<jsp:forward page="<%=nextPage%>">
+						<jsp:param value="<%=messageNextPage%>" name="message"/>
+					</jsp:forward>
+				<%
+					} else {
+						%>
 
-					<%= messageNextPage %>
-					<br/>
-					<br/>
-					<h1>Registro</h1>
-					<form method="post" action="../controller/signupController.jsp">
-						<label for="name">Nombre: </label>
-							<input type="text" name="name" value="">
-						<label for="email">Email: </label>
-							<input type="text" name="email">
-						<label for="password">Contraseña: </label>
-							<input type="text" name="password">
-						<label for="type">Tipo de usuario: </label>
-							<select name="type">
-								<option value="ASSISTANT">Asistente</option>
-								<option value="ADMIN">Administrador</option>
+						<%= messageNextPage %>
 						<br/>
-						<input type="submit" value="Submit">
-					</form>
-				<% } %>
-		</main>
-		<footer>
-			<h3>Summer Camp<h3>
-		</footer>
+						<br/>
+						<div class="login-section">
+						<h1>Registro</h1>
+						<form method="post" action="../controller/signupController.jsp">
+								<input type="text" name="name" value="" placeholder="Nombre">
+								<input type="text" name="email" value="" placeholder="Correo">
+								<input type="text" name="password" value="" placeholder="Contraseña">
+							<label for="type" class="label-section">Tipo de usuario: </label>
+								<select name="type" class=select>
+									<option value="ASSISTANT">Asistente</option>
+									<option value="ADMIN">Administrador</option>
+							<br/>
+							<input type="submit" value="Submit">
+						</form>
+					<% } %>
+						</div>
+			</main>
+		</div>
 	</body>
 </html>

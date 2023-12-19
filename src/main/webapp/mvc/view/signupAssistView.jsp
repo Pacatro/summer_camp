@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<jsp:useBean id="customerBean" scope="session" class="es.uco.pw.display.javabeans.CustomerBean"></jsp:useBean>
+<jsp:useBean  id="customerBean" scope="session" class="es.uco.pw.display.javabeans.CustomerBean"></jsp:useBean>
+<%@ page import = "es.uco.pw.business.common.userType.UserType"%>
 
 <%
     String nextPage = "../controller/signupAssistController.jsp";
@@ -32,7 +33,25 @@
             <h1>Summer Camp</h1>
         </header>
 
-        <main>
+		<main>
+			<%
+				String nextPage = "../controller/signupAssistController.jsp";
+				String messageNextPage = request.getParameter("message");
+				if (messageNextPage == null) messageNextPage = "";
+
+				if(customerBean == null || customerBean.getEmailUser().equals("")){
+					nextPage = "/index.jsp";
+				}else if(customerBean.getType() == UserType.ADMIN){
+					nextPage = "Adminview.jsp";
+					messageNextPage = "Bienvenido/a" + customerBean.getName();
+			%>
+					<jsp:forward page="<%=nextPage%>">
+						<jsp:param value="<%=messageNextPage%>" name="message"/>
+					</jsp:forward>
+			<%
+				} else {
+			%>
+            
             <%= messageNextPage %>
             <br/>
             <br/>
@@ -56,3 +75,4 @@
     </div>
 </body>
 </html>
+        

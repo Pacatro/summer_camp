@@ -22,7 +22,6 @@
 					String messageNextPage = request.getParameter("message");
 					if (messageNextPage == null) messageNextPage = "";
 
-<<<<<<< HEAD
 				if (customerBean != null && !customerBean.getEmailUser().equals("")) {
 					if(customerBean.getType() == UserType.ASSISTANT){
 						nextPage = "AssistantView.jsp";
@@ -59,40 +58,5 @@
 					</form>
 				<% } %>
 		</main>
-=======
-					if (customerBean != null && !customerBean.getEmailUser().equals("")) {
-						if(customerBean.getType() == UserType.ASSISTANT)
-							nextPage = "AssistantView.jsp";
-						else
-							nextPage = "Adminview.jsp";
-				%>
-					<jsp:forward page="<%=nextPage%>">
-						<jsp:param value="<%=messageNextPage%>" name="message"/>
-					</jsp:forward>
-				<%
-					} else {
-						%>
-
-						<%= messageNextPage %>
-						<br/>
-						<br/>
-						<div class="login-section">
-						<h1>Registro</h1>
-						<form method="post" action="../controller/signupController.jsp">
-								<input type="text" name="name" value="" placeholder="Nombre">
-								<input type="text" name="email" value="" placeholder="Correo">
-								<input type="text" name="password" value="" placeholder="Contraseña">
-							<label for="type" class="label-section">Tipo de usuario: </label>
-								<select name="type" class=select>
-									<option value="ASSISTANT">Asistente</option>
-									<option value="ADMIN">Administrador</option>
-							<br/>
-							<input type="submit" value="Submit">
-						</form>
-					<% } %>
-						</div>
-			</main>
-		</div>
->>>>>>> origin/css_things
 	</body>
 </html>

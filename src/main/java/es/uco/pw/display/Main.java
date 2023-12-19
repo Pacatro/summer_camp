@@ -4,13 +4,7 @@ import java.io.FileInputStream;
 import java.time.LocalDate;
 import java.util.Properties;
 
-import es.uco.pw.business.assistant.AssistantDTO;
-import es.uco.pw.business.campament.CampamentDTO;
-import es.uco.pw.business.common.level.Level;
-import es.uco.pw.business.managers.AssistantManager;
 import es.uco.pw.business.managers.CampamentsManager;
-import es.uco.pw.business.managers.InscriptionsManager;
-import es.uco.pw.business.managers.AssistantManager;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -29,23 +23,16 @@ public class Main {
         // UserDTO user = new UserDTO("juan@example.com", "Pepe", "password", UserType.ADMIN);
         // System.out.println(manager.update(user));
 
-        AssistantManager manager = new AssistantManager(sql_properties, config_properties);
+        CampamentsManager camp = new CampamentsManager(sql_properties, config_properties);
+            ArrayList<Integer> campaments = new ArrayList<Integer>();
+            ArrayList<Integer> num_incrip_c = new ArrayList<Integer>();
+            ArrayList<Integer> num_incrip_p = new ArrayList<Integer>();
 
-        AssistantDTO assistantDTO = new AssistantDTO(50, "paco", "algar", LocalDate.now(), false, "paco@paco.com");
-        CampamentDTO campamentDTO = new CampamentDTO(67, LocalDate.of(2026, 10, 1), LocalDate.of(2027, 10, 1), Level.TEENAGER);
+            camp.getNumInscriptionsAll(campaments, num_incrip_c, num_incrip_p);
 
-        manager.register(assistantDTO);
-        CampamentsManager campamentsManager = new CampamentsManager(sql_properties, config_properties);
-        campamentsManager.createCampaments(67, LocalDate.of(2026, 10, 1), LocalDate.of(2027, 10, 1), Level.TEENAGER, 100);
-
-        InscriptionsManager inscriptionsManager = new InscriptionsManager(sql_properties, config_properties);
-
-        inscriptionsManager.enrollParcial(campamentDTO, assistantDTO);
-
-        System.out.println("oK");
-
-        inscriptionsManager.cancelParcial(campamentDTO, assistantDTO);
-        System.out.println("cancelled");
+            for(int i = 0; i < campaments.size(); i++){
+                System.out.println(campaments.get(i) + " " + num_incrip_c.get(i) + " " + num_incrip_p.get(i));
+            }
     }
 
 }

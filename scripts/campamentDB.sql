@@ -171,6 +171,7 @@ VALUES
     ('PARCIAL', '2023-05-20', false, 110.00, 'MORNING', 3, 2),
     ('COMPLETE', '2024-06-01', false, 150.00, 'AFTERNOON', 4, 4),
     ('PARCIAL', '2023-10-05', false, 80.00, 'MORNING', 5, 5),
+    ('PARCIAL', '2023-10-05', false, 80.00, 'MORNING', 5, 5),
     ('COMPLETE', '2024-04-15', false, 130.00, 'AFTERNOON', 6, 6);
 
  SELECT * FROM assistants;
@@ -186,3 +187,28 @@ SELECT * FROM users;
 SELECT * FROM campaments WHERE camp_id IN (SELECT camp_id FROM inscriptions WHERE ass_id = 2);
 
 DELETE FROM inscriptions WHERE type = 'PARCIAL' AND camp_id = 2 AND ass_id = 3;
+
+SELECT
+    c.*,
+    COUNT(i.i_id) AS num_inscriptions
+FROM
+    campaments c
+LEFT JOIN
+    inscriptions i ON c.camp_id = i.camp_id
+WHERE
+    i.cancelled = FALSE OR i.cancelled IS NULL
+GROUP BY
+    c.camp_id;
+
+SELECT
+    c.*,
+    COUNT(CASE WHEN i.type = 'COMPLETE' THEN 1 ELSE NULL END) AS num_complete,
+    COUNT(CASE WHEN i.type = 'PARCIAL' THEN 1 ELSE NULL END) AS num_parcials
+FROM
+    campaments c
+LEFT JOIN
+    inscriptions i ON c.camp_id = i.camp_id
+GROUP BY
+    c.camp_id;
+
+

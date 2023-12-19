@@ -15,7 +15,7 @@
 		</header>
 
 		<main>
-			<h1>Crear campamento</h1>
+			<h1>Realizar inscripcion parcial</h1>
 
 			<%
 				String nextPage = "";
@@ -29,20 +29,17 @@
 							<jsp:param value="<%=messageNextPage%>" name="message"/>
 						</jsp:forward>
 					<%
-				} else if (customerBean != null && customerBean.getType() == UserType.ASSISTANT) {
-					nextPage = "/mvc/view/AssistantView.jsp";
-					messageNextPage = "Bienvenido/a " + customerBean.getName();
-					%>
-						<jsp:forward page="<%=nextPage%>">
-							<jsp:param value="<%=messageNextPage%>" name="message"/>
-						</jsp:forward>
-					<%
-				} else if(customerBean != null && customerBean.getType() == UserType.ADMIN) { %>
-					<form method="post" action="/summer_camp/campaments">
-						<input type="text" name="start-date" value="" placeholder="startdate">
-						<input type="text" name="end-date" placeholder="enddate">	
-						<input type="text" name="level" placeholder="level">
-						<input type="text" name="max-assistants" placeholder="max">	
+				} else { %>
+					<form method="post" action="/summer_camp/parcialInscription">
+						<label for="assis-id">DNI</label>
+						<input type="number" name="assis-id" value="" placeholder="DNI">
+						<label for="camp-id">ID del campamento</label>
+						<input type="number" name="camp-id" placeholder="ID del campamento">	
+						<label for="schedule">Horario</label>
+						<select name="schedule" id="schedule">
+							<option value="MORNING">Mañanas</option>
+							<option value="AFTERNOON">Tardes</option>
+						</select>
 						<input type="submit" value="Submit">
 					</form>
 				<% } 

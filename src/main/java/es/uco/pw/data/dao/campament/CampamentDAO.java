@@ -334,51 +334,75 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
         return campaments;
     }
 
-    public int getNumInscriptionsC(int camp_id) throws Exception{
-        String sql = sql_properties.getProperty("GET_NUMINSCRIP_CAMP_C");
+    public void getNumInscriptionsAll(ArrayList<Integer> campaments, ArrayList<Integer> num_inscrip_c,
+                                      ArrayList<Integer> num_inscrip_p) throws Exception{
+                                        
+        String sql = sql_properties.getProperty("GET_NUMINSCRIP_CAMP");
 
         ConnectionDB connDB = new ConnectionDB(config_properties);
-
         Connection conn = connDB.getConnection();
         PreparedStatement ps = conn.prepareStatement(sql);
-
-        ps.setInt(1, camp_id);
 
         if(!ps.execute())
             throw new DataException("No se han podido contar las inscripciones.");
 
         ResultSet rs = ps.executeQuery();
-        int count = 0;
 
         while(rs.next()){
-            count = rs.getInt("count(ass_id)");
+            campaments.add(rs.getInt("c.camp_id"));
+            num_inscrip_c.add(rs.getInt("num_complete"));
+            num_inscrip_p.add(rs.getInt("num_parcials"));
         }
 
-        return count;
+        connDB.disconnect();
+        
     }
 
-    public int getNumInscriptionsP(int camp_id) throws Exception{
-        String sql = sql_properties.getProperty("GET_NUMINSCRIP_CAMP_P");
+    // public int getNumInscriptionsC(int camp_id) throws Exception{
+    //     String sql = sql_properties.getProperty("GET_NUMINSCRIP_CAMP_C");
 
-        ConnectionDB connDB = new ConnectionDB(config_properties);
+    //     ConnectionDB connDB = new ConnectionDB(config_properties);
 
-        Connection conn = connDB.getConnection();
-        PreparedStatement ps = conn.prepareStatement(sql);
+    //     Connection conn = connDB.getConnection();
+    //     PreparedStatement ps = conn.prepareStatement(sql);
 
-        ps.setInt(1, camp_id);
+    //     ps.setInt(1, camp_id);
 
-        if(!ps.execute())
-            throw new DataException("No se han podido contar las inscripciones.");
+    //     if(!ps.execute())
+    //         throw new DataException("No se han podido contar las inscripciones.");
 
-        ResultSet rs = ps.executeQuery();
-        int count = 0;
+    //     ResultSet rs = ps.executeQuery();
+    //     int count = 0;
 
-        while(rs.next()){
-            count = rs.getInt("count(ass_id)");
-        }
+    //     while(rs.next()){
+    //         count = rs.getInt("count(ass_id)");
+    //     }
 
-        return count;
-    }
+    //     return count;
+    // }
+
+    // public int getNumInscriptionsP(int camp_id) throws Exception{
+    //     String sql = sql_properties.getProperty("GET_NUMINSCRIP_CAMP_P");
+
+    //     ConnectionDB connDB = new ConnectionDB(config_properties);
+
+    //     Connection conn = connDB.getConnection();
+    //     PreparedStatement ps = conn.prepareStatement(sql);
+
+    //     ps.setInt(1, camp_id);
+
+    //     if(!ps.execute())
+    //         throw new DataException("No se han podido contar las inscripciones.");
+
+    //     ResultSet rs = ps.executeQuery();
+    //     int count = 0;
+
+    //     while(rs.next()){
+    //         count = rs.getInt("count(ass_id)");
+    //     }
+
+    //     return count;
+    // }
 
     @Override
     public void update(CampamentDTO campamentDTO) throws Exception { throw new UnsupportedOperationException("Unimplemented method 'update'"); }

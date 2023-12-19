@@ -66,19 +66,18 @@
                 <tbody>
                     <%
                     CampamentsManager camp = new CampamentsManager(sqlprop, configprop);
-                    ArrayList<CampamentDTO> campaments = camp.getAllCampaments();
-                    %>
+                    ArrayList<Integer> campaments = new ArrayList<Integer>();
+                    ArrayList<Integer> num_incrip_c = new ArrayList<Integer>();
+                    ArrayList<Integer> num_incrip_p = new ArrayList<Integer>();
 
-                    <% for(int i = 0; i < campaments.size(); i++){
-                        CampamentDTO campamento = campaments.get(i);
-                        int inscripcionesCompletas = camp.getNumInscriptionsC(campamento.getId());
-                        int inscripcionesParciales = camp.getNumInscriptionsP(campamento.getId());
-                    %>
+                    camp.getNumInscriptionsAll(campaments, num_incrip_c, num_incrip_p);
 
+                    for(int i = 0; i < campaments.size(); i++){
+                    %>
                         <tr>
-                            <td><%=campaments.get(i).getId()%></td>
-                            <td>Inscripciones Completas: <%= inscripcionesCompletas %></td>
-                            <td>Inscripciones Parciales: <%= inscripcionesParciales %></td>
+                            <td><%=campaments.get(i)%></td>
+                            <td>Inscripciones Completas: <%= num_incrip_c.get(i) %></td>
+                            <td>Inscripciones Parciales: <%= num_incrip_p.get(i) %></td>
                         </tr>
                     <% } %>       
                 </tbody>

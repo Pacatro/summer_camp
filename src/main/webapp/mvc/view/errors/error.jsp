@@ -7,36 +7,34 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="/summer_camp/styles/index.css" rel="stylesheet" />
+        <link href="/summer_camp/styles/loginView.css" rel="stylesheet" />
         <title>Error page</title>
     </head>
     <body>
-        <%
-            String messageNextPage = request.getParameter("message");
-        %>
+        <div class="container">
+            <%
+                String messageNextPage = request.getParameter("message");
+            %>
 
-        <header>
-            <h1>Summer Camp<h1>
-        </header>
+            <header>
+                <h1>Summer Camp<h1>
+            </header>
 
-        <main>
-            <div class="message">
-                <% if(messageNextPage == null) { %>
-                    <h1 class="error-message">Ha ocurrido un error inesperado.</h1>
-                <% } else { %>
-                    <h1 class="error-message">Error: <%= messageNextPage %></h1>
-                <% } %>
-            </div>
+            <main>
+                <div class="message">
+                    <% if(messageNextPage == null) { %>
+                        <h1 class="error-message">Ha ocurrido un error inesperado.</h1>
+                    <% } else { %>
+                        <h1 class="error-message">Error: <%= messageNextPage %></h1>
+                    <% } %>
+                </div>
 
-            <div class="buttons">
-                <button>
-                    <a href="/summer_camp">Volver</a>
-                </button>
-            </div>
-        </main>
-
-        <footer>
-            <h3>Summer Camp<h3>
-        </footer>
+                <div class="buttons">
+                    <button>
+                        <a href="/summer_camp">Volver</a>
+                    </button>
+                </div>
+            </main>
+        </div>
     </body>
 </html>

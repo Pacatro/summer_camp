@@ -13,111 +13,113 @@
         <title>Pagina de Administrador</title>
     </head>
     <body>
-
-        <%
-            String file = application.getInitParameter("sqlproperties");
-            String file1 = application.getInitParameter("configproperties");
-            java.io.InputStream myIO = application.getResourceAsStream(file);
-            java.io.InputStream myIO1 = application.getResourceAsStream(file1);
-            java.util.Properties sqlprop = new java.util.Properties();
-            java.util.Properties configprop = new java.util.Properties();
-            sqlprop.load(myIO);
-            configprop.load(myIO1);
-
-            String messageNextPage = request.getParameter("message");
-        %>
-
-        <header>
-			<h1>Summer Camp<h1>
-		</header>
-
-		<main>
+        <div class="container">
 
             <%
-                if(customerBean == null || customerBean.getEmailUser().equals("")){
-                    String nextPage = "/index.jsp";
-            %>
-                <jsp:forward page="<%=nextPage%>">
-					<jsp:param value="<%=messageNextPage%>" name="message"/>
-				</jsp:forward>
-            <%
-                }else if(customerBean.getType() == UserType.ASSISTANT){
-                    String nextPage = "/AssistantView.jsp";
-                    messageNextPage = "Bienvenido/a" + customerBean.getName();
-            %>
-                <jsp:forward page="<%=nextPage%>">
-					<jsp:param value="<%=messageNextPage%>" name="message"/>
-				</jsp:forward>
-            <%
-                }
+                String file = application.getInitParameter("sqlproperties");
+                String file1 = application.getInitParameter("configproperties");
+                java.io.InputStream myIO = application.getResourceAsStream(file);
+                java.io.InputStream myIO1 = application.getResourceAsStream(file1);
+                java.util.Properties sqlprop = new java.util.Properties();
+                java.util.Properties configprop = new java.util.Properties();
+                sqlprop.load(myIO);
+                configprop.load(myIO1);
+
+                String messageNextPage = request.getParameter("message");
             %>
 
-            <button>
-                <a href="/summer_camp/mvc/controller/logoutController.jsp">Desconexion</a>
-            </button>
+            <header>
+                <h1>Summer Camp<h1>
+            </header>
 
-            <button>
-                <a href="/summer_camp/mvc/view/forms/changeView.jsp">Modificar datos</a>
-            </button>
+            <main>
 
-			<div class="wellcome-message">
-                <% if(messageNextPage == null) { %>
-                    <h2>Bienvenido/a <%= customerBean.getName() %></h2>
-                <% } else { %> 
-                    <h2><%= messageNextPage %></h2>
-                <% } %>
-            </div>
+                <%
+                    if(customerBean == null || customerBean.getEmailUser().equals("")){
+                        String nextPage = "/index.jsp";
+                %>
+                    <jsp:forward page="<%=nextPage%>">
+                        <jsp:param value="<%=messageNextPage%>" name="message"/>
+                    </jsp:forward>
+                <%
+                    }else if(customerBean.getType() == UserType.ASSISTANT){
+                        String nextPage = "/AssistantView.jsp";
+                        messageNextPage = "Bienvenido/a" + customerBean.getName();
+                %>
+                    <jsp:forward page="<%=nextPage%>">
+                        <jsp:param value="<%=messageNextPage%>" name="message"/>
+                    </jsp:forward>
+                <%
+                    }
+                %>
 
-            <h2>Lista campamentos: </h2>
+                <button>
+                    <a href="/summer_camp/mvc/controller/logoutController.jsp">Desconexion</a>
+                </button>
 
-            <table>
-                <thead>
-                    <th> ID Campamento </th>
-                    <th> Asistentes </th>
-                </thead>
-                <tbody>
-                    <%
-                    CampamentsManager camp = new CampamentsManager(sqlprop, configprop);
-                    ArrayList<Integer> campaments = new ArrayList<Integer>();
-                    ArrayList<Integer> num_incrip_c = new ArrayList<Integer>();
-                    ArrayList<Integer> num_incrip_p = new ArrayList<Integer>();
+                <button>
+                    <a href="/summer_camp/mvc/view/forms/changeView.jsp">Modificar datos</a>
+                </button>
 
-                    camp.getNumInscriptionsAll(campaments, num_incrip_c, num_incrip_p);
+                <div class="wellcome-message">
+                    <% if(messageNextPage == null) { %>
+                        <h2>Bienvenido/a <%= customerBean.getName() %></h2>
+                    <% } else { %> 
+                        <h2><%= messageNextPage %></h2>
+                    <% } %>
+                </div>
 
-                    for(int i = 0; i < campaments.size(); i++){
-                    %>
-                        <tr>
-                            <td><%=campaments.get(i)%></td>
-                            <td>Inscripciones Completas: <%= num_incrip_c.get(i) %></td>
-                            <td>Inscripciones Parciales: <%= num_incrip_p.get(i) %></td>
-                        </tr>
-                    <% } %>       
-                </tbody>
-            </table>
+                <h2>Lista campamentos: </h2>
 
-            <button>
-                <a href="/summer_camp/mvc/view/forms/createActivitiesView.jsp">Crear una actividad</a>
-            </button>
+                <table>
+                    <thead>
+                        <th> ID Campamento </th>
+                        <th> Asistentes </th>
+                    </thead>
+                    <tbody>
+                        <%
+                        CampamentsManager camp = new CampamentsManager(sqlprop, configprop);
+                        ArrayList<Integer> campaments = new ArrayList<Integer>();
+                        ArrayList<Integer> num_incrip_c = new ArrayList<Integer>();
+                        ArrayList<Integer> num_incrip_p = new ArrayList<Integer>();
 
-            <button>
-                <a href="">Crear un monitor</a>
-            </button>
+                        camp.getNumInscriptionsAll(campaments, num_incrip_c, num_incrip_p);
 
-            <button>
-                <a href="/summer_camp/mvc/view/forms/createCampamentView.jsp">Crear un campamento</a>
-            </button>
+                        for(int i = 0; i < campaments.size(); i++){
+                        %>
+                            <tr>
+                                <td><%=campaments.get(i)%></td>
+                                <td>Inscripciones Completas: <%= num_incrip_c.get(i) %></td>
+                                <td>Inscripciones Parciales: <%= num_incrip_p.get(i) %></td>
+                            </tr>
+                        <% } %>       
+                    </tbody>
+                </table>
 
-            <button>
-                <a href="/summer_camp/mvc/view/forms/actCampView.jsp">Asociar actividad a campamento</a>
-            </button>
+                <button>
+                    <a href="/summer_camp/mvc/view/forms/createActivitiesView.jsp">Crear una actividad</a>
+                </button>
 
-            <button>
-                <a href="/summer_camp/mvc/view/forms/campMonView.jsp">Asociar monitor a campamento</a>
-            </button>
+                <button>
+                    <a href="">Crear un monitor</a>
+                </button>
 
-            <button>
-                <a href="/summer_camp/mvc/view/forms/monActView.jsp">Asociar monitor a actividad</a>
-            </button>
-		</main>
+                <button>
+                    <a href="/summer_camp/mvc/view/forms/createCampamentView.jsp">Crear un campamento</a>
+                </button>
+
+                <button>
+                    <a href="/summer_camp/mvc/view/forms/actCampView.jsp">Asociar actividad a campamento</a>
+                </button>
+
+                <button>
+                    <a href="/summer_camp/mvc/view/forms/campMonView.jsp">Asociar monitor a campamento</a>
+                </button>
+
+                <button>
+                    <a href="/summer_camp/mvc/view/forms/monActView.jsp">Asociar monitor a actividad</a>
+                </button>
+            </main>
+        </div>
     </body>
 </html>

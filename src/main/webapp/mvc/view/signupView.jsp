@@ -53,6 +53,7 @@
 							<select name="type">
 								<option value="ASSISTANT">Asistente</option>
 								<option value="ADMIN">Administrador</option>
+							</select>
 						<br/>
 						<input type="submit" value="Submit">
 					</form>

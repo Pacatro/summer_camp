@@ -5,6 +5,7 @@
 <%@ page import ="java.util.*" %>
 <%@ page import = "es.uco.pw.business.campament.CampamentDTO"%>
 <%@ page import = "es.uco.pw.business.monitor.MonitorDTO"%>
+<%@ page import = "es.uco.pw.business.activity.ActivityDTO"%>
 <%@ page import = "es.uco.pw.business.managers.CampamentsManager"%>
 
 <!DOCTYPE html>
@@ -52,13 +53,44 @@
 							<jsp:param value="<%=messageNextPage%>" name="message"/>
 						</jsp:forward>
 					<%
-				} else { %>
+				} else { 
+					CampamentsManager camp_man = new CampamentsManager(sqlprop, configprop);
+					ArrayList<CampamentDTO> campaments = camp_man.getAllCampaments();
+					ArrayList<MonitorDTO> monitors = camp_man.getAllMonitors();
+					ArrayList<ActivityDTO> activities = camp_man.getAllActivities();
+				%>
+
+					<table>
+						<thead>
+							<th>Monitor</th>
+							<th>Campamentos validos</th>
+						</thead>
+						<tbody>
+							<%
+							for(int i = 0; i < monitors.size() && !monitors.get(i).isEspecial(); i++){
+								for(int j = 0; j < activities.size(); j++){
+									if(activities.get(j).getMonitors().contains(monitors.get(i))){
+										for(int k = 0; k < campaments.size(); k++){
+											if(campaments.get(k).getActivities().contains(activities.get(i))){
+							%>
+											<tr>
+												<td><%=monitors.get(i).getName() + " " + monitors.get(i).getSurname()%></td>
+												<td><%=campaments.get(k).getId()%></td>
+											</tr>
+							<%
+											}
+										}
+									}
+								}
+							}
+							%>
+						</tbody>
+					</table>
+
 					<form method="post" action="/summer_camp/campaments">
 						<label for="camp-id">Identificador del campamento</label>
 						<select name="camp-id">
 						<%
-							CampamentsManager camp_man = new CampamentsManager(sqlprop, configprop);
-							ArrayList<CampamentDTO> campaments = camp_man.getAllCampaments();
 							for(int i = 0; i < campaments.size(); i++){
 						%>
 								<option value="<%=campaments.get(i).getId()%>"><%=campaments.get(i).getId()%></option>
@@ -67,7 +99,6 @@
 						<label for="mon-id">Identificador del monitor</label>
 						<select name="mon-id">
 						<%
-							ArrayList<MonitorDTO> monitors = camp_man.getAllMonitors();
 							for(int i = 0; i < monitors.size(); i++){
 						%>
 								<option value="<%=monitors.get(i).getID()%>"><%=monitors.get(i).getName() + " " + monitors.get(i).getSurname()%></option>
@@ -75,8 +106,7 @@
 						</select>
 						<input type="submit" value="Submit">
 					</form>
-				<% } 
-			%>
+				<% } %>
 		</main>
 	</body>
 </html>

@@ -21,12 +21,6 @@
 				String nextPage = "../controller/signupAssistController.jsp";
 				String messageNextPage = request.getParameter("message");
 				if (messageNextPage == null) messageNextPage = "";
-
-				if(customerBean == null || customerBean.getEmailUser().equals("")){
-					nextPage = "/index.jsp";
-				}else if(customerBean.getType() == UserType.ADMIN){
-					nextPage = "Adminview.jsp";
-					messageNextPage = "Bienvenido/a" + customerBean.getName();
 			%>
 					<jsp:forward page="<%=nextPage%>">
 						<jsp:param value="<%=messageNextPage%>" name="message"/>
@@ -59,4 +53,3 @@
     </div>
 </body>
 </html>
-        

@@ -2,6 +2,10 @@
     pageEncoding="UTF-8"%>
 <jsp:useBean  id="customerBean" scope="session" class="es.uco.pw.display.javabeans.CustomerBean"></jsp:useBean>
 <%@ page import = "es.uco.pw.business.common.userType.UserType" %>
+<%@ page import ="java.util.*" %>
+<%@ page import = "es.uco.pw.business.monitor.MonitorDTO"%>
+<%@ page import = "es.uco.pw.business.activity.ActivityDTO"%>
+<%@ page import = "es.uco.pw.business.managers.CampamentsManager"%>
 
 <!DOCTYPE html>
 <html>
@@ -19,6 +23,15 @@
 			<h1>Asociar monitor a actividades</h1>
 
 			<%
+				String file = application.getInitParameter("sqlproperties");
+				String file1 = application.getInitParameter("configproperties");
+				java.io.InputStream myIO = application.getResourceAsStream(file);
+				java.io.InputStream myIO1 = application.getResourceAsStream(file1);
+				java.util.Properties sqlprop = new java.util.Properties();
+				java.util.Properties configprop = new java.util.Properties();
+				sqlprop.load(myIO);
+				configprop.load(myIO1);
+
 				String nextPage = "";
 				String messageNextPage = request.getParameter("message");
 				if (messageNextPage == null) messageNextPage = "";
@@ -42,9 +55,24 @@
 				} else { %>
 					<form method="post" action="/summer_camp/campaments">
 						<label for="act-id">Identificador de la actividad</label>
-						<input type="number" name="act-id" value="" placeholder="Identificador de la actividad" min="0">
+						<select name="act-id">
+						<%
+							CampamentsManager camp_man = new CampamentsManager(sqlprop, configprop);
+							ArrayList<ActivityDTO> activities = camp_man.getAllActivities();
+							for(int i = 0; i < activities.size(); i++){
+						%>
+								<option value="<%=activities.get(i).getname()%>"><%=activities.get(i).getname()%></option>
+							<% } %>
+						</select>
 						<label for="mon-id">Identificador del monitor</label>
-						<input type="number" name="mon-id" value="" placeholder="Identificador del monitor" min="0">
+						<select name="mon-id">
+						<%
+							ArrayList<MonitorDTO> monitors = camp_man.getAllMonitorsNotEspecial();
+							for(int i = 0; i < monitors.size(); i++){
+						%>
+								<option value="<%=monitors.get(i).getID()%>"><%=monitors.get(i).getName() + " " + monitors.get(i).getSurname()%></option>
+							<% } %>
+						</select>
 						<input type="submit" value="Submit">
 					</form>
 				<% } 

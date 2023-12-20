@@ -250,13 +250,14 @@ public class CampamentsManager {
         return campament;
     }
 
-    public int getNumInscriptionsC(int camp_id) throws Exception{
-        CampamentDAO campamentDAO = new CampamentDAO(this.sqlProperties, this.configProperties);
-        return campamentDAO.getNumInscriptionsC(camp_id);
+    public void getNumInscriptionsAll(ArrayList<Integer> campaments, ArrayList<Integer> num_inscrip_c,
+                                      ArrayList<Integer> num_inscrip_p) throws Exception{
+                                        
+        CampamentDAO dao = new CampamentDAO(sqlProperties, configProperties);
+        try{
+            dao.getNumInscriptionsAll(campaments, num_inscrip_c, num_inscrip_p);
+        }catch(Exception e) {BusinessException.handleException(e);}
+
     }
 
-    public int getNumInscriptionsP(int camp_id) throws Exception{
-        CampamentDAO campamentDAO = new CampamentDAO(this.sqlProperties, this.configProperties);
-        return campamentDAO.getNumInscriptionsP(camp_id);
-    }
 }

@@ -52,8 +52,20 @@
                 }
             %>
 
+            <button>
+                <a href="/summer_camp/mvc/controller/logoutController.jsp">Desconexion</a>
+            </button>
+
+            <button>
+                <a href="/summer_camp/mvc/view/changeView.jsp">Modificar datos</a>
+            </button>
+
 			<div class="wellcome-message">
-                <h2><%= messageNextPage %></h2>
+                <% if(messageNextPage == null) { %>
+                    <h2>Bienvenido/a <%= customerBean.getName() %></h2>
+                <% } else { %> 
+                    <h2><%= messageNextPage %></h2>
+                <% } %>
             </div>
 
             <h2>Lista campamentos: </h2>
@@ -66,23 +78,34 @@
                 <tbody>
                     <%
                     CampamentsManager camp = new CampamentsManager(sqlprop, configprop);
-                    ArrayList<CampamentDTO> campaments = camp.getAllCampaments();
-                    %>
+                    ArrayList<Integer> campaments = new ArrayList<Integer>();
+                    ArrayList<Integer> num_incrip_c = new ArrayList<Integer>();
+                    ArrayList<Integer> num_incrip_p = new ArrayList<Integer>();
 
-                    <% for(int i = 0; i < campaments.size(); i++){
-                        CampamentDTO campamento = campaments.get(i);
-                        int inscripcionesCompletas = camp.getNumInscriptionsC(campamento.getId());
-                        int inscripcionesParciales = camp.getNumInscriptionsP(campamento.getId());
-                    %>
+                    camp.getNumInscriptionsAll(campaments, num_incrip_c, num_incrip_p);
 
+                    for(int i = 0; i < campaments.size(); i++){
+                    %>
                         <tr>
-                            <td><%=campaments.get(i).getId()%></td>
-                            <td>Inscripciones Completas: <%= inscripcionesCompletas %></td>
-                            <td>Inscripciones Parciales: <%= inscripcionesParciales %></td>
+                            <td><%=campaments.get(i)%></td>
+                            <td>Inscripciones Completas: <%= num_incrip_c.get(i) %></td>
+                            <td>Inscripciones Parciales: <%= num_incrip_p.get(i) %></td>
                         </tr>
                     <% } %>       
                 </tbody>
             </table>
+
+            <button>
+                <a href="/summer_camp/mvc/view/createCampamentView.jsp">Crear un campamento</a>
+            </button>
+
+            <button>
+                <a href="/summer_camp/mvc/view/campMonView.jsp">Asociar monitor a campamento</a>
+            </button>
+
+            <button>
+                <a href="/summer_camp/mvc/view/monActView.jsp">Asociar monitor a actividad</a>
+            </button>
 		</main>
     </body>
 </html>

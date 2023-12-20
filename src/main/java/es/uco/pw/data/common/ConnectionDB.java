@@ -45,6 +45,7 @@ public class ConnectionDB {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             this.conn = DriverManager.getConnection(this.url, this.username, this.password);
+            System.out.println("DB Connected");
             return this.conn;
         } catch (Exception e) { throw new DataException("No se puede conectar a la base de datos."); }
     }
@@ -55,6 +56,7 @@ public class ConnectionDB {
      */
     public void disconnect() throws SQLException {
         if (this.conn != null && !this.conn.isClosed()) {
+            System.out.println("DB disconnected");
             this.conn.close();
         }
     }

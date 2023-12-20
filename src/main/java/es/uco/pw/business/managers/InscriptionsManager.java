@@ -32,8 +32,6 @@ public class InscriptionsManager {
         this.sqlProperties = sqlProperties;
     }
 
-    public InscriptionsManager(){}
-
     /**
      * Gets the inscription factory depending on the init date of the campament and the actual date.
      * @param campament
@@ -136,5 +134,25 @@ public class InscriptionsManager {
 
         ParcialInscriptionDAO iDao = new ParcialInscriptionDAO(this.sqlProperties, this.configProperties);
         iDao.insert(parcialInscriptionDTO);
+    }
+
+    public void cancelComplete(CampamentDTO campament, AssistantDTO assistant) throws Exception {
+        if(!canEnroll(campament))
+            throw new BusinessException("El campamento ya ha comenzado.");
+            
+        CompleteInscriptionDAO completeInscriptionDAO = new CompleteInscriptionDAO(sqlProperties, configProperties);
+        CompleteInscriptionDTO completeInscriptionDTO = completeInscriptionDAO.getByIds(campament.getId(), assistant.getId());
+
+        completeInscriptionDAO.delete(completeInscriptionDTO);
+    }
+
+    public void cancelParcial(CampamentDTO campament, AssistantDTO assistant) throws Exception {
+        ParcialInscriptionDAO parcialInscriptionDAO = new ParcialInscriptionDAO(sqlProperties, configProperties);
+        ParcialInscriptionDTO parcialInscriptionDTO = parcialInscriptionDAO.getByIds(campament.getId(), assistant.getId());
+
+        if(!canEnroll(campament))
+            throw new BusinessException("El campamento ya ha comenzado.");
+
+        parcialInscriptionDAO.delete(parcialInscriptionDTO);
     }
 }

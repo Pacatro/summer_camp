@@ -1,11 +1,7 @@
 package es.uco.pw.display;
 
 import java.io.FileInputStream;
-import java.util.ArrayList;
 import java.util.Properties;
-
-import es.uco.pw.business.campament.CampamentDTO;
-import es.uco.pw.business.managers.AssistantManager;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -24,13 +20,16 @@ public class Main {
         // UserDTO user = new UserDTO("juan@example.com", "Pepe", "password", UserType.ADMIN);
         // System.out.println(manager.update(user));
 
-        AssistantManager manager = new AssistantManager(sql_properties, config_properties);
-        ArrayList<CampamentDTO> list = manager.getCampaments("pedro@example.com");
+        // CampamentsManager camp = new CampamentsManager(sql_properties, config_properties);
+        // ArrayList<Integer> campaments = new ArrayList<Integer>();
+        // ArrayList<Integer> num_incrip_c = new ArrayList<Integer>();
+        // ArrayList<Integer> num_incrip_p = new ArrayList<Integer>();
 
-        for(CampamentDTO c : list)
-            System.out.println(c.getId());
+        //     camp.getNumInscriptionsAll(campaments, num_incrip_c, num_incrip_p);
 
-        System.out.println(list.size());
+        //     for(int i = 0; i < campaments.size(); i++){
+        //         System.out.println(campaments.get(i) + " " + num_incrip_c.get(i) + " " + num_incrip_p.get(i));
+        //     }
     }
 
 }

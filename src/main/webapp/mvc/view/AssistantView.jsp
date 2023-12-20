@@ -57,8 +57,12 @@
                 <a href="/summer_camp/mvc/view/changeView.jsp">Modificar datos</a>
             </button>
 
-            <div class="welcome-message">
-                <h2> <%= messageNextPage %> </h2>
+            <div class="wellcome-message">
+                <% if(messageNextPage == null) { %>
+                    <h2>Bienvenido/a <%= customerBean.getName() %></h2>
+                <% } else { %> 
+                    <h2><%= messageNextPage %></h2>
+                <% } %>
                 <p>Fecha actual: <%= new java.util.Date() %></p>
             </div>
 
@@ -73,6 +77,14 @@
                     <li> <%=campaments.get(i).getId()%> </li>
                 <%}%>
             </ul>
+
+            <button>
+                <a href="/summer_camp/mvc/view/completeInscriptionsView.jsp">Inscripcion completa</a>
+            </button>
+
+            <button>
+                <a href="/summer_camp/mvc/view/parcialInscriptionsView.jsp">Inscripcion parcial</a>
+            </button>
 
         </main>
 

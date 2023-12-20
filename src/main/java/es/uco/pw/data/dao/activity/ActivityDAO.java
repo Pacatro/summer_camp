@@ -245,4 +245,10 @@ public class ActivityDAO implements IDAO<ActivityDTO,String>{
     public void update(ActivityDTO dto) throws Exception{
         throw new UnsupportedOperationException("Unimplemented method 'update'");
     }
+
+    @Override
+    public void delete(ActivityDTO dto) throws Exception {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+    }
 }

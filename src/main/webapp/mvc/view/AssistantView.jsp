@@ -78,6 +78,14 @@
                 <%}%>
             </ul>
 
+            <button>
+                <a href="/summer_camp/mvc/view/completeInscriptionsView.jsp">Inscripcion completa</a>
+            </button>
+
+            <button>
+                <a href="/summer_camp/mvc/view/parcialInscriptionsView.jsp">Inscripcion parcial</a>
+            </button>
+
         </main>
 
     </body>

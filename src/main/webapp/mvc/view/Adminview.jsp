@@ -52,6 +52,14 @@
                 }
             %>
 
+            <button>
+                <a href="/summer_camp/mvc/controller/logoutController.jsp">Desconexion</a>
+            </button>
+
+            <button>
+                <a href="/summer_camp/mvc/view/changeView.jsp">Modificar datos</a>
+            </button>
+
 			<div class="wellcome-message">
                 <% if(messageNextPage == null) { %>
                     <h2>Bienvenido/a <%= customerBean.getName() %></h2>
@@ -86,6 +94,18 @@
                     <% } %>       
                 </tbody>
             </table>
+
+            <button>
+                <a href="/summer_camp/mvc/view/createCampamentView.jsp">Crear un campamento</a>
+            </button>
+
+            <button>
+                <a href="/summer_camp/mvc/view/campMonView.jsp">Asociar monitor a campamento</a>
+            </button>
+
+            <button>
+                <a href="/summer_camp/mvc/view/monActView.jsp">Asociar monitor a actividad</a>
+            </button>
 		</main>
     </body>
 </html>

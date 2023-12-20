@@ -1,10 +1,7 @@
 package es.uco.pw.display;
 
 import java.io.FileInputStream;
-import java.time.LocalDate;
 import java.util.Properties;
-
-import es.uco.pw.business.managers.CampamentsManager;
 
 public class Main {
     public static void main(String[] args) throws Exception {

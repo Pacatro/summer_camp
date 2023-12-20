@@ -22,38 +22,41 @@
 					String messageNextPage = request.getParameter("message");
 					if (messageNextPage == null) messageNextPage = "";
 
-					if (customerBean != null && !customerBean.getEmailUser().equals("")) {
-						if(customerBean.getType() == UserType.ASSISTANT)
-							nextPage = "AssistantView.jsp";
-						else
-							nextPage = "Adminview.jsp";
-				%>
-					<jsp:forward page="<%=nextPage%>">
-						<jsp:param value="<%=messageNextPage%>" name="message"/>
-					</jsp:forward>
-				<%
-					} else {
-						%>
+				if (customerBean != null && !customerBean.getEmailUser().equals("")) {
+					if(customerBean.getType() == UserType.ASSISTANT){
+						nextPage = "AssistantView.jsp";
+						messageNextPage = "Bienvenido/a" + customerBean.getName();
+					}else{
+						nextPage = "Adminview.jsp";
+						messageNextPage = "Bienvenido/a" + customerBean.getName();
+					}
+			%>
+				<jsp:forward page="<%=nextPage%>">
+					<jsp:param value="<%=messageNextPage%>" name="message"/>
+				</jsp:forward>
+			<%
+				} else {
+					%>
 
-						<%= messageNextPage %>
+					<%= messageNextPage %>
+					<br/>
+					<br/>
+					<h1>Registro</h1>
+					<form method="post" action="../controller/signupController.jsp">
+						<label for="name">Nombre: </label>
+							<input type="text" name="name" value="" placeholder="Nombre">
+						<label for="email">Email: </label>
+							<input type="text" name="email" placeholder="Email">
+						<label for="password">Contraseña: </label>
+							<input type="text" name="password" placeholder="Contraseña">
+						<label for="type">Tipo de usuario: </label>
+							<select name="type">
+								<option value="ASSISTANT">Asistente</option>
+								<option value="ADMIN">Administrador</option>
 						<br/>
-						<br/>
-						<div class="login-section">
-						<h1>Registro</h1>
-						<form method="post" action="../controller/signupController.jsp">
-								<input type="text" name="name" value="" placeholder="Nombre">
-								<input type="text" name="email" value="" placeholder="Correo">
-								<input type="text" name="password" value="" placeholder="Contraseña">
-							<label for="type" class="label-section">Tipo de usuario: </label>
-								<select name="type" class=select>
-									<option value="ASSISTANT">Asistente</option>
-									<option value="ADMIN">Administrador</option>
-							<br/>
-							<input type="submit" value="Submit">
-						</form>
-					<% } %>
-						</div>
-			</main>
-		</div>
+						<input type="submit" value="Submit">
+					</form>
+				<% } %>
+		</main>
 	</body>
 </html>

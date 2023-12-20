@@ -22,28 +22,28 @@
 					String messageNextPage = request.getParameter("message");
 					if (messageNextPage == null) messageNextPage = "";
 
-					if (customerBean != null && !customerBean.getEmailUser().equals("")) {
-						if(customerBean.getType() == UserType.ASSISTANT)
-							nextPage = "AssistantView.jsp";
-						else
-							nextPage = "Adminview.jsp";
-				%>
-					<jsp:forward page="<%=nextPage%>">
-						<jsp:param value="<%=messageNextPage%>" name="message"/>
-					</jsp:forward>
-				<%
-						
-					} else { %>
-					<div class="login-section">
-							<h1>Acceso</h1>
-							<form method="post" action="../controller/loginController.jsp">
-								<input type="text" name="email" value="" placeholder="Correo">
-								<input type="password" name="password" placeholder="Contraseña">	
-								<input type="submit" value="Submit">
-							</form>
-						<% } %>
-					</div>
-			</main>
-		</div>
-		</body>
+				if (customerBean != null && !customerBean.getEmailUser().equals("")) {
+					if(customerBean.getType() == UserType.ASSISTANT){
+						nextPage = "AssistantView.jsp";
+						messageNextPage = "Bienvenido/a" + customerBean.getName();
+					}else{
+						nextPage = "Adminview.jsp";
+						messageNextPage = "Bienvenido/a" + customerBean.getName();
+					}
+			%>
+				<jsp:forward page="<%=nextPage%>">
+					<jsp:param value="<%=messageNextPage%>" name="message"/>
+				</jsp:forward>
+			<%
+					
+				} else { %>
+					<h1>Acceso</h1>
+					<form method="post" action="../controller/loginController.jsp">
+						<input type="text" name="email" value="" placeholder="Correo">
+						<input type="password" name="password" placeholder="Contraseña">	
+						<input type="submit" value="Submit">
+					</form>
+				<% } %>
+		</main>
+	</body>
 </html>

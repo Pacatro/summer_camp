@@ -89,6 +89,10 @@ public class ActivityDTO {
         this.num_monitors = num_monitors;
     }
 
+    public void addMonitor(MonitorDTO monitor){
+        this.monitors.add(monitor);
+    }
+
     public String toString(){
         String activityInfo = "Actividad " + this.name + " de nivel " + this.level + " en el horario de "
                                 + this.schedule + ", el maximo de participantes es " + this.max_participants

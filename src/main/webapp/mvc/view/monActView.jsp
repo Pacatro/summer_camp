@@ -54,7 +54,7 @@
 					<%
 				} else { %>
 					<form method="post" action="/summer_camp/campaments">
-						<label for="act-id">Identificador de la actividad</label>
+						<label for="act-id">Nombre de la actividad</label>
 						<select name="act-id">
 						<%
 							CampamentsManager camp_man = new CampamentsManager(sqlprop, configprop);
@@ -64,7 +64,7 @@
 								<option value="<%=activities.get(i).getname()%>"><%=activities.get(i).getname()%></option>
 							<% } %>
 						</select>
-						<label for="mon-id">Identificador del monitor</label>
+						<label for="mon-id">Nombre del monitor</label>
 						<select name="mon-id">
 						<%
 							ArrayList<MonitorDTO> monitors = camp_man.getAllMonitorsNotEspecial();

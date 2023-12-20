@@ -64,7 +64,7 @@
 								<option value="<%=campaments.get(i).getId()%>"><%=campaments.get(i).getId()%></option>
 							<% } %>
 						</select>
-						<label for="mon-id">Identificador del monitor</label>
+						<label for="mon-id">Nombre del monitor</label>
 						<select name="mon-id">
 						<%
 							ArrayList<MonitorDTO> monitors = camp_man.getAllMonitors();

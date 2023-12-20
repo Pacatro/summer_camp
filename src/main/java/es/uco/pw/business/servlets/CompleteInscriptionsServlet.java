@@ -39,14 +39,16 @@ public class CompleteInscriptionsServlet extends HttpServlet {
         CustomerBean customerBean = (CustomerBean) session.getAttribute("customerBean");
 
         if(customerBean == null) {
-            res.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized: The user is not an admin");
+            res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            res.sendRedirect("/summer_camp/index.jsp");
             return;
         }
 
         if(req.getParameter("assis-id") == null || 
            req.getParameter("camp-id") == null || 
            req.getParameter("schedule") == null) {
-            res.sendError(HttpServletResponse.SC_BAD_REQUEST, "Bad Request: Missing parameters");
+            res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            res.sendRedirect("/summer_camp/mvc/view/forms/completeInscriptionsView.jsp");
             return;
         }
         
@@ -73,8 +75,10 @@ public class CompleteInscriptionsServlet extends HttpServlet {
             res.setStatus(HttpServletResponse.SC_CREATED);
             res.sendRedirect("/summer_camp/mvc/view/messages/inscriptionsCreated.jsp");
         } catch (Exception e) {
-            e.getStackTrace();
-            res.sendError(HttpServletResponse.SC_BAD_REQUEST, "Bad Request: " + e.getMessage());
+            e.printStackTrace();
+            res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            req.setAttribute("message", e.getMessage());
+            res.sendRedirect("/summer_camp/mvc/view/errors/error.jsp");
         }
     }
     
@@ -85,12 +89,14 @@ public class CompleteInscriptionsServlet extends HttpServlet {
         CustomerBean customerBean = (CustomerBean) session.getAttribute("customerBean");
 
         if(customerBean == null) {
-            res.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized: The user is not an admin");
+            res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            res.sendRedirect("/summer_camp/index.jsp");
             return;
         }
-        
-        if(req.getParameter("assis-id") == null || req.getParameter("camp-id") == null) {
-            res.sendError(HttpServletResponse.SC_BAD_REQUEST, "Bad Request: Missing parameters");
+
+        if(req.getParameter("assis-id").equals("") || req.getParameter("camp-id").equals("")) {
+            res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            res.sendRedirect("/summer_camp/mvc/view/forms/completeInscriptionsView.jsp");
             return;
         }
         
@@ -117,7 +123,9 @@ public class CompleteInscriptionsServlet extends HttpServlet {
             res.sendRedirect("/summer_camp/mvc/view/messages/inscriptionsDeleted.jsp");
         } catch (Exception e) {
             e.printStackTrace();
-            res.sendError(HttpServletResponse.SC_BAD_REQUEST, "Bad Request: " + e.getMessage());
+            res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            req.getSession().setAttribute("message", e.getMessage());
+            res.sendRedirect("/summer_camp/mvc/view/errors/error.jsp");
         }
     }
 }

@@ -33,15 +33,17 @@ public class CampamentsServlet extends HttpServlet {
         CustomerBean customerBean = (CustomerBean) session.getAttribute("customerBean");
 
         if(customerBean == null || customerBean.getType() == UserType.ASSISTANT) {
-            res.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized: The user is not register or is not an admin");
+            res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            res.sendRedirect("/summer_camp/index.jsp");
             return;
         }
         
-        if (req.getParameter("start-date") == null ||
-            req.getParameter("end-date") == null ||
-            req.getParameter("level") == null ||
-            req.getParameter("max-assistants") == null) {
-            res.sendError(HttpServletResponse.SC_BAD_REQUEST, "Bad Request: Missing parameters");
+        if (req.getParameter("start-date").equals("") ||
+            req.getParameter("end-date").equals("") ||
+            req.getParameter("level").equals("") ||
+            req.getParameter("max-assistants").equals("")) {
+            res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            res.sendRedirect("/summer_camp/mvc/view/forms/parcialInscriptionView.jsp");
             return;
         }
         
@@ -64,7 +66,9 @@ public class CampamentsServlet extends HttpServlet {
             res.sendRedirect("/summer_camp/mvc/view/messages/campamentsCreated.jsp");
         } catch (Exception e) {
             e.printStackTrace();
-            res.sendError(HttpServletResponse.SC_BAD_REQUEST, "Bad request: " + e.getMessage());
+            res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            req.getSession().setAttribute("message", e.getMessage());
+            res.sendRedirect("/summer_camp/mvc/view/errors/error.jsp");
         }
     }
 }

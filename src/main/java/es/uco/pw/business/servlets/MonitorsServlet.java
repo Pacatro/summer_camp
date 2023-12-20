@@ -1,5 +1,6 @@
 package es.uco.pw.business.servlets;
 
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
@@ -16,19 +17,21 @@ import java.util.Properties;
 @WebServlet(name = "MonitorsServlet", urlPatterns = "/monitors")
 public class MonitorsServlet extends HttpServlet {
     @Override    
-    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws FileNotFoundException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws FileNotFoundException, IOException, ServletException {
         
         HttpSession session= req.getSession();
         CustomerBean customerBean= (CustomerBean) session.getAttribute("customerBean");
         if(customerBean==null || customerBean.getType()==UserType.ASSISTANT){
-            res.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized: The user is not an admin");
+            res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            res.sendRedirect("/summer_camp/index.jsp");
             return;
         }
 
-        if (req.getParameter("name") == null ||
-            req.getParameter("surname") == null ||
-            req.getParameter("is-special") == null) {
-            res.sendError(HttpServletResponse.SC_BAD_REQUEST, "Bad Request: Missing parameters");
+        if (req.getParameter("name").equals("") ||
+            req.getParameter("surname").equals("") ||
+            req.getParameter("is-special").equals("")) {
+            res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            res.sendRedirect("/summer_camp/mvc/view/forms/parcialInscriptionView.jsp");
             return;
         }
         
@@ -51,7 +54,9 @@ public class MonitorsServlet extends HttpServlet {
        
         } catch (Exception e) {
             e.printStackTrace();
-            res.sendError(HttpServletResponse.SC_BAD_REQUEST, "Bad request: " + e.getMessage());
+            res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            req.getSession().setAttribute("message", e.getMessage());
+            res.sendRedirect("/summer_camp/mvc/view/errors/error.jsp");
         }
     }
 }

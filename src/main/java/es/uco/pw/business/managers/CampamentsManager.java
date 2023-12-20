@@ -235,7 +235,7 @@ public class CampamentsManager {
 
     /**
      * Retrieves a CampamentDTO object based on its identifier.
-     *
+     * 
      * @param id The identifier of the CampamentDTO object that is to be retrieved.
      * @return The CampamentDTO object corresponding to the provided identifier.
      */

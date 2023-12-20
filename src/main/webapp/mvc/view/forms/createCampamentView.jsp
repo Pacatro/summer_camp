@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="UTF-8">
+		<meta charset="UTF-8"> 
         <link href="/summer_camp/styles/loginView.css" rel="stylesheet" />
 		<title>Crear campamento</title>
 	</head>

@@ -67,17 +67,25 @@
 						</thead>
 						<tbody>
 							<%
-							for(int i = 0; i < monitors.size() && !monitors.get(i).isEspecial(); i++){
-								for(int j = 0; j < activities.size(); j++){
-									if(activities.get(j).getMonitors().contains(monitors.get(i))){
-										for(int k = 0; k < campaments.size(); k++){
-											if(campaments.get(k).getActivities().contains(activities.get(i))){
+							for(MonitorDTO mon: monitors){
+								if(!mon.isEspecial()){
+									for(ActivityDTO act: activities){
+										ArrayList<MonitorDTO> aux_monitors = act.getMonitors();
+										for(MonitorDTO aux_mon: aux_monitors){
+											if(aux_mon.getID() == mon.getID()){
+												for(CampamentDTO camp: campaments){
+													ArrayList<ActivityDTO> aux_activities = camp.getActivities();
+													for(ActivityDTO aux_act: aux_activities){
+														if(aux_act.getname().equals(act.getname())){
 							%>
-											<tr>
-												<td><%=monitors.get(i).getName() + " " + monitors.get(i).getSurname()%></td>
-												<td><%=campaments.get(k).getId()%></td>
-											</tr>
+															<tr>
+																<td><%=mon.getName() + " " + mon.getSurname()%></td>
+																<td><%=camp.getId()%></td>
+															</tr>
 							<%
+														}
+													}
+												}
 											}
 										}
 									}
@@ -87,7 +95,7 @@
 						</tbody>
 					</table>
 
-					<form method="post" action="/summer_camp/campaments">
+					<form method="post" action="/summer_camp/campamentMonitor">
 						<label for="camp-id">Identificador del campamento</label>
 						<select name="camp-id">
 						<%

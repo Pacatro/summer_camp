@@ -29,8 +29,8 @@ public class ActivitiesServlet extends HttpServlet {
         if (req.getParameter("name") == null ||
             req.getParameter("level") == null ||
             req.getParameter("schedule") == null ||
-            req.getParameter("max_participants") == null || 
-            req.getParameter("num_monitors") == null) {
+            req.getParameter("max-participants") == null || 
+            req.getParameter("num-monitors") == null) {
             res.sendError(HttpServletResponse.SC_BAD_REQUEST, "Bad Request: Missing parameters");
             return;
         }
@@ -38,8 +38,8 @@ public class ActivitiesServlet extends HttpServlet {
         String name = req.getParameter("name");
         Level level = Level.valueOf(req.getParameter("level"));
         Schedule schedule = Schedule.valueOf(req.getParameter("schedule"));
-        int maxParticipants = Integer.parseInt(req.getParameter("max_participants"));
-        int numMonitors = Integer.parseInt(req.getParameter("num_monitors"));
+        int maxParticipants = Integer.parseInt(req.getParameter("max-participants"));
+        int numMonitors = Integer.parseInt(req.getParameter("num-monitors"));
     
         try {
             Properties sqlProperties = new Properties();

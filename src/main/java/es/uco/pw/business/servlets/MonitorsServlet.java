@@ -27,7 +27,7 @@ public class MonitorsServlet extends HttpServlet {
 
         if (req.getParameter("name") == null ||
             req.getParameter("surname") == null ||
-            req.getParameter("isEspecial") == null) {
+            req.getParameter("is-special") == null) {
             res.sendError(HttpServletResponse.SC_BAD_REQUEST, "Bad Request: Missing parameters");
             return;
         }
@@ -35,7 +35,7 @@ public class MonitorsServlet extends HttpServlet {
         int monitorId = new Random().nextInt(Integer.MAX_VALUE - 1);
         String name = req.getParameter("name");
         String surname = req.getParameter("surname");
-        boolean isEspecial = Boolean.parseBoolean(req.getParameter("isEspecial"));
+        boolean isEspecial = Boolean.parseBoolean(req.getParameter("is-special"));
 
         try {
             Properties sqlProperties = new Properties();

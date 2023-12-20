@@ -3,8 +3,8 @@
 <jsp:useBean  id="customerBean" scope="session" class="es.uco.pw.display.javabeans.CustomerBean"></jsp:useBean>
 <%@ page import = "es.uco.pw.business.common.userType.UserType" %>
 <%@ page import ="java.util.*" %>
-<%@ page import = "es.uco.pw.business.campament.CampamentDTO"%>
 <%@ page import = "es.uco.pw.business.monitor.MonitorDTO"%>
+<%@ page import = "es.uco.pw.business.activity.ActivityDTO"%>
 <%@ page import = "es.uco.pw.business.managers.CampamentsManager"%>
 
 <!DOCTYPE html>
@@ -12,7 +12,7 @@
 	<head>
 		<meta charset="UTF-8">
         <link href="/summer_camp/styles/index.css" rel="stylesheet" />
-		<title>Asociar monitor a campamentos</title>
+		<title>Asociar monitor a actividades</title>
 	</head>
 	<body>
 		<header>
@@ -20,7 +20,7 @@
 		</header>
 
 		<main>
-			<h1>Asociar monitor a campamentos</h1>
+			<h1>Asociar monitor a actividades</h1>
 
 			<%
 				String file = application.getInitParameter("sqlproperties");
@@ -53,21 +53,21 @@
 						</jsp:forward>
 					<%
 				} else { %>
-					<form method="post" action="/summer_camp/campaments">
-						<label for="camp-id">Identificador del campamento</label>
-						<select name="camp-id">
+					<form method="post" action="/summer_camp/activityMonitor">
+						<label for="act-id">Nombre de la actividad</label>
+						<select name="act-id">
 						<%
 							CampamentsManager camp_man = new CampamentsManager(sqlprop, configprop);
-							ArrayList<CampamentDTO> campaments = camp_man.getAllCampaments();
-							for(int i = 0; i < campaments.size(); i++){
+							ArrayList<ActivityDTO> activities = camp_man.getAllActivities();
+							for(int i = 0; i < activities.size(); i++){
 						%>
-								<option value="<%=campaments.get(i).getId()%>"><%=campaments.get(i).getId()%></option>
+								<option value="<%=activities.get(i).getname()%>"><%=activities.get(i).getname()%></option>
 							<% } %>
 						</select>
 						<label for="mon-id">Nombre del monitor</label>
 						<select name="mon-id">
 						<%
-							ArrayList<MonitorDTO> monitors = camp_man.getAllMonitors();
+							ArrayList<MonitorDTO> monitors = camp_man.getAllMonitorsNotEspecial();
 							for(int i = 0; i < monitors.size(); i++){
 						%>
 								<option value="<%=monitors.get(i).getID()%>"><%=monitors.get(i).getName() + " " + monitors.get(i).getSurname()%></option>

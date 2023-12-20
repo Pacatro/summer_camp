@@ -34,6 +34,8 @@ public class CampamentsMonitorsServlet extends HttpServlet {
             res.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized: The user is not an admin");
             return;
         }
+
+        System.out.println(req.getParameter("camp-id") +  " " + req.getParameter("mon-id"));
         
         if(req.getParameter("camp-id") == null || req.getParameter("mon-id") == null) {
             res.sendError(HttpServletResponse.SC_BAD_REQUEST, "Bad Request: Missing parameters");

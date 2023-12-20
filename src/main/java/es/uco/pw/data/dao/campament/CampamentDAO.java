@@ -245,9 +245,8 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
 
             ArrayList<ActivityDTO> activities = new ArrayList<ActivityDTO>();
 
+            ActivityDTO act = new ActivityDTO();
             while(rs.next()){
-                ActivityDTO act = new ActivityDTO();
-
                 act.setname(rs.getString("name"));
                 act.setMaxParticipants(rs.getInt("max_participants"));
                 act.setNumMonitors(rs.getInt("num_monitors"));
@@ -259,6 +258,21 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
                 act.setSchedule(Schedule.valueOf(scheduleString));
 
                 activities.add(act);
+            }
+
+            sql = sql_properties.getProperty("GET_MONITORS_ACTIVITY");
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, act.getname());
+            rs = ps.executeQuery();
+            
+            while(rs.next()){
+                MonitorDTO monitor = new MonitorDTO();
+                monitor.setID(rs.getInt("monitor_id"));
+                monitor.setName(rs.getString("name"));
+                monitor.setSurname(rs.getString("surname"));
+                monitor.setisEspecial(rs.getBoolean("special_edu"));
+
+                act.addMonitor(monitor);
             }
 
             connDB.disconnect();

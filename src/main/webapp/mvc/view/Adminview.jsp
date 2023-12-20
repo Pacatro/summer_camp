@@ -53,7 +53,11 @@
             %>
 
 			<div class="wellcome-message">
-                <h2><%= messageNextPage %></h2>
+                <% if(messageNextPage == null) { %>
+                    <h2>Bienvenido/a <%= customerBean.getName() %></h2>
+                <% } else { %> 
+                    <h2><%= messageNextPage %></h2>
+                <% } %>
             </div>
 
             <h2>Lista campamentos: </h2>

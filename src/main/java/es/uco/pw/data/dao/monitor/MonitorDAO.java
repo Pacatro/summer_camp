@@ -109,4 +109,10 @@ public class MonitorDAO implements IDAO<MonitorDTO,Integer>{
     public void update(MonitorDTO dto) throws Exception{
         throw new UnsupportedOperationException("Unimplemented method 'update'");
     }
+
+    @Override
+    public void delete(MonitorDTO dto) throws Exception {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+    }
 }

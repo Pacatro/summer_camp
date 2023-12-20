@@ -49,5 +49,5 @@ public interface IDAO<T,E> {
      * @param dto The object of type T to delete.
      * @throws Exception if an error occurs during the deletion process.
      */
-    // public void delete(T dto) throws Exception;
+    public void delete(T dto) throws Exception;
 }

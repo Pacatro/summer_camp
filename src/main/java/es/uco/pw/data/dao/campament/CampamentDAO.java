@@ -305,9 +305,54 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
                 camp.setFinalDate(rs.getDate("end_date").toLocalDate());
                 camp.setMaxAssistants(rs.getInt("max_assistant"));
                 camp.setLevel(Level.valueOf(rs.getString("educate_level")));
-                camp.setActivities(getActivitiesFromCampament(camp.getId()));
-                camp.setMonitors(getMonitorsFromCampament(camp.getId()));
+                // camp.setActivities(getActivitiesFromCampament(camp.getId()));
+                // camp.setMonitors(getMonitorsFromCampament(camp.getId()));
                 campaments.add(camp);
+            }
+
+            for(CampamentDTO camp: campaments){
+                ArrayList<ActivityDTO> activities = new ArrayList<ActivityDTO>();
+                sql = sql_properties.getProperty("GET_ACTIVITIES_CAMPAMENT");
+                ps = conn.prepareStatement(sql);
+                ps.setInt(1, camp.getId());
+
+                if(!ps.execute())
+                    throw new DataException("No se han podido seleccionar las actividades del campamento " + camp.getId() + ".");
+
+                rs = ps.executeQuery();
+
+                while(rs.next()){
+                    ActivityDTO act = new ActivityDTO();
+
+                    act.setname(rs.getString("name"));
+                    act.setMaxParticipants(rs.getInt("max_participants"));
+                    act.setNumMonitors(rs.getInt("num_monitors"));
+
+                    String levelString = rs.getString("education_level");
+                    act.setLevel(Level.valueOf(levelString));
+
+                    String scheduleString = rs.getString("schedule");
+                    act.setSchedule(Schedule.valueOf(scheduleString));
+
+                    activities.add(act);
+                }
+
+                camp.setActivities(activities);
+
+                ArrayList<MonitorDTO> monitors = new ArrayList<MonitorDTO>();
+                sql = sql_properties.getProperty("GET_MONITORS_CAMPAMENT");
+                ps = conn.prepareStatement(sql);
+                ps.setInt(1, camp.getId());
+
+                if(!ps.execute())
+                    throw new DataException("No se han podido seleccionar los monitores del campamento " + camp.getId() + ".");
+
+                rs = ps.executeQuery();
+
+                while(rs.next()){
+                    monitors.add(new MonitorDTO(rs.getInt("monitor_id"), rs.getString("name"), 
+                                                rs.getString("surname"), rs.getBoolean("special_edu")));
+                }
             }
 
             connDB.disconnect();

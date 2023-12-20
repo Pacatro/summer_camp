@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <link href="/summer_camp/styles/index.css" rel="stylesheet" />
+        <link href="/summer_camp/styles/loginView.css" rel="stylesheet" />
         <title>Pagina de Administrador</title>
     </head>
     <body>
@@ -96,7 +96,19 @@
             </table>
 
             <button>
+                <a href="/summer_camp/mvc/view/forms/createActivitiesView.jsp">Crear una actividad</a>
+            </button>
+
+            <button>
+                <a href="">Crear un monitor</a>
+            </button>
+
+            <button>
                 <a href="/summer_camp/mvc/view/forms/createCampamentView.jsp">Crear un campamento</a>
+            </button>
+
+            <button>
+                <a href="/summer_camp/mvc/view/forms/actCampView.jsp">Asociar actividad a campamento</a>
             </button>
 
             <button>

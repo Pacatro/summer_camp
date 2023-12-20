@@ -79,11 +79,23 @@
             </ul>
 
             <button>
+                <a href="">Buscar campamentos por fecha</a>
+            </button>
+
+            <button>
+                <a href="">Buscar campamentos por nivel educativo</a>
+            </button>
+
+            <button>
                 <a href="/summer_camp/mvc/view/forms/completeInscriptionsView.jsp">Inscripcion completa</a>
             </button>
 
             <button>
                 <a href="/summer_camp/mvc/view/forms/parcialInscriptionsView.jsp">Inscripcion parcial</a>
+            </button>
+
+            <button>
+                <a href="">Cancelar inscripcion</a>
             </button>
 
         </main>

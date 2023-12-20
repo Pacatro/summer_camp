@@ -11,72 +11,74 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-        <link href="/summer_camp/styles/index.css" rel="stylesheet" />
+        <link href="/summer_camp/styles/loginView.css" rel="stylesheet" />
 		<title>Asociar actividad a campamentos</title>
 	</head>
 	<body>
-		<header>
-			<h1>Summer Camp<h1>
-		</header>
+		<div class="container">
+			<header>
+				<h1>Summer Camp<h1>
+			</header>
 
-		<main>
-			<h1>Asociar actividad a campamentos</h1>
+			<main>
+				<h1>Asociar actividad a campamentos</h1>
 
-			<%
-				String file = application.getInitParameter("sqlproperties");
-				String file1 = application.getInitParameter("configproperties");
-				java.io.InputStream myIO = application.getResourceAsStream(file);
-				java.io.InputStream myIO1 = application.getResourceAsStream(file1);
-				java.util.Properties sqlprop = new java.util.Properties();
-				java.util.Properties configprop = new java.util.Properties();
-				sqlprop.load(myIO);
-				configprop.load(myIO1);
+				<%
+					String file = application.getInitParameter("sqlproperties");
+					String file1 = application.getInitParameter("configproperties");
+					java.io.InputStream myIO = application.getResourceAsStream(file);
+					java.io.InputStream myIO1 = application.getResourceAsStream(file1);
+					java.util.Properties sqlprop = new java.util.Properties();
+					java.util.Properties configprop = new java.util.Properties();
+					sqlprop.load(myIO);
+					configprop.load(myIO1);
 
-				String nextPage = "";
-				String messageNextPage = request.getParameter("message");
-				if (messageNextPage == null) messageNextPage = "";
+					String nextPage = "";
+					String messageNextPage = request.getParameter("message");
+					if (messageNextPage == null) messageNextPage = "";
 
-				if(customerBean == null || customerBean.getEmailUser().equals("")) {
-					nextPage = "/mvc/view/errors/error.jsp";
-					messageNextPage = "Debes iniciar sesion primero.";
-					%>
-						<jsp:forward page="<%=nextPage%>">
-							<jsp:param value="<%=messageNextPage%>" name="message"/>
-						</jsp:forward>
-					<%
-				} else if (customerBean.getType() == UserType.ASSISTANT) {
-					nextPage = "/mvc/view/errors/error.jsp";
-					messageNextPage = "No estas autorizado para entrar en esta pagina.";
-					%>
-						<jsp:forward page="<%=nextPage%>">
-							<jsp:param value="<%=messageNextPage%>" name="message"/>
-						</jsp:forward>
-					<%
-				} else { %>
-					<form method="post" action="/summer_camp/activityCampament">
-						<label for="camp-id">Identificador del campamento</label>
-						<select name="camp-id">
-						<%
-							CampamentsManager camp_man = new CampamentsManager(sqlprop, configprop);
-							ArrayList<CampamentDTO> campaments = camp_man.getAllCampaments();
-							for(int i = 0; i < campaments.size(); i++){
+					if(customerBean == null || customerBean.getEmailUser().equals("")) {
+						nextPage = "/mvc/view/errors/error.jsp";
+						messageNextPage = "Debes iniciar sesion primero.";
 						%>
-								<option value="<%=campaments.get(i).getId()%>"><%=campaments.get(i).getId()%></option>
-							<% } %>
-						</select>
-						<label for="act-id">Nombre de la actividad</label>
-						<select name="act-id">
+							<jsp:forward page="<%=nextPage%>">
+								<jsp:param value="<%=messageNextPage%>" name="message"/>
+							</jsp:forward>
 						<%
-							ArrayList<ActivityDTO> activities = camp_man.getAllActivities();
-							for(int i = 0; i < activities.size(); i++){
+					} else if (customerBean.getType() == UserType.ASSISTANT) {
+						nextPage = "/mvc/view/errors/error.jsp";
+						messageNextPage = "No estas autorizado para entrar en esta pagina.";
 						%>
-								<option value="<%=activities.get(i).getname()%>"><%=activities.get(i).getname()%></option>
-							<% } %>
-						</select>
-						<input type="submit" value="Submit">
-					</form>
-				<% } 
-			%>
-		</main>
+							<jsp:forward page="<%=nextPage%>">
+								<jsp:param value="<%=messageNextPage%>" name="message"/>
+							</jsp:forward>
+						<%
+					} else { %>
+						<form method="post" action="/summer_camp/activityCampament">
+							<label for="camp-id">Identificador del campamento</label>
+							<select name="camp-id">
+							<%
+								CampamentsManager camp_man = new CampamentsManager(sqlprop, configprop);
+								ArrayList<CampamentDTO> campaments = camp_man.getAllCampaments();
+								for(int i = 0; i < campaments.size(); i++){
+							%>
+									<option value="<%=campaments.get(i).getId()%>"><%=campaments.get(i).getId()%></option>
+								<% } %>
+							</select>
+							<label for="act-id">Nombre de la actividad</label>
+							<select name="act-id">
+							<%
+								ArrayList<ActivityDTO> activities = camp_man.getAllActivities();
+								for(int i = 0; i < activities.size(); i++){
+							%>
+									<option value="<%=activities.get(i).getname()%>"><%=activities.get(i).getname()%></option>
+								<% } %>
+							</select>
+							<input type="submit" value="Submit">
+						</form>
+					<% } 
+				%>
+			</main>
+		</div>
 	</body>
 </html>

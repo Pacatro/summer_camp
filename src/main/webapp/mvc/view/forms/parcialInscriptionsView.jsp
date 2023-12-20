@@ -16,58 +16,60 @@
 		<title>Realizar inscripcion parcial</title>
 	</head>
 	<body>
-		<header>
-			<h1>Summer Camp<h1>
-		</header>
+		<div class="container">
+			<header>
+				<h1>Summer Camp<h1>
+			</header>
 
-		<main>
-			<h1>Realizar inscripcion parcial</h1>
+			<main>
+				<h1>Realizar inscripcion parcial</h1>
 
-			<%
-				String file = application.getInitParameter("sqlproperties");
-				String file1 = application.getInitParameter("configproperties");
-				java.io.InputStream myIO = application.getResourceAsStream(file);
-				java.io.InputStream myIO1 = application.getResourceAsStream(file1);
-				java.util.Properties sqlprop = new java.util.Properties();
-				java.util.Properties configprop = new java.util.Properties();
-				sqlprop.load(myIO);
-				configprop.load(myIO1);
-				
-				String nextPage = "";
-				String messageNextPage = request.getParameter("message");
-				if (messageNextPage == null) messageNextPage = "";
+				<%
+					String file = application.getInitParameter("sqlproperties");
+					String file1 = application.getInitParameter("configproperties");
+					java.io.InputStream myIO = application.getResourceAsStream(file);
+					java.io.InputStream myIO1 = application.getResourceAsStream(file1);
+					java.util.Properties sqlprop = new java.util.Properties();
+					java.util.Properties configprop = new java.util.Properties();
+					sqlprop.load(myIO);
+					configprop.load(myIO1);
+					
+					String nextPage = "";
+					String messageNextPage = request.getParameter("message");
+					if (messageNextPage == null) messageNextPage = "";
 
-				if(customerBean == null || customerBean.getEmailUser().equals("")) {
-					nextPage = "/mvc/view/errors/error.jsp";
-					messageNextPage = "No estas autorizado para entrar en esta pagina.";
+					if(customerBean == null || customerBean.getEmailUser().equals("")) {
+						nextPage = "/mvc/view/errors/error.jsp";
+						messageNextPage = "No estas autorizado para entrar en esta pagina.";
+						%>
+							<jsp:forward page="<%=nextPage%>">
+								<jsp:param value="<%=messageNextPage%>" name="message"/>
+							</jsp:forward>
+						<%
+					} else {
+						CampamentsManager camp_man = new CampamentsManager(sqlprop, configprop);
+						ArrayList<CampamentDTO> campaments = camp_man.getAllCampaments();
 					%>
-						<jsp:forward page="<%=nextPage%>">
-							<jsp:param value="<%=messageNextPage%>" name="message"/>
-						</jsp:forward>
-					<%
-				} else {
-					CampamentsManager camp_man = new CampamentsManager(sqlprop, configprop);
-					ArrayList<CampamentDTO> campaments = camp_man.getAllCampaments();
-				%>
-					<form method="post" action="/summer_camp/parcialInscription">
-						<label for="assis-id">DNI</label>
-						<input type="number" name="assis-id" placeholder="DNI" min="0">
-						<label for="camp-id">ID del campamento</label>
-						<select name="camp-id">
-						<%
-							for(int i = 0; i < campaments.size(); i++){
-								if(ChronoUnit.DAYS.between(LocalDate.now(), campaments.get(i).getInitDate()) >= 2){
-						%>
-									<option value="<%=campaments.get(i).getId()%>"><%=campaments.get(i).getId()%></option>
-						<%
+						<form method="post" action="/summer_camp/parcialInscription">
+							<label for="assis-id">DNI</label>
+							<input type="number" name="assis-id" placeholder="DNI" min="0">
+							<label for="camp-id">ID del campamento</label>
+							<select name="camp-id">
+							<%
+								for(int i = 0; i < campaments.size(); i++){
+									if(ChronoUnit.DAYS.between(LocalDate.now(), campaments.get(i).getInitDate()) >= 2){
+							%>
+										<option value="<%=campaments.get(i).getId()%>"><%=campaments.get(i).getId()%></option>
+							<%
+									}
 								}
-							}
-						%>
-						</select>
-						<input type="submit" value="Submit">
-					</form>
-				<% } 
-			%>
-		</main>
+							%>
+							</select>
+							<input type="submit" value="Submit">
+						</form>
+					<% } 
+				%>
+			</main>
+		</div>
 	</body>
 </html>

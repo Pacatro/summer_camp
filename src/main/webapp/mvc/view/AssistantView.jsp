@@ -54,7 +54,7 @@
             </button>
 
             <button>
-                <a href="/summer_camp/mvc/view/changeView.jsp">Modificar datos</a>
+                <a href="/summer_camp/mvc/view/forms/changeView.jsp">Modificar datos</a>
             </button>
 
             <div class="wellcome-message">
@@ -79,11 +79,11 @@
             </ul>
 
             <button>
-                <a href="/summer_camp/mvc/view/completeInscriptionsView.jsp">Inscripcion completa</a>
+                <a href="/summer_camp/mvc/view/forms/completeInscriptionsView.jsp">Inscripcion completa</a>
             </button>
 
             <button>
-                <a href="/summer_camp/mvc/view/parcialInscriptionsView.jsp">Inscripcion parcial</a>
+                <a href="/summer_camp/mvc/view/forms/parcialInscriptionsView.jsp">Inscripcion parcial</a>
             </button>
 
         </main>

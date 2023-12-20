@@ -235,7 +235,7 @@ public class CampamentsManager {
 
     /**
      * Retrieves a CampamentDTO object based on its identifier.
-     *
+     * 
      * @param id The identifier of the CampamentDTO object that is to be retrieved.
      * @return The CampamentDTO object corresponding to the provided identifier.
      */
@@ -257,6 +257,18 @@ public class CampamentsManager {
         try{
             dao.getNumInscriptionsAll(campaments, num_inscrip_c, num_inscrip_p);
         }catch(Exception e) {BusinessException.handleException(e);}
+
+    }
+
+    public ArrayList<CampamentDTO> getCampsByDateInterval(LocalDate initDate, LocalDate finalDate) throws Exception{
+        ArrayList<CampamentDTO> campaments = new ArrayList<>();
+        
+        try{
+            CampamentDAO dao = new CampamentDAO(this.sqlProperties, this.configProperties);
+            campaments = dao.getCampsByDateInterval(finalDate, finalDate);
+        } catch (Exception e) { BusinessException.handleException(e); }
+
+        return campaments;
 
     }
 

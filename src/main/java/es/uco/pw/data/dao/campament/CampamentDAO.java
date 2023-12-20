@@ -3,6 +3,7 @@ package es.uco.pw.data.dao.campament;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Properties;
 import java.sql.Date;
@@ -456,5 +457,39 @@ public class CampamentDAO implements IDAO<CampamentDTO, Integer>{
     public void delete(CampamentDTO dto) throws Exception {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'delete'");
+    }
+
+    public ArrayList<CampamentDTO> getCampsByDateInterval(LocalDate starDate, LocalDate finDate) throws Exception{
+        try{
+            String sql = sql_properties.getProperty("GETDATE_CAMPAMENTS");
+
+            ConnectionDB connDB = new ConnectionDB(config_properties);
+
+            Connection conn = connDB.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            if(!ps.execute())
+                throw new DataException("No se han podido seleccionar todos los campamentos.");
+
+            ResultSet rs = ps.executeQuery();
+
+            ArrayList<CampamentDTO> campaments = new ArrayList<CampamentDTO>();
+            
+            while(rs.next()){
+                CampamentDTO camp = new CampamentDTO();
+                camp.setId(rs.getInt("camp_id"));
+                camp.setInitDate(rs.getDate("start_date").toLocalDate());
+                camp.setFinalDate(rs.getDate("end_date").toLocalDate());
+                camp.setMaxAssistants(rs.getInt("max_assistant"));
+                camp.setLevel(Level.valueOf(rs.getString("educate_level")));
+                camp.setActivities(getActivitiesFromCampament(camp.getId()));
+                camp.setMonitors(getMonitorsFromCampament(camp.getId()));
+                campaments.add(camp);
+            }
+
+            connDB.disconnect();
+
+            return campaments;
+        } catch (Exception e) { throw e; }
     }
 }

@@ -8,7 +8,7 @@ import es.uco.pw.business.monitor.MonitorDTO;
 /**
  * Represents an activity of the system.
  */
-public class ActivityDTO {
+public class ActivityDTO { 
     
     /* Atributos */
     private String name;

@@ -57,7 +57,7 @@
             </button>
 
             <button>
-                <a href="/summer_camp/mvc/view/changeView.jsp">Modificar datos</a>
+                <a href="/summer_camp/mvc/view/forms/changeView.jsp">Modificar datos</a>
             </button>
 
 			<div class="wellcome-message">
@@ -96,15 +96,15 @@
             </table>
 
             <button>
-                <a href="/summer_camp/mvc/view/createCampamentView.jsp">Crear un campamento</a>
+                <a href="/summer_camp/mvc/view/forms/createCampamentView.jsp">Crear un campamento</a>
             </button>
 
             <button>
-                <a href="/summer_camp/mvc/view/campMonView.jsp">Asociar monitor a campamento</a>
+                <a href="/summer_camp/mvc/view/forms/campMonView.jsp">Asociar monitor a campamento</a>
             </button>
 
             <button>
-                <a href="/summer_camp/mvc/view/monActView.jsp">Asociar monitor a actividad</a>
+                <a href="/summer_camp/mvc/view/forms/monActView.jsp">Asociar monitor a actividad</a>
             </button>
 		</main>
     </body>

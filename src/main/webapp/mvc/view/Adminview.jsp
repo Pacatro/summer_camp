@@ -96,7 +96,7 @@
             </table>
 
             <button>
-                <a href="">Crear una actividad</a>
+                <a href="/summer_camp/mvc/view/forms/createActivitiesView.jsp">Crear una actividad</a>
             </button>
 
             <button>
@@ -108,7 +108,7 @@
             </button>
 
             <button>
-                <a href="">Asociar actividad a campamento</a>
+                <a href="/summer_camp/mvc/view/forms/actCampView.jsp">Asociar actividad a campamento</a>
             </button>
 
             <button>

@@ -8,9 +8,8 @@ import es.uco.pw.display.javabeans.CustomerBean;
 import es.uco.pw.business.common.userType.*;
 
 import java.io.IOException;
-import java.util.Random;
+import java.util.Random; 
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Properties;
 

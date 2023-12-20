@@ -259,4 +259,16 @@ public class CampamentsManager {
         CampamentDAO campamentDAO = new CampamentDAO(this.sqlProperties, this.configProperties);
         return campamentDAO.getNumInscriptionsP(camp_id);
     }
+
+    public ArrayList<CampamentDTO> getCampsByDateInterval(LocalDate initDate, LocalDate finalDate) throws Exception{
+        ArrayList<CampamentDTO> campaments = new ArrayList<>();
+        
+        try{
+            CampamentDAO dao = new CampamentDAO(this.sqlProperties, this.configProperties);
+            campaments = dao.getCampsByDateInterval(finalDate, finalDate);
+        } catch (Exception e) { BusinessException.handleException(e); }
+
+        return campaments;
+
+    }
 }

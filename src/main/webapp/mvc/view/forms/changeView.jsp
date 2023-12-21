@@ -51,7 +51,7 @@
 						<br/>
 						<br/>
 						<h1>Modificar datos</h1>
-						<form method="post" action="/mvc/controller/changeController.jsp">
+						<form method="post" action="/summer_camp/mvc/controller/changeController.jsp">
 							<label for="name">Nombre: </label>
 								<input type="text" name="name" value="<%=user.getName()%>" placeholder="Nombre">
 							<label for="password">Contraseña: </label>

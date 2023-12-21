@@ -79,18 +79,6 @@
                     // ArrayList<CampamentDTO> campaments=assis.getCampaments(customerBean.getEmailUser());
                 %>
 
-                <%-- <ul>
-                    <% for(Object o : inscriptions) {
-                        if(o instanceof CompleteInscriptionDTO) {
-                            CompleteInscriptionDTO completeInscription = (CompleteInscriptionDTO) o; %>
-                            <li>Campamento: <%=completeInscription.getIdCampament()%> Precio: <%=completeInscription.getPrice()%> Tipo: Completa></li> <%
-                        } else if(o instanceof ParcialInscriptionDTO) {
-                            ParcialInscriptionDTO parcialInscription = (ParcialInscriptionDTO) o; %>
-                            <li>Campamento: <%=parcialInscription.getIdCampament()%> Precio: <%=parcialInscription.getPrice()%> Tipo: Parcial></li> <%
-                        }
-                    } %>
-                </ul> --%>
-
                 <table>
                     <thead>
                         <tr>

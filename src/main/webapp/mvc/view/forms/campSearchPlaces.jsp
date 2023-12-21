@@ -33,11 +33,8 @@
 						<%
 					} else {
                 %>
-						<form method="post" action="/summer_camp/availableCampsDate">
-							<label for="start-date" class="label-section">Fecha de inicio</label>
-							<input type="date" name="start-date" placeholder="Fecha de inicio">
-							<label for="end-date" class="label-section">Fecha de fin</label>
-                            <input type="date" name="end-date" placeholder="Fecha de fin">
+						<form method="post" action="/summer_camp/availableCampsPlaces">
+							<input type="number" name="places" value="" placeholder="N&uacute;mero de plazas">
 							<input type="submit" value="Submit">
 						</form>
 					<% } 

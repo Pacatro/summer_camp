@@ -21,25 +21,22 @@
 				String messageNextPage = "";
 
 				if(customerBean != null && !customerBean.getEmailUser().equals("")){
-
 					if(customerBean.getType() == UserType.ASSISTANT){
 						nextPage = "/summer_camp/mvc/view/AssistantView.jsp";
-                        %>
-                            <jsp:forward page="<%=nextPage%>">
-                                <jsp:param value="<%=messageNextPage%>" name="message"/>
-                            </jsp:forward>
-                        <%
 					}else{
 						nextPage = "/summer_camp/mvc/view/Adminview.jsp";
 					}
 				}
 			%>
 
-            <h1>El monitor ha sido asociado a la actividad correctamente</h1>
+            <h1>Precio final de la inscripcion: <%= request.getAttribute("price") %> euros</h1>
 
-			<button>
-				<a href="<%=nextPage%>">Volver a página principal</a>
-			</button>
+            <form action="/summer_camp/parcialInscription" method="post">
+                <input type="hidden" name="camp-id" value="<%= request.getAttribute("campId") %>">
+                <input type="hidden" name="assis-id" value="<%= request.getAttribute("assisId") %>">
+                <input type="submit" name="action" value="Aceptar">
+                <input type="submit" name="action" value="Cancelar">
+            </form>
 		</main>
 	</body>
 </html>

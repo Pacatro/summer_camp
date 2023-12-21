@@ -170,6 +170,11 @@ public class CampamentsManager {
         if (campament.getLevel() != activity.getLevel())
             throw new BusinessException("La actividad no tiene el mismo nivel que el campamento.");
         
+        for (ActivityDTO act : campament.getActivities()) {
+            if (act.getname().equals(activity.getname()))
+                throw new BusinessException("La actividad " + activityId + " ya esta registrada en el campamento.");
+        }
+        
         campamentDAO.addActivity(camp_id, activityId);
     }
     
@@ -260,7 +265,7 @@ public class CampamentsManager {
     }
 
     public ArrayList<CampamentDTO> getCampsByDateInterval(LocalDate initDate, LocalDate finalDate) throws Exception{
-        ArrayList<CampamentDTO> campaments = new ArrayList<>();
+        ArrayList<CampamentDTO> campaments = new ArrayList<CampamentDTO>();
         
         try{
             CampamentDAO dao = new CampamentDAO(this.sqlProperties, this.configProperties);
@@ -269,5 +274,27 @@ public class CampamentsManager {
 
         return campaments;
 
+    }
+
+    public ArrayList<CampamentDTO> getCampsByLevel(Level level) throws Exception{
+        ArrayList<CampamentDTO> campaments = new ArrayList<CampamentDTO>();
+
+        try{
+            CampamentDAO dao = new CampamentDAO(sqlProperties, configProperties);
+            campaments = dao.getCampsByLevel(level);
+        }catch (Exception e) {BusinessException.handleException(e);}
+
+        return campaments;
+    }
+
+    public ArrayList<CampamentDTO> getCampsByPlaces(int places) throws Exception{
+        ArrayList<CampamentDTO> campaments = new ArrayList<CampamentDTO>();
+
+        try{
+            CampamentDAO dao = new CampamentDAO(sqlProperties, configProperties);
+            campaments = dao.getCampsByPlaces(places);
+        }catch (Exception e) {BusinessException.handleException(e);}
+
+        return campaments;
     }
 }

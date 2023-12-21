@@ -13,7 +13,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Properties;
 
-@WebServlet(name = "availableCampsServlet", urlPatterns = "/availableCamps")
+@WebServlet(name = "availableCampsDateServlet", urlPatterns = "/availableCampsDate")
 public class AvailableCampsDateServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws FileNotFoundException, IOException {
@@ -23,7 +23,7 @@ public class AvailableCampsDateServlet extends HttpServlet {
 
         if(customerBean == null) {
             res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            res.sendRedirect("/summer_camp/");
+            res.sendRedirect("/summer_camp/index.jsp");
             return;
         }
         

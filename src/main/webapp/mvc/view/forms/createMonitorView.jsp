@@ -21,6 +21,7 @@
 			</header>
 
 			<main>
+			<div class="login-section">
 				<h1>Crear monitor</h1>
 
 				<%
@@ -45,9 +46,7 @@
 						<%
 					} else { %>
 						<form method="post" action="/summer_camp/monitors">
-							<label for="name">Nombre del monitor</label>
 							<input type="text" name="name" placeholder="Nombre del monitor">
-                            <label for="surname">Apellido del monitor</label>
 							<input type="text" name="surname" placeholder="Apellido del monitor">
                             <label for="isEspecial" class="label-section">&iquest;Es monitor especial? </label>
                             <select name="isEspecial" class="select">
@@ -58,6 +57,7 @@
 						</form>
 					<% } 
 				%>
+			</div>
 			</main>
 		</div>
 	</body>

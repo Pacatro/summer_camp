@@ -17,31 +17,34 @@
 
 		<main>
 			<%
-				String nextPage = "";
-				String messageNextPage = "";
+				String nextPage = "../controller/loginController.jsp";
+				String messageNextPage = request.getParameter("message");
+				if (messageNextPage == null) messageNextPage = "";
 
-				if(customerBean != null && !customerBean.getEmailUser().equals("")){
-					messageNextPage = "Bienvenido/a " + customerBean.getName();
-
+				if (customerBean != null && !customerBean.getEmailUser().equals("")) {
 					if(customerBean.getType() == UserType.ASSISTANT){
-						nextPage = "./mvc/view/AssistantView.jsp";
+						nextPage = "/mvc/view/AssistantView.jsp";
+						messageNextPage = "Bienvenido/a" + customerBean.getName();
 					}else{
-						nextPage = "./mvc/view/Adminview.jsp";
+						nextPage = "/mvc/view/Adminview.jsp";
+						messageNextPage = "Bienvenido/a" + customerBean.getName();
 					}
-			%>
-				<jsp:forward page="<%=nextPage%>">
-                    <jsp:param value="<%=messageNextPage%>" name="message"/>
-                </jsp:forward>
-			<%
-				}
-			%>
 
-			<button>
-				<a href="/summer_camp/mvc/view/loginView.jsp">Acceder</a>
-			</button>
-			<button>
-				<a href="/summer_camp/mvc/view/signupView.jsp">Registrarse</a>
-			</button>
+					%>
+						<jsp:forward page="<%=nextPage%>">
+							<jsp:param value="<%=messageNextPage%>" name="message"/>
+						</jsp:forward>
+					<%
+					
+				} else { %>
+					<button>
+						<a href="/summer_camp/mvc/view/loginView.jsp">Acceder</a>
+					</button>
+					<button>
+						<a href="/summer_camp/mvc/view/signupView.jsp">Registrarse</a>
+					</button>
+				<% } 
+			%>
 		</main>
 	</body>
 </html>

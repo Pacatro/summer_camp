@@ -68,10 +68,24 @@ public class CompleteInscriptionsServlet extends HttpServlet {
             CampamentDTO campamentDTO = campamentsManager.getById(campId);
             AssistantDTO assistantDTO = assistantManager.getByEmail(email);
 
-            inscriptionsManager.enrollComplete(campamentDTO, assistantDTO, schedule);
-            
-            res.setStatus(HttpServletResponse.SC_CREATED);
-            res.sendRedirect("/summer_camp/mvc/view/messages/inscriptionsCreated.jsp");
+            double price = inscriptionsManager.calcPrice(campamentDTO, assistantDTO.getAtention());
+
+            if("Aceptar".equals(req.getParameter("action"))) {
+                inscriptionsManager.enrollComplete(campamentDTO, assistantDTO, schedule);
+                res.setStatus(HttpServletResponse.SC_CREATED);
+                res.sendRedirect("/summer_camp/mvc/view/messages/inscriptionsCreated.jsp");
+                return;
+            } else if("Cancelar".equals(req.getParameter("action"))) {
+                System.out.println("hola");
+                res.sendRedirect("/summer_camp/mvc/view/AssistantView.jsp");
+                return;
+            }
+
+            req.setAttribute("price", price);
+            req.setAttribute("campId", campId);
+            req.setAttribute("assisId", assistantDTO.getId());
+            req.getRequestDispatcher("/mvc/view/messages/confirmationView.jsp").forward(req, res);
+
         } catch (Exception e) {
             e.printStackTrace();
             res.setStatus(HttpServletResponse.SC_BAD_REQUEST);

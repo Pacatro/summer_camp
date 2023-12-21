@@ -155,12 +155,4 @@ public class InscriptionsManager {
 
         parcialInscriptionDAO.delete(parcialInscriptionDTO);
     }
-
-    public ArrayList<ParcialInscriptionDTO> getAllParcialsByIds(int campId, int assId) throws Exception {
-        return new ParcialInscriptionDAO(sqlProperties, configProperties).getAllByIds(campId, assId);
-    }
-
-    public ArrayList<CompleteInscriptionDTO> getAllCompletesByIds(int campId, int assId) throws Exception {
-        return new CompleteInscriptionDAO(sqlProperties, configProperties).getAllByIds(campId, assId);
-    }
 }

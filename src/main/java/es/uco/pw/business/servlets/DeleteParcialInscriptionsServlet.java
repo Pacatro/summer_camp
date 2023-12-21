@@ -1,61 +1,59 @@
 package es.uco.pw.business.servlets;
 
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
-import es.uco.pw.business.common.userType.*;
+import es.uco.pw.business.assistant.AssistantDTO;
+import es.uco.pw.business.campament.CampamentDTO;
+import es.uco.pw.business.managers.AssistantManager;
 import es.uco.pw.business.managers.CampamentsManager;
+import es.uco.pw.business.managers.InscriptionsManager;
 import es.uco.pw.display.javabeans.CustomerBean;
 
 import java.io.IOException;
-import java.io.FileNotFoundException;
 import java.util.Properties;
 
-/**
- * Servlet implementation for associating monitors with campaments.
- * This servlet is mapped to the URL pattern "/campamentMonitor".
- *
- * The expected parameters for the POST request are "camp-id" and "mon-id".
- * These parameters are used to identify the campament and monitor that should be associated.
- *
- * The authentication is performed using the "customerBean" attribute stored in the session,
- * ensuring that the user is an admin.
- *
- */
-@WebServlet(name = "campamentsMonitorsServlet", urlPatterns = "/campamentMonitor")
-public class CampamentsMonitorsServlet extends HttpServlet {
+@WebServlet(name = "deleteParcialInscriptionsServlet", urlPatterns = "/deleteParcialInscription")
+public class DeleteParcialInscriptionsServlet extends HttpServlet {
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws FileNotFoundException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         HttpSession session = req.getSession();
-
         CustomerBean customerBean = (CustomerBean) session.getAttribute("customerBean");
 
-        if(customerBean == null || customerBean.getType() == UserType.ASSISTANT) {
+        if(customerBean == null) {
             res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             res.sendRedirect("/summer_camp/");
             return;
         }
 
-        if(req.getParameter("camp-id").equals("") || req.getParameter("mon-id").equals("")) {
+        if (customerBean.getEmailUser().equals("") || req.getParameter("camp-id").equals("")) {
             res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             res.sendRedirect("/summer_camp/mvc/view/forms/parcialInscriptionView.jsp");
             return;
         }
-        
+
+        // Estos parámetros se pasarían de la siguiente forma -> /summer_camp/parcialInscription?camp-id=1&assis-id=2
         int campId = Integer.parseInt(req.getParameter("camp-id"));
-        int monId = Integer.parseInt(req.getParameter("mon-id"));
-        
+        String email = customerBean.getEmailUser();
+
         try {
             Properties configProperties = new Properties();
             Properties sqlProperties = new Properties();
             sqlProperties.load(getServletContext().getResourceAsStream("/WEB-INF/sql.properties"));
             configProperties.load(getServletContext().getResourceAsStream("/WEB-INF/config.properties"));
-    
+
             CampamentsManager campamentsManager = new CampamentsManager(sqlProperties, configProperties);
-            campamentsManager.associateMonitorsToCampaments(campId, monId);
-            
+            AssistantManager assistantManager = new AssistantManager(sqlProperties, configProperties);
+            InscriptionsManager inscriptionsManager = new InscriptionsManager(sqlProperties, configProperties);
+
+            CampamentDTO campamentDTO = campamentsManager.getById(campId);
+            AssistantDTO assistantDTO = assistantManager.getByEmail(email);
+
+            inscriptionsManager.cancelParcial(campamentDTO, assistantDTO);
+
             res.setStatus(HttpServletResponse.SC_OK);
-            res.sendRedirect("/summer_camp/mvc/view/messages/campsMonsAssociated.jsp");
+            res.sendRedirect("/summer_camp/mvc/view/messages/inscriptionsDeleted.jsp");
         } catch (Exception e) {
             e.printStackTrace();
             res.setStatus(HttpServletResponse.SC_BAD_REQUEST);

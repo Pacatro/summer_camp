@@ -213,4 +213,12 @@ GROUP BY
 
 SELECT * FROM campaments WHERE '2024-07-01' <= start_date AND start_date <= '2024-08-01';
 
-SELECT * FROM inscriptions WHERE ass_id = (SELECT ass_id FROM assistants WHERE email = 'pedro@example.com');
+SELECT * FROM inscriptions WHERE ass_id = (SELECT ass_id FROM assistants WHERE email = 'pedro@example.com') ORDER BY (SELECT start_date FROM campaments WHERE camp_id = inscriptions.camp_id) ASC;
+
+SELECT campaments.*
+FROM campaments
+JOIN inscriptions ON campaments.camp_id = inscriptions.camp_id
+WHERE inscriptions.ass_id = (SELECT ass_id FROM assistants WHERE email = 'pedro@example.com')
+ORDER BY campaments.start_date ASC;
+
+SELECT * FROM campaments WHERE camp_id IN (SELECT camp_id FROM inscriptions WHERE ass_id=2) ORDER BY start_date ASC

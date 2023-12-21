@@ -7,6 +7,8 @@
 <%@ page import = "es.uco.pw.business.common.userType.UserType" %>
 <%@ page import = "es.uco.pw.business.campament.CampamentDTO"%>
 <%@ page import="es.uco.pw.business.managers.AssistantManager"%>
+<%@ page import="es.uco.pw.business.factory.ParcialInscriptionDTO"%>
+<%@ page import="es.uco.pw.business.managers.InscriptionsManager"%>
 
 <!DOCTYPE html>
 <html>
@@ -48,7 +50,29 @@
 					} else { 
 						AssistantManager assis = new AssistantManager(sqlprop, configprop);
                     	ArrayList<CampamentDTO> campaments = assis.getCampaments(customerBean.getEmailUser());
+						InscriptionsManager inscripcionManager = new InscriptionsManager(sqlprop, configprop);
+    					ArrayList<Object> inscriptions = inscripcionManager.getAllByEmail(customerBean.getEmailUser());
 					%>
+						<table>
+							<thead>
+								<tr>
+									<th>Campamento</th>
+									<th>Precio</th>
+								</tr>
+							</thead>
+							<tbody>
+								<% for(Object o : inscriptions) {
+									if(o instanceof ParcialInscriptionDTO) {
+										ParcialInscriptionDTO parcialInscription = (ParcialInscriptionDTO) o; %>
+										<tr>
+											<td><%=parcialInscription.getIdCampament()%></td>
+											<td><%=parcialInscription.getPrice()%></td>
+										</tr> <%
+									}
+								} %>
+							</tbody>
+						</table>
+					
 						<form method="post" action="/summer_camp/deleteParcialInscription">
 							<label for="camp-id">ID del campamento</label>
 							<select name="camp-id">

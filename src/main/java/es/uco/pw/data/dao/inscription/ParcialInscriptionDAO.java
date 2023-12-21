@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import es.uco.pw.business.common.schedule.Schedule;
-import es.uco.pw.business.factory.CompleteInscriptionDTO;
 import es.uco.pw.business.factory.ParcialInscriptionDTO;
 import es.uco.pw.data.common.ConnectionDB;
 import es.uco.pw.data.common.DataException;

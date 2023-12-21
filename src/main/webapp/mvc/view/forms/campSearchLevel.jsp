@@ -7,7 +7,7 @@
 	<head>
 		<meta charset="UTF-8">
         <link href="/summer_camp/styles/loginView.css" rel="stylesheet" />
-		<title>Realizar inscripcion completa</title>
+		<title>Buscar campamentos</title>
 	</head>
 	<body>
 		<div class="container">

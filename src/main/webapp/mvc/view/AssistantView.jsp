@@ -88,7 +88,7 @@
                 </button>
 
                 <button>
-                    <a href="/summer_camp/mvc/view/forms/campSearchLevel.jsp">Buscar campamentos por plazas m&iacute;nimas</a>
+                    <a href="/summer_camp/mvc/view/forms/campSearchPlaces.jsp">Buscar campamentos por plazas m&iacute;nimas</a>
                 </button>
 
                 <button>

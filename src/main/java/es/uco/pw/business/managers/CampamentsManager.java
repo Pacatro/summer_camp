@@ -264,7 +264,7 @@ public class CampamentsManager {
         
         try{
             CampamentDAO dao = new CampamentDAO(this.sqlProperties, this.configProperties);
-            campaments = dao.getCampsByDateInterval(finalDate, finalDate);
+            campaments = dao.getCampsByDateInterval(initDate, finalDate);
         } catch (Exception e) { BusinessException.handleException(e); }
 
         return campaments;

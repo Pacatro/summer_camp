@@ -50,23 +50,20 @@
 						<%= messageNextPage %>
 						<br/>
 						<br/>
+					<div class="login-section">
 						<h1>Modificar datos</h1>
 						<form method="post" action="/summer_camp/mvc/controller/changeController.jsp">
-							<label for="name">Nombre: </label>
 								<input type="text" name="name" value="<%=user.getName()%>" placeholder="Nombre">
-							<label for="password">Contraseña: </label>
 								<input type="text" name="password" value="<%=user.getPassword()%>" placeholder="Contraseña">
 						<%
 							if(customerBean.getType() == UserType.ASSISTANT){
 								AssistantManager assistmanager = new AssistantManager(sqlprop, configprop);
 								AssistantDTO assist = assistmanager.getByEmail(user.getEmail());
 						%>
-							<label for="surname">Apellidos: </label>
 								<input type="text" name="surname" value="<%=assist.getSurname()%>" placeholder="Apellidos">
-							<label for="birthdate">Fecha de nacimiento: </label>
-								<input type="date" name="birthdate" value="<%=assist.getDate()%>">
-							<label for="atention">¿Necesita atencion especial?: </label>
-								<select name="atention">
+								<input type="date" name="birthdate" value="<%=assist.getDate()%>" placeholder="Fecha de nacimiento">
+							<label for="atention" class="label-section">¿Necesita atencion especial? </label>
+								<select name="atention" class="select">
 
 								<%
 									if(assist.getAtention()){
@@ -88,7 +85,8 @@
 							<br/>
 							<input type="submit" value="Submit">
 						</form>
-					<% } %>
+						<% } %>
+					</div>
 			</main>
 		</div>
 	</body>

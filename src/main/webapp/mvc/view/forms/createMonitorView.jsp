@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <jsp:useBean  id="customerBean" scope="session" class="es.uco.pw.display.javabeans.CustomerBean"></jsp:useBean>
 <%@ page import = "es.uco.pw.business.common.userType.UserType" %>
@@ -21,7 +21,7 @@
 			</header>
 
 			<main>
-				<h1>Crear actividad</h1> 
+				<h1>Crear monitor</h1>
 
 				<%
 					String file = application.getInitParameter("sqlproperties");
@@ -38,40 +38,33 @@
 					if (messageNextPage == null) messageNextPage = "";
 
 					if(customerBean == null || customerBean.getEmailUser().equals("")) {
-						nextPage = "/mvc/view/loginView.jsp";
+						nextPage = "/mvc/view/errors/error.jsp";
+						messageNextPage = "Debes iniciar sesion primero.";
 						%>
 							<jsp:forward page="<%=nextPage%>">
 								<jsp:param value="<%=messageNextPage%>" name="message"/>
 							</jsp:forward>
 						<%
 					} else if (customerBean.getType() == UserType.ASSISTANT) {
-						nextPage = "/mvc/view/AssistantView.jsp";
-						messageNextPage = "Bienvenido/a " + customerBean.getName();
+						nextPage = "/mvc/view/errors/error.jsp";
+						messageNextPage = "No estas autorizado para entrar en esta pagina.";
 						%>
 							<jsp:forward page="<%=nextPage%>">
 								<jsp:param value="<%=messageNextPage%>" name="message"/>
 							</jsp:forward>
 						<%
 					} else { %>
-						<form method="post" action="/summer_camp/activities">
-							<label for="name">Nombre de la actividad</label>
-							<input type="text" name="name" value="" placeholder="Nombre de la actividad">
-							<label for="Nivel educativo">Nivel educativo</label>
-							<select name="level" id="level">
-								<option value="CHILD">Infantil</option>
-								<option value="YOUTH">Juvenil</option>
-								<option value="TEENAGER">Adolescente</option>
-							</select>
-							<label for="schedule">Escoja el horario</label>
-							<select name="schedule" id="schedule">
-								<option value="MORNING">Mañanas</option>
-								<option value="AFTERNOON">Tardes</option>
-							</select>
-							<label for="max-participants">Participantes maximos</label>
-							<input type="number" name="max-participants" placeholder="Participantes maximos">
-							<label for="num-monitors">Numero de monitores</label>
-							<input type="number" name="num-monitors" placeholder="Numero de monitores">	
-							<input type="submit" value="Submit">
+						<form method="post" action="/summer_camp/monitors">
+							<label for="name">Nombre del monitor</label>
+							<input type="text" name="name" placeholder="Nombre del monitor">
+                            <label for="surname">Apellido del monitor</label>
+							<input type="text" name="surname" placeholder="Apellido del monitor">
+                            <label for="isEspecial" class="label-section">¿Es monitor especial? </label>
+                            <select name="isEspecial" class="select">
+                                <option value="false">No</option>
+                                <option value="true">Si</option>
+                            </select>
+                            <input type="submit" value="Submit">
 						</form>
 					<% } 
 				%>

@@ -96,7 +96,7 @@
                 </button>
 
                 <button>
-                    <a href="">Cancelar inscripcion</a>
+                    <a href="/summer_camp/mvc/view/forms/cancelInscriptions.jsp">Cancelar inscripcion</a>
                 </button>
 
             </main>

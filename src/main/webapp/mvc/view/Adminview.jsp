@@ -101,7 +101,7 @@
                 </button>
 
                 <button>
-                    <a href="">Crear un monitor</a>
+                    <a href="/summer_camp/mvc/view/forms/createMonitorView.jsp">Crear un monitor</a>
                 </button>
 
                 <button>

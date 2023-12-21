@@ -50,8 +50,6 @@
 						ArrayList<CampamentDTO> campaments = camp_man.getAllCampaments();
 					%>
 						<form method="post" action="/summer_camp/completeInscription">
-							<label for="assis-id">DNI</label>
-							<input type="number" name="assis-id" value="" placeholder="DNI" min="0">
 							<label for="camp-id">ID del campamento</label>
 							<select name="camp-id">
 							<%

@@ -73,11 +73,22 @@
                     ArrayList<CampamentDTO> campaments=assis.getCampaments(customerBean.getEmailUser());
                 %>
 
-                <ul>
-                    <% for(int i=0;i<campaments.size();i++){%>
-                        <li> <%=campaments.get(i).getId()%> </li>
-                    <%}%>
-                </ul>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Campamento</th>
+                            <th>Fecha de inicio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for(CampamentDTO campament : campaments) { %>
+                            <tr>
+                                <td><%=campament.getId()%></td>
+                                <td><%=campament.getInitDate()%></td>
+                            </tr> 
+                        <% } %>
+                    </tbody>
+                </table>
 
                 <button>
                     <a href="/summer_camp/mvc/view/forms/campSearchDate.jsp">Buscar campamentos por fecha</a>
@@ -96,9 +107,12 @@
                 </button>
 
                 <button>
-                    <a href="/summer_camp/mvc/view/forms/cancelInscriptions.jsp">Cancelar inscripcion</a>
+                    <a href="/summer_camp/mvc/view/forms/cancelCompleteInscriptions.jsp">Cancelar inscripcion completa</a>
                 </button>
-
+                
+                <button>
+                    <a href="/summer_camp/mvc/view/forms/cancelParcialInscriptions.jsp">Cancelar inscripcion parcial</a>
+                </button>
             </main>
         </div>
     </body>

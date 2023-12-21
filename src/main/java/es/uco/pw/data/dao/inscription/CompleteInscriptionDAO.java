@@ -63,19 +63,18 @@ public class CompleteInscriptionDAO implements IDAO<CompleteInscriptionDTO, Inte
         } catch (Exception e) { throw e; }
     }
 
-    public ArrayList<CompleteInscriptionDTO> getAllByIds(int campId, int assId) throws Exception {
+    public ArrayList<CompleteInscriptionDTO> getAllByEmail(String email) throws Exception {
         try {
-            ArrayList<CompleteInscriptionDTO> completesInscriptions = new ArrayList<>();
+            ArrayList<CompleteInscriptionDTO> completeInscriptions = new ArrayList<>();
             CompleteInscriptionDTO completeInscriptionDTO = null;
             
             ConnectionDB connDB = new ConnectionDB(config_properties);
             Connection conn = connDB.getConnection();
     
-            String sql = sql_properties.getProperty("GET_BYASSID_CAMPID_COMPLETE_INSCRIPTIONS");
+            String sql = sql_properties.getProperty("GET_BYASSID_COMPLETE_INSCRIPTIONS");
             PreparedStatement ps = conn.prepareStatement(sql);
     
-            ps.setInt(1, campId);        
-            ps.setInt(2, assId);
+            ps.setString(1, email);
     
             if(!ps.execute())
                 throw new DataException("No existe esa inscripcion.");
@@ -84,20 +83,18 @@ public class CompleteInscriptionDAO implements IDAO<CompleteInscriptionDTO, Inte
     
             while(rs.next()) {
                 completeInscriptionDTO = new CompleteInscriptionDTO();
-                
                 completeInscriptionDTO.setDate(rs.getDate("date").toLocalDate());
                 completeInscriptionDTO.setCancellation(rs.getBoolean("cancelled"));
                 completeInscriptionDTO.setPrice(rs.getDouble("price"));
                 completeInscriptionDTO.setSchedule(Schedule.valueOf(rs.getString("schendule")));
-                completeInscriptionDTO.setIdCampament(campId);
-                completeInscriptionDTO.setIdParticipant(assId);
-                
-                completesInscriptions.add(completeInscriptionDTO);
+                completeInscriptionDTO.setIdCampament(rs.getInt("camp_id"));
+                completeInscriptionDTO.setIdParticipant(rs.getInt("ass_id"));
+                completeInscriptions.add(completeInscriptionDTO);
             }
 
             connDB.disconnect();
     
-            return completesInscriptions;
+            return completeInscriptions;
         } catch (Exception e) { throw e; }
     }
 

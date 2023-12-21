@@ -21,7 +21,7 @@ public class ActivitiesCampamentsServlet extends HttpServlet {
 
         if(customerBean == null || customerBean.getType() == UserType.ASSISTANT) {
             res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            res.sendRedirect("/summer_camp/index.jsp");
+            res.sendRedirect("/summer_camp/");
             return;
         }
         

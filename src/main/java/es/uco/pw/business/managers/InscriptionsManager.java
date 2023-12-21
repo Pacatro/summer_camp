@@ -147,20 +147,24 @@ public class InscriptionsManager {
     }
 
     public void cancelParcial(CampamentDTO campament, AssistantDTO assistant) throws Exception {
-        ParcialInscriptionDAO parcialInscriptionDAO = new ParcialInscriptionDAO(sqlProperties, configProperties);
-        ParcialInscriptionDTO parcialInscriptionDTO = parcialInscriptionDAO.getByIds(campament.getId(), assistant.getId());
-
         if(!canEnroll(campament))
             throw new BusinessException("El campamento ya ha comenzado.");
+        
+        ParcialInscriptionDAO parcialInscriptionDAO = new ParcialInscriptionDAO(sqlProperties, configProperties);
+        ParcialInscriptionDTO parcialInscriptionDTO = parcialInscriptionDAO.getByIds(campament.getId(), assistant.getId());
 
         parcialInscriptionDAO.delete(parcialInscriptionDTO);
     }
 
-    public ArrayList<ParcialInscriptionDTO> getAllParcialsByIds(int campId, int assId) throws Exception {
-        return new ParcialInscriptionDAO(sqlProperties, configProperties).getAllByIds(campId, assId);
-    }
+    public ArrayList<Object> getAllByEmail(String email) throws Exception {
+        ArrayList<CompleteInscriptionDTO> completeInscriptions = new CompleteInscriptionDAO(sqlProperties, configProperties).getAllByEmail(email);
+        ArrayList<ParcialInscriptionDTO> parcialInscriptions = new ParcialInscriptionDAO(sqlProperties, configProperties).getAllByEmail(email);
 
-    public ArrayList<CompleteInscriptionDTO> getAllCompletesByIds(int campId, int assId) throws Exception {
-        return new CompleteInscriptionDAO(sqlProperties, configProperties).getAllByIds(campId, assId);
+        ArrayList<Object> inscriptions = new ArrayList<>();
+
+        inscriptions.addAll(completeInscriptions);        
+        inscriptions.addAll(parcialInscriptions);
+
+        return inscriptions;
     }
 }

@@ -281,4 +281,15 @@ public class CampamentsManager {
 
         return campaments;
     }
+
+    public ArrayList<CampamentDTO> getCampsByPlaces(int places) throws Exception{
+        ArrayList<CampamentDTO> campaments = new ArrayList<CampamentDTO>();
+
+        try{
+            CampamentDAO dao = new CampamentDAO(sqlProperties, configProperties);
+            campaments = dao.getCampsByPlaces(places);
+        }catch (Exception e) {BusinessException.handleException(e);}
+
+        return campaments;
+    }
 }

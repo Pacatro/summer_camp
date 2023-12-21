@@ -204,7 +204,6 @@ public class CampamentsManager {
 
         return monitors;
     }
-
     
     /**
      * Associates a monitor to a campament based on specified conditions.
@@ -213,24 +212,24 @@ public class CampamentsManager {
      * @param monitor_id The ID of the monitor to be associated with the campament.
      * @throws Exception If an error occurs during the association process or if the monitor cannot be associated.
      */
-    public void associateMonitorsToCampaments(int camp_id, int monitor_id) throws Exception {
-        MonitorDAO monitorDAO = new MonitorDAO(this.sqlProperties, this.configProperties);
-        CampamentDAO campamentDAO = new CampamentDAO(this.sqlProperties, this.configProperties);
-        MonitorDTO selectedMonitor = new MonitorDTO();
-        CampamentDTO selectedCampament = new CampamentDTO();
-
+    public void associateMonitorsToCampaments(int camp_id, int monitor_id) throws Exception { 
         try {
-            selectedMonitor = monitorDAO.getById(monitor_id);
-            selectedCampament = getById(camp_id);
-        } catch (Exception e) { BusinessException.handleException(e); }
+            CampamentDAO campamentDAO = new CampamentDAO(this.sqlProperties, this.configProperties);
+            
+            MonitorDAO monitorDAO = new MonitorDAO(this.sqlProperties, this.configProperties);
+            MonitorDTO selectedMonitor = monitorDAO.getById(monitor_id);
 
-        ArrayList<MonitorDTO> activityMonitors = selectedCampament.getMonitors();
+            ArrayList<ActivityDTO> activities = campamentDAO.getActivitiesFromCampament(camp_id);
 
-        if (selectedMonitor.isEspecial() && (campamentDAO.existsEspecialAsistant(camp_id) && !activityMonitors.contains(selectedMonitor))
-            ||
-            !selectedMonitor.isEspecial() && activityMonitors.contains(selectedMonitor)) {
-                campamentDAO.addMonitor(camp_id, monitor_id);
-        } else throw new BusinessException("No se ha podido asociar el monitor al campamento.");
+            for(ActivityDTO act : activities) {
+                for(MonitorDTO mon : act.getMonitors()) {
+                    if(mon.getID() == selectedMonitor.getID()) {
+                        campamentDAO.addMonitor(camp_id, monitor_id);
+                    }
+                }
+            }
+
+        } catch (Exception e) { BusinessException.handleException(e); }        
     }
 
     /**
@@ -271,5 +270,4 @@ public class CampamentsManager {
         return campaments;
 
     }
-
 }

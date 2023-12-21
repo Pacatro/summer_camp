@@ -22,16 +22,18 @@ public class ActivitiesServlet extends HttpServlet {
         
         CustomerBean customerBean= (CustomerBean) session.getAttribute("customerBean");
         if(customerBean==null || customerBean.getType()==UserType.ASSISTANT){
-            res.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized: The user is not an admin");
+            res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            res.sendRedirect("/summer_camp/index.jsp");
             return;
         }
 
-        if (req.getParameter("name") == null ||
-            req.getParameter("level") == null ||
-            req.getParameter("schedule") == null ||
-            req.getParameter("max-participants") == null || 
-            req.getParameter("num-monitors") == null) {
-            res.sendError(HttpServletResponse.SC_BAD_REQUEST, "Bad Request: Missing parameters");
+        if (req.getParameter("name").equals("") ||
+            req.getParameter("level").equals("") ||
+            req.getParameter("schedule").equals("") ||
+            req.getParameter("max-participants").equals("") || 
+            req.getParameter("num-monitors").equals("")) {
+            res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            res.sendRedirect("/summer_camp/mvc/view/forms/parcialInscriptionView.jsp");
             return;
         }
         
@@ -55,7 +57,9 @@ public class ActivitiesServlet extends HttpServlet {
 
         } catch (Exception e) {
             e.printStackTrace();
-            res.sendError(HttpServletResponse.SC_BAD_REQUEST, "Bad request: " + e.getMessage());
+            res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            req.getSession().setAttribute("message", e.getMessage());
+            res.sendRedirect("/summer_camp/mvc/view/errors/error.jsp");
         }
     }
 }

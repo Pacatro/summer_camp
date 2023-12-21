@@ -39,9 +39,8 @@
 					if (messageNextPage == null) messageNextPage = "";
 
 					if(customerBean == null || customerBean.getEmailUser().equals("")) {
-						nextPage = "/mvc/view/errors/error.jsp";
-						messageNextPage = "No estas autorizado para entrar en esta pagina.";
-						%>
+						nextPage = "/mvc/view/loginView.jsp";
+					%>
 							<jsp:forward page="<%=nextPage%>">
 								<jsp:param value="<%=messageNextPage%>" name="message"/>
 							</jsp:forward>

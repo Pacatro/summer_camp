@@ -260,7 +260,7 @@ public class CampamentsManager {
     }
 
     public ArrayList<CampamentDTO> getCampsByDateInterval(LocalDate initDate, LocalDate finalDate) throws Exception{
-        ArrayList<CampamentDTO> campaments = new ArrayList<>();
+        ArrayList<CampamentDTO> campaments = new ArrayList<CampamentDTO>();
         
         try{
             CampamentDAO dao = new CampamentDAO(this.sqlProperties, this.configProperties);
@@ -269,5 +269,16 @@ public class CampamentsManager {
 
         return campaments;
 
+    }
+
+    public ArrayList<CampamentDTO> getCampsByLevel(Level level) throws Exception{
+        ArrayList<CampamentDTO> campaments = new ArrayList<CampamentDTO>();
+
+        try{
+            CampamentDAO dao = new CampamentDAO(sqlProperties, configProperties);
+            campaments = dao.getCampsByLevel(level);
+        }catch (Exception e) {BusinessException.handleException(e);}
+
+        return campaments;
     }
 }

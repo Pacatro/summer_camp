@@ -8,7 +8,7 @@ import es.uco.pw.business.monitor.MonitorDTO;
 /**
  * Represents an activity of the system.
  */
-public class ActivityDTO {
+public class ActivityDTO { 
     
     /* Atributos */
     private String name;
@@ -87,6 +87,10 @@ public class ActivityDTO {
 
     public void setNumMonitors(int num_monitors){
         this.num_monitors = num_monitors;
+    }
+
+    public void addMonitor(MonitorDTO monitor){
+        this.monitors.add(monitor);
     }
 
     public String toString(){

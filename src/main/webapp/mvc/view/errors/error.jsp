@@ -7,36 +7,36 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="../../styles/index.css" rel="stylesheet" />
+        <link href="/summer_camp/styles/loginView.css" rel="stylesheet" />
         <title>Error page</title>
     </head>
     <body>
-        <%
-            String messageNextPage = request.getParameter("message");
-        %>
+        <div class="container">
+            <%
+                String messageNextPage = request.getParameter("message");
 
-        <header>
-            <h1>Summer Camp<h1>
-        </header>
+                if(messageNextPage == null) { messageNextPage = (String)session.getAttribute("message"); }
+            %>
 
-        <main>
-            <div class="message">
-                <% if(messageNextPage == null) { %>
-                    <h1 class="error-message">Ha ocurrido un error inesperado.</h1>
-                <% } else { %>
-                    <h1 class="error-message">Error: <%= messageNextPage %></h1>
-                <% } %>
-            </div>
+            <header>
+                <h1>Summer Camp<h1>
+            </header>
 
-            <div class="buttons">
-                <button>
-                    <a href="/summer_camp">Volver</a>
-                </button>
-            </div>
-        </main>
+            <main>
+                <div class="message">
+                    <% if(messageNextPage == null) { %>
+                        <h1 class="error-message">Ha ocurrido un error inesperado.</h1>
+                    <% } else { %>
+                        <h1 class="error-message">Error: <%= messageNextPage %></h1>
+                    <% } %>
+                </div>
 
-        <footer>
-            <h3>Summer Camp<h3>
-        </footer>
+                <div class="buttons">
+                    <button>
+                        <a href="/summer_camp">Volver</a>
+                    </button>
+                </div>
+            </main>
+        </div>
     </body>
 </html>

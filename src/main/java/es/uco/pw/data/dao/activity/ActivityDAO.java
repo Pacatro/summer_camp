@@ -196,6 +196,23 @@ public class ActivityDAO implements IDAO<ActivityDTO,String>{
                 activities.add(act);
             }
 
+            for(int i = 0; i < activities.size(); i++){
+                sql = sql_properties.getProperty("GET_MONITORS_ACTIVITY");
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, activities.get(i).getname());
+                rs = ps.executeQuery();
+                
+                while(rs.next()){
+                    MonitorDTO monitor = new MonitorDTO();
+                    monitor.setID(rs.getInt("monitor_id"));
+                    monitor.setName(rs.getString("name"));
+                    monitor.setSurname(rs.getString("surname"));
+                    monitor.setisEspecial(rs.getBoolean("special_edu"));
+
+                    activities.get(i).addMonitor(monitor);
+                }
+            }
+
             connDB.disconnect();
 
             return activities;
@@ -232,6 +249,21 @@ public class ActivityDAO implements IDAO<ActivityDTO,String>{
 
                 String scheduleString = rs.getString("schedule");
                 act.setSchedule(Schedule.valueOf(scheduleString));
+            }
+
+            sql = sql_properties.getProperty("GET_MONITORS_ACTIVITY");
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, act.getname());
+            rs = ps.executeQuery();
+            
+            while(rs.next()){
+                MonitorDTO monitor = new MonitorDTO();
+                monitor.setID(rs.getInt("monitor_id"));
+                monitor.setName(rs.getString("name"));
+                monitor.setSurname(rs.getString("surname"));
+                monitor.setisEspecial(rs.getBoolean("special_edu"));
+
+                act.addMonitor(monitor);
             }
 
             connDB.disconnect();

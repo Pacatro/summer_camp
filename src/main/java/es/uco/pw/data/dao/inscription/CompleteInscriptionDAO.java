@@ -63,6 +63,44 @@ public class CompleteInscriptionDAO implements IDAO<CompleteInscriptionDTO, Inte
         } catch (Exception e) { throw e; }
     }
 
+    public ArrayList<CompleteInscriptionDTO> getAllByIds(int campId, int assId) throws Exception {
+        try {
+            ArrayList<CompleteInscriptionDTO> completesInscriptions = new ArrayList<>();
+            CompleteInscriptionDTO completeInscriptionDTO = null;
+            
+            ConnectionDB connDB = new ConnectionDB(config_properties);
+            Connection conn = connDB.getConnection();
+    
+            String sql = sql_properties.getProperty("GET_BYASSID_CAMPID_COMPLETE_INSCRIPTIONS");
+            PreparedStatement ps = conn.prepareStatement(sql);
+    
+            ps.setInt(1, campId);        
+            ps.setInt(2, assId);
+    
+            if(!ps.execute())
+                throw new DataException("No existe esa inscripcion.");
+    
+            ResultSet rs = ps.executeQuery();
+    
+            while(rs.next()) {
+                completeInscriptionDTO = new CompleteInscriptionDTO();
+                
+                completeInscriptionDTO.setDate(rs.getDate("date").toLocalDate());
+                completeInscriptionDTO.setCancellation(rs.getBoolean("cancelled"));
+                completeInscriptionDTO.setPrice(rs.getDouble("price"));
+                completeInscriptionDTO.setSchedule(Schedule.valueOf(rs.getString("schendule")));
+                completeInscriptionDTO.setIdCampament(campId);
+                completeInscriptionDTO.setIdParticipant(assId);
+                
+                completesInscriptions.add(completeInscriptionDTO);
+            }
+
+            connDB.disconnect();
+    
+            return completesInscriptions;
+        } catch (Exception e) { throw e; }
+    }
+
     @Override
     public void insert(CompleteInscriptionDTO completeInscriptionDTO) throws Exception {
         try {

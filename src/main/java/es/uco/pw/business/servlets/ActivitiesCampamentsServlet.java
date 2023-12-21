@@ -7,23 +7,12 @@ import es.uco.pw.business.common.userType.*;
 import es.uco.pw.business.managers.CampamentsManager;
 import es.uco.pw.display.javabeans.CustomerBean;
 
-import java.io.IOException;
+import java.io.IOException; 
 import java.io.FileNotFoundException;
 import java.util.Properties;
 
-/**
- * Servlet implementation for associating monitors with activities.
- * This servlet is mapped to the URL pattern "/activityMonitor".
- *
- * The expected parameters for the POST request are "act-id" and "mon-id".
- * These parameters are used to identify the activity and monitor that should be associated.
- *
- * The authentication is performed using the "customerBean" attribute stored in the session,
- * ensuring that the user is an admin.
- *
- */
-@WebServlet(name = "activitiesMonitorsServlet", urlPatterns = "/activityMonitor")
-public class ActivitiesMonitorsServlet extends HttpServlet {
+@WebServlet(name = "activitiesCampamentsServlet", urlPatterns = "/activityCampament")
+public class ActivitiesCampamentsServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws FileNotFoundException, IOException {
         HttpSession session = req.getSession();
@@ -36,13 +25,14 @@ public class ActivitiesMonitorsServlet extends HttpServlet {
             return;
         }
         
-        if(req.getParameter("act-id").equals("") || req.getParameter("mon-id").equals("")) {
+        if(req.getParameter("act-id").equals("") || req.getParameter("camp-id").equals("")) {
+            res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             res.sendRedirect("/summer_camp/mvc/view/forms/parcialInscriptionView.jsp");
             return;
         }
         
         String actId = req.getParameter("act-id");
-        int monId = Integer.parseInt(req.getParameter("mon-id"));
+        int campId = Integer.parseInt(req.getParameter("camp-id"));
         
         try {
             Properties configProperties = new Properties();
@@ -51,10 +41,11 @@ public class ActivitiesMonitorsServlet extends HttpServlet {
             configProperties.load(getServletContext().getResourceAsStream("/WEB-INF/config.properties"));
     
             CampamentsManager campamentsManager = new CampamentsManager(sqlProperties, configProperties);
-            campamentsManager.associateMonitorsToActivities(monId, actId);
+            campamentsManager.associateActivitiesToCampaments(campId, actId);
             
             res.setStatus(HttpServletResponse.SC_OK);
-            res.sendRedirect("/summer_camp/mvc/view/messages/monsActsAssociated.jsp");
+            res.sendRedirect("/summer_camp/mvc/view/messages/actsCampsAssociated.jsp");
+            
         } catch (Exception e) {
             e.printStackTrace();
             res.setStatus(HttpServletResponse.SC_BAD_REQUEST);

@@ -24,15 +24,6 @@
 				<h1>Crear actividad</h1> 
 
 				<%
-					String file = application.getInitParameter("sqlproperties");
-					String file1 = application.getInitParameter("configproperties");
-					java.io.InputStream myIO = application.getResourceAsStream(file);
-					java.io.InputStream myIO1 = application.getResourceAsStream(file1);
-					java.util.Properties sqlprop = new java.util.Properties();
-					java.util.Properties configprop = new java.util.Properties();
-					sqlprop.load(myIO);
-					configprop.load(myIO1);
-
 					String nextPage = "";
 					String messageNextPage = request.getParameter("message");
 					if (messageNextPage == null) messageNextPage = "";

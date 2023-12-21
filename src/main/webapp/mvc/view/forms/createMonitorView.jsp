@@ -24,30 +24,20 @@
 				<h1>Crear monitor</h1>
 
 				<%
-					String file = application.getInitParameter("sqlproperties");
-					String file1 = application.getInitParameter("configproperties");
-					java.io.InputStream myIO = application.getResourceAsStream(file);
-					java.io.InputStream myIO1 = application.getResourceAsStream(file1);
-					java.util.Properties sqlprop = new java.util.Properties();
-					java.util.Properties configprop = new java.util.Properties();
-					sqlprop.load(myIO);
-					configprop.load(myIO1);
-
 					String nextPage = "";
 					String messageNextPage = request.getParameter("message");
 					if (messageNextPage == null) messageNextPage = "";
 
 					if(customerBean == null || customerBean.getEmailUser().equals("")) {
-						nextPage = "/mvc/view/errors/error.jsp";
-						messageNextPage = "Debes iniciar sesion primero.";
+						nextPage = "/mvc/view/loginView.jsp";
 						%>
 							<jsp:forward page="<%=nextPage%>">
 								<jsp:param value="<%=messageNextPage%>" name="message"/>
 							</jsp:forward>
 						<%
 					} else if (customerBean.getType() == UserType.ASSISTANT) {
-						nextPage = "/mvc/view/errors/error.jsp";
-						messageNextPage = "No estas autorizado para entrar en esta pagina.";
+						nextPage = "/mvc/view/AssistantView.jsp";
+						messageNextPage = "Bienvenido/a " + customerBean.getName();
 						%>
 							<jsp:forward page="<%=nextPage%>">
 								<jsp:param value="<%=messageNextPage%>" name="message"/>
@@ -59,7 +49,7 @@
 							<input type="text" name="name" placeholder="Nombre del monitor">
                             <label for="surname">Apellido del monitor</label>
 							<input type="text" name="surname" placeholder="Apellido del monitor">
-                            <label for="isEspecial" class="label-section">¿Es monitor especial? </label>
+                            <label for="isEspecial" class="label-section">&iquest;Es monitor especial? </label>
                             <select name="isEspecial" class="select">
                                 <option value="false">No</option>
                                 <option value="true">Si</option>

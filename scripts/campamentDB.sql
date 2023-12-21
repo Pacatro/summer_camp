@@ -212,3 +212,5 @@ GROUP BY
     c.camp_id;
 
 SELECT * FROM campaments WHERE '2024-07-01' <= start_date AND start_date <= '2024-08-01';
+
+SELECT * FROM inscriptions WHERE ass_id = (SELECT ass_id FROM assistants WHERE email = 'pedro@example.com');

@@ -27,7 +27,7 @@
 							nextPage = "AssistantView.jsp";
 							messageNextPage = "Bienvenido/a" + customerBean.getName();
 					}else{
-							nextPage = "Adminview.jsp";
+						nextPage = "Adminview.jsp";
 						messageNextPage = "Bienvenido/a" + customerBean.getName();
 					}
 				%>

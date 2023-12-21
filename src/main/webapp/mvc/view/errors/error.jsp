@@ -15,7 +15,9 @@
             <%
                 String messageNextPage = request.getParameter("message");
 
-                if(messageNextPage == null) messageNextPage = (String)session.getAttribute("message");
+                if(messageNextPage == null) {
+                    messageNextPage = (String)session.getAttribute("message");
+                }
             %>
 
             <header>

@@ -49,7 +49,7 @@
 						AssistantManager assis = new AssistantManager(sqlprop, configprop);
                     	ArrayList<CampamentDTO> campaments = assis.getCampaments(customerBean.getEmailUser());
 					%>
-						<form method="post" action="/summer_camp/deleteCompleteInscription">
+						<form method="post" action="/summer_camp/deleteParcialInscription">
 							<label for="camp-id">ID del campamento</label>
 							<select name="camp-id">
 							<%

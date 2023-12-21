@@ -62,6 +62,41 @@ public class ParcialInscriptionDAO implements IDAO<ParcialInscriptionDTO, Intege
         } catch (Exception e) { throw e; }
     }
 
+    public ArrayList<ParcialInscriptionDTO> getAllByEmail(String email) throws Exception {
+        try {
+            ArrayList<ParcialInscriptionDTO> parcialInscriptions = new ArrayList<>();
+            ParcialInscriptionDTO parcialInscription = null;
+            
+            ConnectionDB connDB = new ConnectionDB(config_properties);
+            Connection conn = connDB.getConnection();
+    
+            String sql = sql_properties.getProperty("GET_BYASSID_PARCIAL_INSCRIPTIONS");
+            PreparedStatement ps = conn.prepareStatement(sql);
+    
+            ps.setString(1, email);
+    
+            if(!ps.execute())
+                throw new DataException("No existe esa inscripcion.");
+    
+            ResultSet rs = ps.executeQuery();
+    
+            while(rs.next()) {
+                parcialInscription = new ParcialInscriptionDTO();
+                parcialInscription.setDate(rs.getDate("date").toLocalDate());
+                parcialInscription.setCancellation(rs.getBoolean("cancelled"));
+                parcialInscription.setPrice(rs.getDouble("price"));
+                parcialInscription.setSchedule(Schedule.valueOf(rs.getString("schendule")));
+                parcialInscription.setIdCampament(rs.getInt("camp_id"));
+                parcialInscription.setIdParticipant(rs.getInt("ass_id"));
+                parcialInscriptions.add(parcialInscription);
+            }
+
+            connDB.disconnect();
+    
+            return parcialInscriptions;
+        } catch (Exception e) { throw e; }
+    }
+
     @Override
     public void insert(ParcialInscriptionDTO parcialInscriptionDTO) throws Exception {
         try {
@@ -101,6 +136,8 @@ public class ParcialInscriptionDAO implements IDAO<ParcialInscriptionDTO, Intege
     
             ps.setInt(1, dto.getIdCampament());
             ps.setInt(2, dto.getIdParticipant());
+
+            System.out.println("HOla");
     
             int rowsAffected = ps.executeUpdate();
     

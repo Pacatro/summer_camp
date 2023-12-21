@@ -33,7 +33,6 @@ public class DeleteParcialInscriptionsServlet extends HttpServlet {
             return;
         }
 
-        // Estos parámetros se pasarían de la siguiente forma -> /summer_camp/parcialInscription?camp-id=1&assis-id=2
         int campId = Integer.parseInt(req.getParameter("camp-id"));
         String email = customerBean.getEmailUser();
 
@@ -42,6 +41,8 @@ public class DeleteParcialInscriptionsServlet extends HttpServlet {
             Properties sqlProperties = new Properties();
             sqlProperties.load(getServletContext().getResourceAsStream("/WEB-INF/sql.properties"));
             configProperties.load(getServletContext().getResourceAsStream("/WEB-INF/config.properties"));
+
+            System.out.println("HOla1");
 
             CampamentsManager campamentsManager = new CampamentsManager(sqlProperties, configProperties);
             AssistantManager assistantManager = new AssistantManager(sqlProperties, configProperties);
@@ -56,6 +57,7 @@ public class DeleteParcialInscriptionsServlet extends HttpServlet {
             res.sendRedirect("/summer_camp/mvc/view/messages/inscriptionsDeleted.jsp");
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println(e.getMessage());
             res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             req.getSession().setAttribute("message", e.getMessage());
             res.sendRedirect("/summer_camp/mvc/view/errors/error.jsp");

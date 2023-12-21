@@ -7,7 +7,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<link href="/summer_camp/styles/index.css" rel="stylesheet" />
+		<link href="/summer_camp/styles/loginView.css" rel="stylesheet" />
 		<title>Summer Camp</title>
 	</head>
 	<body>

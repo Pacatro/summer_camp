@@ -35,7 +35,7 @@
 
                 <div class="buttons">
                     <button>
-                        <a href="/summer_camp">Volver</a>
+                        <a href="/summer_camp/index.jsp">Volver</a>
                     </button>
                 </div>
             </main>

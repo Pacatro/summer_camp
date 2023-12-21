@@ -170,6 +170,11 @@ public class CampamentsManager {
         if (campament.getLevel() != activity.getLevel())
             throw new BusinessException("La actividad no tiene el mismo nivel que el campamento.");
         
+        for (ActivityDTO act : campament.getActivities()) {
+            if (act.getname().equals(activity.getname()))
+                throw new BusinessException("La actividad " + activityId + " ya esta registrada en el campamento.");
+        }
+        
         campamentDAO.addActivity(camp_id, activityId);
     }
     

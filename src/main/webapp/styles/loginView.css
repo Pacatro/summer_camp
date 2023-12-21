@@ -86,3 +86,13 @@ input[type="number"] {
 .date{
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
+
+button {
+    padding: 10px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    font-size: 1.25em;
+    border-radius: 10px;
+    font-weight: bold;
+    background-color: rgba(255, 255, 255, 0.5);
+}

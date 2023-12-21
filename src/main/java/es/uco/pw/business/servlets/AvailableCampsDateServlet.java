@@ -23,7 +23,7 @@ public class AvailableCampsDateServlet extends HttpServlet {
 
         if(customerBean == null) {
             res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            res.sendRedirect("/summer_camp/");
+            res.sendRedirect("/summer_camp/index.jsp");
             return;
         }
         

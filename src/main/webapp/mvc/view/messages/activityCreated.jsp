@@ -7,38 +7,40 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<link href="/summer_camp/styles/index.css" rel="stylesheet" />
+		<link href="/summer_camp/styles/loginView.css" rel="stylesheet" />
 		<title>Summer Camp</title>
 	</head>
 	<body>
-		<header>
-			<h1>Summer Camp<h1>
-		</header>
+		<div class="container">
+			<header>
+				<h1>Summer Camp<h1>
+			</header>
 
-		<main>
-			<%
-				String nextPage = "";
-				String messageNextPage = "";
+			<main>
+				<%
+					String nextPage = "";
+					String messageNextPage = "";
 
-				if(customerBean != null && !customerBean.getEmailUser().equals("")){
+					if(customerBean != null && !customerBean.getEmailUser().equals("")){
 
-					if(customerBean.getType() == UserType.ASSISTANT){
-						nextPage = "/summer_camp/mvc/view/AssistantView.jsp";
-                        %>
-                            <jsp:forward page="<%=nextPage%>">
-                                <jsp:param value="<%=messageNextPage%>" name="message"/>
-                            </jsp:forward>
-                        <%
-					}else{
-						nextPage = "/summer_camp/mvc/view/Adminview.jsp";
+						if(customerBean.getType() == UserType.ASSISTANT){
+							nextPage = "/summer_camp/mvc/view/AssistantView.jsp";
+							%>
+								<jsp:forward page="<%=nextPage%>">
+									<jsp:param value="<%=messageNextPage%>" name="message"/>
+								</jsp:forward>
+							<%
+						}else{
+							nextPage = "/summer_camp/mvc/view/Adminview.jsp";
+						}
 					}
-				}
-			%>
+				%>
 
-            <h1>La actividad ha sido creado correctamente</h1>
+				<h1>La actividad ha sido creado correctamente</h1>
 
-			<button>
-				<a href="<%=nextPage%>">Volver a página principal</a>
-			</button>
-		</main>
+				<button>
+					<a href="<%=nextPage%>">Volver a página principal</a>
+				</button>
+			</main>
+		</div>
 	</body>

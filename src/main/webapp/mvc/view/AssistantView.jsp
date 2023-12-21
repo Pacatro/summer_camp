@@ -84,7 +84,11 @@
                 </button>
 
                 <button>
-                    <a href="">Buscar campamentos por nivel educativo</a>
+                    <a href="/summer_camp/mvc/view/forms/campSearchLevel.jsp">Buscar campamentos por nivel educativo</a>
+                </button>
+
+                <button>
+                    <a href="/summer_camp/mvc/view/forms/campSearchLevel.jsp">Buscar campamentos por plazas m&iacute;nimas</a>
                 </button>
 
                 <button>

@@ -10,11 +10,11 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <link href="/summer_camp/styles/index.css" rel="stylesheet" /> 
+        <link href="/summer_camp/styles/loginView.css" rel="stylesheet" /> 
         <title>Pagina Asistente</title>
     </head>
     <body>
-
+    <div class="container">
         <%
             String file = application.getInitParameter("sqlproperties");
             String file1 = application.getInitParameter("configproperties");
@@ -49,7 +49,7 @@
                 }
             %>
 
-            <button>
+            <button class="but">
                 <a href="/summer_camp/mvc/controller/logoutController.jsp">Desconexion</a>
             </button>
 
@@ -87,6 +87,6 @@
             </button>
 
         </main>
-
+    </div>
     </body>
 </html>

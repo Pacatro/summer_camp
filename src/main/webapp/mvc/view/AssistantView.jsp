@@ -109,7 +109,7 @@
                 </table>
 
                 <button>
-                    <a href="">Buscar campamentos por fecha</a>
+                    <a href="/summer_camp/mvc/view/forms/campSearchDate.jsp">Buscar campamentos por fecha</a>
                 </button>
 
                 <button>

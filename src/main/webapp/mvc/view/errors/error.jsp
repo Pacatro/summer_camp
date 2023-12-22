@@ -33,7 +33,7 @@
                     <% } %>
                 </div>
 
-                <div class="buttons">
+                <div class="assis-buttons">
                     <button>
                         <a href="/summer_camp/index.jsp">Volver</a>
                     </button>

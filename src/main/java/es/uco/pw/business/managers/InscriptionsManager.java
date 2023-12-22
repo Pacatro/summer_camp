@@ -129,6 +129,8 @@ public class InscriptionsManager {
 
         parcialInscriptionDTO = factory.createParcialInscription(campament, assistant, LocalDate.now());
 
+        System.out.println(parcialInscriptionDTO);
+
         double price = calcPrice(campament, assistant.getAtention());
         parcialInscriptionDTO.setPrice(price);
 

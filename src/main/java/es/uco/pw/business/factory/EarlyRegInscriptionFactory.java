@@ -5,6 +5,7 @@ import java.time.temporal.ChronoUnit;
 
 import es.uco.pw.business.assistant.AssistantDTO;
 import es.uco.pw.business.campament.CampamentDTO;
+import es.uco.pw.business.common.exceptions.BusinessException;
 import es.uco.pw.business.common.schedule.Schedule;
 
 /**
@@ -23,7 +24,7 @@ public class EarlyRegInscriptionFactory extends InscriptionFactory {
 
         long dif = ChronoUnit.DAYS.between(date, campamentDate);
 
-        if(dif < 15) throw new Exception("Fecha incorrecta");
+        if(dif < 15) throw new BusinessException("Fecha incorrecta");
 
         cInscription.setDate(date);
         
@@ -41,7 +42,7 @@ public class EarlyRegInscriptionFactory extends InscriptionFactory {
 
         long dif = ChronoUnit.DAYS.between(date, campamentDate);
 
-        if(dif < 15) throw new Exception("Fecha incorrecta");
+        if(dif < 15) throw new BusinessException("Fecha incorrecta");
 
         pInscription.setDate(date);
         

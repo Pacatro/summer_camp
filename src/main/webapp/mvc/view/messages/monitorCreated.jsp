@@ -38,9 +38,11 @@
 
             <h1>El monitor ha sido creado correctamente</h1>
 
-			<button class="buts">
-				<a href="<%=nextPage%>">Volver a página principal</a>
-			</button>
+			<div class="assis-buttons">
+				<button class="buts">
+					<a href="<%=nextPage%>">Volver a página principal</a>
+				</button>
+			</div>
 		</main>
 	</div>
 	</body>

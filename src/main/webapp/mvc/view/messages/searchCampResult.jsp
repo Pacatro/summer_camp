@@ -182,9 +182,11 @@
 				}
 				%>
 				<br/>
-				<button class="buts">
-					<a href="<%=nextPage%>">Volver a página principal</a>
-				</button>
+				<div class="assis-buttons">
+					<button class="buts">
+						<a href="<%=nextPage%>">Volver a página principal</a>
+					</button>
+				</div>
 			</main>
 		</div>
 	</body>

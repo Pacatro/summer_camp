@@ -32,9 +32,11 @@
 
             <h1>La inscripcion ha sido eliminada correctamente</h1>
 
-			<button class="buts">
-				<a href="<%=nextPage%>">Volver a página principal</a>
-			</button>
+			<div class="assis-buttons">
+				<button class="buts">
+					<a href="<%=nextPage%>">Volver a página principal</a>
+				</button>
+			</div>
 		</main>
 	</div>
 	</body>

@@ -48,7 +48,7 @@ public class AvaibleCampsLevelServlet extends HttpServlet{
 
             res.setStatus(HttpServletResponse.SC_OK);
             req.getSession().setAttribute("campaments", campaments);
-            res.sendRedirect("/summer_camp/mvc/view/messages/searchCampResultLevel.jsp");
+            res.sendRedirect("/summer_camp/mvc/view/messages/searchCampResult.jsp");
             
         } catch (Exception e) {
             e.printStackTrace();

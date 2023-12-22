@@ -24,6 +24,7 @@
 			</header>
 
 			<main>
+			<div class="login-section">
 				<h1>Cancelar inscripcion parcial</h1>
 
 				<%
@@ -72,10 +73,10 @@
 								} %>
 							</tbody>
 						</table>
-					
+						<br/>
 						<form method="post" action="/summer_camp/deleteParcialInscription">
-							<label for="camp-id">ID del campamento</label>
-							<select name="camp-id">
+							<label for="camp-id" class="label-section">ID del campamento</label>
+							<select name="camp-id" class="select">
 							<%
 								for(int i = 0; i < campaments.size(); i++){
 									if(ChronoUnit.DAYS.between(LocalDate.now(), campaments.get(i).getInitDate()) > 0){
@@ -90,6 +91,7 @@
 						</form>
 					<% } 
 				%>
+			</div>
 			</main>
 		<div>
 	</body>

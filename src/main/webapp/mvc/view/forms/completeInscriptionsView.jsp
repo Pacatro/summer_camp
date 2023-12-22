@@ -22,6 +22,7 @@
 			</header>
 
 			<main>
+			<div class="login-section">
 				<h1>Realizar inscripcion completa</h1>
 
 				<%
@@ -50,8 +51,8 @@
 						ArrayList<CampamentDTO> campaments = camp_man.getAllCampaments();
 					%>
 						<form method="post" action="/summer_camp/completeInscription">
-							<label for="camp-id">ID del campamento</label>
-							<select name="camp-id">
+							<label for="camp-id" class="label-section">ID del campamento</label>
+							<select name="camp-id" class="select">
 							<%
 								for(int i = 0; i < campaments.size(); i++){
 									if(ChronoUnit.DAYS.between(LocalDate.now(), campaments.get(i).getInitDate()) >= 2){
@@ -62,8 +63,9 @@
 								}
 							%>
 							</select>
-							<label for="schedule">Escoja el horario</label>
-							<select name="schedule" id="schedule">
+							<br/>
+							<label for="schedule" class="label-section">Escoja el horario</label>
+							<select name="schedule" id="schedule" class="select">
 								<option value="MORNING">Mañanas</option>
 								<option value="AFTERNOON">Tardes</option>
 							</select>
@@ -71,6 +73,7 @@
 						</form>
 					<% } 
 				%>
+			</div>
 			</main>
 		</div>
 	</body>

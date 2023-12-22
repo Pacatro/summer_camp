@@ -23,7 +23,6 @@
 
 			<main>
 				<h1>Asociar monitor a campamentos</h1>
-
 				<%
 					String file = application.getInitParameter("sqlproperties");
 					String file1 = application.getInitParameter("configproperties");
@@ -94,18 +93,20 @@
 								%>
 							</tbody>
 						</table>
-
+						<br/>
+				<div class="login-section">
 						<form method="post" action="/summer_camp/campamentMonitor">
-							<label for="camp-id">Identificador del campamento</label>
-							<select name="camp-id">
+							<label for="camp-id" class="label-section">Identificador del campamento</label>
+							<select name="camp-id" class="select">
 							<%
 								for(int i = 0; i < campaments.size(); i++){
 							%>
 									<option value="<%=campaments.get(i).getId()%>"><%=campaments.get(i).getId()%></option>
 								<% } %>
 							</select>
-							<label for="mon-id">Nombre del monitor</label>
-							<select name="mon-id">
+							<br/>
+							<label for="mon-id" class="label-section">Nombre del monitor</label>
+							<select name="mon-id" class="select">
 							<%
 								for(int i = 0; i < monitors.size(); i++){
 							%>
@@ -115,6 +116,7 @@
 							<input type="submit" value="Submit">
 						</form>
 					<% } %>
+				</div>
 			</main>
 		</div>
 	</body>

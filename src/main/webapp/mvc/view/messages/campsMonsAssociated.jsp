@@ -11,6 +11,7 @@
 		<title>Summer Camp</title>
 	</head>
 	<body>
+	<div class="container">
 		<header>
 			<h1>Summer Camp<h1>
 		</header>
@@ -37,9 +38,10 @@
 
             <h1>El monitor ha sido asociado al campamento correctamente</h1>
 
-			<button>
+			<button class="buts">
 				<a href="<%=nextPage%>">Volver a página principal</a>
 			</button>
 		</main>
+	</div>
 	</body>
 </html>

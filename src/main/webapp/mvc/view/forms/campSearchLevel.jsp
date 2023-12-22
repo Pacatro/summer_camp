@@ -16,6 +16,7 @@
 			</header>
 
 			<main>
+			<div class="login-section">
 				<h1>Buscar campamentos</h1>
 
 				<%
@@ -33,8 +34,8 @@
 					} else {
                 %>
 						<form method="post" action="/summer_camp/availableCampsLevel">
-							<label for="level">Nivel educativo</label>
-							<select name="level">
+							<label for="level" class="label-section">Nivel educativo</label>
+							<select name="level" class="select">
 								<option value="CHILD">Infantil</option>
 								<option value="YOUTH">Juvenil</option>
 								<option value="TEENAGER">Adolescente</option>
@@ -43,6 +44,7 @@
 						</form>
 					<% } 
 				%>
+			</div>	
 			</main>
 		</div>
 	</body>

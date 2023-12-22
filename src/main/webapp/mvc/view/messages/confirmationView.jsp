@@ -11,6 +11,7 @@
 		<title>Summer Camp</title>
 	</head>
 	<body>
+	<div class="container">
 		<header>
 			<h1>Summer Camp<h1>
 		</header>
@@ -30,13 +31,15 @@
 			%>
 
             <h1>Precio final de la inscripcion: <%= request.getAttribute("price") %> euros</h1>
-
+		<div class="login-section">
             <form action="/summer_camp/parcialInscription" method="post">
                 <input type="hidden" name="camp-id" value="<%= request.getAttribute("campId") %>">
                 <input type="hidden" name="assis-id" value="<%= request.getAttribute("assisId") %>">
                 <input type="submit" name="action" value="Aceptar">
                 <input type="submit" name="action" value="Cancelar">
             </form>
+		</div>
 		</main>
+	</div>
 	</body>
 </html>

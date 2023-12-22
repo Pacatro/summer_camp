@@ -16,6 +16,7 @@
 			</header>
 
 			<main>
+			<div class="login-section">
 				<h1>Buscar campamentos</h1>
 
 				<%
@@ -38,6 +39,7 @@
 						</form>
 					<% } 
 				%>
+			</div>
 			</main>
 		</div>
 	</body>

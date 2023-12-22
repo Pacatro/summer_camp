@@ -38,7 +38,7 @@
 
 				<h1>La actividad ha sido creado correctamente</h1>
 
-				<button>
+				<button class="buts">
 					<a href="<%=nextPage%>">Volver a página principal</a>
 				</button>
 			</main>

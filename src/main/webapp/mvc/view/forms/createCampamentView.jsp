@@ -17,6 +17,7 @@
 			</header>
 
 			<main>
+			<div class="login-section">
 				<h1>Crear campamento</h1>
 
 				<%
@@ -41,22 +42,23 @@
 						<%
 					} else { %>
 						<form method="post" action="/summer_camp/campaments">
-							<label for="start-date">Fecha de inicio</label>
+							<label for="start-date" class="label-section">Fecha de inicio</label>
 							<input type="date" name="start-date" value="" placeholder="Fecha de inicio">
-							<label for="end-date">Fecha de fin</label>
+							<label for="end-date" class="label-section">Fecha de fin</label>
 							<input type="date" name="end-date" placeholder="Fecha de fin">
-							<label for="Nivel educativo">Nivel educativo</label>
-							<select name="level" id="level">
+							<label for="Nivel educativo" class="label-section">Nivel educativo</label>
+							<select name="level" id="level" class="select">
 								<option value="CHILD">Infantil</option>
 								<option value="YOUTH">Juvenil</option>
 								<option value="TEENAGER">Adolescente</option>
 							</select>
-							<label for="max-assistants">Asistentes maximos</label>
-							<input type="number" name="max-assistants" placeholder="Asistentes maximos">	
+							<br/>
+							<input type="number" name="max-assistants" placeholder="Asistentes m&aacute;ximos">	
 							<input type="submit" value="Submit">
 						</form>
 					<% } 
 				%>
+			</div>
 			</main>
 		</div>
 	</body>

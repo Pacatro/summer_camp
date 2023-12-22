@@ -21,6 +21,7 @@
 			</header>
 
 			<main>
+			<div class="login-section">
 				<h1>Asociar monitor a actividades</h1>
 
 				<%
@@ -54,8 +55,8 @@
 						<%
 					} else { %>
 						<form method="post" action="/summer_camp/activityMonitor">
-							<label for="act-id">Nombre de la actividad</label>
-							<select name="act-id">
+							<label for="act-id" class="label-section">Nombre de la actividad</label>
+							<select name="act-id" class="select">
 							<%
 								CampamentsManager camp_man = new CampamentsManager(sqlprop, configprop);
 								ArrayList<ActivityDTO> activities = camp_man.getAllActivities();
@@ -64,8 +65,9 @@
 									<option value="<%=activities.get(i).getname()%>"><%=activities.get(i).getname()%></option>
 								<% } %>
 							</select>
-							<label for="mon-id">Nombre del monitor</label>
-							<select name="mon-id">
+							<br/>
+							<label for="mon-id" class="label-section">Nombre del monitor</label>
+							<select name="mon-id" class="select">
 							<%
 								ArrayList<MonitorDTO> monitors = camp_man.getAllMonitorsNotEspecial();
 								for(int i = 0; i < monitors.size(); i++){
@@ -77,6 +79,7 @@
 						</form>
 					<% } 
 				%>
+			</div>
 			</main>
 		</div>
 	</body>

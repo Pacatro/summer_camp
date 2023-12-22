@@ -2,7 +2,7 @@ package es.uco.pw.business.servlets;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-
+ 
 import es.uco.pw.business.common.level.Level;
 import es.uco.pw.business.common.userType.*;
 import es.uco.pw.business.managers.CampamentsManager;

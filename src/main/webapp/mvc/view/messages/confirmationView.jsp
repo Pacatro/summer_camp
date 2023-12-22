@@ -11,6 +11,7 @@
 		<title>Summer Camp</title>
 	</head>
 	<body>
+	<div class="container">
 		<header>
 			<h1>Summer Camp<h1>
 		</header>
@@ -38,5 +39,6 @@
                 <input type="submit" name="action" value="Cancelar">
             </form>
 		</main>
+	</div>
 	</body>
 </html>

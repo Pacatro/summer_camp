@@ -171,7 +171,7 @@
 				}
 				%>
 
-				<button>
+				<button class="buts">
 					<a href="<%=nextPage%>">Volver a página principal</a>
 				</button>
 			</main>

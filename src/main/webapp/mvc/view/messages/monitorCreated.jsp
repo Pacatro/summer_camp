@@ -11,6 +11,7 @@
 		<title>Summer Camp</title>
 	</head>
 	<body>
+	<div class="container">
 		<header>
 			<h1>Summer Camp<h1>
 		</header>
@@ -41,4 +42,6 @@
 				<a href="<%=nextPage%>">Volver a página principal</a>
 			</button>
 		</main>
+	</div>
 	</body>
+</html>

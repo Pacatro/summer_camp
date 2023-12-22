@@ -77,7 +77,7 @@
 								%>
 							</tbody>
 						</table>
-
+						<br/>
 						<table>
 							<thead>
 								<th>Actividad</th>

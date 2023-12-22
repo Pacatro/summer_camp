@@ -118,6 +118,7 @@ table{
     border-collapse: collapse;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-size: 1.25em;
+    background-position: center;
 }
 
 th {

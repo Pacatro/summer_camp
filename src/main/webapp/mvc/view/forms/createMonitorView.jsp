@@ -12,7 +12,7 @@
 	<head>
 		<meta charset="UTF-8">
         <link href="/summer_camp/styles/loginView.css" rel="stylesheet" />
-		<title>Crear actividad</title>
+		<title>Crear Monitor</title>
 	</head>
 	<body>
 		<div class="container">

@@ -63,6 +63,7 @@
 								}
 							%>
 							</select>
+							<br/>
 							<label for="schedule" class="label-section">Escoja el horario</label>
 							<select name="schedule" id="schedule" class="select">
 								<option value="MORNING">Mañanas</option>

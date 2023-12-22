@@ -49,7 +49,7 @@
 					}
 				}
 
-				if(hasChild && hasYouth && hasTeen){
+				if(hasChild || hasYouth || hasTeen){
 				%>
 					<h1>Resultado de la b&uacute;squeda:</h1>
 				<%
@@ -181,7 +181,7 @@
 				<%
 				}
 				%>
-
+				<br/>
 				<button class="buts">
 					<a href="<%=nextPage%>">Volver a página principal</a>
 				</button>

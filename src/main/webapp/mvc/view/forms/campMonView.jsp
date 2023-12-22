@@ -22,7 +22,6 @@
 			</header>
 
 			<main>
-			<div class="login-section">
 				<h1>Asociar monitor a campamentos</h1>
 				<%
 					String file = application.getInitParameter("sqlproperties");
@@ -95,6 +94,7 @@
 							</tbody>
 						</table>
 						<br/>
+				<div class="login-section">
 						<form method="post" action="/summer_camp/campamentMonitor">
 							<label for="camp-id" class="label-section">Identificador del campamento</label>
 							<select name="camp-id" class="select">

@@ -34,7 +34,6 @@
 					}
 				%>
 
-				<h1>Resultado de la b&uacute;squeda:</h1>
 
 				<%
 				ArrayList<CampamentDTO> campaments = (ArrayList<CampamentDTO>)session.getAttribute("campaments");
@@ -50,6 +49,15 @@
 					}
 				}
 
+				if(hasChild && hasYouth && hasTeen){
+				%>
+					<h1>Resultado de la b&uacute;squeda:</h1>
+				<%
+				}else{
+				%>
+					<h1>No se encontraron resultados</h1>
+				<%	
+				}
 
 				if(hasChild){
 					%>
@@ -77,7 +85,8 @@
 										for(int i = 0; i < activities.size()-1; i++){
 												actString += (activities.get(i).getname() + ", ");
 										}
-										actString += activities.get(activities.size()-1).getname();
+										if(activities.size() > 0)
+											actString += activities.get(activities.size()-1).getname();
 										%>
 										<td><%=actString%></td>
 									</tr>
@@ -117,7 +126,8 @@
 										for(int i = 0; i < activities.size()-1; i++){
 											actString += (activities.get(i).getname() + ", ");
 										}
-										actString += activities.get(activities.size()-1).getname();
+										if(activities.size() > 0)
+											actString += activities.get(activities.size()-1).getname();
 										%>
 										<td><%=actString%></td>
 									</tr>
@@ -157,7 +167,8 @@
 										for(int i = 0; i < activities.size()-1; i++){
 											actString += (activities.get(i).getname() + ", ");
 										}
-										actString += activities.get(activities.size()-1).getname();
+										if(activities.size() > 0)
+											actString += activities.get(activities.size()-1).getname();
 										%>
 										<td><%=actString%></td>
 									</tr>

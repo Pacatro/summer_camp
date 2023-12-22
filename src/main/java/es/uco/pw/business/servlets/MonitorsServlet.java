@@ -29,7 +29,7 @@ public class MonitorsServlet extends HttpServlet {
 
         if (req.getParameter("name").equals("") ||
             req.getParameter("surname").equals("") ||
-            req.getParameter("is-special").equals("")) {
+            req.getParameter("isEspecial").equals("")) {
             res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             res.sendRedirect("/summer_camp/mvc/view/forms/parcialInscriptionView.jsp");
             return;
@@ -40,7 +40,7 @@ public class MonitorsServlet extends HttpServlet {
         String surname = req.getParameter("surname");
         boolean isEspecial = Boolean.parseBoolean(req.getParameter("is-special"));
 
-        try {
+        try { 
             Properties sqlProperties = new Properties();
             Properties configProperties = new Properties();
             sqlProperties.load(getServletContext().getResourceAsStream("/WEB-INF/sql.properties"));

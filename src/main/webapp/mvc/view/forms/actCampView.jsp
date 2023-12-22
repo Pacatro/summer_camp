@@ -21,7 +21,7 @@
 			</header>
 
 			<main>
-			<div class="login-section">
+			
 				<h1>Asociar actividad a campamentos</h1>
 
 				<%
@@ -58,7 +58,6 @@
 						ArrayList<CampamentDTO> campaments = camp_man.getAllCampaments();
 						ArrayList<ActivityDTO> activities = camp_man.getAllActivities();
 					%>
-
 						<table>
 							<thead>
 								<th>Id Campamento</th>
@@ -96,7 +95,8 @@
 								%>
 							</tbody>
 						</table>
-
+						<br/>
+					<div class="login-section">
 						<form method="post" action="/summer_camp/activityCampament">
 							<label for="camp-id" class="label-section">Identificador del campamento</label>
 							<select name="camp-id" class="select">

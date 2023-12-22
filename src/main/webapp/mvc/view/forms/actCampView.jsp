@@ -52,25 +52,65 @@
 								<jsp:param value="<%=messageNextPage%>" name="message"/>
 							</jsp:forward>
 						<%
-					} else { %>
+					} else {
+						CampamentsManager camp_man = new CampamentsManager(sqlprop, configprop);
+						ArrayList<CampamentDTO> campaments = camp_man.getAllCampaments();
+						ArrayList<ActivityDTO> activities = camp_man.getAllActivities();
+					%>
+
+						<table>
+							<thead>
+								<th>Id Campamento</th>
+								<th>Nivel educativo</th>
+							</thead>
+							<tbody>
+								<%
+									for(CampamentDTO c: campaments){
+								%>
+										<tr>
+											<td><%=c.getId()%></td>
+											<td><%=c.getLevel()%></td>
+										</tr>
+								<%
+									}
+								%>
+							</tbody>
+						</table>
+
+						<table>
+							<thead>
+								<th>Actividad</th>
+								<th>Nivel educativo</th>
+							</thead>
+							<tbody>
+								<%
+									for(ActivityDTO a: activities){
+								%>
+									<tr>
+										<td><%=a.getname()%></td>
+										<td><%=a.getLevel()%></td>
+									</tr>
+								<%
+									}
+								%>
+							</tbody>
+						</table>
+
 						<form method="post" action="/summer_camp/activityCampament">
 							<label for="camp-id">Identificador del campamento</label>
 							<select name="camp-id">
 							<%
-								CampamentsManager camp_man = new CampamentsManager(sqlprop, configprop);
-								ArrayList<CampamentDTO> campaments = camp_man.getAllCampaments();
-								for(int i = 0; i < campaments.size(); i++){
+								for(CampamentDTO c: campaments){
 							%>
-									<option value="<%=campaments.get(i).getId()%>"><%=campaments.get(i).getId()%></option>
+									<option value="<%=c.getId()%>"><%=c.getId()%></option>
 								<% } %>
 							</select>
 							<label for="act-id">Nombre de la actividad</label>
 							<select name="act-id">
 							<%
-								ArrayList<ActivityDTO> activities = camp_man.getAllActivities();
-								for(int i = 0; i < activities.size(); i++){
+								for(ActivityDTO a: activities){
 							%>
-									<option value="<%=activities.get(i).getname()%>"><%=activities.get(i).getname()%></option>
+									<option value="<%=a.getname()%>"><%=a.getname()%></option>
 								<% } %>
 							</select>
 							<input type="submit" value="Submit">

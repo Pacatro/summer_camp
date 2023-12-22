@@ -154,3 +154,26 @@ td {
     position: relative;
     display: flex;
 }
+
+.assis-buttons {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.button-assis {
+    padding: 10px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    font-size: 1.25em;
+    border-radius: 10px;
+    font-weight: bold;
+    background-color: rgba(255, 255, 255, 25%);
+    cursor: pointer;
+    height: 80px;
+    width: 200px;
+    text-align: center;
+}

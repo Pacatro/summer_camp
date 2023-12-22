@@ -53,13 +53,15 @@
                     }
                 %>
 
-                <button>
-                    <a href="/summer_camp/mvc/controller/logoutController.jsp">Desconexion</a>
-                </button>
+               <div class="assis-buttons">
+                    <button>
+                        <a href="/summer_camp/mvc/controller/logoutController.jsp">Desconexion</a>
+                    </button>
 
-                <button>
-                    <a href="/summer_camp/mvc/view/forms/changeView.jsp">Modificar datos</a>
-                </button>
+                    <button>
+                        <a href="/summer_camp/mvc/view/forms/changeView.jsp">Modificar datos</a>
+                    </button>
+                </div>
 
                 <div class="wellcome-message">
                     <% if(messageNextPage == null) { %>
@@ -74,7 +76,8 @@
                 <table>
                     <thead>
                         <th> ID Campamento </th>
-                        <th> Asistentes </th>
+                        <th> Inscripciones completas </th>
+                        <th> Inscripciones parciales </th>
                     </thead>
                     <tbody>
                         <%
@@ -89,36 +92,38 @@
                         %>
                             <tr>
                                 <td><%=campaments.get(i)%></td>
-                                <td>Inscripciones Completas: <%= num_incrip_c.get(i) %></td>
-                                <td>Inscripciones Parciales: <%= num_incrip_p.get(i) %></td>
+                                <td><%= num_incrip_c.get(i) %></td>
+                                <td><%= num_incrip_p.get(i) %></td>
                             </tr>
                         <% } %>       
                     </tbody>
                 </table>
 
-                <button>
-                    <a href="/summer_camp/mvc/view/forms/createActivitiesView.jsp">Crear una actividad</a>
-                </button>
+                <div class="assis-buttons">
+                    <button class="button-assis">
+                        <a href="/summer_camp/mvc/view/forms/createActivitiesView.jsp">Crear una actividad</a>
+                    </button>
 
-                <button>
-                    <a href="/summer_camp/mvc/view/forms/createMonitorView.jsp">Crear un monitor</a>
-                </button>
+                    <button class="button-assis">
+                        <a href="/summer_camp/mvc/view/forms/createMonitorView.jsp">Crear un monitor</a>
+                    </button>
 
-                <button>
-                    <a href="/summer_camp/mvc/view/forms/createCampamentView.jsp">Crear un campamento</a>
-                </button>
+                    <button class="button-assis">
+                        <a href="/summer_camp/mvc/view/forms/createCampamentView.jsp">Crear un campamento</a>
+                    </button>
 
-                <button>
-                    <a href="/summer_camp/mvc/view/forms/actCampView.jsp">Asociar actividad a campamento</a>
-                </button>
+                    <button class="button-assis">
+                        <a href="/summer_camp/mvc/view/forms/actCampView.jsp">Asociar actividad a campamento</a>
+                    </button>
 
-                <button>
-                    <a href="/summer_camp/mvc/view/forms/campMonView.jsp">Asociar monitor a campamento</a>
-                </button>
+                    <button class="button-assis">
+                        <a href="/summer_camp/mvc/view/forms/campMonView.jsp">Asociar monitor a campamento</a>
+                    </button>
 
-                <button>
-                    <a href="/summer_camp/mvc/view/forms/monActView.jsp">Asociar monitor a actividad</a>
-                </button>
+                    <button class="button-assis">
+                        <a href="/summer_camp/mvc/view/forms/monActView.jsp">Asociar monitor a actividad</a>
+                    </button>
+                </div>
             </main>
         </div>
     </body>

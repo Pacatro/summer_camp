@@ -50,13 +50,15 @@
                     }
                 %>
 
-                <button>
-                    <a href="/summer_camp/mvc/controller/logoutController.jsp">Desconexion</a>
-                </button>
+                <div class="assis-buttons">
+                    <button>
+                        <a href="/summer_camp/mvc/controller/logoutController.jsp">Desconexion</a>
+                    </button>
 
-                <button>
-                    <a href="/summer_camp/mvc/view/forms/changeView.jsp">Modificar datos</a>
-                </button>
+                    <button>
+                        <a href="/summer_camp/mvc/view/forms/changeView.jsp">Modificar datos</a>
+                    </button>
+                </div>
 
                 <div class="wellcome-message">
                     <% if(messageNextPage == null) { %>
@@ -64,7 +66,7 @@
                     <% } else { %> 
                         <h2><%= messageNextPage %></h2>
                     <% } %>
-                    <p>Fecha actual: <%= new java.util.Date() %></p>
+                    <h3>Fecha actual: <%= new java.util.Date() %></h3>
                 </div>
 
                 <h2>Lista de Campamentos</h2>
@@ -76,7 +78,7 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Campamento</th>
+                            <th>Campamentos</th>
                             <th>Fecha de inicio</th>
                         </tr>
                     </thead>
@@ -90,33 +92,36 @@
                     </tbody>
                 </table>
 
-                <button>
-                    <a href="/summer_camp/mvc/view/forms/campSearchDate.jsp">Buscar campamentos por fecha</a>
-                </button>
+                <div class="assis-buttons">
+                    
+                    <button class="button-assis">
+                        <a href="/summer_camp/mvc/view/forms/campSearchDate.jsp">Filtrar por fecha</a>
+                    </button class="button-assis">
 
-                <button>
-                    <a href="/summer_camp/mvc/view/forms/campSearchLevel.jsp">Buscar campamentos por nivel educativo</a>
-                </button>
+                    <button class="button-assis">
+                        <a href="/summer_camp/mvc/view/forms/campSearchLevel.jsp">Filtrar por nivel educativo</a>
+                    </button class="button-assis">
 
-                <button>
-                    <a href="/summer_camp/mvc/view/forms/campSearchPlaces.jsp">Buscar campamentos por plazas m&iacute;nimas</a>
-                </button>
+                    <button class="button-assis">
+                        <a href="/summer_camp/mvc/view/forms/campSearchPlaces.jsp">Filtrar por plazas m&iacute;nimas</a>
+                    </button class="button-assis">
 
-                <button>
-                    <a href="/summer_camp/mvc/view/forms/completeInscriptionsView.jsp">Inscripcion completa</a>
-                </button>
+                    <button class="button-assis">
+                        <a href="/summer_camp/mvc/view/forms/completeInscriptionsView.jsp">Inscripcion completa</a>
+                    </button class="button-assis">
 
-                <button>
-                    <a href="/summer_camp/mvc/view/forms/parcialInscriptionsView.jsp">Inscripcion parcial</a>
-                </button>
+                    <button class="button-assis">
+                        <a href="/summer_camp/mvc/view/forms/parcialInscriptionsView.jsp">Inscripcion parcial</a>
+                    </button class="button-assis">
 
-                <button>
-                    <a href="/summer_camp/mvc/view/forms/cancelCompleteInscriptions.jsp">Cancelar inscripcion completa</a>
-                </button>
-                
-                <button>
-                    <a href="/summer_camp/mvc/view/forms/cancelParcialInscriptions.jsp">Cancelar inscripcion parcial</a>
-                </button>
+                    <button class="button-assis">
+                        <a href="/summer_camp/mvc/view/forms/cancelCompleteInscriptions.jsp">Cancelar inscripcion completa</a>
+                    </button class="button-assis">
+                    
+                    <button class="button-assis">
+                        <a href="/summer_camp/mvc/view/forms/cancelParcialInscriptions.jsp">Cancelar inscripcion parcial</a>
+                    </button>
+                </div>
             </main>
         </div>
     </body>

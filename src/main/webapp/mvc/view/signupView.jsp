@@ -43,14 +43,14 @@
 					<br/>
 					<h1>Registro</h1>
 					<form method="post" action="../controller/signupController.jsp">
-						<label for="name">Nombre: </label>
+						<label for="name" class="label-section">Nombre: </label>
 							<input type="text" name="name" value="" placeholder="Nombre">
-						<label for="email">Email: </label>
+						<label for="email" class="label-section">Email: </label>
 							<input type="text" name="email" placeholder="Email">
-						<label for="password">Contraseña: </label>
+						<label for="password" class="label-section">Contraseña: </label>
 							<input type="text" name="password" placeholder="Contraseña">
-						<label for="type">Tipo de usuario: </label>
-							<select name="type">
+						<label for="type" class="label-section">Tipo de usuario: </label>
+							<select name="type" class="select">
 								<option value="ASSISTANT">Asistente</option>
 								<option value="ADMIN">Administrador</option>
 							</select>
